@@ -1,0 +1,92 @@
+:root {
+  --static-black: #000;
+  --static-white: #fff;
+
+  --static-blue: #0057bf;
+
+  --static-gray-50: #fff;
+  --static-gray-75: #fff;
+  --static-gray-100: #fff;
+  --static-gray-200: #ebebeb;
+  --static-gray-300: #d9d9d9;
+  --static-gray-400: #b3b3b3;
+  --static-gray-500: #929292;
+  --static-gray-600: #6e6e6e;
+  --static-gray-700: #474747;
+  --static-gray-800: #222;
+  --static-gray-900: #000;
+
+  --static-blue-200: #82c1fb;
+  --static-blue-300: #62adf7;
+  --static-blue-400: #4297f4;
+  --static-blue-500: #1b7ff5;
+  --static-blue-600: #0469e3;
+  --static-blue-700: #0057be;
+  --static-blue-800: #004899;
+
+  --static-red-400: #ed4030;
+  --static-red-500: #d91c15;
+  --static-red-600: #bb0202;
+  --static-red-700: #9a0000;
+
+  --static-orange-400: #fa8b1a;
+  --static-orange-500: #e97500;
+  --static-orange-600: #d16100;
+  --static-orange-700: #b65000;
+
+  --static-green-400: #1da973;
+  --static-green-500: #009461;
+  --static-green-600: #007e50;
+  --static-green-700: #006941;
+
+  --static-celery-200: #7ee572;
+  --static-celery-300: #57d456;
+  --static-celery-400: #30c13d;
+  --static-celery-500: #0fac26;
+  --static-celery-600: #009614;
+  --static-celery-700: #00800f;
+
+  --static-chartreuse-300: #b0de1b;
+  --static-chartreuse-400: #9dcb0d;
+  --static-chartreuse-500: #8bb604;
+  --static-chartreuse-600: #7aa200;
+  --static-chartreuse-700: #6a8d00;
+
+  --static-yellow-200: #faed7b;
+  --static-yellow-300: #fae017;
+  --static-yellow-400: #eecd00;
+  --static-yellow-500: #ddb900;
+  --static-yellow-600: #c9a400;
+  --static-yellow-700: #b59000;
+
+  --static-magenta-200: #fd7faf;
+  --static-magenta-300: #f2629d;
+  --static-magenta-400: #e24487;
+  --static-magenta-500: #cd286f;
+  --static-magenta-600: #b30f59;
+  --static-magenta-700: #950048;
+  --static-fuchsia-400: #e45de6;
+  --static-fuchsia-500: #d33fd4;
+  --static-fuchsia-600: #bc27bb;
+  --static-fuchsia-700: #a30aa3;
+
+  --static-purple-400: #b279fa;
+  --static-purple-500: #a15df6;
+  --static-purple-600: #8e43ea;
+  --static-purple-700: #782bd8;
+  --static-purple-800: #6217be;
+
+  --static-indigo-200: #b2b5ff;
+  --static-indigo-300: #9b9fff;
+  --static-indigo-400: #8489fd;
+  --static-indigo-500: #6d73f6;
+  --static-indigo-600: #575de8;
+  --static-indigo-700: #444ad0;
+
+  --static-seafoam-200: #4bcec7;
+  --static-seafoam-300: #20bbb4;
+  --static-seafoam-400: #00a6a0;
+  --static-seafoam-500: #00918b;
+  --static-seafoam-600: #007c76;
+  --static-seafoam-700: #006763;
+}

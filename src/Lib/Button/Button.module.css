@@ -1,0 +1,186 @@
+/* Base Button Styles */
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+
+  font-weight: var(--font-weight-medium);
+  font-family: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-timing);
+
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+
+  /* Reset button styles */
+  background: none;
+  margin: 0;
+  outline: none;
+
+  &:focus-visible {
+    outline: var(--focus-ring-width) var(--focus-ring-style)
+      var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  &[data-size='sm'] {
+    height: 2rem;
+    padding: 0 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  &[data-size='md'] {
+    height: 2.5rem;
+    padding: 0 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  &[data-size='lg'] {
+    height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  &.iconOnly {
+    width: 2.5rem;
+    padding: 0;
+    border-radius: 999px;
+  }
+
+  &.iconOnly[data-size='sm'] {
+    width: 2rem;
+  }
+
+  &.iconOnly[data-size='lg'] {
+    width: 3rem;
+  }
+}
+
+/* Button Content */
+.content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity var(--transition-fast) var(--transition-timing);
+
+  &.loading {
+    opacity: var(--btn-opacity-loading-content);
+  }
+}
+
+/* Loading Spinner */
+.spinner {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 1s linear infinite;
+
+  .button[data-size='sm'] & {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
+/* Variant Styles */
+.primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--btn-primary-border);
+
+  &:hover:not(.disabled):not(.loading) {
+    background-color: var(--btn-primary-bg-hover);
+    border-color: var(--btn-primary-border-hover);
+  }
+
+  &:active:not(.disabled):not(.loading) {
+    background-color: var(--btn-primary-bg-pressed);
+    border-color: var(--btn-primary-border-pressed);
+  }
+}
+
+.secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border-color: var(--btn-secondary-border);
+
+  &:hover:not(.disabled):not(.loading) {
+    background-color: var(--btn-secondary-bg-hover);
+    border-color: var(--btn-secondary-border-hover);
+  }
+
+  &:active:not(.disabled):not(.loading) {
+    background-color: var(--btn-secondary-bg-pressed);
+    border-color: var(--btn-secondary-border-pressed);
+  }
+}
+
+.outline {
+  background-color: var(--btn-outline-bg);
+  color: var(--btn-outline-text);
+  border-color: var(--btn-outline-border);
+
+  &:hover:not(.disabled):not(.loading) {
+    background-color: var(--btn-outline-bg-hover);
+    color: var(--btn-outline-text-hover);
+    border-color: var(--btn-outline-border-hover);
+  }
+
+  &:active:not(.disabled):not(.loading) {
+    background-color: var(--btn-outline-bg-pressed);
+    color: var(--btn-outline-text-pressed);
+    border-color: var(--btn-outline-border-pressed);
+  }
+}
+
+.ghost {
+  background-color: var(--btn-ghost-bg);
+  color: var(--btn-ghost-text);
+  border-color: var(--btn-ghost-border);
+
+  &:hover:not(.disabled):not(.loading) {
+    background-color: var(--btn-ghost-bg-hover);
+    color: var(--btn-ghost-text-hover);
+    border-color: var(--btn-ghost-border-hover);
+  }
+
+  &:active:not(.disabled):not(.loading) {
+    background-color: var(--btn-ghost-bg-pressed);
+    color: var(--btn-ghost-text-pressed);
+    border-color: var(--btn-ghost-border-pressed);
+  }
+}
+
+/* State Classes */
+.disabled {
+  opacity: var(--btn-opacity-disabled);
+  cursor: not-allowed;
+
+  &:hover {
+    transform: none;
+  }
+}
+
+.loading {
+  cursor: wait;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

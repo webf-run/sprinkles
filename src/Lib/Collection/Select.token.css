@@ -1,0 +1,49 @@
+:root {
+  /* ===== CONTROL TOKENS ===== */
+  /* Background states */
+  --select-control-bg: var(--field-bg-default);
+  --select-control-bg-hover: var(--field-bg-hover);
+  --select-control-bg-focus: var(--field-bg-focus);
+  --select-control-bg-invalid: var(--field-bg-invalid);
+  --select-control-bg-disabled: var(--field-bg-disabled);
+  --select-control-bg-readonly: var(--field-bg-readonly);
+
+  /* Border states */
+  --select-control-border: var(--field-border-default);
+  --select-control-border-hover: var(--field-border-hover);
+  --select-control-border-focus: var(--field-border-focus);
+  --select-control-border-invalid: var(--field-border-invalid);
+  --select-control-border-disabled: var(--field-border-disabled);
+  --select-control-border-readonly: var(--field-border-readonly);
+
+  /* Text colors */
+  --select-control-text: var(--field-text-default);
+  --select-control-text-placeholder: var(--field-text-placeholder);
+  --select-control-text-disabled: var(--field-text-disabled);
+  --select-control-text-readonly: var(--field-text-readonly);
+
+  /* ===== DROPDOWN CONTENT TOKENS ===== */
+  --select-content-bg: var(--surface-default);
+  --select-content-border: var(--border-default);
+  --select-content-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+
+  /* ===== ITEM TOKENS ===== */
+  /* Item text colors */
+  --select-item-text: var(--text-secondary);
+  --select-item-text-selected: var(--selection-text);
+  --select-item-text-disabled: var(--text-disabled);
+
+  /* Item background colors */
+  --select-item-bg-hover: var(--action-outline-hover);
+  --select-item-bg-selected: var(--selection-bg);
+
+  /* ===== FIELD INTEGRATION TOKENS ===== */
+  --select-label-text: var(--field-label-text);
+  --select-label-text-disabled: var(--field-label-disabled);
+  --select-label-text-invalid: var(--field-error-text);
+  --select-error-text: var(--field-error-text);
+
+  /* ===== STATE TOKENS ===== */
+  --select-loading-opacity: var(--opacity-disabled);
+  --select-loading-spinner: var(--action-primary-default);
+}

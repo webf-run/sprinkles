@@ -1,0 +1,23 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "composite": true,
+
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+
+    "isolatedModules": true,
+    "allowImportingTsExtensions": false,
+    "verbatimModuleSyntax": true
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "./astro.config.ts",
+    "./src/**/*",
+    "./test/**/*"
+  ],
+  "exclude": ["dist"],
+  "references": []
+}

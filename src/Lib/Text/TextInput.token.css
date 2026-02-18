@@ -1,0 +1,61 @@
+:root {
+  /* ===== TEXT INPUT BASE TOKENS ===== */
+  --text-input-height: 2.25rem; /* 36px - Spectrum M size */
+  --text-input-padding-horizontal: 0.75rem; /* 12px */
+  --text-input-padding-icon: 0.5rem; /* 8px between icon and text */
+  --text-input-border-width: 1px;
+  --text-input-border-radius: var(--radius-md);
+  --text-input-font-size: 0.875rem; /* 14px */
+  --text-input-line-height: 1.25rem;
+  --text-input-font-weight: var(--font-weight-normal);
+
+  /* ===== COLOR TOKENS ===== */
+  --text-input-bg: var(--field-bg-default);
+  --text-input-bg-hover: var(--field-bg-hover);
+  --text-input-bg-focus: var(--field-bg-focus);
+  --text-input-bg-disabled: var(--field-bg-disabled);
+  --text-input-bg-readonly: var(--field-bg-readonly);
+
+  --text-input-border: var(--field-border-default);
+  --text-input-border-hover: var(--field-border-hover);
+  --text-input-border-focus: var(--field-border-focus);
+  --text-input-border-error: var(--field-border-invalid);
+  --text-input-border-disabled: var(--field-border-disabled);
+  --text-input-border-readonly: var(--field-border-readonly);
+
+  --text-input-text: var(--field-text-default);
+  --text-input-text-placeholder: var(--field-text-placeholder);
+  --text-input-text-disabled: var(--field-text-disabled);
+  --text-input-text-readonly: var(--field-text-readonly);
+
+  --text-input-icon: var(--text-placeholder);
+  --text-input-icon-hover: var(--text-muted);
+  --text-input-icon-disabled: var(--text-disabled);
+
+  /* ===== FIELD INTEGRATION TOKENS ===== */
+  --text-input-label-color: var(--field-label-text);
+  --text-input-label-color-disabled: var(--field-label-disabled);
+  --text-input-label-font-size: 0.875rem;
+  --text-input-label-font-weight: var(--font-weight-medium);
+  --text-input-label-margin-bottom: 0.25rem;
+
+  --text-input-helper-color: var(--field-helper-text);
+  --text-input-helper-color-disabled: var(--field-helper-disabled);
+  --text-input-helper-font-size: 0.75rem;
+  --text-input-helper-margin-top: 0.25rem;
+
+  --text-input-error-color: var(--field-error-text);
+  --text-input-error-font-size: 0.75rem;
+  --text-input-error-margin-top: 0.25rem;
+
+  --text-input-required-color: var(--field-error-text);
+
+  /* ===== FOCUS STATES ===== */
+  --text-input-focus-ring: var(--focus-ring);
+  --text-input-focus-ring-width: 2px;
+  --text-input-focus-ring-offset: 1px;
+  --text-input-focus-ring-style: solid;
+
+  /* ===== TRANSITIONS ===== */
+  --text-input-transition: all var(--transition-fast) var(--transition-timing);
+}

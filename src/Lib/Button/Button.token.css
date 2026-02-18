@@ -1,0 +1,48 @@
+:root {
+  /* Button Primary */
+  --btn-primary-bg: var(--action-primary-default);
+  --btn-primary-bg-hover: var(--action-primary-hover);
+  --btn-primary-bg-pressed: var(--action-primary-pressed);
+  --btn-primary-border: var(--action-primary-default);
+  --btn-primary-border-hover: var(--action-primary-hover);
+  --btn-primary-border-pressed: var(--action-primary-pressed);
+  --btn-primary-text: var(--action-primary-text);
+
+  /* Button Secondary */
+  --btn-secondary-bg: var(--action-secondary-default);
+  --btn-secondary-bg-hover: var(--action-secondary-hover);
+  --btn-secondary-bg-pressed: var(--action-secondary-pressed);
+  --btn-secondary-border: var(--action-secondary-default);
+  --btn-secondary-border-hover: var(--action-secondary-hover);
+  --btn-secondary-border-pressed: var(--action-secondary-pressed);
+  --btn-secondary-text: var(--action-secondary-text);
+
+  /* Button Outline */
+  --btn-outline-bg: var(--action-outline-default);
+  --btn-outline-bg-hover: var(--action-outline-hover);
+  --btn-outline-bg-pressed: var(--action-outline-pressed);
+  --btn-outline-border: var(--action-outline-border);
+  --btn-outline-border-hover: var(--action-outline-border-hover);
+  --btn-outline-border-pressed: var(--action-outline-border-pressed);
+  --btn-outline-text: var(--action-outline-text);
+  --btn-outline-text-hover: var(--action-outline-text-hover);
+  --btn-outline-text-pressed: var(--action-outline-text-pressed);
+
+  /* Button Ghost */
+  --btn-ghost-bg: transparent;
+  --btn-ghost-bg-hover: var(--action-outline-hover);
+  --btn-ghost-bg-pressed: var(--action-outline-pressed);
+  --btn-ghost-border: var(--action-outline-border);
+  --btn-ghost-border-hover: var(--action-outline-border-hover);
+  --btn-ghost-border-pressed: var(--action-outline-border-pressed);
+  --btn-ghost-text: var(--action-outline-text);
+  --btn-ghost-text-hover: var(--action-outline-text-hover);
+  --btn-ghost-text-pressed: var(--action-outline-text-pressed);
+
+  /* Button Focus */
+  --btn-focus-ring: var(--focus-ring);
+
+  /* Button States */
+  --btn-opacity-disabled: var(--opacity-disabled);
+  --btn-opacity-loading-content: var(--opacity-loading-content);
+}

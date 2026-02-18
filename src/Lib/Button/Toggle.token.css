@@ -1,0 +1,41 @@
+:root {
+  /* Toggle Primary - Subtle background fill when pressed */
+  --tgl-primary-bg: var(--action-outline-default);
+  --tgl-primary-bg-hover: var(--action-outline-hover);
+  --tgl-primary-bg-pressed: var(--action-primary-default);
+  --tgl-primary-bg-pressed-hover: var(--action-primary-hover);
+  --tgl-primary-border: var(--action-outline-border);
+  --tgl-primary-border-hover: var(--action-outline-border-hover);
+  --tgl-primary-border-pressed: var(--action-primary-default);
+  --tgl-primary-border-pressed-hover: var(--action-primary-hover);
+  --tgl-primary-text: var(--action-outline-text);
+  --tgl-primary-text-pressed: var(--action-primary-text);
+
+  /* Toggle Secondary - Subtle background fill when pressed */
+  --tgl-secondary-bg: var(--action-outline-default);
+  --tgl-secondary-bg-hover: var(--action-outline-hover);
+  --tgl-secondary-bg-pressed: var(--action-secondary-default);
+  --tgl-secondary-bg-pressed-hover: var(--action-secondary-hover);
+  --tgl-secondary-border: var(--action-outline-border);
+  --tgl-secondary-border-hover: var(--action-outline-border-hover);
+  --tgl-secondary-border-pressed: var(--action-secondary-default);
+  --tgl-secondary-border-pressed-hover: var(--action-secondary-hover);
+  --tgl-secondary-text: var(--action-outline-text);
+  --tgl-secondary-text-pressed: var(--action-secondary-text);
+
+  /* Toggle Outline - Very subtle pressed state */
+  --tgl-outline-bg: var(--action-outline-default);
+  --tgl-outline-bg-hover: var(--action-outline-hover);
+  --tgl-outline-bg-pressed: var(--action-outline-pressed);
+  --tgl-outline-bg-pressed-hover: var(--action-outline-hover);
+  --tgl-outline-border: var(--action-outline-border);
+  --tgl-outline-border-hover: var(--action-outline-border-hover);
+  --tgl-outline-border-pressed: var(--action-outline-border-hover);
+  --tgl-outline-border-pressed-hover: var(--action-outline-border-pressed);
+  --tgl-outline-text: var(--action-outline-text);
+  --tgl-outline-text-pressed: var(--action-outline-text-hover);
+  --tgl-outline-text-pressed-hover: var(--action-outline-text-pressed);
+
+  /* Toggle States */
+  --tgl-opacity-disabled: var(--opacity-disabled);
+}

@@ -1,0 +1,212 @@
+.viewport {
+  position: fixed;
+  z-index: 2000;
+}
+
+.toast {
+  width: 100%;
+  min-width: 20rem;
+  max-width: 26rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  position: relative;
+
+  padding: 0.875rem 1rem;
+  padding-right: 3.5rem;
+
+  border: 1px solid var(--toast-border);
+  border-radius: var(--radius-md);
+  background-color: var(--toast-bg);
+  color: var(--toast-text);
+
+  translate: var(--x) var(--y);
+  scale: var(--scale);
+  z-index: var(--z-index);
+  height: var(--height);
+  opacity: var(--opacity);
+
+  will-change: translate, opacity, scale;
+  transition:
+    translate 400ms,
+    scale 400ms,
+    opacity 400ms,
+    height 400ms,
+    border-color var(--transition-fast) var(--transition-timing),
+    background-color var(--transition-fast) var(--transition-timing),
+    color var(--transition-fast) var(--transition-timing);
+  transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
+
+  &:where([data-state='closed']) {
+    transition:
+      translate 400ms,
+      scale 400ms,
+      opacity 200ms;
+    transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
+  }
+
+  &:where([data-variant='neutral']) {
+    background-color: var(--toast-neutral-bg);
+    border-color: var(--toast-neutral-border);
+    color: var(--toast-neutral-text);
+  }
+
+  &:where([data-variant='info']) {
+    background-color: var(--toast-info-bg);
+    border-color: var(--toast-info-border);
+    color: var(--toast-info-text);
+  }
+
+  &:where([data-variant='success']) {
+    background-color: var(--toast-success-bg);
+    border-color: var(--toast-success-border);
+    color: var(--toast-success-text);
+  }
+
+  &:where([data-variant='warning']) {
+    background-color: var(--toast-warning-bg);
+    border-color: var(--toast-warning-border);
+    color: var(--toast-warning-text);
+  }
+
+  &:where([data-variant='error']) {
+    background-color: var(--toast-error-bg);
+    border-color: var(--toast-error-border);
+    color: var(--toast-error-text);
+  }
+
+  &:where([data-type='loading']) {
+    background-color: var(--toast-loading-bg);
+    border-color: var(--toast-loading-border);
+    color: var(--toast-loading-text);
+  }
+}
+
+.title {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.description {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  color: var(--toast-description);
+  opacity: 0.92;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  color: var(--toast-icon);
+  margin-top: 0.0625rem;
+}
+
+.loadingIcon {
+  animation: spin 1s linear infinite;
+}
+
+.actionTrigger {
+  margin-top: 0.375rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.5rem;
+  padding: 0 0.5rem;
+
+  border: 1px solid var(--toast-action-border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--toast-action-text);
+
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: var(--font-weight-medium);
+
+  cursor: pointer;
+  transition: all var(--transition-fast) var(--transition-timing);
+
+  &:hover {
+    background: var(--toast-action-bg-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--focus-ring-width) var(--focus-ring-style)
+      var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+.closeArea {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0.375rem;
+  width: 2.5rem;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -0.4375rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: var(--toast-divider);
+    opacity: 0.3;
+  }
+}
+
+.closeTrigger {
+  width: 1.875rem;
+  height: 1.875rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--toast-close);
+  cursor: pointer;
+
+  transition: all var(--transition-fast) var(--transition-timing);
+
+  &:hover {
+    background: var(--toast-close-bg-hover);
+    color: var(--toast-close-hover);
+  }
+
+  &:focus-visible {
+    outline: var(--focus-ring-width) var(--focus-ring-style)
+      var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

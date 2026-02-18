@@ -1,0 +1,202 @@
+/* ===== TEXT INPUT ROOT ===== */
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ===== LABEL STYLES ===== */
+.label {
+  color: var(--text-input-label-color);
+  font-size: var(--text-input-label-font-size);
+  font-weight: var(--text-input-label-font-weight);
+  margin-bottom: var(--text-input-label-margin-bottom);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.required {
+  color: var(--text-input-required-color);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ===== INPUT CONTAINER ===== */
+.inputContainer {
+  display: flex;
+  align-items: center;
+  height: var(--text-input-height);
+
+  background-color: var(--text-input-bg);
+  border: var(--text-input-border-width) solid var(--text-input-border);
+  border-radius: var(--text-input-border-radius);
+
+  transition: var(--text-input-transition);
+
+  &:hover {
+    background-color: var(--text-input-bg-hover);
+    border-color: var(--text-input-border-hover);
+  }
+
+  &:focus-within {
+    background-color: var(--text-input-bg-focus);
+    border-color: var(--text-input-border-focus);
+    box-shadow: 0 0 0 var(--text-input-focus-ring-width)
+      var(--text-input-focus-ring);
+  }
+}
+
+/* ===== INPUT FIELD ===== */
+.input {
+  flex: 1;
+  height: 100%;
+  padding: 0 var(--text-input-padding-horizontal);
+
+  background: none;
+  border: none;
+  outline: none;
+
+  color: var(--text-input-text);
+  font-size: var(--text-input-font-size);
+  line-height: var(--text-input-line-height);
+  font-weight: var(--text-input-font-weight);
+  font-family: inherit;
+
+  &::placeholder {
+    color: var(--text-input-text-placeholder);
+  }
+}
+
+/* ===== ICON SUPPORT ===== */
+.leftIcon,
+.rightIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-input-icon);
+  transition: var(--text-input-transition);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.leftIcon {
+  margin-left: var(--text-input-padding-horizontal);
+  margin-right: var(--text-input-padding-icon);
+}
+
+.rightIcon {
+  margin-left: var(--text-input-padding-icon);
+  margin-right: var(--text-input-padding-horizontal);
+}
+
+/* Adjust input padding when icons are present */
+.input:where(.hasLeftIcon) {
+  padding-left: 0;
+}
+
+.input:where(.hasRightIcon) {
+  padding-right: 0;
+}
+
+/* ===== HELPER TEXT ===== */
+.helperText {
+  color: var(--text-input-helper-color);
+  font-size: var(--text-input-helper-font-size);
+  margin-top: var(--text-input-helper-margin-top);
+}
+
+/* ===== ERROR TEXT ===== */
+.errorText {
+  color: var(--text-input-error-color);
+  font-size: var(--text-input-error-font-size);
+  margin-top: var(--text-input-error-margin-top);
+}
+
+/* ===== STATE MODIFIERS ===== */
+
+/* Error State */
+.root:where([data-invalid='true']) {
+  .inputContainer {
+    border-color: var(--text-input-border-error);
+
+    &:hover {
+      border-color: var(--text-input-border-error);
+    }
+
+    &:focus-within {
+      border-color: var(--text-input-border-error);
+      box-shadow: 0 0 0 var(--text-input-focus-ring-width)
+        var(--text-input-border-error);
+    }
+  }
+}
+
+/* Disabled State */
+.root:where([data-disabled='true']) {
+  .label {
+    color: var(--text-input-label-color-disabled);
+  }
+
+  .inputContainer {
+    background-color: var(--text-input-bg-disabled);
+    border-color: var(--text-input-border-disabled);
+
+    &:hover {
+      background-color: var(--text-input-bg-disabled);
+      border-color: var(--text-input-border-disabled);
+    }
+  }
+
+  .input {
+    color: var(--text-input-text-disabled);
+    cursor: not-allowed;
+
+    &::placeholder {
+      color: var(--text-input-text-disabled);
+    }
+  }
+
+  .leftIcon,
+  .rightIcon {
+    color: var(--text-input-icon-disabled);
+  }
+
+  .helperText {
+    color: var(--text-input-helper-color-disabled);
+  }
+}
+
+/* Read-only State */
+.root:where([data-readonly='true']) {
+  .inputContainer {
+    background-color: var(--text-input-bg-readonly);
+    border-color: var(--text-input-border-readonly);
+
+    &:hover {
+      background-color: var(--text-input-bg-readonly);
+      border-color: var(--text-input-border-readonly);
+    }
+
+    &:focus-within {
+      background-color: var(--text-input-bg-readonly);
+      border-color: var(--text-input-border-readonly);
+      box-shadow: 0 0 0 var(--text-input-focus-ring-width)
+        var(--text-input-focus-ring);
+    }
+  }
+
+  .input {
+    color: var(--text-input-text-readonly);
+    cursor: default;
+  }
+}
+
+/* ===== HOVER STATE FOR ICONS ===== */
+.root:hover:where(:not([data-disabled='true'])) {
+  .leftIcon,
+  .rightIcon {
+    color: var(--text-input-icon-hover);
+  }
+}

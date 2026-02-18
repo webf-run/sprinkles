@@ -1,0 +1,178 @@
+/*** ====================== ***/
+/*** SEMANTIC DESIGN TOKENS ***/
+/*** ====================== ***/
+:root[data-app-scheme='light'] {
+  /* Accent (Primary) Action Colors - Adobe Spectrum Specification */
+  --action-primary-default: var(--indigo-900);
+  --action-primary-hover: var(--indigo-1000);
+  --action-primary-pressed: var(--indigo-1100);
+  --action-primary-text: var(--gray-50);
+
+  /* Secondary Action Colors - Adobe Spectrum Specification */
+  --action-secondary-default: var(--gray-700);
+  --action-secondary-hover: var(--gray-800);
+  --action-secondary-pressed: var(--gray-900);
+  --action-secondary-text: var(--gray-50);
+
+  /* Secondary (Outline) Action Colors - Adobe Spectrum Specification */
+  --action-outline-default: transparent;
+  --action-outline-hover: var(--gray-100);
+  --action-outline-pressed: var(--gray-200);
+  --action-outline-border: var(--gray-400);
+  --action-outline-border-hover: var(--gray-500);
+  --action-outline-border-pressed: var(--gray-600);
+  --action-outline-text: var(--gray-800);
+  --action-outline-text-hover: var(--gray-900);
+  --action-outline-text-pressed: var(--gray-900);
+
+  /* Focus States */
+  --focus-ring: var(--indigo-900);
+
+  /* Surface + Text Semantics */
+  --surface-default: var(--gray-50);
+  --surface-subtle: var(--gray-75);
+  --surface-muted: var(--gray-100);
+
+  --border-default: var(--gray-300);
+  --border-hover: var(--gray-400);
+  --border-strong: var(--gray-500);
+  --border-disabled: var(--gray-200);
+
+  --text-default: var(--gray-800);
+  --text-secondary: var(--gray-700);
+  --text-muted: var(--gray-700);
+  --text-placeholder: var(--gray-600);
+  --text-disabled: var(--gray-500);
+  --text-heading: var(--gray-900);
+
+  /* Field Semantics */
+  --field-bg-default: var(--surface-default);
+  --field-bg-hover: var(--surface-subtle);
+  --field-bg-focus: var(--surface-default);
+  --field-bg-invalid: var(--red-100);
+  --field-bg-disabled: var(--surface-muted);
+  --field-bg-readonly: var(--surface-subtle);
+
+  --field-border-default: var(--gray-400);
+  --field-border-hover: var(--border-hover);
+  --field-border-focus: var(--focus-ring);
+  --field-border-invalid: var(--red-700);
+  --field-border-disabled: var(--border-disabled);
+  --field-border-readonly: var(--gray-400);
+
+  --field-text-default: var(--text-default);
+  --field-text-placeholder: var(--text-placeholder);
+  --field-text-disabled: var(--text-disabled);
+  --field-text-readonly: var(--text-muted);
+
+  --field-label-text: var(--text-default);
+  --field-label-disabled: var(--text-disabled);
+  --field-helper-text: var(--text-muted);
+  --field-helper-disabled: var(--text-disabled);
+  --field-error-text: var(--red-900);
+
+  /* Selection + Feedback Semantics */
+  --selection-bg: var(--blue-100);
+  --selection-text: var(--blue-1100);
+
+  /* Interaction States */
+  --opacity-disabled: 0.6;
+  --opacity-loading-content: 0;
+}
+
+:root[data-app-scheme='dark'] {
+  /* Accent (Primary) Action Colors - Dark Mode */
+  --action-primary-default: var(--indigo-400);
+  --action-primary-hover: var(--indigo-500);
+  --action-primary-pressed: var(--indigo-600);
+  --action-primary-text: var(--gray-900);
+
+  /* Primary Action Colors - Dark Mode */
+  --action-secondary-default: var(--gray-700);
+  --action-secondary-hover: var(--gray-800);
+  --action-secondary-pressed: var(--gray-900);
+  --action-secondary-text: var(--gray-50);
+
+  /* Secondary (Outline) Action Colors - Dark Mode */
+  --action-outline-default: transparent;
+  --action-outline-hover: var(--gray-200);
+  --action-outline-pressed: var(--gray-300);
+  --action-outline-border: var(--gray-500);
+  --action-outline-border-hover: var(--gray-600);
+  --action-outline-border-pressed: var(--gray-700);
+  --action-outline-text: var(--gray-800);
+  --action-outline-text-hover: var(--gray-900);
+  --action-outline-text-pressed: var(--gray-900);
+
+  /* Focus States - Dark Mode */
+  --focus-ring: var(--indigo-700);
+
+  /* Surface + Text Semantics */
+  --surface-default: var(--gray-100);
+  --surface-subtle: var(--gray-200);
+  --surface-muted: var(--gray-75);
+
+  --border-default: var(--gray-300);
+  --border-hover: var(--gray-400);
+  --border-strong: var(--gray-500);
+  --border-disabled: var(--gray-200);
+
+  --text-default: var(--gray-800);
+  --text-secondary: var(--gray-700);
+  --text-muted: var(--gray-700);
+  --text-placeholder: var(--gray-600);
+  --text-disabled: var(--gray-500);
+  --text-heading: var(--gray-900);
+
+  /* Field Semantics */
+  --field-bg-default: var(--surface-default);
+  --field-bg-hover: var(--surface-subtle);
+  --field-bg-focus: var(--surface-default);
+  --field-bg-invalid: var(--red-200);
+  --field-bg-disabled: var(--surface-muted);
+  --field-bg-readonly: var(--surface-default);
+
+  --field-border-default: var(--gray-400);
+  --field-border-hover: var(--border-hover);
+  --field-border-focus: var(--focus-ring);
+  --field-border-invalid: var(--red-800);
+  --field-border-disabled: var(--border-disabled);
+  --field-border-readonly: var(--gray-400);
+
+  --field-text-default: var(--text-default);
+  --field-text-placeholder: var(--text-placeholder);
+  --field-text-disabled: var(--text-disabled);
+  --field-text-readonly: var(--text-secondary);
+
+  --field-label-text: var(--text-default);
+  --field-label-disabled: var(--text-disabled);
+  --field-helper-text: var(--text-muted);
+  --field-helper-disabled: var(--text-disabled);
+  --field-error-text: var(--red-900);
+
+  /* Selection + Feedback Semantics */
+  --selection-bg: var(--blue-300);
+  --selection-text: var(--blue-1200);
+}
+
+/*** ==================== ***/
+/*** GLOBAL DESIGN TOKENS ***/
+/*** ==================== ***/
+:root {
+  /* Focus System */
+  --focus-ring-color: var(--focus-ring);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-style: solid;
+
+  /* Interaction States */
+  --opacity-disabled: 0.6;
+  --transition-fast: 0.15s;
+  --transition-timing: ease-in-out;
+
+  /* Border Radius */
+  --radius-md: 6px;
+
+  /* Typography */
+  --font-weight-medium: 500;
+}

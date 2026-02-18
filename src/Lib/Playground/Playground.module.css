@@ -1,0 +1,138 @@
+/* Playground Container */
+.playground {
+  display: flex;
+  height: 100vh;
+  background: var(--color-background, #ffffff);
+  color: var(--color-text, #1f2937);
+}
+
+/* Main Content Area */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-text-muted, #6b7280);
+}
+
+.emptyState h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text, #374151);
+}
+
+.emptyState p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Story Container */
+.storyContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Story Header */
+.storyHeader {
+  padding: 2rem 2rem 1rem 2rem;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+  background: var(--color-surface, #ffffff);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted, #6b7280);
+  margin-bottom: 0.5rem;
+}
+
+.componentName {
+  font-weight: 600;
+  color: var(--color-text, #374151);
+}
+
+.separator {
+  color: var(--color-text-muted, #9ca3af);
+}
+
+.storyName {
+  font-weight: 500;
+  color: var(--color-text-muted, #6b7280);
+}
+
+.storyTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--color-text, #1f2937);
+}
+
+.storyDescription {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-muted, #6b7280);
+  line-height: 1.6;
+}
+
+/* Story Demo Area */
+.storyDemo {
+  flex: 1;
+  padding: 2rem;
+  overflow: auto;
+  background: var(--color-canvas, #f8fafc);
+  border-radius: 8px 8px 0 0;
+  margin: 1rem 2rem 0 2rem;
+  border: 1px solid var(--color-border, #e5e7eb);
+}
+
+/* Theme support */
+.playground.light {
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-canvas: #f8fafc;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+}
+
+.playground.dark {
+  --color-background: #111827;
+  --color-surface: #1f2937;
+  --color-canvas: #374151;
+  --color-text: #f9fafb;
+  --color-text-muted: #9ca3af;
+  --color-border: #374151;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .playground {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .storyHeader {
+    padding: 1rem;
+  }
+
+  .storyDemo {
+    margin: 1rem;
+  }
+}

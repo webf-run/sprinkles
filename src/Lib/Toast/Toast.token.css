@@ -1,0 +1,74 @@
+:root {
+  --toast-neutral-bg: var(--gray-700);
+  --toast-neutral-border: var(--gray-800);
+  --toast-neutral-text: var(--gray-50);
+
+  --toast-bg: var(--toast-neutral-bg);
+  --toast-border: var(--toast-neutral-border);
+  --toast-text: var(--toast-neutral-text);
+  --toast-description: currentColor;
+  --toast-icon: currentColor;
+  --toast-divider: currentColor;
+
+  --toast-info-bg: var(--blue-900);
+  --toast-info-border: var(--blue-1000);
+  --toast-info-text: var(--gray-50);
+
+  --toast-success-bg: var(--green-900);
+  --toast-success-border: var(--green-1000);
+  --toast-success-text: var(--gray-50);
+
+  --toast-warning-bg: var(--orange-900);
+  --toast-warning-border: var(--orange-1000);
+  --toast-warning-text: var(--gray-50);
+
+  --toast-error-bg: var(--red-900);
+  --toast-error-border: var(--red-1000);
+  --toast-error-text: var(--gray-50);
+
+  --toast-loading-bg: var(--toast-neutral-bg);
+  --toast-loading-border: var(--toast-neutral-border);
+  --toast-loading-text: var(--toast-neutral-text);
+
+  --toast-action-border: currentColor;
+  --toast-action-text: currentColor;
+  --toast-action-bg-hover: var(--highlight-hover);
+
+  --toast-close: currentColor;
+  --toast-close-hover: currentColor;
+  --toast-close-bg-hover: var(--highlight-hover);
+}
+
+:root[data-app-scheme='dark'] {
+  --toast-neutral-bg: var(--gray-300);
+  --toast-neutral-border: var(--gray-400);
+  --toast-neutral-text: var(--gray-900);
+
+  --toast-bg: var(--toast-neutral-bg);
+  --toast-border: var(--toast-neutral-border);
+  --toast-text: var(--toast-neutral-text);
+  --toast-description: currentColor;
+
+  --toast-info-bg: var(--blue-500);
+  --toast-info-border: var(--blue-600);
+  --toast-info-text: var(--gray-900);
+
+  --toast-success-bg: var(--green-500);
+  --toast-success-border: var(--green-600);
+  --toast-success-text: var(--gray-900);
+
+  --toast-warning-bg: var(--orange-500);
+  --toast-warning-border: var(--orange-600);
+  --toast-warning-text: var(--gray-900);
+
+  --toast-error-bg: var(--red-500);
+  --toast-error-border: var(--red-600);
+  --toast-error-text: var(--gray-900);
+
+  --toast-loading-bg: var(--toast-neutral-bg);
+  --toast-loading-border: var(--toast-neutral-border);
+  --toast-loading-text: var(--toast-neutral-text);
+
+  --toast-action-bg-hover: var(--highlight-hover);
+  --toast-close-bg-hover: var(--highlight-hover);
+}

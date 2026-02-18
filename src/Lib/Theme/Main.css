@@ -1,0 +1,15 @@
+@import './Palette/Static.css';
+@import './Palette/Light.css';
+@import './Palette/Dark.css';
+@import './Palette/Darkest.css';
+
+@import './Global.css';
+
+/*** ======================= ***/
+/*** COMPONENT DESIGN TOKENS ***/
+/*** ======================= ***/
+@import '../Button/Button.token.css';
+@import '../Button/Toggle.token.css';
+@import '../Collection/Select.token.css';
+@import '../Text/TextInput.token.css';
+@import '../Toast/Toast.token.css';

@@ -1,64 +1,37 @@
 {
   "name": "@webf/sprinkles",
-  "version": "0.0.2",
-  "description": "Reasonable web components",
-  "main": "dist/bundle.js",
-  "module": "dist/bundle.js",
-  "scripts": {
-    "build": "PROD=true rollup -c",
-    "dev": "start-storybook -p 9001 -c storybook",
-    "build-storybook": "build-storybook -c storybook -o site"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/webf-zone/sprinkles.git"
-  },
-  "keywords": [
-    "web-component",
-    "web-components"
-  ],
-  "author": {
-    "name": "Harshal Patil",
-    "url": "https://blog.webf.zone"
-  },
+  "version": "0.0.1",
+  "private": true,
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/webf-zone/sprinkles/issues"
+  "type": "module",
+  "scripts": {
+    "check:types": "tsc --build",
+    "dev": "astro dev",
+    "dev:format": "prettier --write .",
+    "build": "astro build",
+    "preview": "astro preview"
   },
-  "homepage": "https://github.com/webf-zone/sprinkles#readme",
-  "files": [
-    "/dist",
-    "/README.md"
-  ],
   "dependencies": {
-    "@material/button": "^2.3.0",
-    "@material/elevation": "^1.1.0",
-    "@material/ripple": "^2.3.0",
-    "@types/classnames": "^2.2.7",
-    "classnames": "^2.2.6",
-    "lit-element": "^2.1.0",
-    "popmotion": "^8.6.10",
-    "popper.js": "^1.15.0"
+    "@ark-ui/solid": "^5.31.0",
+    "@astrojs/node": "10.0.0-beta.3",
+    "@astrojs/solid-js": "6.0.0-beta.2",
+    "astro": "6.0.0-beta.10",
+    "clsx": "^2.1.1",
+    "lucide-solid": "^0.562.0",
+    "solid-js": "^1.9.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/plugin-proposal-decorators": "^7.4.0",
-    "@babel/preset-typescript": "^7.3.3",
-    "@storybook/addon-notes": "^5.0.9",
-    "@storybook/html": "^5.0.9",
-    "babel-loader": "^8.0.5",
-    "css-loader": "^2.1.1",
-    "haunted": "^4.4.0",
-    "node-sass": "^4.11.0",
-    "raw-loader": "^2.0.0",
-    "rollup": "^1.10.0",
-    "rollup-plugin-node-resolve": "^4.2.3",
-    "rollup-plugin-scss": "^1.0.1",
-    "rollup-plugin-typescript": "^1.0.1",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "tslib": "^1.9.3",
-    "typescript": "^3.4.3"
-  }
+    "@faker-js/faker": "^10.3.0",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "@types/node": "^24.10.13",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "solid-devtools": "^0.30.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "volta": {
+    "node": "24.13.0"
+  },
+  "packageManager": "pnpm@10.29.1"
 }
