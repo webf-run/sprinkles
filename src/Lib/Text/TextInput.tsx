@@ -84,15 +84,12 @@ export function TextInput(props: TextInputProps) {
   const showError = () => local.invalid && local.errorMessage;
   const showHelper = () => !showError() && local.helperText;
 
-  console.log(local, rest);
-
   return (
     <Field.Root
       class={clsx('TextInput', style.root, local.class)}
       disabled={local.disabled}
       readOnly={local.readOnly}
       invalid={local.invalid}
-      required={local.required}
       data-size={local.size ?? 'md'}
       data-disabled={local.disabled}
       data-readonly={local.readOnly}
@@ -103,9 +100,9 @@ export function TextInput(props: TextInputProps) {
         <Field.Label class={style.label}>
           {local.label}
           <Show when={local.required}>
-            <Field.RequiredIndicator class={style.required}>
+            <span class={style.required} aria-hidden='true'>
               *
-            </Field.RequiredIndicator>
+            </span>
           </Show>
         </Field.Label>
       </Show>

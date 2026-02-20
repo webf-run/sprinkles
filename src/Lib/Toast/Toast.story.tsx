@@ -1,6 +1,6 @@
-import { Button } from '../Button/Button.jsx';
+import { Button } from '../Button/Button.js';
 import type { Story } from '../Playground/Playground.type.js';
-import { Toast, createToastStore } from './Toast.jsx';
+import { Toast, createToastStore } from './Toast.js';
 
 export const Meta = {
   title: 'Toast',
@@ -20,6 +20,7 @@ export const Default: Story = {
             variant='secondary'
             onClick={() =>
               toaster.create({
+                type: 'neutral',
                 title: 'Item archived',
                 description: 'Archive completed for selected records.',
               })

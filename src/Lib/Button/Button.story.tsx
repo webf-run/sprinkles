@@ -1,5 +1,5 @@
 import type { Story } from '../Playground/Playground.type.js';
-import { Button } from './Button.jsx';
+import { Button } from './Button.js';
 
 export const Meta = {
   title: 'Button',

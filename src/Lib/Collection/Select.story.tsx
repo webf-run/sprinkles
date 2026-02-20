@@ -1,7 +1,7 @@
 import { createSignal } from 'solid-js';
 
 import type { Story } from '../Playground/Playground.type.js';
-import { Select, type SelectItem, type SelectItemGroup } from './Select.jsx';
+import { Select, type SelectItem, type SelectItemGroup } from './Select.js';
 
 export const Meta = {
   title: 'Select',
