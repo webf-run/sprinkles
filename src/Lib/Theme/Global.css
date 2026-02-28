@@ -2,19 +2,25 @@
 /*** SEMANTIC DESIGN TOKENS ***/
 /*** ====================== ***/
 :root[data-app-scheme='light'] {
-  /* Accent (Primary) Action Colors - Adobe Spectrum Specification */
+
+  /* Background Layers */
+  --background-base: var(--gray-200);
+  --background-1: var(--gray-100);
+  --background-2: var(--gray-50);
+
+  /* Accent (Primary) Action Colors */
   --action-primary-default: var(--indigo-900);
   --action-primary-hover: var(--indigo-1000);
   --action-primary-pressed: var(--indigo-1100);
   --action-primary-text: var(--gray-50);
 
-  /* Secondary Action Colors - Adobe Spectrum Specification */
+  /* Secondary Action Colors */
   --action-secondary-default: var(--gray-700);
   --action-secondary-hover: var(--gray-800);
   --action-secondary-pressed: var(--gray-900);
   --action-secondary-text: var(--gray-50);
 
-  /* Secondary (Outline) Action Colors - Adobe Spectrum Specification */
+  /* Secondary (Outline) Action Colors */
   --action-outline-default: transparent;
   --action-outline-hover: var(--gray-100);
   --action-outline-pressed: var(--gray-200);
@@ -81,6 +87,11 @@
 }
 
 :root[data-app-scheme='dark'] {
+  /* Background Layers */
+  --background-base: var(--gray-50);
+  --background-1: var(--gray-75);
+  --background-2: var(--gray-100);
+
   /* Accent (Primary) Action Colors - Dark Mode */
   --action-primary-default: var(--indigo-400);
   --action-primary-hover: var(--indigo-500);

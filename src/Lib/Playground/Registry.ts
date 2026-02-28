@@ -1,6 +1,7 @@
 import * as buttonStoryModule from '../Button/Button.story.js';
 import * as toggleStoryModule from '../Button/Toggle.story.js';
 import * as selectStoryModule from '../Collection/Select.story.js';
+import * as dialogStoryModule from '../Dialog/Dialog.story.js';
 import * as textInputStoryModule from '../Text/TextInput.story.js';
 import * as toastStoryModule from '../Toast/Toast.story.js';
 import type {
@@ -20,6 +21,7 @@ export function getCatalog(): Catalog {
   addToCatalog(map, buttonStoryModule);
   addToCatalog(map, toggleStoryModule);
   addToCatalog(map, selectStoryModule);
+  addToCatalog(map, dialogStoryModule);
   addToCatalog(map, textInputStoryModule);
   addToCatalog(map, toastStoryModule);
 

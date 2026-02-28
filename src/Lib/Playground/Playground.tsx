@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { type Component, Show, createEffect, createSignal } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 
 import type { ResolvedStory } from './Playground.type.js';
 import { getCatalog } from './Registry.js';
@@ -66,7 +67,9 @@ export function LibPlayground() {
                   <p class={styles.storyDescription}>{story().description}</p>
                 </Show>
               </header>
-              <div class={styles.storyDemo}>{story().render()}</div>
+              <div class={styles.storyDemo}>
+                <Dynamic component={story().render} />
+              </div>
             </div>
           )}
         </Show>

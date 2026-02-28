@@ -1,0 +1,31 @@
+:root {
+  --dialog-bg: var(--surface-default);
+  --dialog-border: var(--border-default);
+  --dialog-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
+  --dialog-text: var(--text-primary);
+
+  --dialog-title-text: var(--text-primary);
+  --dialog-description-text: var(--text-secondary);
+  --dialog-header-border: var(--border-subtle);
+
+  --dialog-close-text: var(--text-secondary);
+  --dialog-close-text-hover: var(--text-primary);
+  --dialog-close-bg-hover: var(--highlight-hover);
+
+  --dialog-backdrop-bg: rgba(17, 17, 19, 0.55);
+  --dialog-backdrop-blur: 1px;
+
+  --dialog-positioner-padding: 1rem;
+  --dialog-radius: var(--radius-lg);
+  --dialog-width-sm: 28rem;
+  --dialog-width-md: 36rem;
+  --dialog-width-lg: 48rem;
+
+  --dialog-transition-duration: 160ms;
+  --dialog-transition-easing: cubic-bezier(0.2, 0, 0, 1);
+}
+
+:root[data-app-scheme='dark'] {
+  --dialog-shadow: 0 16px 56px rgba(0, 0, 0, 0.55);
+  --dialog-backdrop-bg: rgba(3, 4, 6, 0.7);
+}

@@ -11,5 +11,6 @@
 @import '../Button/Button.token.css';
 @import '../Button/Toggle.token.css';
 @import '../Collection/Select.token.css';
+@import '../Dialog/Dialog.token.css';
 @import '../Text/TextInput.token.css';
 @import '../Toast/Toast.token.css';

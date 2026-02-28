@@ -14,19 +14,21 @@ export const Default: Story = {
 export const Primary: Story = {
   title: 'Primary',
   description: 'Primary button with high visual prominence',
-  render: () => (
-    <div style='display: flex; gap: 1rem; align-items: center;'>
-      <Button variant='primary' size='sm'>
-        Small
-      </Button>
-      <Button variant='primary' size='md'>
-        Medium
-      </Button>
-      <Button variant='primary' size='lg'>
-        Large
-      </Button>
-    </div>
-  ),
+  render: () => {
+    return (
+      <div style='display: flex; gap: 1rem; align-items: center;'>
+        <Button variant='primary' size='sm'>
+          Small
+        </Button>
+        <Button variant='primary' size='md'>
+          Medium
+        </Button>
+        <Button variant='primary' size='lg'>
+          Large
+        </Button>
+      </div>
+    );
+  },
 };
 
 export const Secondary: Story = {

@@ -8,13 +8,13 @@ export interface StoryMeta {
 export interface Story {
   title?: string;
   description?: string;
-  render: () => JSX.Element;
+  render: Component | (() => JSX.Element);
 }
 
 export interface ResolvedStory {
   title: string;
   description?: string;
-  render: () => JSX.Element;
+  render: Component | (() => JSX.Element);
 }
 
 export interface CatalogEntry<T extends Record<string, any> = {}> {
