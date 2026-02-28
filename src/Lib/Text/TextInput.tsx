@@ -1,6 +1,6 @@
 import { Field } from '@ark-ui/solid/field';
 import clsx from 'clsx';
-import { type JSX, Show, splitProps } from 'solid-js';
+import { type JSX, type JSXElement, Show, splitProps } from 'solid-js';
 
 import style from './TextInput.module.css';
 
@@ -11,13 +11,12 @@ export interface TextInputProps {
   /** Field integration */
   label?: string;
   helperText?: string;
-  errorMessage?: string;
+  error?: JSXElement;
   required?: boolean;
 
   /** State */
   disabled?: boolean;
   readOnly?: boolean;
-  invalid?: boolean;
 
   /** Styling */
   size?: TextInputSize;
@@ -25,8 +24,8 @@ export interface TextInputProps {
   class?: string;
 
   /** Icons */
-  leftIcon?: JSX.Element;
-  rightIcon?: JSX.Element;
+  leftIcon?: JSXElement;
+  rightIcon?: JSXElement;
 
   /** Input properties */
   type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
@@ -53,11 +52,10 @@ export function TextInput(props: TextInputProps) {
     'class',
     'label',
     'helperText',
-    'errorMessage',
+    'error',
     'required',
     'disabled',
     'readOnly',
-    'invalid',
     'size',
     'variant',
     'leftIcon',
@@ -81,7 +79,8 @@ export function TextInput(props: TextInputProps) {
 
   const hasLeftIcon = () => Boolean(local.leftIcon);
   const hasRightIcon = () => Boolean(local.rightIcon);
-  const showError = () => local.invalid && local.errorMessage;
+  const isInvalid = () => Boolean(local.error);
+  const showError = () => local.error;
   const showHelper = () => !showError() && local.helperText;
 
   return (
@@ -89,11 +88,11 @@ export function TextInput(props: TextInputProps) {
       class={clsx('TextInput', style.root, local.class)}
       disabled={local.disabled}
       readOnly={local.readOnly}
-      invalid={local.invalid}
+      invalid={isInvalid()}
       data-size={local.size ?? 'md'}
       data-disabled={local.disabled}
       data-readonly={local.readOnly}
-      data-invalid={local.invalid}
+      data-invalid={isInvalid()}
       data-required={local.required}
     >
       <Show when={local.label}>
@@ -136,7 +135,7 @@ export function TextInput(props: TextInputProps) {
           onBlur={local.onBlur}
           onKeyDown={local.onKeyDown}
           onKeyUp={local.onKeyUp}
-          aria-invalid={local.invalid}
+          aria-invalid={isInvalid()}
           aria-required={local.required}
           aria-describedby={
             showError() || showHelper()
@@ -166,7 +165,7 @@ export function TextInput(props: TextInputProps) {
           class={style.errorText}
           id={`${local.id || 'input'}-description`}
         >
-          {local.errorMessage}
+          {local.error}
         </Field.ErrorText>
       </Show>
     </Field.Root>

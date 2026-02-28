@@ -88,8 +88,7 @@ export const ErrorState: Story = {
       label='Username'
       placeholder='Enter username'
       value='invalid-user'
-      invalid
-      errorMessage='Username must be at least 3 characters long'
+      error='Username must be at least 3 characters long'
       leftIcon={<Search />}
     />
   ),
@@ -218,10 +217,7 @@ export const Validation: Story = {
         placeholder='Enter your email'
         value={email()}
         onInput={(e) => setEmail(e.currentTarget.value)}
-        invalid={!isValid()}
-        errorMessage={
-          !isValid() ? 'Please enter a valid email address' : undefined
-        }
+        error={!isValid() ? 'Please enter a valid email address' : undefined}
         helperText={
           isValid() && email()
             ? 'Email looks good!'

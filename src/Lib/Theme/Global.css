@@ -159,6 +159,45 @@
 /*** GLOBAL DESIGN TOKENS ***/
 /*** ==================== ***/
 :root {
+  /* Spectrum-like Sizing Scale (4px / 0.25rem increments) */
+  --size-50: 0.25rem;
+  --size-100: 0.5rem;
+  --size-150: 0.75rem;
+  --size-200: 1rem;
+  --size-250: 1.25rem;
+  --size-300: 1.5rem;
+  --size-350: 1.75rem;
+  --size-400: 2rem;
+  --size-500: 2.5rem;
+  --size-600: 3rem;
+
+  /* Semantic Spacing Tokens */
+  --space-50: var(--size-50);
+  --space-100: var(--size-100);
+  --space-150: var(--size-150);
+  --space-200: var(--size-200);
+  --space-250: var(--size-250);
+  --space-300: var(--size-300);
+  --space-350: var(--size-350);
+  --space-400: var(--size-400);
+  --space-500: var(--size-500);
+  --space-600: var(--size-600);
+
+  /* Radius Scale */
+  --radius-50: var(--size-50);
+  --radius-100: var(--size-100);
+  --radius-150: var(--size-150);
+  --radius-200: var(--size-200);
+  --radius-250: var(--size-250);
+
+  /* Typography Size Scale */
+  --font-size-75: 0.75rem;
+  --font-size-100: 1rem;
+  --font-size-200: 1.25rem;
+  --font-size-300: 1.5rem;
+  --font-size-350: 1.75rem;
+  --font-size-400: 2rem;
+
   /* Focus System */
   --focus-ring-color: var(--focus-ring);
   --focus-ring-width: 2px;
@@ -171,7 +210,7 @@
   --transition-timing: ease-in-out;
 
   /* Border Radius */
-  --radius-md: 6px;
+  --radius-md: var(--radius-100);
 
   /* Typography */
   --font-weight-medium: 500;
