@@ -182,17 +182,19 @@
   --size-500: 2.5rem;
   --size-600: 3rem;
 
-  /* Semantic Spacing Tokens */
-  --space-50: var(--size-50);
-  --space-100: var(--size-100);
-  --space-150: var(--size-150);
-  --space-200: var(--size-200);
-  --space-250: var(--size-250);
-  --space-300: var(--size-300);
-  --space-350: var(--size-350);
-  --space-400: var(--size-400);
-  --space-500: var(--size-500);
-  --space-600: var(--size-600);
+  /* Spectrum Spacing Option Tokens */
+  --spacing-50: 2px;
+  --spacing-75: 4px;
+  --spacing-100: 8px;
+  --spacing-200: 12px;
+  --spacing-300: 16px;
+  --spacing-400: 24px;
+  --spacing-500: 32px;
+  --spacing-600: 40px;
+  --spacing-700: 48px;
+  --spacing-800: 64px;
+  --spacing-900: 80px;
+  --spacing-1000: 96px;
 
   /* Radius Scale */
   --radius-50: var(--size-50);
