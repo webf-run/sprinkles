@@ -147,18 +147,16 @@
 .ghost {
   background-color: var(--btn-ghost-bg);
   color: var(--btn-ghost-text);
-  border-color: var(--btn-ghost-border);
+  border-color: transparent;
 
   &:hover:not(.disabled):not(.loading) {
     background-color: var(--btn-ghost-bg-hover);
     color: var(--btn-ghost-text-hover);
-    border-color: var(--btn-ghost-border-hover);
   }
 
   &:active:not(.disabled):not(.loading) {
     background-color: var(--btn-ghost-bg-pressed);
     color: var(--btn-ghost-text-pressed);
-    border-color: var(--btn-ghost-border-pressed);
   }
 }
 

@@ -32,9 +32,6 @@
   --btn-ghost-bg: transparent;
   --btn-ghost-bg-hover: var(--action-outline-hover);
   --btn-ghost-bg-pressed: var(--action-outline-pressed);
-  --btn-ghost-border: var(--action-outline-border);
-  --btn-ghost-border-hover: var(--action-outline-border-hover);
-  --btn-ghost-border-pressed: var(--action-outline-border-pressed);
   --btn-ghost-text: var(--action-outline-text);
   --btn-ghost-text-hover: var(--action-outline-text-hover);
   --btn-ghost-text-pressed: var(--action-outline-text-pressed);
