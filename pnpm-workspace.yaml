@@ -1,5 +1,3 @@
-onlyBuiltDependencies:
-  - better-sqlite3
-  - esbuild
-  - sharp
-  - '@dotenvx/dotenvx'
+allowBuilds:
+  esbuild: true
+  sharp: true
