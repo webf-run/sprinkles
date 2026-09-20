@@ -1,0 +1,267 @@
+---
+import { ChevronDown, Menu, X } from 'lucide-astro';
+
+import Link from './Link.astro';
+
+export interface NavItem {
+  label: string;
+  href: string;
+  hasDropdown?: boolean;
+}
+
+interface Props {
+  logoSrc?: string;
+  logoText?: string;
+  navItems?: NavItem[];
+  class?: string;
+  style?: string;
+  position?: 'fixed' | 'sticky' | 'static';
+}
+
+const {
+  logoSrc,
+  logoText,
+  navItems = [],
+  class: className = '',
+  style = '',
+  position = 'fixed',
+  ...rest
+} = Astro.props;
+---
+
+<nav
+  class:list={[
+    'bg-surface left-0 w-full shadow-sm',
+    {
+      'fixed top-0 z-50': position === 'fixed',
+      'sticky top-0 z-50': position === 'sticky',
+      relative: position === 'static',
+    },
+    className,
+  ]}
+  style={style}
+  {...rest}
+>
+  <div class='mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8'>
+    <div class='flex h-16 items-center justify-between sm:h-20'>
+      <a href='/' class:list={['flex items-center']}>
+        <slot name='logo'>
+          {
+            logoSrc && (
+              <img
+                src={logoSrc}
+                alt='Logo'
+                class='h-10 w-auto object-contain sm:h-12'
+              />
+            )
+          }
+
+          {
+            !logoSrc && logoText && (
+              <span class='text-foreground text-xl font-bold sm:text-2xl'>
+                {logoText}
+              </span>
+            )
+          }
+        </slot>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class='hidden items-center gap-4 md:flex md:gap-6 lg:gap-8'>
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                'text-foreground hover:text-foreground-muted flex items-center gap-1 text-xs font-medium transition-colors sm:text-sm lg:text-base',
+              ]}
+            >
+              <span>{item.label}</span>
+
+              {item.hasDropdown && <ChevronDown size={16} strokeWidth={2} />}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Right -->
+      <div class='flex items-center gap-3 sm:gap-5'>
+        <slot name='actions'>
+          <Link variant='purple'>Apply Now</Link>
+        </slot>
+
+        {
+          navItems.length > 0 && (
+            <wf-navbar-menu class='md:hidden'>
+              <button
+                type='button'
+                data-menu-toggle
+                aria-label='Toggle menu'
+                aria-expanded='false'
+                class='border-border-subtle inline-flex h-9 w-9 items-center justify-center rounded-md border'
+              >
+                <Menu data-menu-icon-open size={20} />
+                <X data-menu-icon-close size={20} class='hidden' />
+              </button>
+
+              <div
+                data-menu-panel
+                hidden
+                class='border-border-subtle bg-surface absolute inset-x-0 top-full border-t px-4 pb-4 shadow-sm sm:px-6 md:hidden'
+              >
+                <div class='flex flex-col pt-2'>
+                  {navItems.map((item) => (
+                    <a
+                      href={item.href}
+                      class='border-border-subtle text-foreground flex items-center justify-between border-b px-2 py-3 text-sm font-medium'
+                    >
+                      <span>{item.label}</span>
+
+                      {item.hasDropdown && (
+                        <ChevronDown size={16} strokeWidth={2} />
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </wf-navbar-menu>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  import {
+    ReactiveElement,
+    type PropertyDeclarations,
+    type PropertyValues,
+  } from '@lit/reactive-element';
+
+  const TagName = 'wf-navbar-menu';
+  const MdQuery = window.matchMedia('(min-width: 768px)');
+
+  let panelIdCounter = 0;
+
+  /**
+   * Progressive enhancement for the mobile menu above.  Renders nothing. Astro server-renders the trigger and the panel.
+   */
+  class WfNavbarMenu extends ReactiveElement {
+    static properties: PropertyDeclarations = {
+      open: {
+        type: Boolean,
+        reflect: true,
+      },
+    };
+
+    // Do not remove this declaration.  it is required for reactivity to work with `useDefineForClassFields`.
+    declare open: boolean;
+
+    constructor() {
+      super();
+      this.open = false;
+    }
+
+    /** Keep the server-rendered children in light DOM so Tailwind reaches them. */
+    protected override createRenderRoot(): HTMLElement {
+      return this;
+    }
+
+    override connectedCallback(): void {
+      super.connectedCallback();
+
+      this.addEventListener('click', this.#onClick);
+      document.addEventListener('pointerdown', this.#onOutsidePress);
+      document.addEventListener('keydown', this.#onKeyDown);
+      MdQuery.addEventListener('change', this.#onBreakpoint);
+    }
+
+    override disconnectedCallback(): void {
+      this.removeEventListener('click', this.#onClick);
+      document.removeEventListener('pointerdown', this.#onOutsidePress);
+      document.removeEventListener('keydown', this.#onKeyDown);
+      MdQuery.removeEventListener('change', this.#onBreakpoint);
+      super.disconnectedCallback();
+    }
+
+    protected override firstUpdated(): void {
+      const panel = this.#panel;
+      const trigger = this.#trigger;
+
+      if (panel && trigger) {
+        panel.id ||= `${TagName}-panel-${++panelIdCounter}`;
+        trigger.setAttribute('aria-controls', panel.id);
+      }
+
+      this.#sync();
+    }
+
+    protected override updated(changed: PropertyValues<this>): void {
+      if (changed.has('open')) {
+        this.#sync();
+      }
+    }
+
+    #sync(): void {
+      // The `hidden` attribute and not Tailwind's `hidden` class.
+      const panel = this.#panel;
+
+      if (panel) {
+        panel.hidden = !this.open;
+      }
+
+      this.#trigger?.setAttribute('aria-expanded', String(this.open));
+      this.#openIcon?.classList.toggle('hidden', this.open);
+      this.#closeIcon?.classList.toggle('hidden', !this.open);
+    }
+
+    #onClick = (event: MouseEvent): void => {
+      const target = event.target as Element | null;
+
+      if (!target) return;
+
+      if (this.#trigger?.contains(target)) {
+        this.open = !this.open;
+      } else if (this.open && target.closest('a[href]')) {
+        this.open = false;
+      }
+    };
+    #onOutsidePress = (event: PointerEvent): void => {
+      if (this.open && !event.composedPath().includes(this)) {
+        this.open = false;
+      }
+    };
+
+    #onKeyDown = (event: KeyboardEvent): void => {
+      if (!this.open || event.key !== 'Escape') return;
+
+      this.open = false;
+      this.#trigger?.focus();
+    };
+
+    #onBreakpoint = (event: MediaQueryListEvent): void => {
+      if (event.matches) this.open = false;
+    };
+
+    get #trigger(): HTMLElement | null {
+      return this.querySelector<HTMLElement>('[data-menu-toggle]');
+    }
+
+    get #panel(): HTMLElement | null {
+      return this.querySelector<HTMLElement>('[data-menu-panel]');
+    }
+
+    get #openIcon(): HTMLElement | null {
+      return this.querySelector<HTMLElement>('[data-menu-icon-open]');
+    }
+
+    get #closeIcon(): HTMLElement | null {
+      return this.querySelector<HTMLElement>('[data-menu-icon-close]');
+    }
+  }
+
+  if (!customElements.get(TagName)) {
+    customElements.define(TagName, WfNavbarMenu);
+  }
+</script>

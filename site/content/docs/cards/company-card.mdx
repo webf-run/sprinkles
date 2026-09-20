@@ -1,0 +1,82 @@
+---
+title: Company  Card
+description: Display a company logo in a responsive card, with an optional external link.
+---
+
+import BasicOutput from '../../../examples/company-card/basic.eg.astro';
+import basicCode from '../../../examples/company-card/basic.eg.astro?raw';
+import VariantsOutput from '../../../examples/company-card/variants.eg.astro';
+import variantsCode from '../../../examples/company-card/variants.eg.astro?raw';
+import ColorsOutput from '../../../examples/company-card/colors.eg.astro';
+import colorsCode from '../../../examples/company-card/colors.eg.astro?raw';
+import SizesOutput from '../../../examples/company-card/sizes.eg.astro';
+import sizesCode from '../../../examples/company-card/sizes.eg.astro?raw';
+import EffectsOutput from '../../../examples/company-card/effects.eg.astro';
+import effectsCode from '../../../examples/company-card/effects.eg.astro?raw';
+import LinkOutput from '../../../examples/company-card/link.eg.astro';
+import linkCode from '../../../examples/company-card/link.eg.astro?raw';
+import ArrangementsOutput from '../../../examples/company-card/arrangements.eg.astro';
+import arrangementsCode from '../../../examples/company-card/arrangements.eg.astro?raw';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+`CompanyLogoCard` presents partner, customer, or employer logos in an even responsive grid. It renders as a non-interactive card by default, and becomes a safely labelled external link when `href` is provided.
+
+## Logo grid
+
+The basic example demonstrates how to display multiple company logos using `CompanyLogoCard`. Each card accepts a logo, company name, and optional styling props. The cards can be placed in a responsive grid to create a clean logo wall.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Color variants
+
+Use the `variant` prop to apply different token-based background and border treatments to the logo card. This example demonstrates the available visual variants and how the same logo card can be adapted to different brand or interface styles.
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Linked logo
+
+Provide the `href` prop when a logo should link to an external website. This example demonstrates how the card becomes an accessible external link while continuing to display the company logo and name.
+
+<ExampleBlock code={linkCode}>
+  <LinkOutput />
+</ExampleBlock>
+
+## Sizes
+
+Use the `size` prop to control the dimensions and internal spacing of the card. The available sizes are `sm`, `md`, and `lg`, allowing the component to adapt to different layouts and content densities.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## Effects
+
+Use the `effect` prop to add interactive hover behavior to the card. This example demonstrates effects such as lifting or scaling the card when the user moves the pointer over it.
+
+<ExampleBlock code={effectsCode}>
+  <EffectsOutput />
+</ExampleBlock>
+
+## Responsive logo wall
+
+The responsive logo wall combines different `size`, `variant`, and `effect` values to demonstrate how multiple `CompanyLogoCard` components can work together in a flexible layout. This approach is useful for partner sections, customer showcases, employer logos, and other logo-based content.
+
+<ExampleBlock code={arrangementsCode}>
+  <ArrangementsOutput />
+</ExampleBlock>
+
+## Props
+
+| Prop          | Type                                                                                         | Default     | Description                                    |
+| ------------- | -------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------- |
+| `logo`        | `string \| AstroComponent`                                                                   | —           | Image URL, local asset path, or SVG component. |
+| `companyName` | `string`                                                                                     | —           | Accessible company name for the logo.          |
+| `href`        | `string`                                                                                     | —           | Optional external destination.                 |
+| `variant`     | `'default' \| 'muted' \| 'accent' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.                   |
+| `size`        | `'sm' \| 'md' \| 'lg'`                                                                       | `'md'`      | Card dimensions.                               |
+| `effect`      | `'none' \| 'lift' \| 'scale'`                                                                | `'scale'`   | Hover effect.                                  |
+| `class`       | `string`                                                                                     | —           | Additional Tailwind utilities.                 |

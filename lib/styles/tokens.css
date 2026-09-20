@@ -1,0 +1,99 @@
+:root {
+  --primary: #f97316;
+  --primary-foreground: #000000;
+  --primary-hover: #ea580c;
+
+  --secondary: #ffffff;
+  --secondary-foreground: #6d28d9;
+  --secondary-border: #ddd6fe;
+
+  --success: transparent;
+  --success-foreground: #ffffff;
+  --success-border: #ffffff;
+
+  --accent: #7e22ce;
+  --accent-foreground: #ffffff;
+
+  --surface: #ffffff;
+  --surface-muted: #f3e8ff;
+  --surface-accent: #e9d5ff;
+  --surface-accent-strong: #c084fc;
+
+  --foreground: #111827;
+  --foreground-muted: #374151;
+  --foreground-subtle: #52525b;
+  --foreground-inverse: #ffffff;
+
+  --border: #ddd6fe;
+  --border-subtle: #d1d5db;
+
+  --icon: #5b21b6;
+
+  --badge-purple-background: #f3e8ff;
+  --badge-purple-foreground: #6d28d9;
+
+  --badge-orange-background: #ffedd5;
+  --badge-orange-foreground: #c2410c;
+
+  --badge-green-background: #dcfce7;
+  --badge-green-foreground: #15803d;
+
+  --badge-blue-background: #dbeafe;
+  --badge-blue-foreground: #1d4ed8;
+
+  --badge-neutral-background: #f4f4f5;
+  --badge-neutral-foreground: #52525b;
+
+  --badge-pink-background: #fce7f3;
+  --badge-pink-foreground: #db2777;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-border: var(--secondary-border);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-border: var(--success-border);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-accent: var(--surface-accent);
+  --color-surface-accent-strong: var(--surface-accent-strong);
+
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-foreground-inverse: var(--foreground-inverse);
+
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-icon: var(--icon);
+
+  --color-badge-purple-background: var(--badge-purple-background);
+  --color-badge-purple-foreground: var(--badge-purple-foreground);
+
+  --color-badge-orange-background: var(--badge-orange-background);
+  --color-badge-orange-foreground: var(--badge-orange-foreground);
+
+  --color-badge-green-background: var(--badge-green-background);
+  --color-badge-green-foreground: var(--badge-green-foreground);
+
+  --color-badge-blue-background: var(--badge-blue-background);
+  --color-badge-blue-foreground: var(--badge-blue-foreground);
+
+  --color-badge-neutral-background: var(--badge-neutral-background);
+  --color-badge-neutral-foreground: var(--badge-neutral-foreground);
+
+  --color-badge-pink-background: var(--badge-pink-background);
+  --color-badge-pink-foreground: var(--badge-pink-foreground);
+}

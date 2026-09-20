@@ -1,0 +1,90 @@
+---
+title: Benefit Card
+description: Highlight a benefit or reason to choose you with an icon, title, and a short bulleted list.
+---
+
+import BasicOutput from '../../../examples/benefit-card/basic.eg.astro';
+import basicCode from '../../../examples/benefit-card/basic.eg.astro?raw';
+import ColorsOutput from '../../../examples/benefit-card/colors.eg.astro';
+import colorsCode from '../../../examples/benefit-card/colors.eg.astro?raw';
+import SizesOutput from '../../../examples/benefit-card/sizes.eg.astro';
+import sizesCode from '../../../examples/benefit-card/sizes.eg.astro?raw';
+import EffectsOutput from '../../../examples/benefit-card/effects.eg.astro';
+import effectsCode from '../../../examples/benefit-card/effects.eg.astro?raw';
+import GridOutput from '../../../examples/benefit-card/grid.eg.astro';
+import gridCode from '../../../examples/benefit-card/grid.eg.astro?raw';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+`BenefitCard` pairs an optional icon with a heading and a short bulleted list. Use it for "why choose us" sections, product benefit grids, service differentiators, or any block that summarizes a handful of reasons with a short list. The content is flexible, so it can be used across education websites, SaaS products, agency portfolios, and other content-focused interfaces.
+
+## Basic
+
+The basic example demonstrates the default `BenefitCard` configuration. It includes an icon, a heading, and a short list of benefits. Use this version when you need a simple benefit or feature explanation without additional visual customization.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Color variants
+
+The color variants example demonstrates how `BenefitCard` can use different semantic color treatments. These variants are useful when you want to visually distinguish different groups of benefits while keeping the colors consistent with the design system.
+
+Available variants include `default`, `muted`, `accent`, `inverse`, `purple`, `orange`, `green`, `blue`, and `neutral`.
+
+<ExampleBlock code={colorsCode}>
+  <ColorsOutput />
+</ExampleBlock>
+
+## Sizes
+
+The sizes example demonstrates the three available card sizes: `sm`, `md`, and `lg`. Use different sizes depending on the amount of content available and the visual hierarchy of the section.
+
+- `sm` — Compact cards for dense layouts or smaller benefit lists.
+- `md` — The default size for most sections.
+- `lg` — Larger cards for prominent benefit or feature sections.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## Hover effects
+
+The hover effects example demonstrates how to add interaction to the card using the `effect` prop.
+
+- `none` — No hover animation.
+- `lift` — The card moves slightly upward when hovered.
+- `glow` — The card receives a subtle shadow effect on hover.
+
+Use `none` for a static design, or use `lift` or `glow` when you want the cards to provide visual feedback during interaction.
+
+<ExampleBlock code={effectsCode}>
+  <EffectsOutput />
+</ExampleBlock>
+
+## Use across different sites
+
+The same `BenefitCard` component can be reused for different types of websites and content. This example demonstrates how changing the icon, heading, and bullet content allows the component to adapt to different use cases.
+
+For example, it can be used for:
+
+- Education — reasons to choose a college or course.
+- SaaS — product features and benefits.
+- Agency websites — service differentiators.
+- Business websites — company advantages.
+- Product pages — key product benefits.
+
+<ExampleBlock code={gridCode}>
+  <GridOutput />
+</ExampleBlock>
+
+## Props
+
+| Prop      | Type                                                                                                      | Default     | Description                      |
+| --------- | --------------------------------------------------------------------------------------------------------- | ----------- | -------------------------------- |
+| `title`   | `string`                                                                                                  | —           | Card heading.                    |
+| `bullets` | `string[]`                                                                                                | —           | Short list of supporting points. |
+| `icon`    | `AstroComponent`                                                                                          | —           | Optional Lucide icon component.  |
+| `variant` | `'default' \| 'muted' \| 'accent' \| 'inverse' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.     |
+| `size`    | `'sm' \| 'md' \| 'lg'`                                                                                    | `'md'`      | Card spacing and type scale.     |
+| `effect`  | `'none' \| 'lift' \| 'glow'`                                                                              | `'none'`    | Hover effect.                    |
+| `class`   | `string`                                                                                                  | —           | Additional Tailwind utilities.   |

@@ -1,0 +1,571 @@
+---
+import type { AstroComponent } from '@lucide/astro';
+import { Mail, MapPin, Phone } from '@lucide/astro';
+import { Link } from '@webf/sprinkles';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+export interface FooterLink {
+  label: string;
+  href: string;
+}
+
+export interface FooterSocial {
+  label: string;
+  href: string;
+  icon?: AstroComponent;
+
+  /** Predefined icon color */
+  iconVariant?:
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'purple'
+    | 'blue'
+    | 'pink'
+    | 'green'
+    | 'orange'
+    | 'foreground'
+    | 'muted';
+
+  /** Custom CSS color */
+  iconColor?: string;
+}
+
+type FooterColorVariant =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'purple'
+  | 'blue'
+  | 'pink'
+  | 'green'
+  | 'orange'
+  | 'foreground'
+  | 'muted';
+
+const footerVariants = cva(
+  'flex w-full flex-col px-4 py-6 md:px-6 md:py-8 xl:px-8 xl:py-10',
+  {
+    variants: {
+      variant: {
+        default: 'bg-surface text-foreground',
+        muted: 'bg-surface-muted text-foreground',
+        inverse: 'bg-accent text-accent-foreground',
+        green: 'bg-badge-green-background text-foreground',
+      },
+
+      size: {
+        sm: 'px-5',
+        md: 'px-6',
+        lg: 'px-8',
+      },
+
+      effect: {
+        none: '',
+        shadow: 'shadow-sm',
+        lift: 'transition-shadow hover:shadow-lg',
+        glow: 'transition-shadow hover:shadow-lg',
+      },
+    },
+
+    defaultVariants: {
+      variant: 'default',
+      size: 'md',
+      effect: 'none',
+    },
+  }
+);
+
+const colorVariants: Record<FooterColorVariant, string> = {
+  primary: 'text-primary',
+  secondary: 'text-secondary-foreground',
+  success: 'text-success-foreground',
+  purple: 'text-badge-purple-foreground',
+  blue: 'text-badge-blue-foreground',
+  pink: 'text-badge-pink-foreground',
+  green: 'text-badge-green-foreground',
+  orange: 'text-badge-orange-foreground',
+  foreground: 'text-foreground',
+  muted: 'text-foreground-muted',
+};
+
+const footerDividerVariants = cva('border-t', {
+  variants: {
+    variant: {
+      default: 'border-footer-subtle',
+      muted: 'border-footer-subtle',
+      inverse: 'border-accent-foreground/20',
+      green: 'border-green-800',
+    },
+  },
+
+  defaultVariants: {
+    variant: 'default',
+  },
+});
+
+const footerSizeVariants = {
+  sm: {
+    content: 'max-w-205',
+    logo: 'h-10 w-auto',
+    description: 'mt-6',
+    contact: 'mt-6',
+    links: 'mt-8',
+    bottom: 'pt-6 pb-8',
+  },
+
+  md: {
+    content: 'max-w-217',
+    logo: 'h-12.25 w-auto',
+    description: 'mt-8',
+    contact: 'mt-8',
+    links: 'mt-10',
+    bottom: 'pt-8 pb-10',
+  },
+
+  lg: {
+    content: 'max-w-240',
+    logo: 'h-14 w-auto',
+    description: 'mt-9',
+    contact: 'mt-9',
+    links: 'mt-12',
+    bottom: 'pt-9 pb-12',
+  },
+} as const;
+
+interface Props extends VariantProps<typeof footerVariants> {
+  logoSrc?: string;
+  logoText?: string;
+
+  description?: string;
+
+  address?: string;
+  phone?: string;
+  email?: string;
+  emailLabel?: string;
+
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+
+  quickLinks?: FooterLink[][];
+  socialLinks?: FooterSocial[];
+
+  year?: number;
+  copyright?: string;
+
+  phoneVariant?: 'primary' | 'secondary' | 'success' | 'purple' | 'blackwhite';
+  emailVariant?: 'primary' | 'secondary' | 'success' | 'purple' | 'blackwhite';
+
+  /**
+   * Heading colors
+   */
+  headingVariant?: FooterColorVariant;
+  headingColor?: string;
+
+  /**
+   * CTA subtitle color
+   */
+  subtitleVariant?: FooterColorVariant;
+  subtitleColor?: string;
+
+  /**
+   * Description color
+   */
+  descriptionVariant?: FooterColorVariant;
+  descriptionColor?: string;
+
+  /**
+   * Quick links color
+   */
+  linkVariant?: FooterColorVariant;
+  linkColor?: string;
+
+  /**
+   * Contact text color
+   */
+  contactVariant?: FooterColorVariant;
+  contactColor?: string;
+
+  /**
+   * Contact icon color
+   */
+  contactIconVariant?: FooterColorVariant;
+  contactIconColor?: string;
+
+  /**
+   * Copyright color
+   */
+  copyrightVariant?: FooterColorVariant;
+  copyrightColor?: string;
+
+  class?: string;
+}
+
+const {
+  logoSrc,
+  logoText,
+
+  description = '',
+
+  address = '',
+  phone = '',
+  email = '',
+  emailLabel = 'Email address',
+
+  phoneVariant = 'secondary',
+  emailVariant = 'primary',
+
+  ctaTitle = "Have Questions? We're here.",
+  ctaSubtitle = 'Our counselors respond to queries within 1-2 days',
+
+  quickLinks = [],
+  socialLinks = [],
+
+  year = new Date().getFullYear(),
+  copyright = '',
+
+  headingVariant = 'foreground',
+  headingColor,
+
+  subtitleVariant = 'muted',
+  subtitleColor,
+
+  descriptionVariant = 'foreground',
+  descriptionColor,
+
+  linkVariant = 'foreground',
+  linkColor,
+
+  contactVariant = 'foreground',
+  contactColor,
+
+  contactIconVariant = 'primary',
+  contactIconColor,
+
+  copyrightVariant = 'muted',
+  copyrightColor,
+
+  variant,
+  size,
+  effect,
+  class: className = '',
+} = Astro.props;
+
+const telHref = phone ? `tel:${phone.replace(/\s+/g, '')}` : '#';
+
+const sizeClasses = footerSizeVariants[size ?? 'md'];
+
+const hasContact = Boolean(address || phone || email);
+
+const headingClasses = colorVariants[headingVariant];
+const subtitleClasses = colorVariants[subtitleVariant];
+const descriptionClasses = colorVariants[descriptionVariant];
+const linkClasses = colorVariants[linkVariant];
+const contactClasses = colorVariants[contactVariant];
+const contactIconClasses = colorVariants[contactIconVariant];
+const copyrightClasses = colorVariants[copyrightVariant];
+---
+
+<footer
+  class:list={[
+    footerVariants({ variant, size, effect }),
+    'flex flex-col',
+    className,
+  ]}
+>
+  <!-- CTA -->
+  <div
+    class:list={[
+      'flex min-w-0 flex-col gap-8 pb-5',
+      'md:flex-row md:items-center md:justify-between',
+      'xl:pb-2',
+    ]}
+  >
+    <div class='max-w-190 min-w-0'>
+      <h2
+        class:list={[
+          'font-heading text-subtitle font-semibold',
+          headingClasses,
+        ]}
+        style={headingColor ? `color: ${headingColor}` : undefined}
+      >
+        {ctaTitle}
+      </h2>
+
+      <p
+        class:list={['text-body mt-3', subtitleClasses]}
+        style={subtitleColor ? `color: ${subtitleColor}` : undefined}
+      >
+        {ctaSubtitle}
+      </p>
+    </div>
+
+    <div
+      class:list={[
+        'flex w-full min-w-0 flex-row gap-2',
+        'md:w-auto md:max-w-full',
+      ]}
+    >
+      {
+        phone && (
+          <Link
+            href={telHref}
+            variant={phoneVariant}
+            size='lg'
+            icon={Phone}
+            class:list={[
+              'flex max-w-full min-w-0 flex-1 items-center justify-center',
+              'gap-1.5 px-2 text-sm',
+              'whitespace-nowrap',
+              'min-[350px]:gap-2 min-[350px]:px-3',
+              'md:flex-none md:px-6 md:text-base',
+              'xl:text-lg',
+            ]}
+          >
+            {phone}
+          </Link>
+        )
+      }
+
+      {
+        email && (
+          <Link
+            href={`mailto:${email}`}
+            variant={emailVariant}
+            size='lg'
+            icon={Mail}
+            class:list={[
+              'flex max-w-full min-w-0 flex-1 items-center justify-center',
+              'gap-1.5 px-2 text-sm',
+              'whitespace-nowrap',
+              'min-[350px]:gap-2 min-[350px]:px-3',
+              'md:flex-none md:px-6 md:text-base',
+              'xl:text-lg',
+            ]}
+          >
+            {emailLabel}
+          </Link>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div
+    class:list={[
+      sizeClasses.content,
+      'mx-auto w-full max-w-full min-w-0 pt-14 pb-8',
+      'xl:pt-16 xl:pb-10',
+    ]}
+  >
+    <!-- Logo -->
+    <div>
+      <slot name='logo'>
+        {
+          logoSrc ? (
+            <img
+              src={logoSrc}
+              alt={logoText ?? 'Logo'}
+              class:list={[sizeClasses.logo, 'w-auto object-contain']}
+            />
+          ) : (
+            logoText && (
+              <span
+                class:list={[
+                  'font-heading font-bold',
+                  headingClasses,
+                  size === 'lg'
+                    ? 'text-3xl'
+                    : size === 'sm'
+                      ? 'text-xl'
+                      : 'text-2xl',
+                ]}
+                style={headingColor ? `color: ${headingColor}` : undefined}
+              >
+                {logoText}
+              </span>
+            )
+          )
+        }
+      </slot>
+    </div>
+
+    <!-- Description -->
+    {
+      description && (
+        <p
+          class:list={[
+            sizeClasses.description,
+            'text-body max-w-2xl',
+            descriptionClasses,
+          ]}
+          style={descriptionColor ? `color: ${descriptionColor}` : undefined}
+        >
+          {description}
+        </p>
+      )
+    }
+
+    <!-- Contact -->
+    {
+      hasContact && (
+        <ul
+          class:list={[
+            sizeClasses.contact,
+            'max-w-2xl space-y-3.5 pb-10',
+            'border-footer-subtle border-b md:border-b-0',
+            'text-body',
+            contactClasses,
+          ]}
+          style={contactColor ? `color: ${contactColor}` : undefined}
+        >
+          {address && (
+            <li class='flex items-start gap-3'>
+              <MapPin
+                class:list={['mt-1 h-5 w-5 shrink-0', contactIconClasses]}
+                style={
+                  contactIconColor ? `color: ${contactIconColor}` : undefined
+                }
+              />
+              <span>{address}</span>
+            </li>
+          )}
+
+          {phone && (
+            <li class='flex items-start gap-3'>
+              <Phone
+                class:list={['mt-1 h-5 w-5 shrink-0', contactIconClasses]}
+                style={
+                  contactIconColor ? `color: ${contactIconColor}` : undefined
+                }
+              />
+
+              <a href={telHref} class='transition-colors hover:opacity-80'>
+                {phone}
+              </a>
+            </li>
+          )}
+
+          {email && (
+            <li class='flex items-start gap-3'>
+              <Mail
+                class:list={['mt-1 h-5 w-5 shrink-0', contactIconClasses]}
+                style={
+                  contactIconColor ? `color: ${contactIconColor}` : undefined
+                }
+              />
+
+              <a
+                href={`mailto:${email}`}
+                class='transition-colors hover:opacity-80'
+              >
+                {email}
+              </a>
+            </li>
+          )}
+        </ul>
+      )
+    }
+
+    <!-- Quick Links -->
+    {
+      quickLinks.length > 0 && (
+        <div class={sizeClasses.links}>
+          <p
+            class:list={['text-eyebrow mb-5 font-semibold', subtitleClasses]}
+            style={subtitleColor ? `color: ${subtitleColor}` : undefined}
+          >
+            Quick Links
+          </p>
+
+          <div
+            class:list={[
+              'grid max-w-104.75 grid-cols-2 gap-x-10 gap-y-4',
+              'md:gap-x-16 xl:gap-x-22.25',
+            ]}
+          >
+            {quickLinks.map((column) => (
+              <ul class='space-y-3'>
+                {column.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class:list={[
+                        'text-body font-medium transition-colors',
+                        linkClasses,
+                        'hover:opacity-70',
+                        'focus-visible:rounded focus-visible:ring-2',
+                        'focus-visible:ring-primary focus-visible:outline-none',
+                      ]}
+                      style={linkColor ? `color: ${linkColor}` : undefined}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Bottom -->
+  <div
+    class:list={[
+      sizeClasses.bottom,
+      'mt-2 flex min-w-0 flex-col gap-6',
+      footerDividerVariants({ variant }),
+      'md:border-t-0 xl:border-t-0',
+    ]}
+  >
+    <!-- Social Icons -->
+    {
+      socialLinks.length > 0 && (
+        <div class='flex flex-wrap items-center gap-2.5'>
+          {socialLinks.map((social) => {
+            const iconClasses = social.iconVariant
+              ? colorVariants[social.iconVariant]
+              : '';
+
+            return (
+              <a
+                href={social.href}
+                aria-label={social.label}
+                class:list={[
+                  'flex h-7.75 w-7.75 items-center justify-center rounded-full',
+                  'border-foreground-strong border',
+                  'transition-colors',
+                  'focus-visible:ring-primary focus-visible:ring-2',
+                  'focus-visible:ring-offset-2 focus-visible:outline-none',
+                ]}
+              >
+                {social.icon && (
+                  <social.icon
+                    size={18}
+                    class:list={[iconClasses, 'shrink-0']}
+                    style={
+                      social.iconColor
+                        ? `color: ${social.iconColor}`
+                        : undefined
+                    }
+                  />
+                )}
+              </a>
+            );
+          })}
+        </div>
+      )
+    }
+
+    <!-- Copyright -->
+    <p
+      class:list={['text-body-sm', copyrightClasses]}
+      style={copyrightColor ? `color: ${copyrightColor}` : undefined}
+    >
+      © {year}
+      {copyright}
+    </p>
+  </div>
+</footer>

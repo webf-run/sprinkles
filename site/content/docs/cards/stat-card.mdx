@@ -1,0 +1,71 @@
+---
+title: Stat Card
+description: Present a metric with a compact label and icon.
+---
+
+import BasicOutput from '../../../examples/stat-card/basic.eg.astro';
+import basicCode from '../../../examples/stat-card/basic.eg.astro?raw';
+import ColorsOutput from '../../../examples/stat-card/colors.eg.astro';
+import colorsCode from '../../../examples/stat-card/colors.eg.astro?raw';
+import EffectsOutput from '../../../examples/stat-card/effects.eg.astro';
+import effectsCode from '../../../examples/stat-card/effects.eg.astro?raw';
+import RowOutput from '../../../examples/stat-card/row.eg.astro';
+import rowCode from '../../../examples/stat-card/row.eg.astro?raw';
+import SizesOutput from '../../../examples/stat-card/sizes.eg.astro';
+import sizesCode from '../../../examples/stat-card/sizes.eg.astro?raw';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+`StatCard` surfaces a key number alongside a label and Lucide icon. Its flexible width makes it work as a standalone summary or as part of a responsive metric grid.
+
+## Basic
+
+Use the basic variant to display a single metric with an icon, value, and descriptive label. This is suitable for dashboards, summary sections, and overview pages.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Color variants
+
+Use color variants to visually distinguish different types of metrics or highlight important information. The available variants use semantic design tokens for consistent theming.
+
+<ExampleBlock code={colorsCode}>
+  <ColorsOutput />
+</ExampleBlock>
+
+## Sizes
+
+Use the `size` prop to adjust the spacing and overall scale of the card. Choose `sm`, `md`, or `lg` depending on the available space and visual hierarchy of your layout.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## Hover effects
+
+Use the `effect` prop to add interaction feedback when users hover over the card. Available effects include `none`, `lift`, and `glow`.
+
+<ExampleBlock code={effectsCode}>
+  <EffectsOutput />
+</ExampleBlock>
+
+## Responsive rows
+
+Use multiple `StatCard` components together to create a responsive metrics row. The cards can adapt to different screen sizes using Tailwind's responsive utilities.
+
+<ExampleBlock code={rowCode}>
+  <RowOutput />
+</ExampleBlock>
+
+## Props
+
+| Prop        | Type                                                                                                      | Default     | Description                    |
+| ----------- | --------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------ |
+| `icon`      | `AstroComponent`                                                                                          | —           | Lucide icon component.         |
+| `value`     | `string`                                                                                                  | —           | Metric value.                  |
+| `label`     | `string`                                                                                                  | —           | Metric label.                  |
+| `iconClass` | `string`                                                                                                  | `'size-7'`  | Extra icon Tailwind utilities. |
+| `variant`   | `'default' \| 'muted' \| 'surface' \| 'accent' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.   |
+| `size`      | `'sm' \| 'md' \| 'lg'`                                                                                    | `'md'`      | Card spacing scale.            |
+| `effect`    | `'none' \| 'lift' \| 'glow'`                                                                              | `'none'`    | Hover effect.                  |
+| `class`     | `string`                                                                                                  | —           | Additional Tailwind utilities. |

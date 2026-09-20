@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+
+@source '../../site';
+@source '../blocks';
+
+@import './tokens.css';
+
+@theme {
+  --font-sans:
+    'IBM Plex Sans Variable', ui-sans-serif, system-ui, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+}

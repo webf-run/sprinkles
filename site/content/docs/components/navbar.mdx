@@ -1,0 +1,128 @@
+---
+title: Navbar
+description: A responsive navigation bar with branding, links, and call-to-action slots that adapts from desktop to mobile.
+---
+
+import BasicNavbarOutput from '../../../examples/navbar/basic.eg.astro';
+import basicNavbarCode from '../../../examples/navbar/basic.eg.astro?raw';
+import CustomClassOutput from '../../../examples/navbar/custom-class.eg.astro';
+import customClassCode from '../../../examples/navbar/custom-class.eg.astro?raw';
+import DropdownNavbarOutput from '../../../examples/navbar/dropdown.eg.astro';
+import dropdownNavbarCode from '../../../examples/navbar/dropdown.eg.astro?raw';
+import DualCtaOutput from '../../../examples/navbar/dual-cta.eg.astro';
+import dualCtaCode from '../../../examples/navbar/dual-cta.eg.astro?raw';
+import ImageLogoOutput from '../../../examples/navbar/image-logo.eg.astro';
+import imageLogoCode from '../../../examples/navbar/image-logo.eg.astro?raw';
+import LogoMarkOutput from '../../../examples/navbar/logo-mark.eg.astro';
+import logoMarkCode from '../../../examples/navbar/logo-mark.eg.astro?raw';
+import LogoOnlyOutput from '../../../examples/navbar/logo-only.eg.astro';
+import logoOnlyCode from '../../../examples/navbar/logo-only.eg.astro?raw';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+import MobileViewOutput from '../../../examples/navbar/mobile-view.eg.astro';
+import mobileViewCode from '../../../examples/navbar/mobile-view.eg.astro?raw';
+
+The `Navbar` component provides a single, reusable navigation bar you can drop into any Astro site — marketing pages, docs portals, dashboards, or auth screens — and configure per page. It supports branding through a text logo, an image logo, or a fully custom logo mark, configurable navigation links with optional dropdown indicators, and a flexible call-to-action area for one or more buttons.
+
+`Navbar` is responsive out of the box. On medium screens and up (`md:` / 768px and wider) navigation links render inline next to the logo. Below that breakpoint the links move into a hamburger menu, opened with the trigger button that appears next to your call-to-action buttons. The menu closes automatically when a link inside it is clicked, when you click outside it, when you press <kbd>Escape</kbd>, or when the viewport is resized back past the `md` breakpoint — no extra configuration required. Resize the examples below, or view them on a small screen, to see the mobile menu in action.
+
+Use the interactive playgrounds below to experiment with different navbar configurations and see the output update in real time.
+
+## Basic Navbar
+
+Create a responsive navigation bar by providing a logo and a list of navigation items. The component automatically renders the navigation links on desktop, collapses them into a mobile menu on small screens, and includes a default "Apply Now" call-to-action button.
+
+<ExampleBlock code={basicNavbarCode}>
+  <BasicNavbarOutput />
+</ExampleBlock>
+
+## Logo Mark
+
+For brands that use an icon alongside a wordmark, use the `logo` slot to render any custom markup — an inline SVG, a component, or a combination of both — instead of the built-in `logoSrc` / `logoText` props. Content passed to the `logo` slot replaces the default logo entirely.
+
+<ExampleBlock code={logoMarkCode}>
+  <LogoMarkOutput />
+</ExampleBlock>
+
+## Image Logo
+
+Pass an image URL through `logoSrc` to render a logo image instead of text. This is useful when your brand mark is an existing raster or vector asset rather than markup you want to inline.
+
+<ExampleBlock code={imageLogoCode}>
+  <ImageLogoOutput />
+</ExampleBlock>
+
+## Multiple Call-to-Actions
+
+Use the `actions` slot to replace the default "Apply Now" button with any combination of buttons or links — for example a secondary "Login" action alongside a primary sign-up action. This is a common pattern for SaaS products and member portals where visitors may already have an account.
+
+<ExampleBlock code={dualCtaCode}>
+  <DualCtaOutput />
+</ExampleBlock>
+
+## Dropdown Navigation
+
+Set `hasDropdown` to `true` on any navigation item to display a dropdown indicator. This is useful for menu items that contain additional navigation options, such as a "Programs" or "Resources" menu on an education or documentation site.
+
+<ExampleBlock code={dropdownNavbarCode}>
+  <DropdownNavbarOutput />
+</ExampleBlock>
+
+## Custom Navigation Styles
+
+Use the `class` prop to apply custom Tailwind or CSS utility classes to all navigation links, allowing the navbar to match your brand or application theme.
+
+<ExampleBlock code={customClassCode}>
+  <CustomClassOutput />
+</ExampleBlock>
+
+## Logo Only
+
+The navbar can also be used with only a logo and no navigation links or call-to-action button, making it suitable for landing pages, authentication screens, or simple layouts where a full menu isn't needed. On these pages the mobile menu trigger is not rendered, since there are no links or actions to collapse.
+
+<ExampleBlock code={logoOnlyCode}>
+  <LogoOnlyOutput />
+</ExampleBlock>
+
+## Mobile Navbar
+
+A responsive navbar pattern designed for mobile screens, featuring a logo, a single Login action, and a hamburger menu. The navigation links collapse into the menu on smaller screens, keeping the header clean and accessible without overcrowding the available space. Resize the example below 768px (md) to see the mobile layout in action.
+
+**Note:** Resize the screen below 768px (md) to see the mobile layout in action.
+
+<ExampleBlock code={mobileViewCode}>
+  <MobileViewOutput />
+</ExampleBlock>
+
+## Positioning
+
+By default `Navbar` renders with `position='fixed'`, pinning it to the top of the viewport — the right choice for most real pages. The examples on this page all pass `position='static'` instead, purely so the navbar stays inside its preview frame rather than covering the rest of the docs page. In your own app, choose whichever fits the layout:
+
+- `fixed` (default) — pinned to the top of the viewport, stays in place while the page scrolls underneath it.
+- `sticky` — scrolls with the page until it reaches the top, then sticks.
+- `static` — flows normally in the document, scrolling away with the rest of the page.
+
+## Props
+
+| Prop       | Type                              | Default   | Description                                                                        |
+| ---------- | --------------------------------- | --------- | ---------------------------------------------------------------------------------- |
+| `logoSrc`  | `string`                          | —         | URL of a logo image. Ignored if the `logo` slot is used.                           |
+| `logoText` | `string`                          | —         | Text logo, rendered when `logoSrc` is not set. Ignored if the `logo` slot is used. |
+| `navItems` | `NavItem[]`                       | `[]`      | Navigation links rendered on desktop and inside the mobile menu.                   |
+| `class`    | `string`                          | —         | Applied to every navigation link.                                                  |
+| `style`    | `string`                          | —         | Inline style applied to the `<nav>` element.                                       |
+| `position` | `'fixed' \| 'sticky' \| 'static'` | `'fixed'` | Controls how the navbar is positioned relative to the page.                        |
+
+### NavItem
+
+| Field         | Type      | Description                                                             |
+| ------------- | --------- | ----------------------------------------------------------------------- |
+| `label`       | `string`  | Text shown for the link.                                                |
+| `href`        | `string`  | Destination URL.                                                        |
+| `hasDropdown` | `boolean` | Shows a chevron indicator next to the label. Optional, default `false`. |
+
+### Slots
+
+| Slot      | Description                                                                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `logo`    | Replaces the default `logoSrc` / `logoText` rendering entirely.                                                                      |
+| `actions` | Replaces the default "Apply Now" button. Use it to render one or more `Link` components, for example a "Login" and "Apply Now" pair. |

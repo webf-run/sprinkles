@@ -1,35 +1,100 @@
-// @ts-check
-import path from 'node:path';
-
-import node from '@astrojs/node';
-import solidJs from '@astrojs/solid-js';
+import solid from '@astrojs/solid-js';
+import starlight from '@astrojs/starlight';
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
 export default defineConfig({
-  output: 'server',
-  adapter: node({
-    mode: 'standalone',
-  }),
+  srcDir: './site',
+  publicDir: './public',
+  outDir: './dist',
 
-  integrations: [solidJs()],
+  integrations: [
+    solid(),
+    starlight({
+      title: '@webf/sprinkles',
+      social: [
+        {
+          icon: 'github',
+          label: 'GitHub',
+          href: 'https://github.com/webf-run/sprinkles',
+        },
+      ],
+      head: [
+        {
+          tag: 'script',
 
-  // Vite configuration for better performance
+          attrs: {
+            type: 'importmap',
+          },
+          content: JSON.stringify({
+            imports: {
+              'astro/runtime/server/index.js': '/play/astro-runtime.js',
+              '@webf/sprinkles': '/play/sprinkles.lib.js',
+            },
+          }),
+        },
+      ],
+      components: {
+        Header: './site/components/starlight/Header.astro',
+      },
+
+      customCss: ['./site/styles/custom.css'],
+      sidebar: [
+        {
+          label: 'Getting Started',
+          items: [
+            {
+              label: 'Installation',
+              slug: 'getting-started/installation',
+            },
+          ],
+        },
+        {
+          label: 'Components',
+          items: [
+            {
+              label: 'Link',
+              slug: 'components/link',
+            },
+            { label: 'Navbar', slug: 'components/navbar' },
+            { label: 'Footer', slug: 'components/footer' },
+            { label: 'Badge', slug: 'components/badge' },
+          ],
+        },
+        {
+          label: 'Cards',
+          items: [
+            { label: 'Feature Card', slug: 'cards/feature-card' },
+            { label: 'Benefit Card', slug: 'cards/benefit-card' },
+            { label: 'Testimonial Card', slug: 'cards/testimonial-card' },
+            { label: 'Company Card', slug: 'cards/company-card' },
+            { label: 'Stat Card', slug: 'cards/stat-card' },
+            {
+              label: 'Placement Stat Card',
+              slug: 'cards/placement-stat-card',
+            },
+          ],
+        },
+      ],
+    }),
+  ],
+
   vite: {
-    resolve: {
-      alias: {
-        // Force lucide-solid to use pre-compiled JS instead of JSX
-        'lucide-solid': path.join(
-          process.cwd(),
-          'node_modules/lucide-solid/dist/esm/lucide-solid.js'
-        ),
+    plugins: [tailwindcss()],
+    ssr: {
+      noExternal: ['lucide-astro'],
+    },
+    server: {
+      watch: {
+        ignored: ['**/.playground-tmp/**'],
       },
     },
-    // Optimize dependency pre-bundling
+    resolve: {
+      alias: {},
+    },
     optimizeDeps: {
-      include: ['lucide-solid'],
-      // Force pre-bundling of lucide-solid to avoid JSX compilation
-      force: true,
+      exclude: ['@astrojs/compiler'],
+      include: ['esbuild-wasm'],
     },
   },
 });

@@ -1,0 +1,143 @@
+---
+title: Installation
+description: Install Astro UI into your Astro project.
+sidebar:
+  label: Installation
+tableOfContents: false
+---
+
+import { Link } from '@webf/sprinkles';
+
+# Installation
+
+Astro UI is a modern component library for Astro. It provides beautiful, accessible, and customizable UI components that are easy to integrate into your project.
+
+---
+
+## Requirements
+
+Before installing Astro UI, make sure you have:
+
+- Astro 5+
+- Node.js 20+
+- npm, pnpm, yarn, or bun
+
+---
+
+## Create a New Astro Project
+
+```bash
+npm create astro@latest
+```
+
+or
+
+```bash
+pnpm create astro
+```
+
+Move into your project.
+
+```bash
+cd my-project
+```
+
+---
+
+## Install Astro UI
+
+### npm
+
+```bash
+npm install @webf/sprinkles
+```
+
+### pnpm
+
+```bash
+pnpm add @webf/sprinkles
+```
+
+### yarn
+
+```bash
+yarn add @webf/sprinkles
+```
+
+### bun
+
+```bash
+bun add @webf/sprinkles
+```
+
+---
+
+## Import the Styles
+
+Import the global stylesheet inside your main layout.
+
+```astro
+---
+import '@webf/sprinkles/style.css';
+---
+```
+
+---
+
+## Use Your First Component
+
+```astro
+---
+import { Link } from '@webf/sprinkles';
+---
+
+<Link> Hello Astro UI </Link>
+```
+
+Result:
+
+<Link>Hello Astro UI</Link>
+
+---
+
+## Verify Installation
+
+If everything is installed correctly, you should see the button rendered in your application.
+
+---
+
+## Folder Structure
+
+```text
+src/
+ ├── layouts/
+ │    └── Layout.astro
+ ├── pages/
+ │    └── index.astro
+ └── components/
+```
+
+---
+
+## Next Steps
+
+Continue with the Button documentation to learn how to customize components.
+
+<div style="margin-top:2rem">
+
+<a
+  href='/docs/components/link'
+  style='
+    display:inline-flex;
+    padding:12px 20px;
+    border-radius:10px;
+    background:#111;
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+  '
+>
+  Button Documentation →
+</a>
+
+</div>

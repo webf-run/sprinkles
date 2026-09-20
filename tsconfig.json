@@ -1,11 +1,15 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "noEmit": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "verbatimModuleSyntax": true
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
   },
-  "references": [{ "path": "./astro.tsconfig.json" }],
-  "files": [],
-  "include": []
+  "include": [
+    ".astro/types.d.ts",
+    "site/**/*",
+    "lib-legacy/**/*",
+    "astro.config.mjs",
+    "public",
+    "scripts/**/*"
+  ]
 }

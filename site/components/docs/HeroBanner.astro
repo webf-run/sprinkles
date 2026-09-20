@@ -1,0 +1,249 @@
+---
+import { ArrowRight, Code2, Sparkles } from 'lucide-astro';
+
+const installCode = `npm create astro-ui@latest`;
+
+const astroCode = `---
+import { Button } from "@astro-ui/astro";
+---
+
+<Button>Hello World</Button>`;
+---
+
+<section
+  class:list={[
+    'relative mx-auto box-border grid w-full max-w-[1800px]',
+    'grid-cols-1 gap-8 py-2',
+    'lg:grid-cols-2',
+  ]}
+>
+  <!-- BACKGROUND -->
+  <div
+    class:list={[
+      'absolute -inset-52 z-[-1]',
+      'blur-2xl',
+      'bg-[radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.15),transparent_45%),radial-gradient(circle_at_80%_60%,rgba(236,72,153,0.12),transparent_45%)]',
+    ]}
+  >
+  </div>
+
+  <!-- LEFT -->
+  <div class:list={['flex min-w-0 flex-col justify-center gap-5 border-0']}>
+    <!-- Badge -->
+    <a
+      href='/docs'
+      class:list={[
+        'inline-flex w-fit items-center gap-2.5',
+        'rounded-full',
+        'border border-(--sl-color-gray-5)',
+        'bg-[color-mix(in_srgb,var(--sl-color-bg-nav)_70%,transparent)]',
+        'px-4 py-2.5',
+        'text-(--sl-color-text)!',
+        'no-underline',
+        'backdrop-blur-md',
+        'transition-transform duration-200',
+        'hover:-translate-y-0.5',
+      ]}
+    >
+      <Sparkles class:list={['shrink-0']} />
+
+      <span> Introducing Astro UI </span>
+
+      <ArrowRight class:list={['shrink-0']} />
+    </a>
+
+    <!-- Heading -->
+    <h1
+      class:list={[
+        'mt-2.5!',
+        'text-[42px] leading-[1.05]',
+        'font-extrabold tracking-[-2px]',
+        'lg:text-[54px]',
+      ]}
+    >
+      <span
+        class:list={[
+          'mr-2',
+          'bg-linear-to-r from-[#7c3aed] to-[#3b82f6]',
+          'bg-clip-text',
+          'text-transparent',
+        ]}
+      >
+        Astro UI
+      </span>
+
+      <span>component library</span>
+    </h1>
+
+    <!-- Description -->
+    <p class:list={['max-w-130', 'text-[18px]', 'opacity-75']}>
+      Build modern, accessible and themeable UI components for Astro with
+      production-ready patterns.
+    </p>
+
+    <!-- Buttons -->
+    <div class:list={['flex gap-3']}>
+      <!-- Get Started -->
+      <a
+        href='/getting-started/installation'
+        class:list={[
+          'rounded-[10px]',
+          'px-4.5 py-3',
+          'font-semibold no-underline',
+          'bg-(--sl-color-text)',
+          'text-(--sl-color-bg)!',
+          'transition-all duration-200',
+          'hover:-translate-y-0.75',
+          'hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]',
+        ]}
+      >
+        Get Started
+      </a>
+
+      <!-- Components -->
+      <a
+        href='/components/link'
+        class:list={[
+          'rounded-[10px]',
+          'px-4.5 py-3',
+          'font-semibold no-underline',
+          'bg-(--sl-color-gray-6)',
+          'text-(--sl-color-text)!',
+          'transition-all duration-200',
+          'hover:-translate-y-0.75',
+          'hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]',
+        ]}
+      >
+        Components
+      </a>
+
+      <!-- GitHub -->
+      <a
+        href='https://github.com'
+        class:list={[
+          'rounded-[10px]',
+          'border border-(--sl-color-gray-5)',
+          'px-4.5 py-3',
+          'font-semibold no-underline',
+          'text-(--sl-color-text)!',
+          'transition-all duration-200',
+          'hover:-translate-y-0.75',
+          'hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]',
+        ]}
+      >
+        GitHub
+      </a>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div
+    class:list={[
+      'flex h-full min-w-0 flex-col justify-between',
+      'mt-5',
+      'lg:mt-0',
+    ]}
+  >
+    <!-- INSTALL CARD -->
+    <div
+      class:list={[
+        'flex w-full min-w-0 flex-1 flex-col',
+        'rounded-2xl',
+        'border border-(--sl-color-gray-5)',
+        'bg-[color-mix(in_srgb,var(--sl-color-bg-nav)_70%,transparent)]',
+        'p-3.75',
+        'backdrop-blur-[14px]',
+        'transition-transform duration-200',
+        'hover:-translate-y-1',
+      ]}
+    >
+      <!-- Card Header -->
+      <div class:list={['flex items-center gap-3']}>
+        <div
+          class:list={[
+            'grid h-10 w-10 shrink-0 place-items-center',
+            'rounded-xl',
+            'bg-(--sl-color-gray-6)',
+          ]}
+        >
+          <Code2 />
+        </div>
+
+        <div>
+          <h3 class:list={['m-0 text-[18px]']}>Install</h3>
+
+          <p class:list={['m-0 text-sm opacity-60']}>
+            Bootstrap your project instantly
+          </p>
+        </div>
+      </div>
+
+      <!-- Code -->
+      <div
+        class:list={[
+          'mt-4 w-full min-w-0 overflow-x-hidden',
+          'rounded-[14px]',
+          'border border-(--sl-color-gray-5)',
+          'bg-[#0b0b0b]',
+        ]}
+      >
+        <pre
+          class:list={[
+            'm-0 w-full min-w-0 overflow-x-auto',
+            'whitespace-pre',
+            'text-sm text-[#e5e7eb]',
+          ]}>{installCode}</pre>
+      </div>
+    </div>
+
+    <!-- USE CARD -->
+    <div
+      class:list={[
+        'flex w-full min-w-0 flex-1 flex-col',
+        'rounded-2xl',
+        'border border-(--sl-color-gray-5)',
+        'bg-[color-mix(in_srgb,var(--sl-color-bg-nav)_70%,transparent)]',
+        'p-3.75',
+        'backdrop-blur-[14px]',
+        'transition-transform duration-200',
+        'hover:-translate-y-1',
+      ]}
+    >
+      <!-- Card Header -->
+      <div class:list={['flex items-center gap-3']}>
+        <div
+          class:list={[
+            'grid h-10 w-10 shrink-0 place-items-center',
+            'rounded-xl',
+            'bg-(--sl-color-gray-6)',
+          ]}
+        >
+          <Code2 />
+        </div>
+
+        <div>
+          <h3 class:list={['m-0 text-[18px]']}>Use</h3>
+
+          <p class:list={['m-0 text-sm opacity-60']}>Drop-in components</p>
+        </div>
+      </div>
+
+      <!-- Code -->
+      <div
+        class:list={[
+          'mt-4 w-full min-w-0 overflow-x-hidden',
+          'rounded-[14px]',
+          'border border-(--sl-color-gray-5)',
+          'bg-[#0b0b0b]',
+        ]}
+      >
+        <pre
+          class:list={[
+            'm-0 w-full min-w-0 overflow-x-auto',
+            'whitespace-pre',
+            'text-sm text-[#e5e7eb]',
+          ]}>{astroCode}</pre>
+      </div>
+    </div>
+  </div>
+</section>

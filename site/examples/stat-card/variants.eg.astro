@@ -1,0 +1,19 @@
+---
+import { ChartNoAxesCombined, TrendingUp } from '@lucide/astro';
+import { StatCard } from '@webf/sprinkles';
+---
+
+<div class:list={['grid gap-4 sm:grid-cols-2']}>
+  <StatCard
+    variant='purple'
+    icon={TrendingUp}
+    value='24%'
+    label='Growth this quarter'
+  />
+  <StatCard
+    variant='orange'
+    icon={ChartNoAxesCombined}
+    value='8.4k'
+    label='Monthly visits'
+  />
+</div>

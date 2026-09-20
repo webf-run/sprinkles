@@ -1,37 +1,75 @@
 {
   "name": "@webf/sprinkles",
-  "version": "0.0.1",
   "private": true,
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webf-run/sprinkles.git"
+  },
+  "homepage": "https://github.com/webf-run/sprinkles",
+  "bugs": {
+    "url": "https://github.com/webf-run/sprinkles/issues"
+  },
   "type": "module",
   "scripts": {
-    "check:types": "tsc --build",
-    "dev": "astro dev",
-    "dev:format": "prettier --write .",
+    "check": "astro check && pnpm run check:types",
+    "check:types": "tsc --noEmit",
     "build": "astro build",
+    "dev": "astro dev",
+    "lint": "pnpm -r lint",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "preview": "astro preview"
   },
+  "exports": {
+    ".": "./lib/index.ts",
+    "./style.css": "./dist/style.css"
+  },
   "dependencies": {
-    "@ark-ui/solid": "^5.31.0",
-    "@astrojs/node": "10.0.0-beta.3",
-    "@astrojs/solid-js": "6.0.0-beta.2",
-    "astro": "6.0.0-beta.10",
+    "@codemirror/language": "^6.12.4",
+    "@lezer/common": "^1.5.2",
+    "@lit/reactive-element": "^2.1.2",
+    "@lucide/astro": "^1.23.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.13.2",
+    "astro": "^7.2.2",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-solid": "^0.562.0",
-    "solid-js": "^1.9.11"
+    "lucide-astro": "^0.556.0",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@faker-js/faker": "^10.3.0",
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/compiler": "^4.0.0",
+    "@astrojs/mdx": "^7.0.5",
+    "@astrojs/solid-js": "^7.0.2",
+    "@astrojs/starlight": "^0.41.7",
+    "@codemirror/commands": "^6.10.4",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "@codemirror/view": "^6.34.0",
+    "@fontsource-variable/ibm-plex-sans": "^5.2.8",
+    "@fontsource-variable/jetbrains-mono": "^5.2.8",
+    "@tailwindcss/cli": "^4.3.2",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-    "@types/node": "^24.10.13",
-    "prettier": "^3.8.1",
+    "@webcontainer/api": "^1.6.4",
+    "esbuild-wasm": "^0.25.1",
+    "lucide-solid": "^1.25.0",
+    "prettier": "^3.9.4",
     "prettier-plugin-astro": "^0.14.1",
-    "solid-devtools": "^0.30.1",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "solid-js": "^1.9.14",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3"
   },
-  "volta": {
-    "node": "24.13.0"
-  },
-  "packageManager": "pnpm@12.5.1+sha512.e3f305bc784a2bc89f5ad3b6138889470fae8d2af5f36b61216ec91c2c3d64089775f9de38aac331044ea40f245cb0d5666392dfdf65824e1907ef6a2c62de5f"
+  "packageManager": "pnpm@12.5.1",
+  "keywords": [
+    "astro",
+    "ui",
+    "components",
+    "tailwindcss"
+  ]
 }

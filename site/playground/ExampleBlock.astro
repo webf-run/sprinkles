@@ -1,0 +1,13 @@
+---
+interface Props {
+  /** Raw source shown in the code panel and used as the editor's starting doc. */
+  code: string;
+
+  /** Filename shown in the header, matches the playground's convention. */
+  filename?: string;
+}
+---
+
+<div class='min-h-48 w-full bg-(--sl-color-bg) p-4' data-example-output>
+  <slot />
+</div>

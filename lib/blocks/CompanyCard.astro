@@ -1,0 +1,121 @@
+---
+import type { AstroComponent } from '@lucide/astro';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const companyLogoCardVariants = cva(
+  'flex shrink-0 items-center justify-center rounded-xl border transition-all duration-200',
+  {
+    variants: {
+      variant: {
+        default: 'border-border bg-surface',
+        muted: 'border-border-subtle bg-surface-muted',
+        accent: 'border-surface-accent-strong bg-surface-accent',
+        purple: 'border-badge-purple-background bg-badge-purple-background',
+        orange: 'border-badge-orange-background bg-badge-orange-background',
+        green: 'border-badge-green-background bg-badge-green-background',
+        blue: 'border-badge-blue-background bg-badge-blue-background',
+        neutral: 'border-badge-neutral-background bg-badge-neutral-background',
+      },
+
+      size: {
+        sm: 'h-15 w-30 p-3',
+        md: 'h-20 w-40 p-4',
+        lg: 'h-28 w-56 p-6',
+      },
+
+      effect: {
+        none: '',
+        lift: 'hover:-translate-y-1 hover:shadow-lg',
+        scale: 'hover:scale-105',
+      },
+    },
+
+    defaultVariants: {
+      variant: 'default',
+      size: 'md',
+      effect: 'scale',
+    },
+  }
+);
+
+interface Props extends VariantProps<typeof companyLogoCardVariants> {
+  logo: string | AstroComponent;
+  companyName: string;
+  href?: string;
+  class?: string;
+}
+
+const {
+  logo,
+  companyName,
+  href,
+  variant,
+  size,
+  effect,
+  class: className = '',
+} = Astro.props;
+
+const isInlineSvg = typeof logo === 'string' && logo.trim().startsWith('<svg');
+
+const isSvgComponent = typeof logo !== 'string';
+
+const logoClasses = 'max-h-12 w-auto max-w-full object-contain';
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      target='_blank'
+      rel='noopener noreferrer'
+      aria-label={`Visit ${companyName}`}
+      class:list={[
+        companyLogoCardVariants({ variant, size, effect }),
+        className,
+      ]}
+    >
+      {isInlineSvg ? (
+        <div
+          class:list={['h-12 w-auto max-w-full']}
+          set:html={logo as string}
+        />
+      ) : isSvgComponent ? (
+        (() => {
+          const Logo = logo as AstroComponent;
+          return <Logo class:list={[logoClasses]} />;
+        })()
+      ) : (
+        <img
+          src={logo as string}
+          alt={`${companyName} logo`}
+          class:list={[logoClasses]}
+        />
+      )}
+    </a>
+  ) : (
+    <div
+      class:list={[
+        companyLogoCardVariants({ variant, size, effect }),
+        className,
+      ]}
+    >
+      {isInlineSvg ? (
+        <div
+          class:list={['h-12 w-auto max-w-full']}
+          set:html={logo as string}
+        />
+      ) : isSvgComponent ? (
+        (() => {
+          const Logo = logo as AstroComponent;
+          return <Logo class:list={[logoClasses]} />;
+        })()
+      ) : (
+        <img
+          src={logo as string}
+          alt={`${companyName} logo`}
+          class:list={[logoClasses]}
+        />
+      )}
+    </div>
+  )
+}

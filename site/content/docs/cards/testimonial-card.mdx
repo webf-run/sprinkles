@@ -1,0 +1,86 @@
+---
+title: Testimonial Card
+description: Showcase a customer quote alongside their name, role, and an optional rating.
+---
+
+import BasicOutput from '../../../examples/testimonial-card/basic.eg.astro';
+import basicCode from '../../../examples/testimonial-card/basic.eg.astro?raw';
+import ColorsOutput from '../../../examples/testimonial-card/colors.eg.astro';
+import colorsCode from '../../../examples/testimonial-card/colors.eg.astro?raw';
+import SizesOutput from '../../../examples/testimonial-card/sizes.eg.astro';
+import sizesCode from '../../../examples/testimonial-card/sizes.eg.astro?raw';
+import RatingOutput from '../../../examples/testimonial-card/rating.eg.astro';
+import ratingCode from '../../../examples/testimonial-card/rating.eg.astro?raw';
+import GridOutput from '../../../examples/testimonial-card/grid.eg.astro';
+import gridCode from '../../../examples/testimonial-card/grid.eg.astro?raw';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+`TestimonialCard` pairs a quote with the person who said it. It works as a
+single highlighted quote or repeated in a grid, and it carries no
+site-specific copy so it drops into a marketing page, a product changelog,
+or a review section on any theme.
+
+## Basic
+
+Use the basic example when you need to display a simple customer testimonial
+with the quote, person's name, and role. This is the simplest way to introduce
+a testimonial without additional visual options.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Color variants
+
+Use color variants to give testimonials different visual treatments while
+keeping them consistent with the application's semantic color system. These
+variants are useful when testimonials need to match different sections,
+brands, or themes.
+
+<ExampleBlock code={colorsCode}>
+  <ColorsOutput />
+</ExampleBlock>
+
+## Sizes
+
+The size option controls the spacing and typography of the testimonial card.
+Use `sm` for compact layouts, `md` for the default layout, and `lg` when the
+testimonial needs more visual emphasis.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## Avatar and rating
+
+Use the avatar option when you want to show the testimonial author's image.
+The optional rating can be added independently to display a 0–5 star rating.
+Both options can also be omitted when a text-focused testimonial is preferred.
+
+<ExampleBlock code={ratingCode}>
+  <RatingOutput />
+</ExampleBlock>
+
+## Grid arrangement
+
+Use the testimonial card in a grid when displaying multiple customer reviews
+or testimonials together. This example demonstrates how multiple cards can be
+arranged while maintaining consistent spacing and alignment.
+
+<ExampleBlock code={gridCode}>
+  <GridOutput />
+</ExampleBlock>
+
+## Props
+
+| Prop      | Type                                                                                                      | Default     | Description                        |
+| --------- | --------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------- |
+| `quote`   | `string`                                                                                                  | —           | The testimonial text.              |
+| `name`    | `string`                                                                                                  | —           | Name of the person quoted.         |
+| `role`    | `string`                                                                                                  | —           | Their role, title, or affiliation. |
+| `avatar`  | `string`                                                                                                  | —           | Optional avatar image URL.         |
+| `rating`  | `number`                                                                                                  | —           | Optional star rating from 0–5.     |
+| `variant` | `'default' \| 'muted' \| 'accent' \| 'inverse' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.       |
+| `size`    | `'sm' \| 'md' \| 'lg'`                                                                                    | `'md'`      | Card spacing and type scale.       |
+| `effect`  | `'none' \| 'lift' \| 'glow'`                                                                              | `'none'`    | Hover effect.                      |
+| `class`   | `string`                                                                                                  |

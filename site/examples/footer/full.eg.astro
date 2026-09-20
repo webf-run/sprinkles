@@ -1,0 +1,74 @@
+---
+import { Globe, MessageCircle } from '@lucide/astro';
+
+import { Facebook, Footer, Instagram, Linkedin } from '@webf/sprinkles';
+---
+
+<Footer
+  variant='muted'
+  size='md'
+  effect='none'
+  logoText='Astro UI'
+  headingVariant='foreground'
+  subtitleVariant='muted'
+  descriptionVariant='foreground'
+  linkVariant='blue'
+  contactVariant='foreground'
+  contactIconVariant='primary'
+  description='Build polished and accessible web interfaces with a flexible collection of reusable components designed for modern Astro projects.'
+  address='Astro UI Documentation'
+  phone='+1 (000) 000-0000'
+  email='hello@astroui.dev'
+  emailLabel='Email'
+  phoneVariant='primary'
+  emailVariant='secondary'
+  ctaTitle='Build something better with Astro UI.'
+  ctaSubtitle='Explore components, examples, and documentation to create consistent interfaces faster.'
+  quickLinks={[
+    [
+      { label: 'Components', href: '#' },
+      { label: 'Documentation', href: '#' },
+      { label: 'Examples', href: '#' },
+      { label: 'Getting Started', href: '#' },
+    ],
+    [
+      { label: 'Guides', href: '#' },
+      { label: 'Accessibility', href: '#' },
+      { label: 'GitHub', href: '#' },
+      { label: 'Contact', href: '#' },
+    ],
+  ]}
+  socialLinks={[
+    {
+      label: 'Website',
+      href: '#',
+      icon: Globe,
+      iconVariant: 'blue',
+    },
+    {
+      label: 'Instagram',
+      href: '#',
+      icon: Instagram,
+      iconVariant: 'blue',
+    },
+    {
+      label: 'Facebook',
+      href: '#',
+      icon: Facebook,
+      iconVariant: 'blue',
+    },
+    {
+      label: 'LinkedIn',
+      href: '#',
+      icon: Linkedin,
+      iconVariant: 'blue',
+    },
+    {
+      label: 'Community',
+      href: '#',
+      icon: MessageCircle,
+      iconVariant: 'blue',
+    },
+  ]}
+  copyright='Astro UI. Built for modern web projects.'
+/>

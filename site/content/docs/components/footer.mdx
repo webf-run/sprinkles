@@ -1,0 +1,253 @@
+---
+title: Footer
+description: A themeable page footer with an optional CTA banner, contact information, link groups, and social links.
+---
+
+import BasicOutput from '../../../examples/footer/basic.eg.astro';
+import basicCode from '../../../examples/footer/basic.eg.astro?raw';
+import FullOutput from '../../../examples/footer/full.eg.astro';
+import fullCode from '../../../examples/footer/full.eg.astro?raw';
+import VariantsOutput from '../../../examples/footer/variants.eg.astro';
+import variantsCode from '../../../examples/footer/variants.eg.astro?raw';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+`Footer` is a flexible, themeable page footer that supports an optional CTA banner, logo, contact information, quick links, social links, copyright information, background variants, sizes, and visual effects.
+
+Every section is optional, so the Footer can be used for simple pages as well as content-heavy websites.
+
+A logo can be provided using the `logo` slot for complete control, or by using the `logoSrc` or `logoText` props.
+
+## Minimal
+
+The minimal example demonstrates the basic Footer configuration using the default variant, medium size, and no visual effect. It includes the most commonly used content such as a logo, description, contact information, quick links, and social links.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Full Footer
+
+The full example demonstrates a content-rich Footer configuration. It shows how to use a larger Footer size, hover effect, custom email label, CTA button variants, multiple quick-link columns, and several social links.
+
+<ExampleBlock code={fullCode}>
+  <FullOutput />
+</ExampleBlock>
+
+## Variants
+
+The variants example demonstrates different combinations of the Footer's `variant`, `size`, and `effect` props.
+
+The first Footer uses the default styling with medium spacing and no effect. The second uses the muted variant with a small size and shadow effect. The third uses the inverse variant with a large size and glow effect.
+
+This example also demonstrates how `phoneVariant` and `emailVariant` can be customized independently.
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Props
+
+| Prop           | Type                                                                | Default                                               | Description                                                      |
+| -------------- | ------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------- |
+| `logoSrc`      | `string`                                                            | —                                                     | Image URL for the wordmark.                                      |
+| `logoText`     | `string`                                                            | —                                                     | Text wordmark used when no logo image is provided.               |
+| `description`  | `string`                                                            | `''`                                                  | Short description displayed under the logo.                      |
+| `address`      | `string`                                                            | `''`                                                  | Optional postal address displayed with a map-pin icon.           |
+| `phone`        | `string`                                                            | `''`                                                  | Optional phone number displayed in the contact section and CTA.  |
+| `email`        | `string`                                                            | `''`                                                  | Optional email address displayed in the contact section and CTA. |
+| `emailLabel`   | `string`                                                            | `'Email address'`                                     | Label displayed inside the email CTA button.                     |
+| `ctaTitle`     | `string`                                                            | `"Have Questions? We're here."`                       | Heading displayed in the CTA banner.                             |
+| `ctaSubtitle`  | `string`                                                            | `'Our counselors respond to queries within 1-2 days'` | Supporting text displayed in the CTA banner.                     |
+| `quickLinks`   | `FooterLink[][]`                                                    | `[]`                                                  | Array of link columns displayed in the Footer.                   |
+| `socialLinks`  | `FooterSocial[]`                                                    | `[]`                                                  | Social links with an optional icon component.                    |
+| `phoneVariant` | `'primary' \| 'secondary' \| 'success' \| 'purple' \| 'blackwhite'` | `'secondary'`                                         | Visual variant for the phone CTA button.                         |
+| `emailVariant` | `'primary' \| 'secondary' \| 'success' \| 'purple' \| 'blackwhite'` | `'primary'`                                           | Visual variant for the email CTA button.                         |
+| `year`         | `number`                                                            | Current year                                          | Year displayed in the copyright line.                            |
+| `copyright`    | `string`                                                            | `''`                                                  | Text displayed after the year.                                   |
+| `variant`      | `'default' \| 'muted' \| 'inverse'`                                 | `'default'`                                           | Controls the Footer background and foreground treatment.         |
+| `size`         | `'sm' \| 'md' \| 'lg'`                                              | `'md'`                                                | Controls Footer spacing and logo sizing.                         |
+| `effect`       | `'none' \| 'shadow' \| 'lift' \| 'glow'`                            | `'none'`                                              | Controls the visual effect applied to the Footer.                |
+| `class`        | `string`                                                            | —                                                     | Additional Tailwind CSS classes.                                 |
+
+## Quick Links
+
+`quickLinks` accepts an array of arrays. Each inner array represents one column of links.
+
+```ts
+const quickLinks = [
+  [
+    { label: 'Components', href: '#' },
+    { label: 'Documentation', href: '#' },
+    { label: 'Examples', href: '#' },
+  ],
+  [
+    { label: 'Getting Started', href: '#' },
+    { label: 'Guides', href: '#' },
+    { label: 'Contact', href: '#' },
+  ],
+];
+
+You can provide one or more link columns depending on the amount of navigation content required.
+
+Social Links
+
+socialLinks accepts an array containing a label, URL, and optional icon component.
+
+const socialLinks = [
+  {
+    label: 'Instagram',
+    href: '#',
+    icon: Instagram,
+  },
+  {
+    label: 'Facebook',
+    href: '#',
+    icon: Facebook,
+  },
+  {
+    label: 'LinkedIn',
+    href: '#',
+    icon: Linkedin,
+  },
+];
+
+The icon property is optional. When provided, the icon is displayed inside the social link button.
+
+CTA Button Variants
+
+The phone and email CTA buttons can use different Link variants.
+
+<Footer
+  phone='+1 (000) 000-0000'
+  email='hello@astroui.dev'
+  phoneVariant='purple'
+  emailVariant='success'
+/>
+
+If these props are not provided, the default variants are:
+
+CTA	Default variant
+Phone	secondary
+Email	primary
+Footer Variants
+
+The variant prop controls the Footer's background and foreground treatment.
+
+Default
+<Footer variant='default' />
+
+Uses the default surface background.
+
+Muted
+<Footer variant='muted' />
+
+Uses the muted surface background.
+
+Inverse
+<Footer variant='inverse' />
+
+Uses the accent background and accent foreground colors.
+
+Footer Sizes
+
+The size prop controls the Footer spacing and logo size.
+
+Small
+<Footer size='sm' />
+
+Use the small size when a more compact Footer layout is required.
+
+Medium
+<Footer size='md' />
+
+The medium size is the default and is suitable for most pages.
+
+Large
+<Footer size='lg' />
+
+Use the large size when more spacing and visual emphasis are required.
+
+Footer Effects
+
+The effect prop controls the visual effect applied to the Footer.
+
+None
+<Footer effect='none' />
+
+Displays the Footer without an additional visual effect.
+
+Shadow
+<Footer effect='shadow' />
+
+Adds a subtle shadow to the Footer.
+
+Lift
+<Footer effect='lift' />
+
+Adds a shadow transition when the user hovers over the Footer.
+
+Glow
+<Footer effect='glow' />
+
+Adds a subtle glow effect to the Footer.
+
+Logo
+
+The Footer supports text, image, and slot-based logos.
+
+Text Logo
+<Footer logoText='Astro UI' />
+Image Logo
+<Footer
+  logoSrc='/images/logo.svg'
+  logoText='Astro UI'
+/>
+Logo Slot
+<Footer>
+  <img
+    slot='logo'
+    src='/images/logo.svg'
+    alt='Astro UI'
+  />
+</Footer>
+
+The logo slot provides complete control over the logo markup.
+
+Complete Example
+
+The following example combines the main Footer features into a single configuration.
+
+<Footer
+  variant='default'
+  size='md'
+  effect='none'
+  logoText='Astro UI'
+  description='A collection of accessible, reusable, and customizable UI components for modern web applications.'
+  address='Astro UI Documentation'
+  phone='+1 (000) 000-0000'
+  email='hello@astroui.dev'
+  emailLabel='Email us'
+  phoneVariant='secondary'
+  emailVariant='primary'
+  ctaTitle='Need help with Astro UI?'
+  ctaSubtitle='Explore the documentation or reach out to our team for support.'
+  quickLinks={[
+    [
+      { label: 'Components', href: '#' },
+      { label: 'Documentation', href: '#' },
+      { label: 'Examples', href: '#' },
+    ],
+    [
+      { label: 'Getting Started', href: '#' },
+      { label: 'Guides', href: '#' },
+      { label: 'Contact', href: '#' },
+    ],
+  ]}
+  socialLinks={[
+    { label: 'Instagram', href: '#', icon: Instagram },
+    { label: 'Facebook', href: '#', icon: Facebook },
+    { label: 'LinkedIn', href: '#', icon: Linkedin },
+  ]}
+  copyright='Astro UI. All rights reserved.'
+/>
+```

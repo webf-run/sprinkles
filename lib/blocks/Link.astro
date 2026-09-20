@@ -1,0 +1,110 @@
+---
+import { cva, type VariantProps } from 'class-variance-authority';
+import { ArrowRight } from 'lucide-astro';
+
+const buttonVariants = cva(
+  'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold transition-all duration-300 focus:outline-none focus:ring-2',
+  {
+    variants: {
+      variant: {
+        primary: 'border-transparent bg-primary text-primary-foreground',
+
+        secondary:
+          'border-secondary-border bg-secondary text-secondary-foreground',
+
+        success: 'border-success-border bg-success text-success-foreground',
+
+        purple:
+          'rounded-md border-secondary-border bg-accent text-sm text-accent-foreground',
+
+        blackwhite:
+          'border-border-subtle bg-secondary text-sm text-foreground-muted',
+      },
+
+      size: {
+        sm: 'px-4 py-2 text-sm',
+        md: 'px-6 py-3 text-sm',
+        lg: 'px-8 py-4 text-lg',
+      },
+
+      disabled: {
+        true: 'pointer-events-none cursor-not-allowed opacity-50',
+        false: '',
+      },
+    },
+
+    defaultVariants: {
+      variant: 'primary',
+      size: 'md',
+      disabled: false,
+    },
+  }
+);
+
+interface Props extends VariantProps<typeof buttonVariants> {
+  href?: string;
+  disabled?: boolean;
+  loading?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  style?: string;
+  target?: string;
+  rel?: string;
+  showIcon?: boolean;
+  icon?: any;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  disabled = false,
+  loading = false,
+  type = 'button',
+  class: className = '',
+  style = '',
+  target,
+  rel,
+  showIcon = false,
+  icon: Icon,
+  ...rest
+} = Astro.props;
+
+const buttonClasses = buttonVariants({
+  variant,
+  size,
+  disabled: disabled || loading,
+});
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      target={target}
+      rel={rel}
+      style={style}
+      class:list={[buttonClasses, className]}
+      aria-disabled={disabled || loading}
+      {...rest}
+    >
+      <span>{loading ? 'Loading...' : <slot />}</span>
+
+      {showIcon && !loading && <ArrowRight size={18} />}
+    </a>
+  ) : (
+    <button
+      type={type}
+      disabled={disabled || loading}
+      style={style}
+      class:list={[buttonClasses, className]}
+      {...rest}
+    >
+      <span>{loading ? 'Loading...' : <slot />}</span>
+
+      {showIcon && !loading && <ArrowRight size={18} />}
+
+      {Icon && <Icon size={16} strokeWidth={2} />}
+    </button>
+  )
+}

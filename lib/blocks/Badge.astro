@@ -1,0 +1,44 @@
+---
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const badgeVariants = cva(
+  'inline-flex items-center justify-center font-semibold leading-normal tracking-widest',
+  {
+    variants: {
+      variant: {
+        purple: 'bg-badge-purple-background text-badge-purple-foreground',
+        orange: 'bg-badge-orange-background text-badge-orange-foreground',
+        green: 'bg-badge-green-background text-badge-green-foreground',
+        blue: 'bg-badge-blue-background text-badge-blue-foreground',
+        neutral: 'bg-badge-neutral-background text-badge-neutral-foreground',
+        pink: 'bg-badge-pink-background text-badge-pink-foreground',
+      },
+
+      size: {
+        sm: 'px-3 py-1.5 text-xs',
+        md: 'px-4 py-2 text-sm',
+        lg: 'px-5 py-2.5 text-base',
+      },
+    },
+
+    defaultVariants: {
+      variant: 'purple',
+      size: 'md',
+    },
+  }
+);
+
+interface Props extends VariantProps<typeof badgeVariants> {
+  class?: string;
+}
+
+const { variant, size, class: className = '' } = Astro.props;
+
+const hasCustomRadius = /(?:^|\s)rounded(?:-[^\s]+)?(?=\s|$)/.test(className);
+
+const shapeClass = hasCustomRadius ? '' : 'rounded-full';
+---
+
+<span class:list={[badgeVariants({ variant, size }), shapeClass, className]}>
+  <slot />
+</span>

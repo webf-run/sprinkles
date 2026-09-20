@@ -1,0 +1,11 @@
+---
+import { Navbar } from '@webf/sprinkles';
+
+const navItems = [
+  { label: 'Product', href: '/product' },
+  { label: 'Solutions', href: '/solutions' },
+  { label: 'Docs', href: '/docs' },
+];
+---
+
+<Navbar logoSrc='/favicon.svg' navItems={navItems} position='static' />

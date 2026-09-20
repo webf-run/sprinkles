@@ -1,0 +1,65 @@
+:root {
+  --site-accent-low-dark: #1e1b4b;
+  --site-accent-dark: #6366f1;
+  --site-accent-high-dark: #c7d2fe;
+
+  --site-accent-low-light: #e0e7ff;
+  --site-accent-light: #6366f1;
+  --site-accent-high-light: #3730a3;
+
+  --site-gradient-start: #7c3aed;
+  --site-gradient-end: #3b82f6;
+
+  --site-code-surface: #0b0b0b;
+  --site-code-foreground: #e5e7eb;
+
+  --site-editor-active-line: #f4f4f6;
+
+  --doc-surface: var(--sl-color-bg);
+  --doc-surface-nav: var(--sl-color-bg-nav);
+
+  --doc-border: var(--sl-color-gray-5);
+  --doc-border-hover: var(--sl-color-gray-4);
+
+  --doc-foreground: var(--sl-color-text);
+  --doc-foreground-muted: var(--sl-color-gray-3);
+  --doc-foreground-subtle: var(--sl-color-gray-2);
+
+  --doc-accent: var(--sl-color-accent);
+  --doc-accent-low: var(--sl-color-accent-low);
+  --doc-accent-high: var(--sl-color-accent-high);
+
+  --doc-code-surface: var(--site-code-surface);
+  --doc-code-foreground: var(--site-code-foreground);
+
+  --doc-danger: #dc2626;
+  --doc-danger-surface: #fef2f2;
+}
+
+:root[data-theme='light'] {
+  --doc-accent: var(--site-accent-light);
+  --doc-accent-low: var(--site-accent-low-light);
+  --doc-accent-high: var(--site-accent-high-light);
+}
+
+@theme inline {
+  --color-doc-surface: var(--doc-surface);
+  --color-doc-surface-nav: var(--doc-surface-nav);
+
+  --color-doc-border: var(--doc-border);
+  --color-doc-border-hover: var(--doc-border-hover);
+
+  --color-doc-foreground: var(--doc-foreground);
+  --color-doc-foreground-muted: var(--doc-foreground-muted);
+  --color-doc-foreground-subtle: var(--doc-foreground-subtle);
+
+  --color-doc-accent: var(--doc-accent);
+  --color-doc-accent-low: var(--doc-accent-low);
+  --color-doc-accent-high: var(--doc-accent-high);
+
+  --color-doc-code-surface: var(--doc-code-surface);
+  --color-doc-code-foreground: var(--doc-code-foreground);
+
+  --color-doc-danger: var(--doc-danger);
+  --color-doc-danger-surface: var(--doc-danger-surface);
+}

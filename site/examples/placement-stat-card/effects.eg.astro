@@ -1,0 +1,21 @@
+---
+import { MousePointer2, Sparkles } from '@lucide/astro';
+import { PlacementStatCard } from '@webf/sprinkles';
+---
+
+<div class:list={['grid gap-4 sm:grid-cols-2']}>
+  <PlacementStatCard
+    effect='lift'
+    icon={MousePointer2}
+    value='92%'
+    title='Lift'
+    subtitle='Interactive outcome card'
+  />
+  <PlacementStatCard
+    effect='glow'
+    icon={Sparkles}
+    value='98%'
+    title='Glow'
+    subtitle='Featured outcome card'
+  />
+</div>

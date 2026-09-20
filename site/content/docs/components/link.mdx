@@ -1,0 +1,78 @@
+---
+title: Link
+description: Link component
+---
+
+import DisableOutput from '../../../examples/link/disabled.eg.astro';
+import disableCode from '../../../examples/link/disabled.eg.astro?raw';
+import IconOutput from '../../../examples/link/icons.eg.astro';
+import iconCode from '../../../examples/link/icons.eg.astro?raw';
+import LinkOutput from '../../../examples/link/links.eg.astro';
+import linkCode from '../../../examples/link/links.eg.astro?raw';
+import LoadingOutput from '../../../examples/link/loading.eg.astro';
+import loadingCode from '../../../examples/link/loading.eg.astro?raw';
+import SizesOutput from '../../../examples/link/sizes.eg.astro';
+import sizesCode from '../../../examples/link/sizes.eg.astro?raw';
+import TypesOutput from '../../../examples/link/types.eg.astro';
+import typesCode from '../../../examples/link/types.eg.astro?raw';
+import VariantsOutput from '../../../examples/link/variants.eg.astro';
+import variantsCode from '../../../examples/link/variants.eg.astro?raw';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+`Link` allow users to trigger actions such as submitting forms, navigating between pages, opening dialogs, or executing commands. The `Link` component provides multiple variants, sizes, and states while maintaining a consistent design across your application.
+
+## Variants
+
+Choose from a collection of predefined Link variants that communicate different visual priorities. Use the primary variant for the most important action, secondary for less prominent actions, and semantic variants such as success to indicate specific meanings.
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Sizes
+
+Select an appropriate Link size based on your interface. Small Link work well in compact layouts, medium is the default choice for most interfaces, and large Link help emphasize important actions.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## Types
+
+The `type` attribute controls how a Link behaves inside a form. Use `submit` to send form data, `reset` to restore default values, and `Link` for custom JavaScript interactions.
+
+<ExampleBlock code={typesCode}>
+  <TypesOutput />
+</ExampleBlock>
+
+## Icons
+
+Link can include icons to improve recognition and provide additional visual context. Icons may appear before or after the label depending on the action they represent.
+
+<ExampleBlock code={iconCode}>
+  <IconOutput />
+</ExampleBlock>
+
+## Disabled
+
+Link can be disabled to prevent interaction. Disabled Link remain visible but cannot be clicked.
+
+<ExampleBlock code={disableCode}>
+  <DisableOutput />
+</ExampleBlock>
+
+## Links
+
+Link can function as links to navigate to other pages or external resources. Render a Link as a link by providing the `href` prop.
+
+<ExampleBlock code={linkCode}>
+  <LinkOutput />
+</ExampleBlock>
+
+## Loading
+
+Link can display a loading state to indicate that an action is in progress. This is useful for actions that take time to complete, such as saving data or submitting a form.
+
+<ExampleBlock code={loadingCode}>
+  <LoadingOutput />
+</ExampleBlock>
