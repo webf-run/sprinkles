@@ -2,6 +2,7 @@ import solid from '@astrojs/solid-js';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
+import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
   srcDir: './site',
@@ -11,7 +12,7 @@ export default defineConfig({
   integrations: [
     solid(),
     starlight({
-      title: '@webf/sprinkles',
+      title: 'Sprinkles',
       social: [
         {
           icon: 'github',
@@ -90,7 +91,9 @@ export default defineConfig({
       },
     },
     resolve: {
-      alias: {},
+      alias: {
+        '@webf/sprinkles': fileURLToPath(new URL('./lib/index.ts', import.meta.url)),
+      },
     },
     optimizeDeps: {
       exclude: ['@astrojs/compiler'],

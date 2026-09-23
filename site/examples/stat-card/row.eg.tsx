@@ -1,0 +1,34 @@
+import { StatCard } from '@webf/sprinkles';
+import { Clock3, MessageSquareText, ThumbsUp } from 'lucide-solid';
+
+export default function Example() {
+  return (
+    <div class='flex flex-row items-stretch gap-4'>
+      <StatCard
+        size='sm'
+        variant='green'
+        icon={ThumbsUp}
+        value='96%'
+        label='Satisfaction'
+      />
+
+      <StatCard
+        size='md'
+        variant='blue'
+        effect='lift'
+        icon={Clock3}
+        value='2 min'
+        label='Response time'
+      />
+
+      <StatCard
+        size='lg'
+        variant='purple'
+        effect='glow'
+        icon={MessageSquareText}
+        value='1.2k'
+        label='Reviews'
+      />
+    </div>
+  );
+}

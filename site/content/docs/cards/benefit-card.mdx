@@ -3,16 +3,16 @@ title: Benefit Card
 description: Highlight a benefit or reason to choose you with an icon, title, and a short bulleted list.
 ---
 
-import BasicOutput from '../../../examples/benefit-card/basic.eg.astro';
-import basicCode from '../../../examples/benefit-card/basic.eg.astro?raw';
-import ColorsOutput from '../../../examples/benefit-card/colors.eg.astro';
-import colorsCode from '../../../examples/benefit-card/colors.eg.astro?raw';
-import SizesOutput from '../../../examples/benefit-card/sizes.eg.astro';
-import sizesCode from '../../../examples/benefit-card/sizes.eg.astro?raw';
-import EffectsOutput from '../../../examples/benefit-card/effects.eg.astro';
-import effectsCode from '../../../examples/benefit-card/effects.eg.astro?raw';
-import GridOutput from '../../../examples/benefit-card/grid.eg.astro';
-import gridCode from '../../../examples/benefit-card/grid.eg.astro?raw';
+import BasicOutput from '../../../examples/benefit-card/basic.eg.tsx';
+import basicCode from '../../../examples/benefit-card/basic.eg.tsx?raw';
+import ColorsOutput from '../../../examples/benefit-card/colors.eg.tsx';
+import colorsCode from '../../../examples/benefit-card/colors.eg.tsx?raw';
+import SizesOutput from '../../../examples/benefit-card/sizes.eg.tsx';
+import sizesCode from '../../../examples/benefit-card/sizes.eg.tsx?raw';
+import EffectsOutput from '../../../examples/benefit-card/effects.eg.tsx';
+import effectsCode from '../../../examples/benefit-card/effects.eg.tsx?raw';
+import GridOutput from '../../../examples/benefit-card/grid.eg.tsx';
+import gridCode from '../../../examples/benefit-card/grid.eg.tsx?raw';
 import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
 `BenefitCard` pairs an optional icon with a heading and a short bulleted list. Use it for "why choose us" sections, product benefit grids, service differentiators, or any block that summarizes a handful of reasons with a short list. The content is flexible, so it can be used across education websites, SaaS products, agency portfolios, and other content-focused interfaces.
@@ -83,7 +83,7 @@ For example, it can be used for:
 | --------- | --------------------------------------------------------------------------------------------------------- | ----------- | -------------------------------- |
 | `title`   | `string`                                                                                                  | —           | Card heading.                    |
 | `bullets` | `string[]`                                                                                                | —           | Short list of supporting points. |
-| `icon`    | `AstroComponent`                                                                                          | —           | Optional Lucide icon component.  |
+| `icon`    | `Component`                                                                                          | —           | Optional Lucide icon component.  |
 | `variant` | `'default' \| 'muted' \| 'accent' \| 'inverse' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.     |
 | `size`    | `'sm' \| 'md' \| 'lg'`                                                                                    | `'md'`      | Card spacing and type scale.     |
 | `effect`  | `'none' \| 'lift' \| 'glow'`                                                                              | `'none'`    | Hover effect.                    |

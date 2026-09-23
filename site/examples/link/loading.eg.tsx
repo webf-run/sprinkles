@@ -1,0 +1,15 @@
+import { Link } from '@webf/sprinkles';
+
+export default function Example() {
+  return (
+    <>
+      <Link loading>Save</Link>
+      <Link variant='secondary' loading>
+        Loading
+      </Link>
+      <Link variant='purple' loading>
+        Processing
+      </Link>
+    </>
+  );
+}

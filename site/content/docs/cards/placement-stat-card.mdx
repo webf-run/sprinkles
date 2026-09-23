@@ -3,16 +3,16 @@ title: Placement Stat Card
 description: Display outcome metrics such as placement rate, graduates, and employer partners.
 ---
 
-import BasicOutput from '../../../examples/placement-stat-card/basic.eg.astro';
-import basicCode from '../../../examples/placement-stat-card/basic.eg.astro?raw';
-import ColorsOutput from '../../../examples/placement-stat-card/colors.eg.astro';
-import colorsCode from '../../../examples/placement-stat-card/colors.eg.astro?raw';
-import EffectsOutput from '../../../examples/placement-stat-card/effects.eg.astro';
-import effectsCode from '../../../examples/placement-stat-card/effects.eg.astro?raw';
-import RowOutput from '../../../examples/placement-stat-card/row.eg.astro';
-import rowCode from '../../../examples/placement-stat-card/row.eg.astro?raw';
-import SizesOutput from '../../../examples/placement-stat-card/sizes.eg.astro';
-import sizesCode from '../../../examples/placement-stat-card/sizes.eg.astro?raw';
+import BasicOutput from '../../../examples/placement-stat-card/basic.eg.tsx';
+import basicCode from '../../../examples/placement-stat-card/basic.eg.tsx?raw';
+import ColorsOutput from '../../../examples/placement-stat-card/colors.eg.tsx';
+import colorsCode from '../../../examples/placement-stat-card/colors.eg.tsx?raw';
+import EffectsOutput from '../../../examples/placement-stat-card/effects.eg.tsx';
+import effectsCode from '../../../examples/placement-stat-card/effects.eg.tsx?raw';
+import RowOutput from '../../../examples/placement-stat-card/row.eg.tsx';
+import rowCode from '../../../examples/placement-stat-card/row.eg.tsx?raw';
+import SizesOutput from '../../../examples/placement-stat-card/sizes.eg.tsx';
+import sizesCode from '../../../examples/placement-stat-card/sizes.eg.tsx?raw';
 import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
 `PlacementStatCard` combines a high-level outcome number with a short title and contextual note. It is designed for placement, careers, and results sections.
@@ -61,7 +61,7 @@ Use multiple `PlacementStatCard` components together to create responsive metric
 
 | Prop       | Type                                                                                                        | Default     | Description                    |
 | ---------- | ----------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------ |
-| `icon`     | `AstroComponent`                                                                                            | —           | Lucide icon component.         |
+| `icon`     | `Component`                                                                                            | —           | Lucide icon component.         |
 | `value`    | `string`                                                                                                    | —           | Outcome value.                 |
 | `title`    | `string`                                                                                                    | —           | Metric heading.                |
 | `subtitle` | `string`                                                                                                    | —           | Supporting detail.             |
