@@ -1,9 +1,17 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { Mail, MapPin, Phone } from 'lucide-solid';
-import type { Component } from 'solid-js';
+import type { Component, JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import Link from './Link';
+
+/** The common prop shape every lucide-solid icon (and our own icon set) accepts. */
+export type IconComponent = Component<{
+  size?: number | string;
+  class?: string;
+  color?: string;
+  style?: string | JSX.CSSProperties;
+}>;
 
 export interface FooterLink {
   label: string;
@@ -12,7 +20,7 @@ export interface FooterLink {
 export interface FooterSocial {
   label: string;
   href: string;
-  icon?: Component<any>;
+  icon?: IconComponent;
   iconVariant?: FooterColorVariant;
   iconColor?: string;
 }
@@ -127,7 +135,7 @@ export interface Props extends VariantProps<typeof footerVariants> {
   contactIconColor?: string;
   copyrightVariant?: FooterColorVariant;
   copyrightColor?: string;
-  logo?: any;
+  logo?: JSX.Element;
   class?: string;
 }
 export default function Footer(p: Props) {

@@ -1,9 +1,9 @@
-import { BenefitCard } from '@webf/sprinkles';
+import { BenefitCard } from '@webf-run/sprinkles';
 import { Sparkles } from 'lucide-solid';
 
 export default function Example() {
   return (
-    <div class="grid gap-4 md:grid-cols-3">
+    <div class='grid gap-4 md:grid-cols-3'>
       <BenefitCard
         size='sm'
         variant='muted'

@@ -1,9 +1,9 @@
-import { BenefitCard } from '@webf/sprinkles';
+import { BenefitCard } from '@webf-run/sprinkles';
 import { GraduationCap, Handshake, Trophy } from 'lucide-solid';
 
 export default function Example() {
   return (
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div class='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
       <BenefitCard
         icon={GraduationCap}
         title='For education sites'

@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'node:url';
+
 import solid from '@astrojs/solid-js';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
-import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
   srcDir: './site',
@@ -18,21 +19,6 @@ export default defineConfig({
           icon: 'github',
           label: 'GitHub',
           href: 'https://github.com/webf-run/sprinkles',
-        },
-      ],
-      head: [
-        {
-          tag: 'script',
-
-          attrs: {
-            type: 'importmap',
-          },
-          content: JSON.stringify({
-            imports: {
-              'astro/runtime/server/index.js': '/play/astro-runtime.js',
-              '@webf/sprinkles': '/play/sprinkles.lib.js',
-            },
-          }),
         },
       ],
       components: {
@@ -85,19 +71,15 @@ export default defineConfig({
     ssr: {
       noExternal: ['lucide-astro'],
     },
-    server: {
-      watch: {
-        ignored: ['**/.playground-tmp/**'],
-      },
-    },
     resolve: {
       alias: {
-        '@webf/sprinkles': fileURLToPath(new URL('./lib/index.ts', import.meta.url)),
+        '@webf-run/sprinkles': fileURLToPath(
+          new URL('./lib/index.ts', import.meta.url)
+        ),
       },
     },
     optimizeDeps: {
       exclude: ['@astrojs/compiler'],
-      include: ['esbuild-wasm'],
     },
   },
 });

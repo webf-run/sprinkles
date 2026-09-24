@@ -1,4 +1,4 @@
-import { FeatureCard } from '@webf/sprinkles';
+import { FeatureCard } from '@webf-run/sprinkles';
 import { Sparkles } from 'lucide-solid';
 
 export default function Example() {

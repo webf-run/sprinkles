@@ -1,4 +1,4 @@
-import { StatCard } from '@webf/sprinkles';
+import { StatCard } from '@webf-run/sprinkles';
 import { Activity, Sparkles } from 'lucide-solid';
 
 export default function Example() {

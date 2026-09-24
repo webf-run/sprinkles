@@ -1,10 +1,9 @@
+import { Facebook, Footer, Instagram, Linkedin } from '@webf-run/sprinkles';
 import { Globe } from 'lucide-solid';
-
-import { Facebook, Footer, Instagram, Linkedin } from '@webf/sprinkles';
 
 export default function Example() {
   return (
-    <div class="flex flex-col gap-8">
+    <div class='flex flex-col gap-8'>
       {/* Default / Neutral */}
       <Footer
         variant='default'

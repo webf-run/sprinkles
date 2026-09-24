@@ -1,4 +1,4 @@
-import { BenefitCard } from '@webf/sprinkles';
+import { BenefitCard } from '@webf-run/sprinkles';
 import {
   GraduationCap,
   Handshake,
@@ -9,7 +9,7 @@ import {
 
 export default function Example() {
   return (
-    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+    <div class='grid gap-4 sm:grid-cols-2 xl:grid-cols-5'>
       <BenefitCard
         variant='purple'
         icon={GraduationCap}

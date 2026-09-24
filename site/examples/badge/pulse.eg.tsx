@@ -1,19 +1,14 @@
-import { Badge } from '@webf/sprinkles';
+import { Badge } from '@webf-run/sprinkles';
 
 export default function Example() {
   return (
     <div class='flex flex-wrap items-center gap-3'>
       <Badge variant='green' class='gap-2'>
         <span class='relative flex h-2 w-2 shrink-0'>
-          <span
-            class='bg-badge-green-foreground absolute inline-flex h-full w-full animate-ping rounded-full opacity-75'
-          ></span>
+          <span class='bg-badge-green-foreground absolute inline-flex h-full w-full animate-ping rounded-full opacity-75'></span>
 
-          <span
-            class='bg-badge-green-foreground relative inline-flex h-2 w-2 rounded-full'
-          ></span>
+          <span class='bg-badge-green-foreground relative inline-flex h-2 w-2 rounded-full'></span>
         </span>
-
         Live
       </Badge>
     </div>

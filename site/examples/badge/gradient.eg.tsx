@@ -1,4 +1,4 @@
-import { Badge } from '@webf/sprinkles';
+import { Badge } from '@webf-run/sprinkles';
 
 export default function Example() {
   return (

@@ -1,4 +1,4 @@
-import { BenefitCard } from '@webf/sprinkles';
+import { BenefitCard } from '@webf-run/sprinkles';
 import { ShieldCheck } from 'lucide-solid';
 
 export default function Example() {

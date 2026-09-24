@@ -1,5 +1,5 @@
+import { Badge } from '@webf-run/sprinkles';
 import { Check, Clock, Info, X } from 'lucide-solid';
-import { Badge } from '@webf/sprinkles';
 
 export default function Example() {
   return (

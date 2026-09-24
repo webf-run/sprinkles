@@ -44,8 +44,11 @@ export interface StaticAsset {
   src: string;
 }
 
+/** A logo rendered as a component only ever needs a `class` to size itself. */
+type LogoComponent = Component<{ class?: string }>;
+
 export interface Props extends VariantProps<typeof variants> {
-  logo: string | StaticAsset | Component<any>;
+  logo: string | StaticAsset | LogoComponent;
   companyName: string;
   href?: string;
   class?: string;
@@ -60,7 +63,7 @@ function isStaticAsset(value: unknown): value is StaticAsset {
   );
 }
 
-function isComponent(value: unknown): value is Component<any> {
+function isComponent(value: unknown): value is LogoComponent {
   return typeof value === 'function';
 }
 

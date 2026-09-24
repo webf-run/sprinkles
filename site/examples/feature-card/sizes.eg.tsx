@@ -1,9 +1,9 @@
-import { FeatureCard } from '@webf/sprinkles';
+import { FeatureCard } from '@webf-run/sprinkles';
 import { Boxes } from 'lucide-solid';
 
 export default function Example() {
   return (
-    <div class="flex flex-col items-stretch gap-4 overflow-x-auto">
+    <div class='flex flex-col items-stretch gap-4 overflow-x-auto'>
       <FeatureCard
         class='w-56 shrink-0'
         variant='orange'

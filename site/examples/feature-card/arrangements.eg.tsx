@@ -1,9 +1,9 @@
-import { FeatureCard } from '@webf/sprinkles';
-import { Globe, Layers, Zap, ShieldCheck, BarChart3 } from 'lucide-solid';
+import { FeatureCard } from '@webf-run/sprinkles';
+import { BarChart3, Globe, Layers, ShieldCheck, Zap } from 'lucide-solid';
 
 export default function Example() {
   return (
-    <div class="flex flex-col gap-4">
+    <div class='flex flex-col gap-4'>
       <FeatureCard
         class='w-full'
         size='sm'

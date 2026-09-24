@@ -1,9 +1,9 @@
-import { BenefitCard } from '@webf/sprinkles';
+import { BenefitCard } from '@webf-run/sprinkles';
 import { MousePointer2, Zap } from 'lucide-solid';
 
 export default function Example() {
   return (
-    <div class="grid gap-4 sm:grid-cols-2">
+    <div class='grid gap-4 sm:grid-cols-2'>
       <BenefitCard
         effect='lift'
         icon={MousePointer2}

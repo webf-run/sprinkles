@@ -1,9 +1,9 @@
-import { FeatureCard } from '@webf/sprinkles';
+import { FeatureCard } from '@webf-run/sprinkles';
 import { Layers, ShieldCheck } from 'lucide-solid';
 
 export default function Example() {
   return (
-    <div class="grid gap-4 md:grid-cols-2">
+    <div class='grid gap-4 md:grid-cols-2'>
       <FeatureCard
         title='Flexible composition'
         subtitle='Combine components to build richer sections.'

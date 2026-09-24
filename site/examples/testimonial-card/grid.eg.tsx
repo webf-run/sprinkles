@@ -1,4 +1,4 @@
-import { TestimonialCard } from '@webf/sprinkles';
+import { TestimonialCard } from '@webf-run/sprinkles';
 
 export default function Example() {
   return (

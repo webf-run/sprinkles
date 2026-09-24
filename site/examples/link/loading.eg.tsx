@@ -1,4 +1,4 @@
-import { Link } from '@webf/sprinkles';
+import { Link } from '@webf-run/sprinkles';
 
 export default function Example() {
   return (

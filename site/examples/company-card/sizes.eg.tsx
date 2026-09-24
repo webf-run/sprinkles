@@ -1,8 +1,8 @@
-import { CompanyCard } from '@webf/sprinkles';
+import { CompanyCard } from '@webf-run/sprinkles';
 
-import GoogleLogo from '../../assets/company-logos/google.svg?raw';
-import GitHubLogo from '../../assets/company-logos/github.svg?raw';
 import DropboxLogo from '../../assets/company-logos/dropbox.svg?raw';
+import GitHubLogo from '../../assets/company-logos/github.svg?raw';
+import GoogleLogo from '../../assets/company-logos/google.svg?raw';
 
 export default function Example() {
   return (

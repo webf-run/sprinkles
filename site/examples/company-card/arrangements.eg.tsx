@@ -1,13 +1,13 @@
-import { CompanyCard } from '@webf/sprinkles';
+import { CompanyCard } from '@webf-run/sprinkles';
 
-import GoogleLogo from '../../assets/company-logos/google.svg?raw';
-import GitHubLogo from '../../assets/company-logos/github.svg?raw';
-import DropboxLogo from '../../assets/company-logos/dropbox.svg?raw';
 import AmazonLogo from '../../assets/company-logos/amazon.svg?raw';
+import DropboxLogo from '../../assets/company-logos/dropbox.svg?raw';
+import GitHubLogo from '../../assets/company-logos/github.svg?raw';
+import GoogleLogo from '../../assets/company-logos/google.svg?raw';
 
 export default function Example() {
   return (
-    <div class="flex flex-row gap-4 overflow-x-auto">
+    <div class='flex flex-row gap-4 overflow-x-auto'>
       <CompanyCard
         class='w-36 shrink-0'
         size='sm'

@@ -1,6 +1,5 @@
+import { Facebook, Footer, Instagram, Linkedin } from '@webf-run/sprinkles';
 import { Globe, MessageCircle } from 'lucide-solid';
-
-import { Facebook, Footer, Instagram, Linkedin } from '@webf/sprinkles';
 
 export default function Example() {
   return (

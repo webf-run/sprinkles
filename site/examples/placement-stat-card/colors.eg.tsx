@@ -1,4 +1,4 @@
-import { PlacementStatCard } from '@webf/sprinkles';
+import { PlacementStatCard } from '@webf-run/sprinkles';
 import {
   Award,
   BriefcaseBusiness,
