@@ -81,5 +81,18 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['@astrojs/compiler'],
     },
+    build: {
+      rolldownOptions: {
+        onLog(level, log, defaultHandler) {
+          if (
+            log.code === 'MODULE_LEVEL_DIRECTIVE' &&
+            log.message?.includes('astro:head-inject')
+          ) {
+            return;
+          }
+          defaultHandler(level, log);
+        },
+      },
+    },
   },
 });

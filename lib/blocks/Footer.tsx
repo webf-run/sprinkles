@@ -1,17 +1,12 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { Mail, MapPin, Phone } from 'lucide-solid';
-import type { Component, JSX } from 'solid-js';
+import { For, type JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
+import type { IconComponent } from '../types';
 import Link from './Link';
 
-/** The common prop shape every lucide-solid icon (and our own icon set) accepts. */
-export type IconComponent = Component<{
-  size?: number | string;
-  class?: string;
-  color?: string;
-  style?: string | JSX.CSSProperties;
-}>;
+export type { IconComponent };
 
 export interface FooterLink {
   label: string;
@@ -288,21 +283,27 @@ export default function Footer(p: Props) {
               Quick Links
             </p>
             <div class='grid max-w-104.75 grid-cols-2 gap-x-10 gap-y-4 md:gap-x-16 xl:gap-x-22.25'>
-              {p.quickLinks.map((column) => (
-                <ul class='space-y-3'>
-                  {column.map((link) => (
-                    <li>
-                      <a
-                        href={link.href}
-                        class={`text-body font-medium transition-colors ${links()} hover:opacity-70 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none`}
-                        style={p.linkColor ? `color:${p.linkColor}` : undefined}
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ))}
+              <For each={p.quickLinks}>
+                {(column) => (
+                  <ul class='space-y-3'>
+                    <For each={column}>
+                      {(link) => (
+                        <li>
+                          <a
+                            href={link.href}
+                            class={`text-body font-medium transition-colors ${links()} hover:opacity-70 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none`}
+                            style={
+                              p.linkColor ? `color:${p.linkColor}` : undefined
+                            }
+                          >
+                            {link.label}
+                          </a>
+                        </li>
+                      )}
+                    </For>
+                  </ul>
+                )}
+              </For>
             </div>
           </div>
         )}
@@ -312,24 +313,28 @@ export default function Footer(p: Props) {
       >
         {p.socialLinks?.length && (
           <div class='flex flex-wrap items-center gap-2.5'>
-            {p.socialLinks.map((social) => (
-              <a
-                href={social.href}
-                aria-label={social.label}
-                class='flex h-7.75 w-7.75 items-center justify-center rounded-full border-foreground-strong border transition-colors focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none'
-              >
-                {social.icon && (
-                  <Dynamic
-                    component={social.icon}
-                    size={18}
-                    class={`shrink-0 ${social.iconVariant ? colors[social.iconVariant] : ''}`}
-                    style={
-                      social.iconColor ? `color:${social.iconColor}` : undefined
-                    }
-                  />
-                )}
-              </a>
-            ))}
+            <For each={p.socialLinks}>
+              {(social) => (
+                <a
+                  href={social.href}
+                  aria-label={social.label}
+                  class='flex h-7.75 w-7.75 items-center justify-center rounded-full border-foreground-strong border transition-colors focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none'
+                >
+                  {social.icon && (
+                    <Dynamic
+                      component={social.icon}
+                      size={18}
+                      class={`shrink-0 ${social.iconVariant ? colors[social.iconVariant] : ''}`}
+                      style={
+                        social.iconColor
+                          ? `color:${social.iconColor}`
+                          : undefined
+                      }
+                    />
+                  )}
+                </a>
+              )}
+            </For>
           </div>
         )}
         <p

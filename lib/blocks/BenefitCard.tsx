@@ -1,7 +1,9 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { Check } from 'lucide-solid';
-import type { Component } from 'solid-js';
+import { For } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
+
+import type { IconComponent } from '../types';
 
 const benefitCardVariants = cva(
   'flex w-full flex-col rounded-3xl border transition-shadow duration-200',
@@ -72,7 +74,7 @@ const benefitCardIconVariants = cva(
 export interface Props extends VariantProps<typeof benefitCardVariants> {
   title: string;
   bullets: string[];
-  icon?: Component<any>;
+  icon?: IconComponent;
   class?: string;
 }
 export default function BenefitCard(props: Props) {
@@ -111,19 +113,21 @@ export default function BenefitCard(props: Props) {
       <ul
         class={`flex flex-col ${size() === 'sm' ? 'gap-1.5' : size() === 'md' ? 'gap-2' : 'gap-2.5'}`}
       >
-        {props.bullets.map((bullet) => (
-          <li class='flex items-start gap-2'>
-            <Check
-              class={`mt-0.5 shrink-0 ${size() === 'sm' ? 'size-3.5' : 'size-4'} ${benefitCardTextVariants({ variant: variant() })} opacity-70`}
-              stroke-width={2.5}
-            />
-            <span
-              class={`leading-normal opacity-80 ${size() === 'sm' ? 'text-xs' : size() === 'md' ? 'text-sm' : 'text-base'} ${benefitCardTextVariants({ variant: variant() })}`}
-            >
-              {bullet}
-            </span>
-          </li>
-        ))}
+        <For each={props.bullets}>
+          {(bullet) => (
+            <li class='flex items-start gap-2'>
+              <Check
+                class={`mt-0.5 shrink-0 ${size() === 'sm' ? 'size-3.5' : 'size-4'} ${benefitCardTextVariants({ variant: variant() })} opacity-70`}
+                strokeWidth={2.5}
+              />
+              <span
+                class={`leading-normal opacity-80 ${size() === 'sm' ? 'text-xs' : size() === 'md' ? 'text-sm' : 'text-base'} ${benefitCardTextVariants({ variant: variant() })}`}
+              >
+                {bullet}
+              </span>
+            </li>
+          )}
+        </For>
       </ul>
     </div>
   );

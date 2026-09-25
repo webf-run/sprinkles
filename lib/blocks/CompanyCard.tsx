@@ -48,6 +48,13 @@ export interface StaticAsset {
 type LogoComponent = Component<{ class?: string }>;
 
 export interface Props extends VariantProps<typeof variants> {
+  /**
+   * Either an image URL / static asset, a Solid component, or a raw inline
+   * `<svg>...</svg>` markup string. A string starting with `<svg` is
+   * rendered via `innerHTML` and is NOT sanitized — only pass trusted,
+   * developer-authored markup here (e.g. an SVG you control), never
+   * unsanitized user input.
+   */
   logo: string | StaticAsset | LogoComponent;
   companyName: string;
   href?: string;
@@ -76,7 +83,10 @@ export default function CompanyCard(props: Props) {
       const isSvg = logo.trim().startsWith('<svg');
 
       return isSvg ? (
-        <div class='h-12 w-auto max-w-full' innerHTML={logo} />
+        <div
+          class='h-12 max-w-full [&>svg]:h-full [&>svg]:w-auto [&>svg]:max-w-full'
+          innerHTML={logo}
+        />
       ) : (
         <img
           src={logo}

@@ -1,6 +1,7 @@
 import { type VariantProps, cva } from 'class-variance-authority';
-import type { Component } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
+
+import type { IconComponent } from '../types';
 
 const variants = cva(
   'flex min-w-0 flex-col items-center justify-center rounded-3xl border text-center transition-all duration-200',
@@ -106,7 +107,7 @@ const styles = {
   },
 } as const;
 export interface Props extends VariantProps<typeof variants> {
-  icon: Component<any>;
+  icon: IconComponent;
   value: string;
   label: string;
   iconClass?: string;

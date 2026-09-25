@@ -1,7 +1,9 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { ArrowRight } from 'lucide-solid';
-import type { Component, JSX } from 'solid-js';
+import type { JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
+
+import type { IconComponent } from '../types';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold transition-all duration-300 focus:outline-none focus:ring-2',
@@ -40,7 +42,7 @@ export interface Props extends VariantProps<typeof buttonVariants> {
   target?: string;
   rel?: string;
   showIcon?: boolean;
-  icon?: Component<any>;
+  icon?: IconComponent;
   children?: JSX.Element;
 }
 export default function Link(p: Props) {

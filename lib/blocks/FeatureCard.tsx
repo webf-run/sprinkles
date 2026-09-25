@@ -1,6 +1,7 @@
 import { type VariantProps, cva } from 'class-variance-authority';
-import type { Component } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
+
+import type { IconComponent } from '../types';
 
 const featureCardVariants = cva(
   'flex w-full items-center rounded-3xl border transition-shadow duration-200',
@@ -67,7 +68,7 @@ const iconBox = cva('flex shrink-0 items-center justify-center rounded-2xl', {
 export interface Props extends VariantProps<typeof featureCardVariants> {
   title: string;
   subtitle: string;
-  icon: Component<any>;
+  icon: IconComponent;
   class?: string;
 }
 export default function FeatureCard(props: Props) {

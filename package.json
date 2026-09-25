@@ -26,7 +26,6 @@
     "./style.css": "./dist/style.css"
   },
   "dependencies": {
-    "@lucide/astro": "^1.23.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.13.2",
     "astro": "^7.2.2",

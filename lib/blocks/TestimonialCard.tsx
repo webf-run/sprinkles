@@ -102,7 +102,7 @@ export default function TestimonialCard(p: Props) {
             <Star
               class={`${size() === 'sm' ? 'size-3.5' : 'size-4'} ${i < rating()! ? accent({ variant: v() }) : 'text-border-subtle'}`}
               fill={i < rating()! ? 'currentColor' : 'none'}
-              stroke-width={1.75}
+              strokeWidth={1.75}
             />
           ))}
         </div>
