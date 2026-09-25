@@ -1,0 +1,25 @@
+import { Badge } from '@webf-run/sprinkles';
+
+export default function Example() {
+  return (
+    <div class='flex flex-wrap items-center gap-3'>
+      <Badge class='cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md'>
+        Hover me
+      </Badge>
+
+      <Badge
+        variant='orange'
+        class='cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md'
+      >
+        Warning
+      </Badge>
+
+      <Badge
+        variant='green'
+        class='cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md'
+      >
+        Active
+      </Badge>
+    </div>
+  );
+}

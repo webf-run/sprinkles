@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url';
+
 import solid from '@astrojs/solid-js';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
@@ -11,27 +13,12 @@ export default defineConfig({
   integrations: [
     solid(),
     starlight({
-      title: '@webf/sprinkles',
+      title: 'Sprinkles',
       social: [
         {
           icon: 'github',
           label: 'GitHub',
           href: 'https://github.com/webf-run/sprinkles',
-        },
-      ],
-      head: [
-        {
-          tag: 'script',
-
-          attrs: {
-            type: 'importmap',
-          },
-          content: JSON.stringify({
-            imports: {
-              'astro/runtime/server/index.js': '/play/astro-runtime.js',
-              '@webf/sprinkles': '/play/sprinkles.lib.js',
-            },
-          }),
         },
       ],
       components: {
@@ -84,17 +71,28 @@ export default defineConfig({
     ssr: {
       noExternal: ['lucide-astro'],
     },
-    server: {
-      watch: {
-        ignored: ['**/.playground-tmp/**'],
-      },
-    },
     resolve: {
-      alias: {},
+      alias: {
+        '@webf-run/sprinkles': fileURLToPath(
+          new URL('./lib/index.ts', import.meta.url)
+        ),
+      },
     },
     optimizeDeps: {
       exclude: ['@astrojs/compiler'],
-      include: ['esbuild-wasm'],
+    },
+    build: {
+      rolldownOptions: {
+        onLog(level, log, defaultHandler) {
+          if (
+            log.code === 'MODULE_LEVEL_DIRECTIVE' &&
+            log.message?.includes('astro:head-inject')
+          ) {
+            return;
+          }
+          defaultHandler(level, log);
+        },
+      },
     },
   },
 });

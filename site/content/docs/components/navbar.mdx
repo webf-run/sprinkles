@@ -3,23 +3,23 @@ title: Navbar
 description: A responsive navigation bar with branding, links, and call-to-action slots that adapts from desktop to mobile.
 ---
 
-import BasicNavbarOutput from '../../../examples/navbar/basic.eg.astro';
-import basicNavbarCode from '../../../examples/navbar/basic.eg.astro?raw';
-import CustomClassOutput from '../../../examples/navbar/custom-class.eg.astro';
-import customClassCode from '../../../examples/navbar/custom-class.eg.astro?raw';
-import DropdownNavbarOutput from '../../../examples/navbar/dropdown.eg.astro';
-import dropdownNavbarCode from '../../../examples/navbar/dropdown.eg.astro?raw';
-import DualCtaOutput from '../../../examples/navbar/dual-cta.eg.astro';
-import dualCtaCode from '../../../examples/navbar/dual-cta.eg.astro?raw';
-import ImageLogoOutput from '../../../examples/navbar/image-logo.eg.astro';
-import imageLogoCode from '../../../examples/navbar/image-logo.eg.astro?raw';
-import LogoMarkOutput from '../../../examples/navbar/logo-mark.eg.astro';
-import logoMarkCode from '../../../examples/navbar/logo-mark.eg.astro?raw';
-import LogoOnlyOutput from '../../../examples/navbar/logo-only.eg.astro';
-import logoOnlyCode from '../../../examples/navbar/logo-only.eg.astro?raw';
+import BasicNavbarOutput from '../../../examples/navbar/basic.eg.tsx';
+import basicNavbarCode from '../../../examples/navbar/basic.eg.tsx?raw';
+import CustomClassOutput from '../../../examples/navbar/custom-class.eg.tsx';
+import customClassCode from '../../../examples/navbar/custom-class.eg.tsx?raw';
+import DropdownNavbarOutput from '../../../examples/navbar/dropdown.eg.tsx';
+import dropdownNavbarCode from '../../../examples/navbar/dropdown.eg.tsx?raw';
+import DualCtaOutput from '../../../examples/navbar/dual-cta.eg.tsx';
+import dualCtaCode from '../../../examples/navbar/dual-cta.eg.tsx?raw';
+import ImageLogoOutput from '../../../examples/navbar/image-logo.eg.tsx';
+import imageLogoCode from '../../../examples/navbar/image-logo.eg.tsx?raw';
+import LogoMarkOutput from '../../../examples/navbar/logo-mark.eg.tsx';
+import logoMarkCode from '../../../examples/navbar/logo-mark.eg.tsx?raw';
+import LogoOnlyOutput from '../../../examples/navbar/logo-only.eg.tsx';
+import logoOnlyCode from '../../../examples/navbar/logo-only.eg.tsx?raw';
+import MobileViewOutput from '../../../examples/navbar/mobile-view.eg.tsx';
+import mobileViewCode from '../../../examples/navbar/mobile-view.eg.tsx?raw';
 import ExampleBlock from '../../../playground/ExampleBlock.astro';
-import MobileViewOutput from '../../../examples/navbar/mobile-view.eg.astro';
-import mobileViewCode from '../../../examples/navbar/mobile-view.eg.astro?raw';
 
 The `Navbar` component provides a single, reusable navigation bar you can drop into any Astro site — marketing pages, docs portals, dashboards, or auth screens — and configure per page. It supports branding through a text logo, an image logo, or a fully custom logo mark, configurable navigation links with optional dropdown indicators, and a flexible call-to-action area for one or more buttons.
 
@@ -32,15 +32,15 @@ Use the interactive playgrounds below to experiment with different navbar config
 Create a responsive navigation bar by providing a logo and a list of navigation items. The component automatically renders the navigation links on desktop, collapses them into a mobile menu on small screens, and includes a default "Apply Now" call-to-action button.
 
 <ExampleBlock code={basicNavbarCode}>
-  <BasicNavbarOutput />
+  <BasicNavbarOutput client:load />
 </ExampleBlock>
 
 ## Logo Mark
 
-For brands that use an icon alongside a wordmark, use the `logo` slot to render any custom markup — an inline SVG, a component, or a combination of both — instead of the built-in `logoSrc` / `logoText` props. Content passed to the `logo` slot replaces the default logo entirely.
+For brands that use an icon alongside a wordmark, use the `logo` slot to render any custom markup — an inline SVG, a component, or a combination of both — instead of the built-in `logoSrc` / `logoText` props. Content passed to the `logo` prop replaces the default logo entirely.
 
 <ExampleBlock code={logoMarkCode}>
-  <LogoMarkOutput />
+  <LogoMarkOutput client:load />
 </ExampleBlock>
 
 ## Image Logo
@@ -48,7 +48,7 @@ For brands that use an icon alongside a wordmark, use the `logo` slot to render 
 Pass an image URL through `logoSrc` to render a logo image instead of text. This is useful when your brand mark is an existing raster or vector asset rather than markup you want to inline.
 
 <ExampleBlock code={imageLogoCode}>
-  <ImageLogoOutput />
+  <ImageLogoOutput client:load />
 </ExampleBlock>
 
 ## Multiple Call-to-Actions
@@ -56,7 +56,7 @@ Pass an image URL through `logoSrc` to render a logo image instead of text. This
 Use the `actions` slot to replace the default "Apply Now" button with any combination of buttons or links — for example a secondary "Login" action alongside a primary sign-up action. This is a common pattern for SaaS products and member portals where visitors may already have an account.
 
 <ExampleBlock code={dualCtaCode}>
-  <DualCtaOutput />
+  <DualCtaOutput client:load />
 </ExampleBlock>
 
 ## Dropdown Navigation
@@ -64,7 +64,7 @@ Use the `actions` slot to replace the default "Apply Now" button with any combin
 Set `hasDropdown` to `true` on any navigation item to display a dropdown indicator. This is useful for menu items that contain additional navigation options, such as a "Programs" or "Resources" menu on an education or documentation site.
 
 <ExampleBlock code={dropdownNavbarCode}>
-  <DropdownNavbarOutput />
+  <DropdownNavbarOutput client:load />
 </ExampleBlock>
 
 ## Custom Navigation Styles
@@ -72,7 +72,7 @@ Set `hasDropdown` to `true` on any navigation item to display a dropdown indicat
 Use the `class` prop to apply custom Tailwind or CSS utility classes to all navigation links, allowing the navbar to match your brand or application theme.
 
 <ExampleBlock code={customClassCode}>
-  <CustomClassOutput />
+  <CustomClassOutput client:load />
 </ExampleBlock>
 
 ## Logo Only
@@ -80,7 +80,7 @@ Use the `class` prop to apply custom Tailwind or CSS utility classes to all navi
 The navbar can also be used with only a logo and no navigation links or call-to-action button, making it suitable for landing pages, authentication screens, or simple layouts where a full menu isn't needed. On these pages the mobile menu trigger is not rendered, since there are no links or actions to collapse.
 
 <ExampleBlock code={logoOnlyCode}>
-  <LogoOnlyOutput />
+  <LogoOnlyOutput client:load />
 </ExampleBlock>
 
 ## Mobile Navbar
@@ -90,7 +90,7 @@ A responsive navbar pattern designed for mobile screens, featuring a logo, a sin
 **Note:** Resize the screen below 768px (md) to see the mobile layout in action.
 
 <ExampleBlock code={mobileViewCode}>
-  <MobileViewOutput />
+  <MobileViewOutput client:load />
 </ExampleBlock>
 
 ## Positioning
@@ -122,7 +122,7 @@ By default `Navbar` renders with `position='fixed'`, pinning it to the top of th
 
 ### Slots
 
-| Slot      | Description                                                                                                                          |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `logo`    | Replaces the default `logoSrc` / `logoText` rendering entirely.                                                                      |
-| `actions` | Replaces the default "Apply Now" button. Use it to render one or more `Link` components, for example a "Login" and "Apply Now" pair. |
+| Slot      | Description                                                            |
+| --------- | ---------------------------------------------------------------------- |
+| `logo`    | Replaces the default `logoSrc` / `logoText` rendering with custom JSX. |
+| `actions` | Replaces the default "Apply Now" button with custom JSX.               |
