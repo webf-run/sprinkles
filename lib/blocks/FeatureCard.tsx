@@ -2,6 +2,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { Dynamic } from 'solid-js/web';
 
 import type { IconComponent } from '../types';
+import { cn } from '../utils';
 
 const featureCardVariants = cva(
   'flex w-full items-center rounded-3xl border transition-shadow duration-200',
@@ -65,18 +66,28 @@ const iconBox = cva('flex shrink-0 items-center justify-center rounded-2xl', {
   },
   defaultVariants: { variant: 'default', size: 'md' },
 });
-export interface Props extends VariantProps<typeof featureCardVariants> {
+const titleSize = { sm: 'text-base', md: 'text-xl', lg: 'text-2xl' } as const;
+const subtitleSize = { sm: 'text-xs', md: 'text-base', lg: 'text-lg' } as const;
+
+interface FeatureCardProps extends VariantProps<typeof featureCardVariants> {
   title: string;
   subtitle: string;
   icon: IconComponent;
   class?: string;
 }
-export default function FeatureCard(props: Props) {
+export function FeatureCard(props: FeatureCardProps) {
   const size = () => props.size ?? 'md';
   const variant = () => props.variant ?? 'default';
   return (
     <div
-      class={`${featureCardVariants({ variant: variant(), size: size(), effect: props.effect })} ${props.class ?? ''}`}
+      class={cn(
+        featureCardVariants({
+          variant: variant(),
+          size: size(),
+          effect: props.effect,
+        }),
+        props.class
+      )}
     >
       <div class={iconBox({ variant: variant(), size: size() })}>
         <Dynamic
@@ -88,12 +99,20 @@ export default function FeatureCard(props: Props) {
       </div>
       <div class='flex min-w-0 flex-col justify-center'>
         <h4
-          class={`leading-normal font-semibold ${size() === 'sm' ? 'text-base' : size() === 'md' ? 'text-xl' : 'text-2xl'} ${text({ variant: variant() })}`}
+          class={cn(
+            'leading-normal font-semibold',
+            titleSize[size()],
+            text({ variant: variant() })
+          )}
         >
           {props.title}
         </h4>
         <p
-          class={`mt-1 leading-normal opacity-80 ${size() === 'sm' ? 'text-xs' : size() === 'md' ? 'text-base' : 'text-lg'} ${text({ variant: variant() })}`}
+          class={cn(
+            'mt-1 leading-normal opacity-80',
+            subtitleSize[size()],
+            text({ variant: variant() })
+          )}
         >
           {props.subtitle}
         </p>

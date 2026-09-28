@@ -1,9 +1,10 @@
 import { type VariantProps, cva } from 'class-variance-authority';
-import clsx from 'clsx';
-import type { Component, JSX } from 'solid-js';
+import type { JSX } from 'solid-js';
+
+import { cn } from '../utils';
 
 const badgeVariants = cva(
-  'inline-flex items-center justify-center font-semibold leading-normal tracking-widest',
+  'inline-flex items-center justify-center rounded-full font-semibold leading-normal tracking-widest',
   {
     variants: {
       variant: {
@@ -29,31 +30,20 @@ const badgeVariants = cva(
   }
 );
 
-interface Props extends VariantProps<typeof badgeVariants> {
+interface BadgeProps extends VariantProps<typeof badgeVariants> {
   class?: string;
   children?: JSX.Element;
 }
 
-const Badge: Component<Props> = (props) => {
-  const className = () => props.class ?? '';
-
-  // A caller-supplied rounded-* utility (e.g. `rounded-md`) should win over
-  // the default pill shape, same rule the Astro version used.
-  const hasCustomRadius = () =>
-    /(?:^|\s)rounded(?:-[^\s]+)?(?=\s|$)/.test(className());
-  const shapeClass = () => (hasCustomRadius() ? '' : 'rounded-full');
-
+export function Badge(props: BadgeProps) {
   return (
     <span
-      class={clsx(
+      class={cn(
         badgeVariants({ variant: props.variant, size: props.size }),
-        shapeClass(),
-        className()
+        props.class
       )}
     >
       {props.children}
     </span>
   );
-};
-
-export default Badge;
+}

@@ -2,6 +2,8 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import type { Component } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
+import { cn } from '../utils';
+
 const variants = cva(
   'flex shrink-0 items-center justify-center rounded-xl border transition-all duration-200',
   {
@@ -35,26 +37,16 @@ const variants = cva(
   }
 );
 
-/**
- * Static assets imported by Astro/Vite can be either a URL string or an
- * asset object containing `src`. Solid components are functions and are
- * rendered through Dynamic.
- */
+/** Asset object returned by Astro/Vite image imports. */
 export interface StaticAsset {
   src: string;
 }
 
-/** A logo rendered as a component only ever needs a `class` to size itself. */
 type LogoComponent = Component<{ class?: string }>;
 
-export interface Props extends VariantProps<typeof variants> {
-  /**
-   * Either an image URL / static asset, a Solid component, or a raw inline
-   * `<svg>...</svg>` markup string. A string starting with `<svg` is
-   * rendered via `innerHTML` and is NOT sanitized — only pass trusted,
-   * developer-authored markup here (e.g. an SVG you control), never
-   * unsanitized user input.
-   */
+interface CompanyCardProps extends VariantProps<typeof variants> {
+  /** Image URL, static asset, Solid component, or inline `<svg>` string.
+   * Inline SVG is not sanitized; pass trusted markup only. */
   logo: string | StaticAsset | LogoComponent;
   companyName: string;
   href?: string;
@@ -74,11 +66,10 @@ function isComponent(value: unknown): value is LogoComponent {
   return typeof value === 'function';
 }
 
-export default function CompanyCard(props: Props) {
+export function CompanyCard(props: CompanyCardProps) {
   const content = () => {
     const logo = props.logo;
 
-    // Inline SVG markup supplied as a string.
     if (typeof logo === 'string') {
       const isSvg = logo.trim().startsWith('<svg');
 
@@ -96,7 +87,6 @@ export default function CompanyCard(props: Props) {
       );
     }
 
-    // Astro/Vite imported assets can be ImageMetadata-like objects.
     if (isStaticAsset(logo)) {
       return (
         <img
@@ -107,7 +97,6 @@ export default function CompanyCard(props: Props) {
       );
     }
 
-    // Solid component, e.g. an icon or custom logo component.
     if (isComponent(logo)) {
       return (
         <Dynamic
@@ -121,11 +110,14 @@ export default function CompanyCard(props: Props) {
   };
 
   const className = () =>
-    `${variants({
-      variant: props.variant,
-      size: props.size,
-      effect: props.effect,
-    })} ${props.class ?? ''}`;
+    cn(
+      variants({
+        variant: props.variant,
+        size: props.size,
+        effect: props.effect,
+      }),
+      props.class
+    );
 
   if (props.href) {
     return (

@@ -1,10 +1,6 @@
 import type { Component, JSX } from 'solid-js';
 
-/**
- * The common prop shape every lucide-solid icon (and any custom icon
- * component passed as a slot replacement) accepts. Use this instead of
- * `Component<any>` wherever a block accepts an `icon` prop.
- */
+/** Common props accepted by lucide-solid icons and custom icon components. */
 export type IconComponent = Component<{
   size?: number | string;
   class?: string;

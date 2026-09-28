@@ -4,6 +4,7 @@ import { For } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import type { IconComponent } from '../types';
+import { cn } from '../utils';
 
 const benefitCardVariants = cva(
   'flex w-full flex-col rounded-3xl border transition-shadow duration-200',
@@ -71,27 +72,30 @@ const benefitCardIconVariants = cva(
   }
 );
 
-export interface Props extends VariantProps<typeof benefitCardVariants> {
+const headingSize = { sm: 'text-base', md: 'text-lg', lg: 'text-xl' } as const;
+const listGap = { sm: 'gap-1.5', md: 'gap-2', lg: 'gap-2.5' } as const;
+const bulletSize = { sm: 'text-xs', md: 'text-sm', lg: 'text-base' } as const;
+
+interface BenefitCardProps extends VariantProps<typeof benefitCardVariants> {
   title: string;
   bullets: string[];
   icon?: IconComponent;
   class?: string;
 }
-export default function BenefitCard(props: Props) {
+export function BenefitCard(props: BenefitCardProps) {
   const size = () => props.size ?? 'md';
   const variant = () => props.variant ?? 'default';
   const Icon = () => props.icon;
   return (
     <div
-      class={
+      class={cn(
         benefitCardVariants({
           variant: variant(),
           size: size(),
           effect: props.effect,
-        }) +
-        ' ' +
-        (props.class ?? '')
-      }
+        }),
+        props.class
+      )}
     >
       {Icon() && (
         <div
@@ -106,22 +110,32 @@ export default function BenefitCard(props: Props) {
         </div>
       )}
       <h4
-        class={`leading-normal font-semibold ${size() === 'sm' ? 'text-base' : size() === 'md' ? 'text-lg' : 'text-xl'} ${benefitCardTextVariants({ variant: variant() })}`}
+        class={cn(
+          'leading-normal font-semibold',
+          headingSize[size()],
+          benefitCardTextVariants({ variant: variant() })
+        )}
       >
         {props.title}
       </h4>
-      <ul
-        class={`flex flex-col ${size() === 'sm' ? 'gap-1.5' : size() === 'md' ? 'gap-2' : 'gap-2.5'}`}
-      >
+      <ul class={cn('flex flex-col', listGap[size()])}>
         <For each={props.bullets}>
           {(bullet) => (
             <li class='flex items-start gap-2'>
               <Check
-                class={`mt-0.5 shrink-0 ${size() === 'sm' ? 'size-3.5' : 'size-4'} ${benefitCardTextVariants({ variant: variant() })} opacity-70`}
+                class={cn(
+                  'mt-0.5 shrink-0 opacity-70',
+                  size() === 'sm' ? 'size-3.5' : 'size-4',
+                  benefitCardTextVariants({ variant: variant() })
+                )}
                 strokeWidth={2.5}
               />
               <span
-                class={`leading-normal opacity-80 ${size() === 'sm' ? 'text-xs' : size() === 'md' ? 'text-sm' : 'text-base'} ${benefitCardTextVariants({ variant: variant() })}`}
+                class={cn(
+                  'leading-normal opacity-80',
+                  bulletSize[size()],
+                  benefitCardTextVariants({ variant: variant() })
+                )}
               >
                 {bullet}
               </span>

@@ -2,6 +2,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { Dynamic } from 'solid-js/web';
 
 import type { IconComponent } from '../types';
+import { cn } from '../utils';
 
 const variants = cva(
   'flex min-w-0 flex-col items-center justify-center rounded-3xl border text-center transition-all duration-200',
@@ -106,19 +107,22 @@ const styles = {
       'color-mix(in srgb, var(--badge-neutral-foreground) 15%, transparent)',
   },
 } as const;
-export interface Props extends VariantProps<typeof variants> {
+interface StatCardProps extends VariantProps<typeof variants> {
   icon: IconComponent;
   value: string;
   label: string;
   iconClass?: string;
   class?: string;
 }
-export default function StatCard(p: Props) {
+export function StatCard(p: StatCardProps) {
   const v = () => p.variant ?? 'default';
   const st = styles[v()];
   return (
     <div
-      class={`${variants({ variant: v(), size: p.size, effect: p.effect })} ${p.class ?? ''}`}
+      class={cn(
+        variants({ variant: v(), size: p.size, effect: p.effect }),
+        p.class
+      )}
     >
       <div
         class={iconBox({ variant: v(), size: p.size })}
@@ -127,18 +131,24 @@ export default function StatCard(p: Props) {
         <Dynamic
           component={p.icon}
           color={st.color}
-          class={`shrink-0 ${p.iconClass ?? 'size-7'}`}
+          class={cn('shrink-0', p.iconClass ?? 'size-7')}
         />
       </div>
       {p.value && (
         <h3
-          class={`text-xl leading-normal font-semibold tracking-tight ${text({ variant: v() })}`}
+          class={cn(
+            'text-xl leading-normal font-semibold tracking-tight',
+            text({ variant: v() })
+          )}
         >
           {p.value}
         </h3>
       )}
       <p
-        class={`text-sm leading-tight font-semibold wrap-break-word opacity-80 ${text({ variant: v() })}`}
+        class={cn(
+          'text-sm leading-tight font-semibold wrap-break-word opacity-80',
+          text({ variant: v() })
+        )}
       >
         {p.label}
       </p>

@@ -4,7 +4,8 @@ import { For, type JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import type { IconComponent } from '../types';
-import Link from './Link';
+import { cn } from '../utils';
+import { Link } from './Link';
 
 export type { IconComponent };
 
@@ -100,7 +101,7 @@ const sizes = {
     bottom: 'pt-9 pb-12',
   },
 } as const;
-export interface Props extends VariantProps<typeof footerVariants> {
+interface FooterProps extends VariantProps<typeof footerVariants> {
   logoSrc?: string;
   logoText?: string;
   description?: string;
@@ -133,7 +134,7 @@ export interface Props extends VariantProps<typeof footerVariants> {
   logo?: JSX.Element;
   class?: string;
 }
-export default function Footer(p: Props) {
+export function Footer(p: FooterProps) {
   const size = () => p.size ?? 'md';
   const s = () => sizes[size()];
   const heading = () => colors[p.headingVariant ?? 'foreground'];
@@ -146,18 +147,21 @@ export default function Footer(p: Props) {
   const tel = () => (p.phone ? `tel:${p.phone.replace(/\s+/g, '')}` : '#');
   return (
     <footer
-      class={`${footerVariants({ variant: p.variant, size: p.size, effect: p.effect })} flex flex-col ${p.class ?? ''}`}
+      class={cn(
+        footerVariants({ variant: p.variant, size: p.size, effect: p.effect }),
+        p.class
+      )}
     >
       <div class='flex min-w-0 flex-col gap-8 pb-5 md:flex-row md:items-center md:justify-between xl:pb-2'>
         <div class='max-w-190 min-w-0'>
           <h2
-            class={`font-heading text-subtitle font-semibold ${heading()}`}
+            class={cn('font-heading text-subtitle font-semibold', heading())}
             style={p.headingColor ? `color:${p.headingColor}` : undefined}
           >
             {p.ctaTitle ?? "Have Questions? We're here."}
           </h2>
           <p
-            class={`text-body mt-3 ${subtitle()}`}
+            class={cn('text-body mt-3', subtitle())}
             style={p.subtitleColor ? `color:${p.subtitleColor}` : undefined}
           >
             {p.ctaSubtitle ??
@@ -190,7 +194,10 @@ export default function Footer(p: Props) {
         </div>
       </div>
       <div
-        class={`${s().content} mx-auto w-full max-w-full min-w-0 pt-14 pb-8 xl:pt-16 xl:pb-10`}
+        class={cn(
+          s().content,
+          'mx-auto w-full max-w-full min-w-0 pt-14 pb-8 xl:pt-16 xl:pb-10'
+        )}
       >
         <div>
           {p.logo ??
@@ -198,12 +205,20 @@ export default function Footer(p: Props) {
               <img
                 src={p.logoSrc}
                 alt={p.logoText ?? 'Logo'}
-                class={`${s().logo} w-auto object-contain`}
+                class={cn(s().logo, 'object-contain')}
               />
             ) : (
               p.logoText && (
                 <span
-                  class={`font-heading font-bold ${heading()} ${size() === 'lg' ? 'text-3xl' : size() === 'sm' ? 'text-xl' : 'text-2xl'}`}
+                  class={cn(
+                    'font-heading font-bold',
+                    heading(),
+                    size() === 'lg'
+                      ? 'text-3xl'
+                      : size() === 'sm'
+                        ? 'text-xl'
+                        : 'text-2xl'
+                  )}
                   style={p.headingColor ? `color:${p.headingColor}` : undefined}
                 >
                   {p.logoText}
@@ -213,7 +228,7 @@ export default function Footer(p: Props) {
         </div>
         {p.description && (
           <p
-            class={`${s().description} text-body max-w-2xl ${description()}`}
+            class={cn(s().description, 'text-body max-w-2xl', description())}
             style={
               p.descriptionColor ? `color:${p.descriptionColor}` : undefined
             }
@@ -223,13 +238,17 @@ export default function Footer(p: Props) {
         )}
         {(p.address || p.phone || p.email) && (
           <ul
-            class={`${s().contact} max-w-2xl space-y-3.5 pb-10 border-footer-subtle border-b md:border-b-0 text-body ${contact()}`}
+            class={cn(
+              s().contact,
+              'text-body max-w-2xl space-y-3.5 border-b border-footer-subtle pb-10 md:border-b-0',
+              contact()
+            )}
             style={p.contactColor ? `color:${p.contactColor}` : undefined}
           >
             {p.address && (
               <li class='flex items-start gap-3'>
                 <MapPin
-                  class={`mt-1 h-5 w-5 shrink-0 ${iconColor()}`}
+                  class={cn('mt-1 h-5 w-5 shrink-0', iconColor())}
                   style={
                     p.contactIconColor
                       ? `color:${p.contactIconColor}`
@@ -242,7 +261,7 @@ export default function Footer(p: Props) {
             {p.phone && (
               <li class='flex items-start gap-3'>
                 <Phone
-                  class={`mt-1 h-5 w-5 shrink-0 ${iconColor()}`}
+                  class={cn('mt-1 h-5 w-5 shrink-0', iconColor())}
                   style={
                     p.contactIconColor
                       ? `color:${p.contactIconColor}`
@@ -257,7 +276,7 @@ export default function Footer(p: Props) {
             {p.email && (
               <li class='flex items-start gap-3'>
                 <Mail
-                  class={`mt-1 h-5 w-5 shrink-0 ${iconColor()}`}
+                  class={cn('mt-1 h-5 w-5 shrink-0', iconColor())}
                   style={
                     p.contactIconColor
                       ? `color:${p.contactIconColor}`
@@ -277,7 +296,7 @@ export default function Footer(p: Props) {
         {p.quickLinks?.length && (
           <div class={s().links}>
             <p
-              class={`text-eyebrow mb-5 font-semibold ${subtitle()}`}
+              class={cn('text-eyebrow mb-5 font-semibold', subtitle())}
               style={p.subtitleColor ? `color:${p.subtitleColor}` : undefined}
             >
               Quick Links
@@ -291,7 +310,10 @@ export default function Footer(p: Props) {
                         <li>
                           <a
                             href={link.href}
-                            class={`text-body font-medium transition-colors ${links()} hover:opacity-70 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none`}
+                            class={cn(
+                              'text-body font-medium transition-colors hover:opacity-70 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none',
+                              links()
+                            )}
                             style={
                               p.linkColor ? `color:${p.linkColor}` : undefined
                             }
@@ -309,7 +331,11 @@ export default function Footer(p: Props) {
         )}
       </div>
       <div
-        class={`${s().bottom} mt-2 flex min-w-0 flex-col gap-6 ${divider({ variant: p.variant })} md:border-t-0 xl:border-t-0`}
+        class={cn(
+          s().bottom,
+          'mt-2 flex min-w-0 flex-col gap-6 md:border-t-0 xl:border-t-0',
+          divider({ variant: p.variant })
+        )}
       >
         {p.socialLinks?.length && (
           <div class='flex flex-wrap items-center gap-2.5'>
@@ -324,7 +350,10 @@ export default function Footer(p: Props) {
                     <Dynamic
                       component={social.icon}
                       size={18}
-                      class={`shrink-0 ${social.iconVariant ? colors[social.iconVariant] : ''}`}
+                      class={cn(
+                        'shrink-0',
+                        social.iconVariant && colors[social.iconVariant]
+                      )}
                       style={
                         social.iconColor
                           ? `color:${social.iconColor}`
@@ -338,7 +367,7 @@ export default function Footer(p: Props) {
           </div>
         )}
         <p
-          class={`text-body-sm ${copyright()}`}
+          class={cn('text-body-sm', copyright())}
           style={p.copyrightColor ? `color:${p.copyrightColor}` : undefined}
         >
           © {p.year ?? new Date().getFullYear()}

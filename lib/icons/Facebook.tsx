@@ -1,27 +1,26 @@
-import type { JSX } from 'solid-js';
+import { type JSX, splitProps } from 'solid-js';
 
-interface Props {
+interface FacebookProps extends JSX.SvgSVGAttributes<SVGSVGElement> {
   size?: number | string;
   strokeWidth?: number | string;
   class?: string;
-  [key: string]: any;
 }
 
-export default function Facebook(props: Props): JSX.Element {
-  const { size, strokeWidth, class: className, ...rest } = props;
+export function Facebook(props: FacebookProps): JSX.Element {
+  const [local, rest] = splitProps(props, ['size', 'strokeWidth', 'class']);
 
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width={size ?? 24}
-      height={size ?? 24}
+      width={local.size ?? 24}
+      height={local.size ?? 24}
       viewBox='0 0 24 24'
       fill='none'
       stroke='currentColor'
-      stroke-width={strokeWidth ?? 2}
+      stroke-width={local.strokeWidth ?? 2}
       stroke-linecap='round'
       stroke-linejoin='round'
-      class={className ?? ''}
+      class={local.class ?? ''}
       {...rest}
     >
       <path d='M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z' />

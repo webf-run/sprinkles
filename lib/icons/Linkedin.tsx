@@ -1,22 +1,22 @@
-import type { JSX } from 'solid-js';
+import { type JSX, splitProps } from 'solid-js';
 
-interface Props {
+interface LinkedinProps extends JSX.SvgSVGAttributes<SVGSVGElement> {
   size?: number | string;
   strokeWidth?: number | string;
   class?: string;
-  [key: string]: any;
 }
 
-export default function Linkedin(props: Props): JSX.Element {
-  const { size, strokeWidth, class: className, ...rest } = props;
+export function Linkedin(props: LinkedinProps): JSX.Element {
+  const [local, rest] = splitProps(props, ['size', 'strokeWidth', 'class']);
+
   return (
     <svg
-      width={props.size ?? 24}
-      height={props.size ?? 24}
+      width={local.size ?? 24}
+      height={local.size ?? 24}
       viewBox='0 0 19 19'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
-      class={props.class ?? ''}
+      class={local.class ?? ''}
       {...rest}
     >
       <path

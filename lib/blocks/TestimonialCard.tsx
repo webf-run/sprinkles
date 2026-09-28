@@ -1,6 +1,8 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { Quote, Star } from 'lucide-solid';
 
+import { cn } from '../utils';
+
 const variants = cva(
   'flex w-full flex-col rounded-3xl border transition-shadow duration-200',
   {
@@ -62,7 +64,7 @@ const accent = cva('', {
   },
   defaultVariants: { variant: 'default' },
 });
-export interface Props extends VariantProps<typeof variants> {
+interface TestimonialCardProps extends VariantProps<typeof variants> {
   quote: string;
   name: string;
   role?: string;
@@ -70,7 +72,7 @@ export interface Props extends VariantProps<typeof variants> {
   rating?: number;
   class?: string;
 }
-export default function TestimonialCard(p: Props) {
+export function TestimonialCard(p: TestimonialCardProps) {
   const size = () => p.size ?? 'md';
   const v = () => p.variant ?? 'default';
   const rating = () =>
@@ -86,10 +88,17 @@ export default function TestimonialCard(p: Props) {
       .join('');
   return (
     <figure
-      class={`${variants({ variant: v(), size: size(), effect: p.effect })} ${p.class ?? ''}`}
+      class={cn(
+        variants({ variant: v(), size: size(), effect: p.effect }),
+        p.class
+      )}
     >
       <Quote
-        class={`shrink-0 ${size() === 'sm' ? 'size-6' : size() === 'md' ? 'size-7' : 'size-8'} ${accent({ variant: v() })}`}
+        class={cn(
+          'shrink-0',
+          size() === 'sm' ? 'size-6' : size() === 'md' ? 'size-7' : 'size-8',
+          accent({ variant: v() })
+        )}
         fill='currentColor'
         stroke='none'
       />
@@ -100,7 +109,10 @@ export default function TestimonialCard(p: Props) {
         >
           {[0, 1, 2, 3, 4].map((i) => (
             <Star
-              class={`${size() === 'sm' ? 'size-3.5' : 'size-4'} ${i < rating()! ? accent({ variant: v() }) : 'text-border-subtle'}`}
+              class={cn(
+                size() === 'sm' ? 'size-3.5' : 'size-4',
+                i < rating()! ? accent({ variant: v() }) : 'text-border-subtle'
+              )}
               fill={i < rating()! ? 'currentColor' : 'none'}
               strokeWidth={1.75}
             />
@@ -108,7 +120,15 @@ export default function TestimonialCard(p: Props) {
         </div>
       )}
       <blockquote
-        class={`flex-1 leading-relaxed font-medium ${size() === 'sm' ? 'text-sm' : size() === 'md' ? 'text-base' : 'text-lg'} ${text({ variant: v() })}`}
+        class={cn(
+          'flex-1 leading-relaxed font-medium',
+          size() === 'sm'
+            ? 'text-sm'
+            : size() === 'md'
+              ? 'text-base'
+              : 'text-lg',
+          text({ variant: v() })
+        )}
       >
         {p.quote}
       </blockquote>
@@ -117,24 +137,46 @@ export default function TestimonialCard(p: Props) {
           <img
             src={p.avatar}
             alt={p.name}
-            class={`shrink-0 rounded-full object-cover ${size() === 'sm' ? 'size-9' : size() === 'lg' ? 'size-12' : 'size-10'}`}
+            class={cn(
+              'shrink-0 rounded-full object-cover',
+              size() === 'sm'
+                ? 'size-9'
+                : size() === 'lg'
+                  ? 'size-12'
+                  : 'size-10'
+            )}
           />
         ) : (
           <span
-            class={`flex shrink-0 items-center justify-center rounded-full font-semibold ${size() === 'sm' ? 'size-9 text-xs' : size() === 'lg' ? 'size-12 text-sm' : 'size-10 text-xs'} ${accent({ variant: v() })} bg-current/10`}
+            class={cn(
+              'flex shrink-0 items-center justify-center rounded-full bg-current/10 font-semibold',
+              size() === 'sm'
+                ? 'size-9 text-xs'
+                : size() === 'lg'
+                  ? 'size-12 text-sm'
+                  : 'size-10 text-xs',
+              accent({ variant: v() })
+            )}
           >
             <span class={text({ variant: v() })}>{initials()}</span>
           </span>
         )}
         <div class='flex min-w-0 flex-col'>
           <span
-            class={`truncate leading-normal font-semibold ${size() === 'lg' ? 'text-base' : 'text-sm'} ${text({ variant: v() })}`}
+            class={cn(
+              'truncate leading-normal font-semibold',
+              size() === 'lg' ? 'text-base' : 'text-sm',
+              text({ variant: v() })
+            )}
           >
             {p.name}
           </span>
           {p.role && (
             <span
-              class={`truncate text-xs leading-normal opacity-70 ${text({ variant: v() })}`}
+              class={cn(
+                'truncate text-xs leading-normal opacity-70',
+                text({ variant: v() })
+              )}
             >
               {p.role}
             </span>

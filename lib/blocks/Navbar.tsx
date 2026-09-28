@@ -1,21 +1,22 @@
 import { ChevronDown, Menu, X } from 'lucide-solid';
 import {
-  type JSX,
   For,
+  type JSX,
   createSignal,
   createUniqueId,
   onCleanup,
   onMount,
 } from 'solid-js';
 
-import Link from './Link';
+import { cn } from '../utils';
+import { Link } from './Link';
 
 export interface NavItem {
   label: string;
   href: string;
   hasDropdown?: boolean;
 }
-export interface Props {
+interface NavbarProps {
   logoSrc?: string;
   logoText?: string;
   logo?: JSX.Element;
@@ -26,7 +27,7 @@ export interface Props {
   position?: 'fixed' | 'sticky' | 'static';
 }
 
-export default function Navbar(p: Props) {
+export function Navbar(p: NavbarProps) {
   const [open, setOpen] = createSignal(false);
   const items = () => p.navItems ?? [];
   const panelId = `navbar-menu-${createUniqueId()}`;
@@ -63,7 +64,13 @@ export default function Navbar(p: Props) {
 
   return (
     <nav
-      class={`bg-surface left-0 w-full shadow-sm ${p.position === 'fixed' ? 'fixed top-0 z-50' : p.position === 'sticky' ? 'sticky top-0 z-50' : 'relative'} ${p.class ?? ''}`}
+      class={cn(
+        'bg-surface left-0 w-full shadow-sm',
+        p.position === 'fixed' && 'fixed top-0 z-50',
+        p.position === 'sticky' && 'sticky top-0 z-50',
+        (!p.position || p.position === 'static') && 'relative',
+        p.class
+      )}
       style={p.style}
     >
       <div class='mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8'>

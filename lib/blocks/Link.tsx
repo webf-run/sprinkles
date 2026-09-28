@@ -4,6 +4,7 @@ import type { JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
 import type { IconComponent } from '../types';
+import { cn } from '../utils';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold transition-all duration-300 focus:outline-none focus:ring-2',
@@ -32,7 +33,7 @@ const buttonVariants = cva(
     defaultVariants: { variant: 'primary', size: 'md', disabled: false },
   }
 );
-export interface Props extends VariantProps<typeof buttonVariants> {
+interface LinkProps extends VariantProps<typeof buttonVariants> {
   href?: string;
   disabled?: boolean;
   loading?: boolean;
@@ -45,10 +46,17 @@ export interface Props extends VariantProps<typeof buttonVariants> {
   icon?: IconComponent;
   children?: JSX.Element;
 }
-export default function Link(p: Props) {
+export function Link(p: LinkProps) {
   const disabled = () => Boolean(p.disabled || p.loading);
   const classes = () =>
-    `${buttonVariants({ variant: p.variant, size: p.size, disabled: disabled() })} ${p.class ?? ''}`;
+    cn(
+      buttonVariants({
+        variant: p.variant,
+        size: p.size,
+        disabled: disabled(),
+      }),
+      p.class
+    );
   const content = () => (p.loading ? 'Loading...' : p.children);
   const icon = () => p.icon;
   const iconEl = () =>

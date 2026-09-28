@@ -2,6 +2,7 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import { Dynamic } from 'solid-js/web';
 
 import type { IconComponent } from '../types';
+import { cn } from '../utils';
 
 const variants = cva(
   'flex w-full flex-col items-center rounded-2xl border text-center transition-shadow duration-200',
@@ -64,7 +65,7 @@ const icon = cva('', {
   },
   defaultVariants: { variant: 'default' },
 });
-export interface Props extends VariantProps<typeof variants> {
+interface PlacementStatCardProps extends VariantProps<typeof variants> {
   icon: IconComponent;
   value: string;
   title: string;
@@ -72,27 +73,33 @@ export interface Props extends VariantProps<typeof variants> {
   iconClass?: string;
   class?: string;
 }
-export default function PlacementStatCard(p: Props) {
+export function PlacementStatCard(p: PlacementStatCardProps) {
   const v = () => p.variant ?? 'default';
   return (
     <div
-      class={`${variants({ variant: v(), size: p.size, effect: p.effect })} ${p.class ?? ''}`}
+      class={cn(
+        variants({ variant: v(), size: p.size, effect: p.effect }),
+        p.class
+      )}
     >
       <div class='mb-3 flex size-10 shrink-0 items-center justify-center rounded-full'>
         <Dynamic
           component={p.icon}
-          class={`${icon({ variant: v() })} ${p.iconClass ?? 'size-10'}`}
+          class={cn(icon({ variant: v() }), p.iconClass ?? 'size-10')}
         />
       </div>
-      <h3 class={`text-2xl font-bold md:text-3xl ${text({ variant: v() })}`}>
+      <h3 class={cn('text-2xl font-bold md:text-3xl', text({ variant: v() }))}>
         {p.value}
       </h3>
       <p
-        class={`mt-2 text-sm font-semibold md:text-base ${text({ variant: v() })}`}
+        class={cn(
+          'mt-2 text-sm font-semibold md:text-base',
+          text({ variant: v() })
+        )}
       >
         {p.title}
       </p>
-      <p class={`mt-1 text-xs opacity-80 ${text({ variant: v() })}`}>
+      <p class={cn('mt-1 text-xs opacity-80', text({ variant: v() }))}>
         {p.subtitle}
       </p>
     </div>
