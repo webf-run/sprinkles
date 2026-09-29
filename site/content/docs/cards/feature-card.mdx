@@ -3,16 +3,16 @@ title: Feature Card
 description: Highlight a product benefit with an icon, title, and supporting text.
 ---
 
-import BasicOutput from '../../../examples/feature-card/basic.eg.astro';
-import basicCode from '../../../examples/feature-card/basic.eg.astro?raw';
-import ArrangementsOutput from '../../../examples/feature-card/arrangements.eg.astro';
-import arrangementsCode from '../../../examples/feature-card/arrangements.eg.astro?raw';
-import ColorsOutput from '../../../examples/feature-card/colors.eg.astro';
-import colorsCode from '../../../examples/feature-card/colors.eg.astro?raw';
-import EffectsOutput from '../../../examples/feature-card/effects.eg.astro';
-import effectsCode from '../../../examples/feature-card/effects.eg.astro?raw';
-import SizesOutput from '../../../examples/feature-card/sizes.eg.astro';
-import sizesCode from '../../../examples/feature-card/sizes.eg.astro?raw';
+import ArrangementsOutput from '../../../examples/feature-card/arrangements.eg.tsx';
+import arrangementsCode from '../../../examples/feature-card/arrangements.eg.tsx?raw';
+import BasicOutput from '../../../examples/feature-card/basic.eg.tsx';
+import basicCode from '../../../examples/feature-card/basic.eg.tsx?raw';
+import ColorsOutput from '../../../examples/feature-card/colors.eg.tsx';
+import colorsCode from '../../../examples/feature-card/colors.eg.tsx?raw';
+import EffectsOutput from '../../../examples/feature-card/effects.eg.tsx';
+import effectsCode from '../../../examples/feature-card/effects.eg.tsx?raw';
+import SizesOutput from '../../../examples/feature-card/sizes.eg.tsx';
+import sizesCode from '../../../examples/feature-card/sizes.eg.tsx?raw';
 import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
 `FeatureCard` pairs a Lucide icon with a concise title and description. It is useful for product features, benefits, and service highlights.
@@ -63,7 +63,7 @@ The arrangements example demonstrates how Feature Cards can be displayed in diff
 | ---------- | --------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------ |
 | `title`    | `string`                                                                                                  | —           | Feature heading.               |
 | `subtitle` | `string`                                                                                                  | —           | Supporting feature text.       |
-| `icon`     | `AstroComponent`                                                                                          | —           | Lucide icon component.         |
+| `icon`     | `Component`                                                                                               | —           | Lucide icon component.         |
 | `variant`  | `'default' \| 'muted' \| 'accent' \| 'inverse' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.   |
 | `size`     | `'sm' \| 'md' \| 'lg'`                                                                                    | `'md'`      | Card spacing scale.            |
 | `effect`   | `'none' \| 'lift' \| 'glow'`                                                                              | `'none'`    | Hover effect.                  |

@@ -3,20 +3,20 @@ title: Company  Card
 description: Display a company logo in a responsive card, with an optional external link.
 ---
 
-import BasicOutput from '../../../examples/company-card/basic.eg.astro';
-import basicCode from '../../../examples/company-card/basic.eg.astro?raw';
-import VariantsOutput from '../../../examples/company-card/variants.eg.astro';
-import variantsCode from '../../../examples/company-card/variants.eg.astro?raw';
-import ColorsOutput from '../../../examples/company-card/colors.eg.astro';
-import colorsCode from '../../../examples/company-card/colors.eg.astro?raw';
-import SizesOutput from '../../../examples/company-card/sizes.eg.astro';
-import sizesCode from '../../../examples/company-card/sizes.eg.astro?raw';
-import EffectsOutput from '../../../examples/company-card/effects.eg.astro';
-import effectsCode from '../../../examples/company-card/effects.eg.astro?raw';
-import LinkOutput from '../../../examples/company-card/link.eg.astro';
-import linkCode from '../../../examples/company-card/link.eg.astro?raw';
-import ArrangementsOutput from '../../../examples/company-card/arrangements.eg.astro';
-import arrangementsCode from '../../../examples/company-card/arrangements.eg.astro?raw';
+import ArrangementsOutput from '../../../examples/company-card/arrangements.eg.tsx';
+import arrangementsCode from '../../../examples/company-card/arrangements.eg.tsx?raw';
+import BasicOutput from '../../../examples/company-card/basic.eg.tsx';
+import basicCode from '../../../examples/company-card/basic.eg.tsx?raw';
+import ColorsOutput from '../../../examples/company-card/colors.eg.tsx';
+import colorsCode from '../../../examples/company-card/colors.eg.tsx?raw';
+import EffectsOutput from '../../../examples/company-card/effects.eg.tsx';
+import effectsCode from '../../../examples/company-card/effects.eg.tsx?raw';
+import LinkOutput from '../../../examples/company-card/link.eg.tsx';
+import linkCode from '../../../examples/company-card/link.eg.tsx?raw';
+import SizesOutput from '../../../examples/company-card/sizes.eg.tsx';
+import sizesCode from '../../../examples/company-card/sizes.eg.tsx?raw';
+import VariantsOutput from '../../../examples/company-card/variants.eg.tsx';
+import variantsCode from '../../../examples/company-card/variants.eg.tsx?raw';
 import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
 `CompanyLogoCard` presents partner, customer, or employer logos in an even responsive grid. It renders as a non-interactive card by default, and becomes a safely labelled external link when `href` is provided.
@@ -71,12 +71,12 @@ The responsive logo wall combines different `size`, `variant`, and `effect` valu
 
 ## Props
 
-| Prop          | Type                                                                                         | Default     | Description                                    |
-| ------------- | -------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------- |
-| `logo`        | `string \| AstroComponent`                                                                   | —           | Image URL, local asset path, or SVG component. |
-| `companyName` | `string`                                                                                     | —           | Accessible company name for the logo.          |
-| `href`        | `string`                                                                                     | —           | Optional external destination.                 |
-| `variant`     | `'default' \| 'muted' \| 'accent' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.                   |
-| `size`        | `'sm' \| 'md' \| 'lg'`                                                                       | `'md'`      | Card dimensions.                               |
-| `effect`      | `'none' \| 'lift' \| 'scale'`                                                                | `'scale'`   | Hover effect.                                  |
-| `class`       | `string`                                                                                     | —           | Additional Tailwind utilities.                 |
+| Prop          | Type                                                                                         | Default     | Description                                      |
+| ------------- | -------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------ |
+| `logo`        | `string \| Component`                                                                        | —           | Image URL, local asset path, or Solid component. |
+| `companyName` | `string`                                                                                     | —           | Accessible company name for the logo.            |
+| `href`        | `string`                                                                                     | —           | Optional external destination.                   |
+| `variant`     | `'default' \| 'muted' \| 'accent' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.                     |
+| `size`        | `'sm' \| 'md' \| 'lg'`                                                                       | `'md'`      | Card dimensions.                                 |
+| `effect`      | `'none' \| 'lift' \| 'scale'`                                                                | `'scale'`   | Hover effect.                                    |
+| `class`       | `string`                                                                                     | —           | Additional Tailwind utilities.                   |

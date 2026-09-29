@@ -1,0 +1,27 @@
+import { Link } from '@webf-run/sprinkles';
+
+export default function Example() {
+  return (
+    <>
+      <Link href='/docs' target='_blank' rel='noopener noreferrer'>
+        Documentation
+      </Link>
+      <Link
+        variant='secondary'
+        href='/components'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        Components
+      </Link>
+      <Link
+        variant='purple'
+        href='https://github.com/webf-run/astro-ui'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        GitHub
+      </Link>
+    </>
+  );
+}

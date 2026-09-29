@@ -1,0 +1,28 @@
+import { BenefitCard } from '@webf-run/sprinkles';
+import { GraduationCap, Handshake, Trophy } from 'lucide-solid';
+
+export default function Example() {
+  return (
+    <div class='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+      <BenefitCard
+        icon={GraduationCap}
+        title='For education sites'
+        bullets={[
+          'Program highlights',
+          'Admissions requirements',
+          'Outcome statistics',
+        ]}
+      />
+      <BenefitCard
+        icon={Trophy}
+        title='For product marketing'
+        bullets={['Feature benefits', 'Competitive advantages', 'Social proof']}
+      />
+      <BenefitCard
+        icon={Handshake}
+        title='For agencies'
+        bullets={['Service differentiators', 'Client-facing highlights']}
+      />
+    </div>
+  );
+}

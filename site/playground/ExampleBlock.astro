@@ -1,13 +1,192 @@
 ---
+import { Code } from 'astro:components';
+
 interface Props {
   /** Raw source shown in the code panel and used as the editor's starting doc. */
   code: string;
 
   /** Filename shown in the header, matches the playground's convention. */
   filename?: string;
+
+  /** Shiki language used to highlight the code panel. */
+  lang?: string;
 }
+
+const { code, filename, lang = 'tsx' } = Astro.props;
 ---
 
-<div class='min-h-48 w-full bg-(--sl-color-bg) p-4' data-example-output>
-  <slot />
+<div class='preview not-content' data-example-block>
+  <div class='preview-header'>
+    <span class='preview-header-label'>{filename}</span>
+
+    <div class='tabs' role='tablist' aria-label='Example view'>
+      <button
+        type='button'
+        class='active'
+        data-panel-trigger='output'
+        role='tab'
+        aria-selected='true'
+      >
+        Preview
+      </button>
+      <button
+        type='button'
+        data-panel-trigger='code'
+        role='tab'
+        aria-selected='false'
+      >
+        Code
+      </button>
+    </div>
+  </div>
+
+  <div class='preview-body' data-panel='output' data-example-output>
+    <slot />
+  </div>
+
+  <div class='preview-code' data-panel='code' hidden>
+    {
+      /* `lang` is a plain string here (defaults to 'astro', pass 'tsx' for Solid
+         examples) rather than Astro's internal CodeLanguage union, so it's cast
+         at the call site instead of importing that non-public type path. */
+    }
+    <div class='code-highlight'>
+      <Code code={code} lang={lang as any} theme='css-variables' />
+    </div>
+  </div>
 </div>
+
+<style>
+  [data-example-block] .preview-code {
+    background: var(--code-panel-bg, #f8fafc);
+    border-top: 1px solid var(--code-panel-border, #e2e8f0);
+    color: var(--code-panel-text, #334155);
+  }
+
+  [data-example-block] .code-highlight {
+    overflow-x: auto;
+    background: var(--code-bg, #f8fafc);
+    color: var(--code-text, #334155);
+  }
+
+  [data-example-block] .code-highlight :global(pre.astro-code),
+  [data-example-block] .code-highlight :global(pre) {
+    margin: 0;
+    min-width: max-content;
+    border: 0;
+    border-radius: 0;
+    background: transparent !important;
+    color: var(--code-text, #334155) !important;
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+      'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  [data-example-block] .code-highlight :global(code) {
+    color: inherit;
+  }
+
+  /* Light theme — readable contrast without making the code block harsh. */
+  [data-example-block] .code-highlight :global(.astro-code) {
+    --astro-code-color-text: #334155;
+    --astro-code-color-background: #f8fafc;
+    --astro-code-token-constant: #7c3aed;
+    --astro-code-token-string: #047857;
+    --astro-code-token-comment: #64748b;
+    --astro-code-token-keyword: #be185d;
+    --astro-code-token-parameter: #b45309;
+    --astro-code-token-function: #1d4ed8;
+    --astro-code-token-string-expression: #047857;
+    --astro-code-token-punctuation: #475569;
+  }
+
+  /* Dark theme. Astro's dark class is supported by the default Starlight theme. */
+  :global(html[data-theme='dark']) [data-example-block] .preview-code,
+  :global(html[data-theme='dark']) [data-example-block] .code-highlight {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-color: #334155;
+  }
+
+  :global(html[data-theme='dark'])
+    [data-example-block]
+    .code-highlight
+    :global(.astro-code) {
+    --astro-code-color-text: #e2e8f0;
+    --astro-code-color-background: #0f172a;
+    --astro-code-token-constant: #c4b5fd;
+    --astro-code-token-string: #86efac;
+    --astro-code-token-comment: #94a3b8;
+    --astro-code-token-keyword: #f9a8d4;
+    --astro-code-token-parameter: #fdba74;
+    --astro-code-token-function: #93c5fd;
+    --astro-code-token-string-expression: #86efac;
+    --astro-code-token-punctuation: #cbd5e1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(html:not([data-theme='light'])) [data-example-block] .preview-code,
+    :global(html:not([data-theme='light']))
+      [data-example-block]
+      .code-highlight {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+
+    :global(html:not([data-theme='light']))
+      [data-example-block]
+      .code-highlight
+      :global(.astro-code) {
+      --astro-code-color-text: #e2e8f0;
+      --astro-code-color-background: #0f172a;
+      --astro-code-token-constant: #c4b5fd;
+      --astro-code-token-string: #86efac;
+      --astro-code-token-comment: #94a3b8;
+      --astro-code-token-keyword: #f9a8d4;
+      --astro-code-token-parameter: #fdba74;
+      --astro-code-token-function: #93c5fd;
+      --astro-code-token-string-expression: #86efac;
+      --astro-code-token-punctuation: #cbd5e1;
+    }
+  }
+</style>
+
+<script>
+  function wireExampleBlock(block: HTMLElement) {
+    if (block.dataset.wired === 'true') return;
+    block.dataset.wired = 'true';
+
+    const triggers = block.querySelectorAll<HTMLButtonElement>(
+      '[data-panel-trigger]'
+    );
+    const panels = block.querySelectorAll<HTMLElement>('[data-panel]');
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const target = trigger.dataset.panelTrigger;
+
+        triggers.forEach((t) => {
+          const isActive = t === trigger;
+          t.classList.toggle('active', isActive);
+          t.setAttribute('aria-selected', String(isActive));
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.dataset.panel !== target;
+        });
+      });
+    });
+  }
+
+  function wireAllExampleBlocks() {
+    document
+      .querySelectorAll<HTMLElement>('[data-example-block]')
+      .forEach((block) => wireExampleBlock(block));
+  }
+
+  wireAllExampleBlocks();
+  document.addEventListener('astro:page-load', wireAllExampleBlocks);
+</script>

@@ -84,9 +84,32 @@ body {
 }
 
 .preview-header {
-  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
   border-bottom: 1px solid var(--sl-color-gray-5);
   font-weight: 600;
+}
+
+.preview-header-label {
+  color: var(--doc-foreground-muted);
+  font-family: var(--sl-font-mono);
+  font-size: var(--sl-text-xs);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Tabs sit inline in the preview header, so drop the standalone top margin
+   used when .tabs is placed directly under a heading elsewhere. */
+.preview-header .tabs {
+  margin: 0;
+}
+
+.preview-header .tabs button {
+  padding: 6px 14px;
+  font-size: var(--sl-text-xs);
 }
 
 .preview-body {
@@ -96,6 +119,39 @@ body {
   justify-content: flex-start;
   gap: 20px;
   padding: 40px;
+}
+
+.preview-code {
+  overflow-x: auto;
+  background: var(--doc-code-surface);
+  border-top: 1px solid var(--sl-color-gray-5);
+
+  /* Shiki's "css-variables" theme reads these instead of shipping its own
+     bundled theme, so the code panel always matches the doc-code tokens
+     above regardless of light/dark mode. */
+  --astro-code-foreground: var(--doc-code-foreground);
+  --astro-code-background: transparent;
+  --astro-code-token-keyword: #c792ea;
+  --astro-code-token-string: #a3e635;
+  --astro-code-token-comment: var(--doc-foreground-muted);
+  --astro-code-token-function: #82aaff;
+  --astro-code-token-constant: #f78c6c;
+  --astro-code-token-parameter: var(--doc-code-foreground);
+  --astro-code-token-string-expression: #a3e635;
+  --astro-code-token-punctuation: var(--doc-foreground-muted);
+  --astro-code-token-link: #82aaff;
+}
+
+.preview-code pre {
+  margin: 0;
+  padding: 20px;
+  font-family: var(--sl-font-mono);
+  font-size: var(--sl-text-sm);
+  line-height: 1.6;
+}
+
+.preview-code code {
+  background: transparent;
 }
 
 .doc-section {
