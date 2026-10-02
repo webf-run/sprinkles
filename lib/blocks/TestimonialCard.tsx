@@ -1,5 +1,6 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { Quote, Star } from 'lucide-solid';
+import { Show } from 'solid-js';
 
 import { cn } from '../utils';
 
@@ -17,6 +18,8 @@ const variants = cva(
         green: 'border-badge-green-background bg-badge-green-background',
         blue: 'border-badge-blue-background bg-badge-blue-background',
         neutral: 'border-badge-neutral-background bg-badge-neutral-background',
+        /** Borderless white card with a plain quote, name and role. */
+        plain: 'rounded-badge-outline border-transparent bg-surface',
       },
       size: {
         sm: 'gap-3 px-5 py-4',
@@ -44,6 +47,7 @@ const text = cva('', {
       green: 'text-badge-green-foreground',
       blue: 'text-badge-blue-foreground',
       neutral: 'text-badge-neutral-foreground',
+      plain: 'text-foreground',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -60,6 +64,7 @@ const accent = cva('', {
       green: 'text-badge-green-foreground',
       blue: 'text-badge-blue-foreground',
       neutral: 'text-badge-neutral-foreground',
+      plain: 'text-foreground-subtle',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -87,102 +92,136 @@ export function TestimonialCard(p: TestimonialCardProps) {
       .map((x) => x[0]?.toUpperCase())
       .join('');
   return (
-    <figure
-      class={cn(
-        variants({ variant: v(), size: size(), effect: p.effect }),
-        p.class
-      )}
-    >
-      <Quote
-        class={cn(
-          'shrink-0',
-          size() === 'sm' ? 'size-6' : size() === 'md' ? 'size-7' : 'size-8',
-          accent({ variant: v() })
-        )}
-        fill='currentColor'
-        stroke='none'
-      />
-      {rating() !== undefined && (
+    <Show
+      when={p.variant !== 'plain'}
+      fallback={
         <div
-          class='flex items-center gap-0.5'
-          aria-label={`Rated ${rating()} out of 5`}
+          class={cn(
+            'flex h-full flex-col rounded-badge-outline bg-surface',
+            'gap-4 p-6',
+            'md:gap-6 md:p-8',
+            'xl:gap-2 xl:px-8 xl:py-header',
+            p.class
+          )}
         >
-          {[0, 1, 2, 3, 4].map((i) => (
-            <Star
-              class={cn(
-                size() === 'sm' ? 'size-3.5' : 'size-4',
-                i < rating()! ? accent({ variant: v() }) : 'text-border-subtle'
-              )}
-              fill={i < rating()! ? 'currentColor' : 'none'}
-              strokeWidth={1.75}
-            />
-          ))}
+          <p class='flex-1 text-lead leading-150 font-normal tracking-tight-8 text-foreground'>
+            {'\u201C'}
+            {p.quote}
+            {'\u201D'}
+          </p>
+
+          <div class='flex items-center gap-3 xl:gap-4'>
+            <div class='flex flex-col'>
+              <p class='text-body leading-165 font-bold text-foreground-strong'>
+                {p.name}
+              </p>
+              <p class='text-body-sm leading-160 font-normal text-foreground-muted'>
+                {p.role}
+              </p>
+            </div>
+          </div>
         </div>
-      )}
-      <blockquote
+      }
+    >
+      <figure
         class={cn(
-          'flex-1 leading-relaxed font-medium',
-          size() === 'sm'
-            ? 'text-sm'
-            : size() === 'md'
-              ? 'text-base'
-              : 'text-lg',
-          text({ variant: v() })
+          variants({ variant: v(), size: size(), effect: p.effect }),
+          p.class
         )}
       >
-        {p.quote}
-      </blockquote>
-      <figcaption class='mt-1 flex items-center gap-3'>
-        {p.avatar ? (
-          <img
-            src={p.avatar}
-            alt={p.name}
-            class={cn(
-              'shrink-0 rounded-full object-cover',
-              size() === 'sm'
-                ? 'size-9'
-                : size() === 'lg'
-                  ? 'size-12'
-                  : 'size-10'
-            )}
-          />
-        ) : (
-          <span
-            class={cn(
-              'flex shrink-0 items-center justify-center rounded-full bg-current/10 font-semibold',
-              size() === 'sm'
-                ? 'size-9 text-xs'
-                : size() === 'lg'
-                  ? 'size-12 text-sm'
-                  : 'size-10 text-xs',
-              accent({ variant: v() })
-            )}
+        <Quote
+          class={cn(
+            'shrink-0',
+            size() === 'sm' ? 'size-6' : size() === 'md' ? 'size-7' : 'size-8',
+            accent({ variant: v() })
+          )}
+          fill='currentColor'
+          stroke='none'
+        />
+        {rating() !== undefined && (
+          <div
+            class='flex items-center gap-0.5'
+            aria-label={`Rated ${rating()} out of 5`}
           >
-            <span class={text({ variant: v() })}>{initials()}</span>
-          </span>
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star
+                class={cn(
+                  size() === 'sm' ? 'size-3.5' : 'size-4',
+                  i < rating()!
+                    ? accent({ variant: v() })
+                    : 'text-border-subtle'
+                )}
+                fill={i < rating()! ? 'currentColor' : 'none'}
+                strokeWidth={1.75}
+              />
+            ))}
+          </div>
         )}
-        <div class='flex min-w-0 flex-col'>
-          <span
-            class={cn(
-              'truncate leading-normal font-semibold',
-              size() === 'lg' ? 'text-base' : 'text-sm',
-              text({ variant: v() })
-            )}
-          >
-            {p.name}
-          </span>
-          {p.role && (
+        <blockquote
+          class={cn(
+            'flex-1 leading-relaxed font-medium',
+            size() === 'sm'
+              ? 'text-sm'
+              : size() === 'md'
+                ? 'text-base'
+                : 'text-lg',
+            text({ variant: v() })
+          )}
+        >
+          {p.quote}
+        </blockquote>
+        <figcaption class='mt-1 flex items-center gap-3'>
+          {p.avatar ? (
+            <img
+              src={p.avatar}
+              alt={p.name}
+              class={cn(
+                'shrink-0 rounded-full object-cover',
+                size() === 'sm'
+                  ? 'size-9'
+                  : size() === 'lg'
+                    ? 'size-12'
+                    : 'size-10'
+              )}
+            />
+          ) : (
             <span
               class={cn(
-                'truncate text-xs leading-normal opacity-70',
+                'flex shrink-0 items-center justify-center rounded-full bg-current/10 font-semibold',
+                size() === 'sm'
+                  ? 'size-9 text-xs'
+                  : size() === 'lg'
+                    ? 'size-12 text-sm'
+                    : 'size-10 text-xs',
+                accent({ variant: v() })
+              )}
+            >
+              <span class={text({ variant: v() })}>{initials()}</span>
+            </span>
+          )}
+          <div class='flex min-w-0 flex-col'>
+            <span
+              class={cn(
+                'truncate leading-normal font-semibold',
+                size() === 'lg' ? 'text-base' : 'text-sm',
                 text({ variant: v() })
               )}
             >
-              {p.role}
+              {p.name}
             </span>
-          )}
-        </div>
-      </figcaption>
-    </figure>
+            {p.role && (
+              <span
+                class={cn(
+                  'truncate text-xs leading-normal opacity-70',
+                  text({ variant: v() })
+                )}
+              >
+                {p.role}
+              </span>
+            )}
+          </div>
+        </figcaption>
+      </figure>
+    </Show>
   );
 }
