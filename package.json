@@ -21,10 +21,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "solid": "./dist/source/index.js",
-      "import": "./dist/index.js"
+      "browser": "./dist/index.js",
+      "node": "./dist/server.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./style.css": "./dist/style.css",
+    "./theme.css": "./dist/theme.css",
     "./package.json": "./package.json"
   },
   "files": [
@@ -36,8 +39,7 @@
     "check": "astro check && pnpm run check:types",
     "check:types": "tsc --noEmit",
     "build": "pnpm run build:lib && pnpm run build:site",
-    "build:lib": "vite build && pnpm run build:solid",
-    "build:solid": "tsc -p tsconfig.solid.json",
+    "build:lib": "vite build && vite build -c vite.config.ssr.ts",
     "build:site": "astro build",
     "preview": "astro preview",
     "lint": "pnpm -r lint",

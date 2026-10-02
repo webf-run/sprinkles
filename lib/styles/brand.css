@@ -1,0 +1,123 @@
+/*
+ * Tokens used by the marketing / ACOP components (Badge, Link,
+ * InfoBadge, QuickLinkCard, ProgramCard, CtaBanner, CtaSection,
+ * NumberedFeatureCard, DotTag).
+ *
+ * Defaults sit in a cascade layer so that a consuming app's own, unlayered
+ * `:root { --brand: ... }` always wins, regardless of stylesheet order.
+ * Names are deliberately distinct from the older --primary / --accent tokens,
+ * whose roles are the other way round in most apps.
+ */
+@layer theme {
+  :root {
+    --brand: #5d13b7;
+    --brand-soft: #f9f3ff;
+    --brand-tint: #f3eff6;
+    --brand-wash: #f8f4fc;
+    --brand-strong: #2c0062;
+    --brand-strong-hover: #3d0080;
+
+    --highlight: #ffa037;
+    --highlight-hover: #ffb35c;
+    --highlight-active: #f28a1f;
+    --highlight-foreground: #000000;
+
+    --foreground-strong: #222222;
+
+    --glow-from: #2c0062;
+    --glow-to: #1f0449;
+  }
+}
+
+@theme inline {
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-tint: var(--brand-tint);
+  --color-brand-wash: var(--brand-wash);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-strong-hover: var(--brand-strong-hover);
+
+  --color-highlight: var(--highlight);
+  --color-highlight-hover: var(--highlight-hover);
+  --color-highlight-active: var(--highlight-active);
+  --color-highlight-foreground: var(--highlight-foreground);
+
+  --color-foreground-strong: var(--foreground-strong);
+}
+
+@theme {
+  --line-height-143: 1.43;
+  --leading-110: 1.1;
+  --leading-115: 1.15;
+  --leading-120: 1.2;
+  --leading-126: 1.26;
+  --leading-143: var(--line-height-143);
+  --leading-145: 1.45;
+  --leading-150: 1.5;
+  --leading-160: 1.6;
+  --leading-165: 1.65;
+
+  --tracking-tight-30: -0.03em;
+  --tracking-tight-20: -0.02em;
+  --tracking-tight-10: -0.01em;
+  --tracking-tight-8: -0.008em;
+  --tracking-wide-130: 0.13em;
+  --tracking-wide-140: 0.14em;
+
+  --text-eyebrow: clamp(0.6875rem, 0.642rem + 0.1942vw, 0.875rem);
+  --text-body: clamp(1rem, 0.9545rem + 0.1942vw, 1.188rem);
+  --text-body-sm: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
+  --text-lead: clamp(1.062rem, 0.9563rem + 0.4531vw, 1.5rem);
+  --text-lead-sm: 16px;
+  --text-lead-md: clamp(1rem, 0.78125vw + 0.625rem, 1.25rem);
+  --text-lead-xl: 24px;
+  --text-display-sm: 28px;
+  --text-display-md: clamp(2.25rem, 7.03125vw - 1.125rem, 4.5rem);
+  --text-heading-display: 28px;
+  --text-heading-display-xl: 82px;
+  --text-heading-xl: 40px;
+
+  --text-badge-md: 24px;
+  --text-badge-md-mobile: 14px;
+
+  --text-card-heading-sm: 16px;
+  --text-card-heading-md: 24px;
+  --text-card-heading-lg: 32px;
+  --text-card-description-sm: 12px;
+  --text-card-description-md: 18px;
+  --text-card-description-lg: 24px;
+  --text-card-badge-sm: 12px;
+  --text-card-badge-md: 16px;
+  --text-card-badge-lg: 20px;
+  --text-card-tag-sm: 12px;
+  --text-card-tag-md: 14px;
+  --text-card-cta: 15px;
+
+  --spacing-header: 60px;
+  --spacing-badge-md-height: 61px;
+  --spacing-badge-md-x: 36px;
+  --spacing-badge-md-y: 16px;
+  --spacing-badge-md-mobile-width: 203px;
+  --spacing-badge-md-mobile-height: 41px;
+  --spacing-badge-md-mobile-x: 26px;
+  --spacing-badge-md-mobile-y: 12px;
+  --spacing-badge-md-mobile-gap: 10px;
+
+  --radius-badge-md: 54px;
+  --radius-badge-md-mobile: 54px;
+  --radius-badge-tag: 15px;
+  --radius-badge-outline: 10px;
+
+  --shadow-card-purple: 5px 5px 17.3px 0px #5d13b71a;
+
+  --container-site: 1920px;
+
+  --font-badge: Inter, sans-serif;
+  --font-heading: Georgia, 'Times New Roman', serif;
+
+  --background-image-glow: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--glow-from) 0%,
+    var(--glow-to) 100%
+  );
+}

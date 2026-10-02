@@ -19,11 +19,28 @@ const buttonVariants = cva(
           'rounded-md border-secondary-border bg-accent text-sm text-accent-foreground',
         blackwhite:
           'border-border-subtle bg-secondary text-sm text-foreground-muted',
+        /** Solid orange call-to-action. */
+        highlight:
+          'border-0 bg-highlight text-highlight-foreground hover:bg-highlight-hover active:bg-highlight-active',
+        /** Brand-coloured outline. */
+        outline:
+          'border-brand bg-transparent text-brand hover:bg-brand-wash active:bg-badge-purple-background',
+        /** White outline for dark / photo backgrounds. */
+        inverse:
+          'border-white bg-transparent text-white hover:bg-white/15 active:bg-white/25',
+        /** Deep-purple solid button. */
+        dark: 'border-0 bg-brand-strong text-white hover:bg-brand-strong-hover',
       },
       size: {
         sm: 'px-4 py-2 text-sm',
         md: 'px-6 py-3 text-sm',
         lg: 'px-8 py-4 text-lg',
+        /** Marketing button, 48px tall (56px from md). */
+        action:
+          'h-12 cursor-pointer gap-1 duration-200 ease-out px-5 text-lg leading-165 whitespace-nowrap hover:-translate-y-px active:translate-y-0 focus:ring-0 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:h-14 md:gap-2 md:px-6',
+        /** Large marketing button. */
+        'action-lg':
+          'cursor-pointer gap-1 duration-200 ease-out px-6 py-4 text-body leading-165 whitespace-nowrap hover:-translate-y-px active:translate-y-0 focus:ring-0 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:gap-2 md:px-7 xl:rounded-xl',
       },
       disabled: {
         true: 'pointer-events-none cursor-not-allowed opacity-50',
@@ -59,8 +76,16 @@ export function Link(p: LinkProps) {
     );
   const content = () => (p.loading ? 'Loading...' : p.children);
   const icon = () => p.icon;
+  const marketing = () => p.size === 'action' || p.size === 'action-lg';
   const iconEl = () =>
-    icon() && <Dynamic component={icon()!} size={16} strokeWidth={2} />;
+    icon() && (
+      <Dynamic
+        component={icon()!}
+        size={16}
+        strokeWidth={2}
+        class={marketing() ? 'shrink-0 md:size-5' : undefined}
+      />
+    );
   if (p.href)
     return (
       <a

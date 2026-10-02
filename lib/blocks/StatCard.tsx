@@ -18,11 +18,20 @@ const variants = cva(
         green: 'border-badge-green-background bg-badge-green-background',
         blue: 'border-badge-blue-background bg-badge-blue-background',
         neutral: 'border-badge-neutral-background bg-badge-neutral-background',
+        /** Light-lilac tile (#E3D0F6 at 25%) with body-coloured text. */
+        tinted: 'border-white bg-surface-accent-strong/25 text-foreground',
       },
       size: {
         sm: 'w-full max-w-36 shrink-0 gap-2 px-4 py-4',
         md: 'w-full max-w-48 shrink-0 gap-2 px-5 py-5',
         lg: 'w-full max-w-64 shrink-0 gap-3 px-6 py-6',
+        /** Square on mobile, fixed height from md. Pairs with large type. */
+        compact: [
+          'aspect-square h-auto min-h-32 w-full max-w-64 min-w-32',
+          'gap-2 px-4 py-5',
+          'md:aspect-auto md:h-50 md:min-h-32 md:px-6 md:py-6',
+          'xl:h-50 xl:max-w-64 xl:px-8 xl:py-6',
+        ],
       },
       effect: {
         none: '',
@@ -45,8 +54,9 @@ const iconBox = cva('flex shrink-0 items-center justify-center rounded-full', {
       green: 'bg-badge-green-foreground/15 text-badge-green-foreground',
       blue: 'bg-badge-blue-foreground/15 text-badge-blue-foreground',
       neutral: 'bg-badge-neutral-foreground/15 text-badge-neutral-foreground',
+      tinted: 'bg-brand/10 text-brand',
     },
-    size: { sm: 'size-9', md: 'size-10', lg: 'size-12' },
+    size: { sm: 'size-9', md: 'size-10', lg: 'size-12', compact: 'size-10' },
   },
   defaultVariants: { variant: 'default', size: 'md' },
 });
@@ -62,6 +72,7 @@ const text = cva('text-foreground', {
       green: 'text-badge-green-foreground',
       blue: 'text-badge-blue-foreground',
       neutral: 'text-badge-neutral-foreground',
+      tinted: 'text-foreground',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -106,9 +117,14 @@ const styles = {
     backgroundColor:
       'color-mix(in srgb, var(--badge-neutral-foreground) 15%, transparent)',
   },
+  tinted: {
+    color: 'var(--brand)',
+    backgroundColor: 'color-mix(in srgb, var(--brand) 10%, transparent)',
+  },
 } as const;
 interface StatCardProps extends VariantProps<typeof variants> {
-  icon: IconComponent;
+  /** Optional. The `compact` size is typically used without an icon. */
+  icon?: IconComponent;
   value: string;
   label: string;
   iconClass?: string;
@@ -124,20 +140,24 @@ export function StatCard(p: StatCardProps) {
         p.class
       )}
     >
-      <div
-        class={iconBox({ variant: v(), size: p.size })}
-        style={{ color: st.color, 'background-color': st.backgroundColor }}
-      >
-        <Dynamic
-          component={p.icon}
-          color={st.color}
-          class={cn('shrink-0', p.iconClass ?? 'size-7')}
-        />
-      </div>
+      {p.icon && (
+        <div
+          class={iconBox({ variant: v(), size: p.size })}
+          style={{ color: st.color, 'background-color': st.backgroundColor }}
+        >
+          <Dynamic
+            component={p.icon!}
+            color={st.color}
+            class={cn('shrink-0', p.iconClass ?? 'size-7')}
+          />
+        </div>
+      )}
       {p.value && (
         <h3
           class={cn(
             'text-xl leading-normal font-semibold tracking-tight',
+            p.size === 'compact' &&
+              'leading-none tracking-normal sm:text-2xl xl:text-4xl',
             text({ variant: v() })
           )}
         >
@@ -147,6 +167,8 @@ export function StatCard(p: StatCardProps) {
       <p
         class={cn(
           'text-sm leading-tight font-semibold wrap-break-word opacity-80',
+          p.size === 'compact' &&
+            'max-w-full text-xs leading-tight font-normal opacity-100 hyphens-none sm:text-sm md:text-base xl:text-xl',
           text({ variant: v() })
         )}
       >

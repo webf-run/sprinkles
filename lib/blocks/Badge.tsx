@@ -14,12 +14,31 @@ const badgeVariants = cva(
         blue: 'bg-badge-blue-background text-badge-blue-foreground',
         neutral: 'bg-badge-neutral-background text-badge-neutral-foreground',
         pink: 'bg-badge-pink-background text-badge-pink-foreground',
+        /** Solid orange (#FFA037) with dark text. */
+        highlight: 'bg-highlight text-highlight-foreground',
+        /** White pill with brand-coloured text. */
+        light: 'bg-white text-brand',
+        /** Translucent pill for use on photos / dark backgrounds. */
+        glass:
+          'gap-2 border border-white/25 bg-white/29 text-white backdrop-blur-sm',
+        /** Rounded-rectangle outlined tag. */
+        tag: 'rounded-badge-tag border border-badge-purple-foreground bg-badge-purple-background font-medium text-badge-purple-foreground',
       },
 
       size: {
         sm: 'px-3 py-1.5 text-xs',
         md: 'px-4 py-2 text-sm',
         lg: 'px-5 py-2.5 text-base',
+        /** Large, responsive section label ("OUR PROGRAMS", "QUICK ACCESS"). */
+        section: [
+          'h-badge-md-mobile-height w-badge-md-mobile-width rounded-badge-md-mobile',
+          'px-badge-md-mobile-x py-badge-md-mobile-y',
+          'font-badge text-badge-md-mobile leading-120 tracking-wide-130 text-center',
+          'md:h-badge-md-height md:w-auto md:rounded-badge-md',
+          'md:px-badge-md-x md:py-badge-md-y md:text-badge-md',
+        ],
+        /** Small eyebrow tag used inside cards. */
+        tag: 'px-3 py-1.5 text-eyebrow leading-120 tracking-wide-140 md:px-4 md:py-2',
       },
     },
 
