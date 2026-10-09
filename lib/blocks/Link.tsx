@@ -30,6 +30,12 @@ const buttonVariants = cva(
           'border-white bg-transparent text-white hover:bg-white/15 active:bg-white/25',
         /** Deep-purple solid button. */
         dark: 'border-0 bg-brand-strong text-white hover:bg-brand-strong-hover',
+        /** Solid brand-purple button (programme pages). */
+        brand:
+          'border-transparent bg-brand text-white hover:bg-brand-deep active:bg-brand-strong',
+        /** Soft-bordered brand outline (secondary action next to `brand`). */
+        'brand-outline':
+          'border-2 border-brand-outline bg-transparent text-brand hover:bg-brand-wash active:bg-brand-tint',
       },
       size: {
         sm: 'px-4 py-2 text-sm',

@@ -24,6 +24,19 @@
 
     --foreground-strong: #222222;
 
+    /* Programme-page palette (B.Pharm hero, fact cards, breadcrumb). */
+    --brand-deep: #4e13a6;
+    --brand-pale: #efe5ff;
+    --brand-outline: #cab6e8;
+    --brand-hairline: #ece3f2;
+    --ink: #17151b;
+    --ink-muted: #5e5863;
+    --ink-subtle: #8a8390;
+
+    --brand-mist: #fbf9ff;
+    --brand-tile: #f0e7fb;
+    --brand-line: #ece5f0;
+
     --glow-from: #2c0062;
     --glow-to: #1f0449;
   }
@@ -43,6 +56,18 @@
   --color-highlight-foreground: var(--highlight-foreground);
 
   --color-foreground-strong: var(--foreground-strong);
+
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-pale: var(--brand-pale);
+  --color-brand-outline: var(--brand-outline);
+  --color-brand-hairline: var(--brand-hairline);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+
+  --color-brand-mist: var(--brand-mist);
+  --color-brand-tile: var(--brand-tile);
+  --color-brand-line: var(--brand-line);
 }
 
 @theme {
@@ -92,6 +117,9 @@
   --text-card-tag-sm: 12px;
   --text-card-tag-md: 14px;
   --text-card-cta: 15px;
+  /* Fluid icon-card text: 16px -> 24px and 12px -> 15px (375px -> 1920px). */
+  --text-card-feature-title: clamp(1rem, 0.8786rem + 0.5178vw, 1.5rem);
+  --text-card-feature-description: clamp(0.75rem, 0.7045rem + 0.1942vw, 0.9375rem);
 
   --spacing-header: 60px;
   --spacing-badge-md-height: 61px;

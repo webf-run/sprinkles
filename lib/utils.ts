@@ -36,6 +36,8 @@ const twMerge = extendTailwindMerge({
         'card-tag-sm',
         'card-tag-md',
         'card-cta',
+        'card-feature-title',
+        'card-feature-description',
       ],
       tracking: [
         'tight-30',

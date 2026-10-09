@@ -46,6 +46,10 @@ export default defineConfig({
             { label: 'Navbar', slug: 'components/navbar' },
             { label: 'Footer', slug: 'components/footer' },
             { label: 'Badge', slug: 'components/badge' },
+            { label: 'Breadcrumb', slug: 'components/breadcrumb' },
+            { label: 'CTA Banner', slug: 'components/cta-banner' },
+            { label: 'CTA Section', slug: 'components/cta-section' },
+            { label: 'Dot Tag', slug: 'components/dot-tag' },
           ],
         },
         {
