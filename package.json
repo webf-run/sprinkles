@@ -1,6 +1,6 @@
 {
   "name": "@webf-run/sprinkles",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Solid.js component library styled with Tailwind CSS",
   "license": "Apache-2.0",
   "repository": {
