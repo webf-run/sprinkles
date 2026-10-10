@@ -1,4 +1,4 @@
-import { Facebook, Footer, Instagram, Linkedin } from '@webf-run/sprinkles';
+import { Facebook, Footer, Instagram, Linkedin } from '@webf/sprinkles';
 
 export default function Example() {
   return (

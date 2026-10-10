@@ -1,4 +1,4 @@
-import { CompanyCard } from '@webf-run/sprinkles';
+import { CompanyCard } from '@webf/sprinkles';
 
 import DropboxLogo from '../../assets/company-logos/dropbox.svg?raw';
 import GitHubLogo from '../../assets/company-logos/github.svg?raw';

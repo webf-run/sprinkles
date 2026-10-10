@@ -1,4 +1,4 @@
-import { FeatureCard } from '@webf-run/sprinkles';
+import { FeatureCard } from '@webf/sprinkles';
 import { Layers, ShieldCheck } from 'lucide-solid';
 
 export default function Example() {
