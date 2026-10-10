@@ -1,15 +1,11 @@
-import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import tailwindcss from '@tailwindcss/vite';
+import dts from 'unplugin-dts/vite';
 import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
 import solid from 'vite-plugin-solid';
 
-const pkg = JSON.parse(readFileSync('./package.json', 'utf-8')) as {
-  dependencies?: Record<string, string>;
-  peerDependencies?: Record<string, string>;
-};
+import pkg from './package.json' with { type: 'json' };
 
 // Everything the library imports at runtime is left for the consumer's
 // bundler to resolve. Includes deep imports such as `solid-js/web`.
@@ -19,17 +15,6 @@ const externals = [
 ].map((name) => new RegExp(`^${name}(/.*)?$`));
 
 export default defineConfig({
-  plugins: [
-    solid(),
-    tailwindcss(),
-    dts({
-      tsconfigPath: './tsconfig.lib.json',
-      entryRoot: 'lib',
-      include: ['lib'],
-      exclude: ['lib/entry.ts', 'lib/env.d.ts'],
-    }),
-  ],
-
   build: {
     outDir: 'dist',
     copyPublicDir: false,
@@ -48,4 +33,12 @@ export default defineConfig({
       external: externals,
     },
   },
+  plugins: [
+    solid(),
+    tailwindcss(),
+    dts({
+      tsconfigPath: './tsconfig.lib.json',
+      entryRoot: 'lib',
+    }),
+  ],
 });
