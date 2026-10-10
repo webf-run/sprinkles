@@ -1,0 +1,14 @@
+/*
+ * Precompiled stylesheet for apps that don't run Tailwind (`dist/style.css`).
+ * Preflight is intentionally left out so the library does not reset
+ * global styles of the consuming app.
+ */
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+
+/* `source(none)`: only scan the `@source` in theme.css (the library itself),
+   not the whole repo, so classes used by the docs site don't leak in. */
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
+
+@import './theme.css';

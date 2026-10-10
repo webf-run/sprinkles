@@ -14,7 +14,7 @@ export function QuickLinkCard(props: QuickLinkCardProps) {
     <a
       href={props.href}
       class={cn(
-        'group flex h-full w-full flex-col items-start gap-2.5 rounded-badge-tag border border-brand bg-surface p-7',
+        'group flex h-full w-full flex-col items-start gap-2.5 rounded-badge-tag border border-brand bg-surface p-7 text-inherit no-underline',
         'transition-[background-color,border-color,box-shadow,transform] duration-200 ease-out',
         'hover:-translate-y-0.5 hover:border-brand hover:bg-brand-tint hover:shadow-card-purple',
         'xl:h-94.75 xl:w-103.5 xl:shrink-0 xl:p-13.5 xl:px-12',

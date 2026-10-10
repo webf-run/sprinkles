@@ -21,7 +21,7 @@ export function Breadcrumb(props: BreadcrumbProps) {
     <nav aria-label='Breadcrumb' class={props.class}>
       <ol
         class={cn(
-          'flex flex-wrap items-center gap-x-1.5 gap-y-0.5',
+          'flex list-none flex-wrap items-center gap-x-1.5 gap-y-0.5 p-0',
           'text-body-sm leading-120 text-ink-subtle',
           '2xl:text-card-description-md'
         )}
@@ -39,7 +39,7 @@ export function Breadcrumb(props: BreadcrumbProps) {
               >
                 <a
                   href={item.href}
-                  class='transition-colors duration-200 hover:text-brand hover:underline'
+                  class='text-inherit no-underline transition-colors duration-200 hover:text-brand hover:underline'
                 >
                   {item.label}
                 </a>

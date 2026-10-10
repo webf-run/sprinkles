@@ -5,7 +5,7 @@ import { Dynamic } from 'solid-js/web';
 import { cn } from '../utils';
 
 const variants = cva(
-  'flex shrink-0 items-center justify-center rounded-xl border transition-all duration-200',
+  'flex shrink-0 items-center justify-center rounded-xl border text-inherit no-underline transition-all duration-200',
   {
     variants: {
       variant: {

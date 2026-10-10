@@ -240,7 +240,7 @@ export function Footer(p: FooterProps) {
           <ul
             class={cn(
               s().contact,
-              'text-body max-w-2xl space-y-3.5 border-b border-footer-subtle pb-10 md:border-b-0',
+              'text-body max-w-2xl list-none space-y-3.5 border-b border-footer-subtle p-0 pb-10 md:border-b-0',
               contact()
             )}
             style={p.contactColor ? `color:${p.contactColor}` : undefined}
@@ -268,7 +268,10 @@ export function Footer(p: FooterProps) {
                       : undefined
                   }
                 />
-                <a href={tel()} class='transition-colors hover:opacity-80'>
+                <a
+                  href={tel()}
+                  class='text-inherit no-underline transition-colors hover:opacity-80'
+                >
                   {p.phone}
                 </a>
               </li>
@@ -285,7 +288,7 @@ export function Footer(p: FooterProps) {
                 />
                 <a
                   href={`mailto:${p.email}`}
-                  class='transition-colors hover:opacity-80'
+                  class='text-inherit no-underline transition-colors hover:opacity-80'
                 >
                   {p.email}
                 </a>
@@ -304,14 +307,14 @@ export function Footer(p: FooterProps) {
             <div class='grid max-w-104.75 grid-cols-2 gap-x-10 gap-y-4 md:gap-x-16 xl:gap-x-22.25'>
               <For each={p.quickLinks}>
                 {(column) => (
-                  <ul class='space-y-3'>
+                  <ul class='list-none space-y-3 p-0'>
                     <For each={column}>
                       {(link) => (
                         <li>
                           <a
                             href={link.href}
                             class={cn(
-                              'text-body font-medium transition-colors hover:opacity-70 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none',
+                              'text-body font-medium no-underline transition-colors hover:opacity-70 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none',
                               links()
                             )}
                             style={
@@ -344,7 +347,7 @@ export function Footer(p: FooterProps) {
                 <a
                   href={social.href}
                   aria-label={social.label}
-                  class='flex h-7.75 w-7.75 items-center justify-center rounded-full border-foreground-strong border transition-colors focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none'
+                  class='flex h-7.75 w-7.75 items-center justify-center rounded-full border-foreground-strong border text-inherit no-underline transition-colors focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none'
                 >
                   {social.icon && (
                     <Dynamic

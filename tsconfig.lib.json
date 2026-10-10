@@ -10,10 +10,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "outDir": "dist"
+    "declaration": true
   },
-  "include": ["lib"],
-  "exclude": ["lib/entry.ts", "lib/env.d.ts"]
+  "include": ["lib"]
 }

@@ -7,7 +7,7 @@ import type { IconComponent } from '../types';
 import { cn } from '../utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold transition-all duration-300 focus:outline-none focus:ring-2',
+  'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold no-underline transition-all duration-300 focus:outline-none focus:ring-2',
   {
     variants: {
       variant: {

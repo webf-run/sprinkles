@@ -118,7 +118,7 @@ export function BenefitCard(props: BenefitCardProps) {
       >
         {props.title}
       </h4>
-      <ul class={cn('flex flex-col', listGap[size()])}>
+      <ul class={cn('flex list-none flex-col p-0', listGap[size()])}>
         <For each={props.bullets}>
           {(bullet) => (
             <li class='flex items-start gap-2'>

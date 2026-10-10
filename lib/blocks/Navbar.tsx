@@ -75,7 +75,7 @@ export function Navbar(p: NavbarProps) {
     >
       <div class='mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8'>
         <div class='flex h-16 items-center justify-between sm:h-20'>
-          <a href='/' class='flex items-center'>
+          <a href='/' class='flex items-center text-inherit no-underline'>
             {p.logo ??
               (p.logoSrc ? (
                 <img
@@ -97,7 +97,7 @@ export function Navbar(p: NavbarProps) {
               {(item) => (
                 <a
                   href={item.href}
-                  class='text-foreground hover:text-foreground-muted flex items-center gap-1 text-xs font-medium transition-colors sm:text-sm lg:text-base'
+                  class='text-foreground hover:text-foreground-muted flex items-center gap-1 text-xs font-medium no-underline transition-colors sm:text-sm lg:text-base'
                 >
                   <span>{item.label}</span>
                   {item.hasDropdown && (
@@ -136,7 +136,7 @@ export function Navbar(p: NavbarProps) {
                           <a
                             href={item.href}
                             onClick={close}
-                            class='border-border-subtle text-foreground flex items-center justify-between border-b px-2 py-3 text-sm font-medium'
+                            class='border-border-subtle text-foreground flex items-center justify-between border-b px-2 py-3 text-sm font-medium no-underline'
                           >
                             <span>{item.label}</span>
                             {item.hasDropdown && (

@@ -51,14 +51,14 @@ export function FooterColumns(props: FooterColumnsProps) {
                 <h3 class='text-card-tag-md leading-120 font-bold text-ink'>
                   {column.title}
                 </h3>
-                <ul class='mt-5 flex flex-col gap-4'>
+                <ul class='mt-5 flex list-none flex-col gap-4 p-0'>
                   <For each={column.links}>
                     {(link) => (
                       <li class='text-card-description-sm leading-120 text-ink-muted'>
                         <Show when={link.href} fallback={link.label}>
                           <a
                             href={link.href}
-                            class='transition-colors hover:text-brand hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand'
+                            class='text-inherit no-underline transition-colors hover:text-brand hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand'
                           >
                             {link.label}
                           </a>
@@ -74,14 +74,14 @@ export function FooterColumns(props: FooterColumnsProps) {
       </div>
 
       <Show when={props.socialLinks?.length}>
-        <ul class='mt-12 flex items-center gap-2.5 xl:mt-24'>
+        <ul class='mt-12 flex list-none items-center gap-2.5 p-0 xl:mt-24'>
           <For each={props.socialLinks}>
             {(social) => (
               <li>
                 <a
                   href={social.href}
                   aria-label={social.label}
-                  class='flex size-7.75 items-center justify-center rounded-full border border-ink-muted text-ink-muted transition-colors hover:border-brand hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand'
+                  class='flex size-7.75 items-center justify-center rounded-full border border-ink-muted text-ink-muted no-underline transition-colors hover:border-brand hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand'
                 >
                   <Show when={social.icon}>
                     <Dynamic
