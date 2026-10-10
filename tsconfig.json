@@ -8,9 +8,9 @@
     ".astro/types.d.ts",
     "site/**/*",
     "lib/**/*",
-    "lib-legacy/**/*",
     "astro.config.mjs",
     "public",
     "scripts/**/*"
-  ]
+  ],
+  "exclude": ["lib-legacy/**/*"]
 }

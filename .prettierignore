@@ -2,3 +2,4 @@
 **/*.html
 dist
 build
+pnpm-lock.yaml

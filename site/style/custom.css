@@ -1,6 +1,6 @@
 @import '@fontsource-variable/ibm-plex-sans';
 @import '@fontsource-variable/jetbrains-mono';
-@import '../../lib/styles/index.css';
+@import '../../lib/style/index.css';
 
 :root {
   --sl-content-width: 100%;

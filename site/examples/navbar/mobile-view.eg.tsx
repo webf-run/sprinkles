@@ -10,7 +10,7 @@ const navItems = [
 export default function Example() {
   return (
     <Navbar
-      logoText='Astro UI'
+      logoText='Sprinkles'
       navItems={navItems}
       position='static'
       actions={

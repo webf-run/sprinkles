@@ -1,51 +1,56 @@
-:root {
-  --primary: #f97316;
-  --primary-foreground: #000000;
-  --primary-hover: #ea580c;
+@import './brand.css';
 
-  --secondary: #ffffff;
-  --secondary-foreground: #6d28d9;
-  --secondary-border: #ddd6fe;
+/* In a layer so a consuming app's own unlayered :root tokens take precedence. */
+@layer theme {
+  :root {
+    --primary: #f97316;
+    --primary-foreground: #000000;
+    --primary-hover: #ea580c;
 
-  --success: transparent;
-  --success-foreground: #ffffff;
-  --success-border: #ffffff;
+    --secondary: #ffffff;
+    --secondary-foreground: #6d28d9;
+    --secondary-border: #ddd6fe;
 
-  --accent: #7e22ce;
-  --accent-foreground: #ffffff;
+    --success: transparent;
+    --success-foreground: #ffffff;
+    --success-border: #ffffff;
 
-  --surface: #ffffff;
-  --surface-muted: #f3e8ff;
-  --surface-accent: #e9d5ff;
-  --surface-accent-strong: #c084fc;
+    --accent: #7e22ce;
+    --accent-foreground: #ffffff;
 
-  --foreground: #111827;
-  --foreground-muted: #374151;
-  --foreground-subtle: #52525b;
-  --foreground-inverse: #ffffff;
+    --surface: #ffffff;
+    --surface-muted: #f3e8ff;
+    --surface-accent: #e9d5ff;
+    --surface-accent-strong: #c084fc;
 
-  --border: #ddd6fe;
-  --border-subtle: #d1d5db;
+    --foreground: #111827;
+    --foreground-muted: #374151;
+    --foreground-subtle: #52525b;
+    --foreground-inverse: #ffffff;
 
-  --icon: #5b21b6;
+    --border: #ddd6fe;
+    --border-subtle: #d1d5db;
 
-  --badge-purple-background: #f3e8ff;
-  --badge-purple-foreground: #6d28d9;
+    --icon: #5b21b6;
 
-  --badge-orange-background: #ffedd5;
-  --badge-orange-foreground: #c2410c;
+    --badge-purple-background: #f3e8ff;
+    --badge-purple-foreground: #6d28d9;
 
-  --badge-green-background: #dcfce7;
-  --badge-green-foreground: #15803d;
+    --badge-orange-background: #ffedd5;
+    --badge-orange-foreground: #c2410c;
 
-  --badge-blue-background: #dbeafe;
-  --badge-blue-foreground: #1d4ed8;
+    --badge-green-background: #dcfce7;
+    --badge-green-foreground: #15803d;
 
-  --badge-neutral-background: #f4f4f5;
-  --badge-neutral-foreground: #52525b;
+    --badge-blue-background: #dbeafe;
+    --badge-blue-foreground: #1d4ed8;
 
-  --badge-pink-background: #fce7f3;
-  --badge-pink-foreground: #db2777;
+    --badge-neutral-background: #f4f4f5;
+    --badge-neutral-foreground: #52525b;
+
+    --badge-pink-background: #fce7f3;
+    --badge-pink-foreground: #db2777;
+  }
 }
 
 @theme inline {

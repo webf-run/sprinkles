@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.lib.json",
-  "compilerOptions": {
-    "declaration": false,
-    "emitDeclarationOnly": false,
-    "rootDir": "lib",
-    "outDir": "dist/source"
-  }
-}

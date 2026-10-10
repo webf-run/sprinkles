@@ -7,7 +7,7 @@ export default function Example() {
       variant='muted'
       size='md'
       effect='none'
-      logoText='Astro UI'
+      logoText='Sprinkles'
       headingVariant='foreground'
       subtitleVariant='muted'
       descriptionVariant='foreground'
@@ -15,13 +15,13 @@ export default function Example() {
       contactVariant='foreground'
       contactIconVariant='primary'
       description='Build polished and accessible web interfaces with a flexible collection of reusable components designed for modern Astro projects.'
-      address='Astro UI Documentation'
+      address='Sprinkles Documentation'
       phone='+1 (000) 000-0000'
       email='hello@astroui.dev'
       emailLabel='Email'
       phoneVariant='primary'
       emailVariant='secondary'
-      ctaTitle='Build something better with Astro UI.'
+      ctaTitle='Build something better with Sprinkles.'
       ctaSubtitle='Explore components, examples, and documentation to create consistent interfaces faster.'
       quickLinks={[
         [
@@ -69,7 +69,7 @@ export default function Example() {
           iconVariant: 'blue',
         },
       ]}
-      copyright='Astro UI. Built for modern web projects.'
+      copyright='Sprinkles. Built for modern web projects.'
     />
   );
 }

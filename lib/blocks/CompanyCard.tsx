@@ -50,6 +50,8 @@ interface CompanyCardProps extends VariantProps<typeof variants> {
   logo: string | StaticAsset | LogoComponent;
   companyName: string;
   href?: string;
+  /** Show the logo in greyscale; colour returns on hover. */
+  grayscale?: boolean;
   class?: string;
 }
 
@@ -67,6 +69,11 @@ function isComponent(value: unknown): value is LogoComponent {
 }
 
 export function CompanyCard(props: CompanyCardProps) {
+  const imgClass = () =>
+    props.grayscale
+      ? 'h-12 w-auto max-w-full object-contain opacity-80 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0'
+      : 'max-h-12 w-auto max-w-full object-contain';
+
   const content = () => {
     const logo = props.logo;
 
@@ -82,7 +89,9 @@ export function CompanyCard(props: CompanyCardProps) {
         <img
           src={logo}
           alt={`${props.companyName} logo`}
-          class='max-h-12 w-auto max-w-full object-contain'
+          class={imgClass()}
+          loading='lazy'
+          decoding='async'
         />
       );
     }
@@ -92,7 +101,9 @@ export function CompanyCard(props: CompanyCardProps) {
         <img
           src={logo.src}
           alt={`${props.companyName} logo`}
-          class='max-h-12 w-auto max-w-full object-contain'
+          class={imgClass()}
+          loading='lazy'
+          decoding='async'
         />
       );
     }
@@ -116,6 +127,7 @@ export function CompanyCard(props: CompanyCardProps) {
         size: props.size,
         effect: props.effect,
       }),
+      props.grayscale && 'group',
       props.class
     );
 

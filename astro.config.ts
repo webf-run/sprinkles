@@ -25,7 +25,7 @@ export default defineConfig({
         Header: './site/components/starlight/Header.astro',
       },
 
-      customCss: ['./site/styles/custom.css'],
+      customCss: ['./site/style/custom.css'],
       sidebar: [
         {
           label: 'Getting Started',
@@ -46,6 +46,10 @@ export default defineConfig({
             { label: 'Navbar', slug: 'components/navbar' },
             { label: 'Footer', slug: 'components/footer' },
             { label: 'Badge', slug: 'components/badge' },
+            { label: 'Breadcrumb', slug: 'components/breadcrumb' },
+            { label: 'CTA Banner', slug: 'components/cta-banner' },
+            { label: 'CTA Section', slug: 'components/cta-section' },
+            { label: 'Dot Tag', slug: 'components/dot-tag' },
           ],
         },
         {
@@ -77,9 +81,6 @@ export default defineConfig({
           new URL('./lib/index.ts', import.meta.url)
         ),
       },
-    },
-    optimizeDeps: {
-      exclude: ['@astrojs/compiler'],
     },
     build: {
       rolldownOptions: {

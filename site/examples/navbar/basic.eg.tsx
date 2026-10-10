@@ -8,5 +8,5 @@ const navItems = [
 ];
 
 export default function Example() {
-  return <Navbar logoText='Astro UI' navItems={navItems} position='static' />;
+  return <Navbar logoText='Sprinkles' navItems={navItems} position='static' />;
 }
