@@ -82,9 +82,6 @@ export default defineConfig({
         ),
       },
     },
-    optimizeDeps: {
-      exclude: ['@astrojs/compiler'],
-    },
     build: {
       rolldownOptions: {
         onLog(level, log, defaultHandler) {
