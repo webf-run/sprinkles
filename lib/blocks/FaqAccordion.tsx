@@ -7,7 +7,6 @@ export interface FaqItem {
   answer: string;
 }
 
-
 export interface FaqAccordionProps {
   items: FaqItem[];
   /**

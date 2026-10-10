@@ -9,7 +9,7 @@ export default function Example() {
         variant='default'
         size='md'
         effect='none'
-        logoText='Astro UI'
+        logoText='Sprinkles'
         headingVariant='foreground'
         subtitleVariant='muted'
         descriptionVariant='foreground'
@@ -17,12 +17,12 @@ export default function Example() {
         contactVariant='foreground'
         contactIconVariant='primary'
         description='A clean and minimal Footer for documentation, websites, and application pages.'
-        address='Astro UI Documentation'
+        address='Sprinkles Documentation'
         phone='+1 (000) 000-0000'
         email='hello@astroui.dev'
         phoneVariant='secondary'
         emailVariant='primary'
-        ctaTitle='Explore Astro UI.'
+        ctaTitle='Explore Sprinkles.'
         ctaSubtitle='Discover reusable components and examples for your next project.'
         quickLinks={[
           [
@@ -56,7 +56,7 @@ export default function Example() {
             iconVariant: 'foreground',
           },
         ]}
-        copyright='Astro UI. All rights reserved.'
+        copyright='Sprinkles. All rights reserved.'
       />
 
       {/* Muted / Color Accent */}

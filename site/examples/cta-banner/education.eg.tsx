@@ -1,9 +1,13 @@
-import { CtaBanner } from '@webf-run/sprinkles';
+import { CtaBanner } from '@webf/sprinkles';
 
 export default function Example() {
   return (
     <div class='w-full'>
-      <CtaBanner text='Take the next step in your learning journey.' ctaLabel='Apply now' ctaHref='/apply' />
+      <CtaBanner
+        text='Take the next step in your learning journey.'
+        ctaLabel='Apply now'
+        ctaHref='/apply'
+      />
     </div>
   );
 }

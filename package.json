@@ -35,6 +35,7 @@
   ],
   "scripts": {
     "dev": "astro dev",
+    "dev:format": "prettier . --write",
     "dev:lib": "vite build --watch",
     "check": "astro check && pnpm run check:types",
     "check:types": "tsc --noEmit",
@@ -44,7 +45,6 @@
     "build:site": "astro build",
     "preview": "astro preview",
     "lint": "pnpm -r lint",
-    "format": "prettier . --write",
     "format:check": "prettier . --check",
     "prepack": "pnpm run build:lib"
   },

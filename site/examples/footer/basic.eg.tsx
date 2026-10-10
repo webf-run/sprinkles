@@ -6,12 +6,12 @@ export default function Example() {
       variant='default'
       size='md'
       effect='none'
-      logoText='Astro UI'
+      logoText='Sprinkles'
       description='A collection of accessible, reusable, and customizable UI components for building modern web interfaces.'
-      address='Astro UI Documentation'
+      address='Sprinkles Documentation'
       phone='+1 (000) 000-0000'
       email='hello@astroui.dev'
-      ctaTitle='Need help with Astro UI?'
+      ctaTitle='Need help with Sprinkles?'
       ctaSubtitle='Explore the documentation or reach out to our team for support.'
       quickLinks={[
         [
@@ -30,7 +30,7 @@ export default function Example() {
         { label: 'Instagram', href: '#', icon: Instagram },
         { label: 'LinkedIn', href: '#', icon: Linkedin },
       ]}
-      copyright='Astro UI. All rights reserved.'
+      copyright='Sprinkles. All rights reserved.'
     />
   );
 }

@@ -14,12 +14,7 @@ import { Dynamic, Portal } from 'solid-js/web';
 import style from './Toast.module.css';
 
 export type ToastPlacement =
-  | 'top-start'
-  | 'top'
-  | 'top-end'
-  | 'bottom-start'
-  | 'bottom'
-  | 'bottom-end';
+  'top-start' | 'top' | 'top-end' | 'bottom-start' | 'bottom' | 'bottom-end';
 
 export interface CreateToastStoreOptions {
   placement?: ToastPlacement;

@@ -1,4 +1,4 @@
-import { DotTag } from '@webf-run/sprinkles';
+import { DotTag } from '@webf/sprinkles';
 
 export default function Example() {
   return (
