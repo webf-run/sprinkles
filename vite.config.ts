@@ -23,9 +23,9 @@ const emitTheme: Plugin = {
     this.emitFile({
       type: 'asset',
       fileName: 'theme.css',
-      source: readFileSync(resolve('lib/styles/tokens.css'), 'utf-8').replace(
+      source: readFileSync(resolve('lib/style/tokens.css'), 'utf-8').replace(
         "@import './brand.css';",
-        readFileSync(resolve('lib/styles/brand.css'), 'utf-8')
+        readFileSync(resolve('lib/style/brand.css'), 'utf-8')
       ),
     });
   },
