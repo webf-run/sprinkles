@@ -1,6 +1,7 @@
 {
   "name": "@webf-run/sprinkles",
-  "private": true,
+  "version": "0.1.0",
+  "description": "Solid.js component library styled with Tailwind CSS",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -11,32 +12,47 @@
     "url": "https://github.com/webf-run/sprinkles/issues"
   },
   "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "solid": "./dist/source/index.js",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "dev": "astro dev",
+    "dev:lib": "vite build --watch",
     "check": "astro check && pnpm run check:types",
     "check:types": "tsc --noEmit",
-    "build": "astro build",
-    "dev": "astro dev",
+    "build": "pnpm run build:lib && pnpm run build:site",
+    "build:lib": "vite build",
+    "build:solid": "tsc -p tsconfig.solid.json",
+    "build:site": "astro build",
+    "preview": "astro preview",
     "lint": "pnpm -r lint",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "preview": "astro preview"
-  },
-  "exports": {
-    ".": "./lib/index.ts",
-    "./style.css": "./dist/style.css"
+    "prepack": "pnpm run build:lib"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^24.13.2",
-    "astro": "^7.2.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-astro": "^0.556.0",
     "lucide-solid": "^1.25.0",
-    "sharp": "^0.34.5",
-    "solid-js": "^1.9.14",
-    "tailwind-merge": "^3.7.0",
-    "tailwindcss": "^4.3.3"
+    "tailwind-merge": "^3.7.0"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.14"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
@@ -47,17 +63,31 @@
     "@fontsource-variable/ibm-plex-sans": "^5.2.8",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@tailwindcss/cli": "^4.3.2",
+    "@tailwindcss/vite": "^4.3.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "@types/node": "^24.13.2",
+    "astro": "^7.2.2",
+    "lucide-astro": "^0.556.0",
     "prettier": "^3.9.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "typescript": "^6.0.3"
+    "sharp": "^0.34.5",
+    "solid-js": "^1.9.14",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "unplugin-dts": "^1.1.2",
+    "vite": "^8.3.1",
+    "vite-plugin-solid": "^2.11.14"
   },
   "packageManager": "pnpm@12.5.1",
   "keywords": [
-    "astro",
+    "solid",
+    "solidjs",
     "ui",
     "components",
     "tailwindcss"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

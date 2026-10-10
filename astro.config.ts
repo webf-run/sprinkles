@@ -8,7 +8,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   srcDir: './site',
   publicDir: './public',
-  outDir: './dist',
+  outDir: './dist-site',
 
   integrations: [
     solid(),
