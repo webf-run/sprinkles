@@ -77,7 +77,7 @@ export default defineConfig({
     },
     resolve: {
       alias: {
-        '@webf-run/sprinkles': fileURLToPath(
+        '@webf/sprinkles': fileURLToPath(
           new URL('./lib/index.ts', import.meta.url)
         ),
       },

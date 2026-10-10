@@ -2,14 +2,11 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import tailwindcss from '@tailwindcss/vite';
+import dts from 'unplugin-dts/vite';
 import { type Plugin, defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
 import solid from 'vite-plugin-solid';
 
-const pkg = JSON.parse(readFileSync('./package.json', 'utf-8')) as {
-  dependencies?: Record<string, string>;
-  peerDependencies?: Record<string, string>;
-};
+import pkg from './package.json' with { type: 'json' };
 
 // Everything the library imports at runtime is left for the consumer's
 // bundler to resolve. Includes deep imports such as `solid-js/web`.
@@ -35,19 +32,6 @@ const emitTheme: Plugin = {
 };
 
 export default defineConfig({
-  plugins: [
-    // Browser build. `hydratable` keeps it compatible with the SSR build.
-    solid({ solid: { hydratable: true } }),
-    tailwindcss(),
-    emitTheme,
-    dts({
-      tsconfigPath: './tsconfig.lib.json',
-      entryRoot: 'lib',
-      include: ['lib'],
-      exclude: ['lib/entry.ts', 'lib/env.d.ts'],
-    }),
-  ],
-
   build: {
     outDir: 'dist',
     copyPublicDir: false,
@@ -66,4 +50,14 @@ export default defineConfig({
       external: externals,
     },
   },
+  plugins: [
+    // Browser build. `hydratable` keeps it compatible with the SSR build.
+    solid({ solid: { hydratable: true } }),
+    tailwindcss(),
+    emitTheme,
+    dts({
+      tsconfigPath: './tsconfig.lib.json',
+      entryRoot: 'lib',
+    }),
+  ],
 });

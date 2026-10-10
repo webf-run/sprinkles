@@ -1,4 +1,4 @@
-import { BenefitCard } from '@webf-run/sprinkles';
+import { BenefitCard } from '@webf/sprinkles';
 import { GraduationCap, Handshake, Trophy } from 'lucide-solid';
 
 export default function Example() {

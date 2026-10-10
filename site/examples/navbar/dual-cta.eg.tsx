@@ -1,4 +1,4 @@
-import { Link, Navbar } from '@webf-run/sprinkles';
+import { Link, Navbar } from '@webf/sprinkles';
 
 const navItems = [
   { label: 'Product', href: '/product' },

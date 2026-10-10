@@ -1,6 +1,6 @@
 {
-  "name": "@webf-run/sprinkles",
-  "version": "0.1.0",
+  "name": "@webf/sprinkles",
+  "version": "0.1.1",
   "description": "Solid.js component library styled with Tailwind CSS",
   "license": "Apache-2.0",
   "repository": {
@@ -40,6 +40,7 @@
     "check:types": "tsc --noEmit",
     "build": "pnpm run build:lib && pnpm run build:site",
     "build:lib": "vite build && vite build -c vite.config.ssr.ts",
+    "build:solid": "tsc -p tsconfig.solid.json",
     "build:site": "astro build",
     "preview": "astro preview",
     "lint": "pnpm -r lint",
@@ -77,8 +78,8 @@
     "solid-js": "^1.9.14",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
+    "unplugin-dts": "^1.1.2",
     "vite": "^8.3.1",
-    "vite-plugin-dts": "^5.1.1",
     "vite-plugin-solid": "^2.11.14"
   },
   "packageManager": "pnpm@12.5.1",

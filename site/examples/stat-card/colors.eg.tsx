@@ -1,4 +1,4 @@
-import { StatCard } from '@webf-run/sprinkles';
+import { StatCard } from '@webf/sprinkles';
 import {
   ChartNoAxesCombined,
   CircleDollarSign,
