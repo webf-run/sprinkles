@@ -20,6 +20,8 @@ const benefitCardVariants = cva(
         green: 'border-badge-green-background bg-badge-green-background',
         blue: 'border-badge-blue-background bg-badge-blue-background',
         neutral: 'border-badge-neutral-background bg-badge-neutral-background',
+        cream: 'border-white bg-card-warm text-card-ink',
+        light: 'border-white bg-card-light text-card-ink',
       },
       size: {
         sm: 'gap-3 px-4 py-3',
@@ -47,6 +49,8 @@ const benefitCardTextVariants = cva('text-foreground', {
       green: 'text-badge-green-foreground',
       blue: 'text-badge-blue-foreground',
       neutral: 'text-badge-neutral-foreground',
+      cream: 'text-card-ink',
+      light: 'text-card-ink',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -65,21 +69,42 @@ const benefitCardIconVariants = cva(
         green: 'bg-badge-green-foreground/15 text-badge-green-foreground',
         blue: 'bg-badge-blue-foreground/15 text-badge-blue-foreground',
         neutral: 'bg-badge-neutral-foreground/15 text-badge-neutral-foreground',
+        cream: 'rounded-none bg-transparent text-card-ink',
+        light: 'rounded-none bg-transparent text-card-ink',
       },
-      size: { sm: 'size-9', md: 'size-11', lg: 'size-13' },
+      size: {
+        sm: 'size-9',
+        md: 'size-11',
+        lg: 'size-13',
+      },
     },
     defaultVariants: { variant: 'default', size: 'md' },
   }
 );
 
-const headingSize = { sm: 'text-base', md: 'text-lg', lg: 'text-xl' } as const;
-const listGap = { sm: 'gap-1.5', md: 'gap-2', lg: 'gap-2.5' } as const;
-const bulletSize = { sm: 'text-xs', md: 'text-sm', lg: 'text-base' } as const;
+const headingSize = {
+  sm: 'text-base',
+  md: 'text-lg',
+  lg: 'text-xl',
+} as const;
+const listGap = {
+  sm: 'gap-1.5',
+  md: 'gap-2',
+  lg: 'gap-2.5',
+} as const;
+const bulletSize = {
+  sm: 'text-xs',
+  md: 'text-sm',
+  lg: 'text-base',
+} as const;
 
 interface BenefitCardProps extends VariantProps<typeof benefitCardVariants> {
   title: string;
   bullets: string[];
   icon?: IconComponent;
+  iconClass?: string;
+  titleClass?: string;
+  bulletClass?: string;
   class?: string;
 }
 export function BenefitCard(props: BenefitCardProps) {
@@ -99,50 +124,66 @@ export function BenefitCard(props: BenefitCardProps) {
     >
       {Icon() && (
         <div
-          class={benefitCardIconVariants({ variant: variant(), size: size() })}
+          class={cn(
+            benefitCardIconVariants({ variant: variant(), size: size() })
+          )}
         >
           <Dynamic
             component={Icon()!}
-            class={
-              size() === 'sm' ? 'size-4' : size() === 'md' ? 'size-5' : 'size-6'
-            }
+            class={cn(
+              size() === 'sm' ? 'size-4' : size() === 'md' ? 'size-5' : 'size-6',
+              props.iconClass
+            )}
           />
         </div>
       )}
-      <h4
-        class={cn(
-          'leading-normal font-semibold',
-          headingSize[size()],
-          benefitCardTextVariants({ variant: variant() })
-        )}
-      >
-        {props.title}
-      </h4>
-      <ul class={cn('flex list-none flex-col p-0', listGap[size()])}>
-        <For each={props.bullets}>
-          {(bullet) => (
-            <li class='flex items-start gap-2'>
-              <Check
-                class={cn(
-                  'mt-0.5 shrink-0 opacity-70',
-                  size() === 'sm' ? 'size-3.5' : 'size-4',
-                  benefitCardTextVariants({ variant: variant() })
-                )}
-                strokeWidth={2.5}
-              />
-              <span
-                class={cn(
-                  'leading-normal opacity-80',
-                  bulletSize[size()],
-                  benefitCardTextVariants({ variant: variant() })
-                )}
-              >
-                {bullet}
-              </span>
-            </li>
+      <div class={cn('flex min-w-0 flex-col', listGap[size()])}>
+        <h4
+          class={cn(
+            'leading-normal font-semibold',
+            headingSize[size()],
+            props.titleClass,
+            benefitCardTextVariants({ variant: variant() })
           )}
-        </For>
-      </ul>
+        >
+          {props.title}
+        </h4>
+        <ul class={cn('flex list-none flex-col p-0', listGap[size()])}>
+          <For each={props.bullets}>
+            {(bullet) => (
+              <li class='flex items-start gap-2'>
+                {variant() === 'cream' || variant() === 'light' ? (
+                  <span
+                    aria-hidden='true'
+                    class='mt-2 size-1.5 shrink-0 rounded-full bg-card-ink'
+                  />
+                ) : (
+                  <Check
+                    class={cn(
+                      'mt-0.5 shrink-0 opacity-70',
+                      size() === 'sm' ? 'size-3.5' : 'size-4',
+                      benefitCardTextVariants({ variant: variant() })
+                    )}
+                    strokeWidth={2.5}
+                  />
+                )}
+                <span
+                  class={cn(
+                    'leading-normal opacity-80',
+                    bulletSize[size()],
+                    props.bulletClass,
+                    benefitCardTextVariants({ variant: variant() }),
+                    (variant() === 'cream' || variant() === 'light') &&
+                      'font-normal opacity-100'
+                  )}
+                >
+                  {bullet}
+                </span>
+              </li>
+            )}
+          </For>
+        </ul>
+      </div>
     </div>
   );
 }

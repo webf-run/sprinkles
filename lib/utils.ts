@@ -10,6 +10,8 @@ const twMerge = extendTailwindMerge({
   extend: {
     theme: {
       text: [
+        'card',
+        'stat',
         'eyebrow',
         'body',
         'body-sm',
@@ -48,8 +50,8 @@ const twMerge = extendTailwindMerge({
         'wide-140',
       ],
       leading: ['110', '115', '120', '126', '143', '145', '150', '160', '165'],
-      radius: ['badge-md', 'badge-md-mobile', 'badge-tag', 'badge-outline'],
-      shadow: ['card-purple'],
+      radius: ['badge-md', 'badge-md-mobile', 'badge-tag', 'badge-outline', 'card'],
+      shadow: ['card-purple', 'card-soft'],
       font: ['badge'],
       spacing: [
         'header',
