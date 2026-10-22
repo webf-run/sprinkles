@@ -161,7 +161,10 @@ export function StatCard(p: StatCardProps) {
           <Dynamic
             component={p.icon!}
             color={st.color}
-            class={cn('shrink-0', p.iconClass ?? 'size-7')}
+            class={cn(
+              'shrink-0',
+              p.iconClass ?? 'size-7'
+            )}
           />
         </div>
       )}

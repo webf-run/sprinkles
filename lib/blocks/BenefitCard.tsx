@@ -20,13 +20,18 @@ const benefitCardVariants = cva(
         green: 'border-badge-green-background bg-badge-green-background',
         blue: 'border-badge-blue-background bg-badge-blue-background',
         neutral: 'border-badge-neutral-background bg-badge-neutral-background',
-        cream: 'border-white bg-card-warm text-card-ink',
+        warm: 'border-white bg-card-warm text-card-ink',
         light: 'border-white bg-card-light text-card-ink',
       },
       size: {
         sm: 'gap-3 px-4 py-3',
         md: 'gap-4 px-5 py-4',
         lg: 'gap-5 px-6 py-5',
+        highlight: [
+          'min-h-70 max-w-92 gap-5 px-6 py-6',
+          'md:h-75 md:max-w-82 md:gap-6 md:px-7 md:py-7',
+          'xl:h-78 xl:max-w-92 xl:gap-8 xl:px-9 xl:py-9',
+        ],
       },
       effect: {
         none: '',
@@ -49,7 +54,7 @@ const benefitCardTextVariants = cva('text-foreground', {
       green: 'text-badge-green-foreground',
       blue: 'text-badge-blue-foreground',
       neutral: 'text-badge-neutral-foreground',
-      cream: 'text-card-ink',
+      warm: 'text-card-ink',
       light: 'text-card-ink',
     },
   },
@@ -69,13 +74,14 @@ const benefitCardIconVariants = cva(
         green: 'bg-badge-green-foreground/15 text-badge-green-foreground',
         blue: 'bg-badge-blue-foreground/15 text-badge-blue-foreground',
         neutral: 'bg-badge-neutral-foreground/15 text-badge-neutral-foreground',
-        cream: 'rounded-none bg-transparent text-card-ink',
+        warm: 'rounded-none bg-transparent text-card-ink',
         light: 'rounded-none bg-transparent text-card-ink',
       },
       size: {
         sm: 'size-9',
         md: 'size-11',
         lg: 'size-13',
+        highlight: 'size-10',
       },
     },
     defaultVariants: { variant: 'default', size: 'md' },
@@ -86,26 +92,29 @@ const headingSize = {
   sm: 'text-base',
   md: 'text-lg',
   lg: 'text-xl',
+  highlight: 'text-card',
 } as const;
 const listGap = {
   sm: 'gap-1.5',
   md: 'gap-2',
   lg: 'gap-2.5',
+  highlight: 'gap-2',
 } as const;
 const bulletSize = {
   sm: 'text-xs',
   md: 'text-sm',
   lg: 'text-base',
+  highlight: 'text-body-sm',
 } as const;
 
 interface BenefitCardProps extends VariantProps<typeof benefitCardVariants> {
   title: string;
   bullets: string[];
   icon?: IconComponent;
-  iconClass?: string;
+  class?: string;
   titleClass?: string;
   bulletClass?: string;
-  class?: string;
+  iconClass?: string;
 }
 export function BenefitCard(props: BenefitCardProps) {
   const size = () => props.size ?? 'md';
@@ -125,15 +134,21 @@ export function BenefitCard(props: BenefitCardProps) {
       {Icon() && (
         <div
           class={cn(
-            benefitCardIconVariants({ variant: variant(), size: size() })
+            benefitCardIconVariants({ variant: variant(), size: size() }),
+            props.iconClass
           )}
         >
           <Dynamic
             component={Icon()!}
-            class={cn(
-              size() === 'sm' ? 'size-4' : size() === 'md' ? 'size-5' : 'size-6',
-              props.iconClass
-            )}
+            class={
+              size() === 'highlight'
+                ? 'size-10'
+                : size() === 'sm'
+                  ? 'size-4'
+                  : size() === 'md'
+                    ? 'size-5'
+                    : 'size-6'
+            }
           />
         </div>
       )}
@@ -142,8 +157,8 @@ export function BenefitCard(props: BenefitCardProps) {
           class={cn(
             'leading-normal font-semibold',
             headingSize[size()],
-            props.titleClass,
-            benefitCardTextVariants({ variant: variant() })
+            benefitCardTextVariants({ variant: variant() }),
+            props.titleClass
           )}
         >
           {props.title}
@@ -152,7 +167,7 @@ export function BenefitCard(props: BenefitCardProps) {
           <For each={props.bullets}>
             {(bullet) => (
               <li class='flex items-start gap-2'>
-                {variant() === 'cream' || variant() === 'light' ? (
+                {variant() === 'warm' || variant() === 'light' ? (
                   <span
                     aria-hidden='true'
                     class='mt-2 size-1.5 shrink-0 rounded-full bg-card-ink'
@@ -171,10 +186,10 @@ export function BenefitCard(props: BenefitCardProps) {
                   class={cn(
                     'leading-normal opacity-80',
                     bulletSize[size()],
-                    props.bulletClass,
                     benefitCardTextVariants({ variant: variant() }),
-                    (variant() === 'cream' || variant() === 'light') &&
-                      'font-normal opacity-100'
+                    (variant() === 'warm' || variant() === 'light') &&
+                      'font-normal opacity-100',
+                    props.bulletClass
                   )}
                 >
                   {bullet}
