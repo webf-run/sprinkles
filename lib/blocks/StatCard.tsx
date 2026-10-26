@@ -56,7 +56,12 @@ const iconBox = cva('flex shrink-0 items-center justify-center rounded-full', {
       neutral: 'bg-badge-neutral-foreground/15 text-badge-neutral-foreground',
       tinted: 'bg-brand/10 text-brand',
     },
-    size: { sm: 'size-9', md: 'size-10', lg: 'size-12', compact: 'size-10' },
+    size: {
+      sm: 'size-9',
+      md: 'size-10',
+      lg: 'size-12',
+      compact: 'size-10',
+    },
   },
   defaultVariants: { variant: 'default', size: 'md' },
 });
@@ -127,7 +132,11 @@ interface StatCardProps extends VariantProps<typeof variants> {
   icon?: IconComponent;
   value: string;
   label: string;
+  /** Set false to render the icon without its tinted background circle. */
+  iconBackground?: boolean;
   iconClass?: string;
+  valueClass?: string;
+  labelClass?: string;
   class?: string;
 }
 export function StatCard(p: StatCardProps) {
@@ -143,12 +152,19 @@ export function StatCard(p: StatCardProps) {
       {p.icon && (
         <div
           class={iconBox({ variant: v(), size: p.size })}
-          style={{ color: st.color, 'background-color': st.backgroundColor }}
+          style={{
+            color: st.color,
+            'background-color':
+              p.iconBackground === false ? 'transparent' : st.backgroundColor,
+          }}
         >
           <Dynamic
             component={p.icon!}
             color={st.color}
-            class={cn('shrink-0', p.iconClass ?? 'size-7')}
+            class={cn(
+              'shrink-0',
+              p.iconClass ?? 'size-7'
+            )}
           />
         </div>
       )}
@@ -158,6 +174,7 @@ export function StatCard(p: StatCardProps) {
             'text-xl leading-normal font-semibold tracking-tight',
             p.size === 'compact' &&
               'leading-none tracking-normal sm:text-2xl xl:text-4xl',
+            p.valueClass,
             text({ variant: v() })
           )}
         >
@@ -169,6 +186,7 @@ export function StatCard(p: StatCardProps) {
           'text-sm leading-tight font-semibold wrap-break-word opacity-80',
           p.size === 'compact' &&
             'max-w-full text-xs leading-tight font-normal opacity-100 hyphens-none sm:text-sm md:text-base xl:text-xl',
+          p.labelClass,
           text({ variant: v() })
         )}
       >
