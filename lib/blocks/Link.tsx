@@ -30,6 +30,8 @@ const buttonVariants = cva(
           'border-white bg-transparent text-white hover:bg-white/15 active:bg-white/25',
         /** Deep-purple solid button. */
         dark: 'border-0 bg-brand-strong text-white hover:bg-brand-strong-hover',
+        /** Plum solid button (announcements). */
+        plum: 'border-0 bg-brand-plum text-white hover:bg-brand-plum/90 active:bg-brand-plum/80',
         /** Solid brand-purple button (programme pages). */
         brand:
           'border-transparent bg-brand text-white hover:bg-brand-deep active:bg-brand-strong',
@@ -44,6 +46,9 @@ const buttonVariants = cva(
         /** Marketing button, 48px tall (56px from md). */
         action:
           'h-12 cursor-pointer gap-1 duration-200 ease-out px-5 text-lg leading-165 whitespace-nowrap hover:-translate-y-px active:translate-y-0 focus:ring-0 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:h-14 md:gap-2 md:px-6',
+        /** Announcement button: 16/8 padding, 18px semibold, 10px icon gap. */
+        notice:
+          'gap-2.5 px-4 py-2 text-notice-body tracking-tight-30 whitespace-nowrap',
         /** Large marketing button. */
         'action-lg':
           'cursor-pointer gap-1 duration-200 ease-out px-6 py-4 text-body leading-165 whitespace-nowrap hover:-translate-y-px active:translate-y-0 focus:ring-0 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:gap-2 md:px-7 xl:rounded-xl',

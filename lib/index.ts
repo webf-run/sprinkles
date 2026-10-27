@@ -1,3 +1,4 @@
+export { AnnouncementCard } from './blocks/AnnouncementCard';
 export { Badge } from './blocks/Badge';
 export { BenefitCard } from './blocks/BenefitCard';
 export { Breadcrumb } from './blocks/Breadcrumb';
@@ -10,6 +11,7 @@ export { FaqAccordion } from './blocks/FaqAccordion';
 export { FeatureCard } from './blocks/FeatureCard';
 export { Footer } from './blocks/Footer';
 export { FooterColumns } from './blocks/FooterColumns';
+export { IconTile } from './blocks/IconTile';
 export { InfoBadge } from './blocks/InfoBadge';
 export { Link } from './blocks/Link';
 export { Navbar } from './blocks/Navbar';
@@ -19,11 +21,15 @@ export { ProgramCard } from './blocks/ProgramCard';
 export { QuickLinkCard } from './blocks/QuickLinkCard';
 export { StatCard } from './blocks/StatCard';
 export { TestimonialCard } from './blocks/TestimonialCard';
+export { UpdateItem } from './blocks/UpdateItem';
 
+export { Bell } from './icons/Bell';
+export { Calendar } from './icons/Calendar';
 export { Dot } from './icons/Dot';
 export { Facebook } from './icons/Facebook';
 export { Instagram } from './icons/Instagram';
 export { Linkedin } from './icons/Linkedin';
+export { News } from './icons/News';
 export { Sparkle } from './icons/Sparkle';
 
 export type { FooterLink, FooterSocial } from './blocks/Footer';

@@ -96,6 +96,18 @@
     --brand-tile: #f0e7fb;
     --brand-line: #ece5f0;
 
+    /* Announcements: plum tile / button, lilac eyebrows, slate rules. */
+    --brand-plum: #3e2a55;
+    --brand-plum-line: #76569a;
+    --brand-lilac: #a77bff;
+    --brand-lilac-soft: #c9b4e6;
+    --tile-foreground: #f6ebff;
+    --tile-ink: #202226;
+    --tile-ink-line: #3b3740;
+    --ink-slate: #625b68;
+    --ink-subdued: #464646;
+    --ink-faint: #97929e;
+
     --glow-from: #2c0062;
     --glow-to: #1f0449;
   }
@@ -175,6 +187,17 @@
   --color-brand-mist: var(--brand-mist);
   --color-brand-tile: var(--brand-tile);
   --color-brand-line: var(--brand-line);
+
+  --color-brand-plum: var(--brand-plum);
+  --color-brand-plum-line: var(--brand-plum-line);
+  --color-brand-lilac: var(--brand-lilac);
+  --color-brand-lilac-soft: var(--brand-lilac-soft);
+  --color-tile-foreground: var(--tile-foreground);
+  --color-tile-ink: var(--tile-ink);
+  --color-tile-ink-line: var(--tile-ink-line);
+  --color-ink-slate: var(--ink-slate);
+  --color-ink-subdued: var(--ink-subdued);
+  --color-ink-faint: var(--ink-faint);
 }
 
 @theme {
@@ -227,6 +250,36 @@
   /* Fluid icon-card text: 16px -> 24px and 12px -> 15px (375px -> 1920px). */
   --text-card-feature-title: clamp(1rem, 0.8786rem + 0.5178vw, 1.5rem);
   --text-card-feature-description: clamp(0.75rem, 0.7045rem + 0.1942vw, 0.9375rem);
+
+  /* Announcements & News, exact values from the 1920px design. */
+  --text-notice-heading: 36px;
+  --text-notice-heading--line-height: 1.26;
+  --text-notice-title: 30px;
+  --text-notice-title--line-height: 1.26;
+  --text-notice-subtitle: 25px;
+  --text-notice-subtitle--line-height: 1.26;
+  --text-notice-body: 18px;
+  --text-notice-body--line-height: 1.2;
+  --text-notice-sub: 16px;
+  --text-notice-sub--line-height: 1.2;
+  --text-notice-date: 13px;
+  --text-notice-date--line-height: 1.2;
+  --text-notice-meta: 12px;
+  --text-notice-meta--line-height: 1.2;
+  --text-notice-eyebrow: 11px;
+  --text-notice-eyebrow--line-height: 1.2;
+  --text-notice-caption: 10px;
+  --text-notice-caption--line-height: 1.2;
+  --text-notice-label: 9.5px;
+  --text-notice-label--line-height: 1.2;
+
+  --radius-tile: 20px;
+
+  --container-notice-section: 1600px;
+  --container-notice-card: 650px;
+  --container-notice-intro: 525px;
+  --container-notice-copy: 475px;
+  --container-notice-item: 721px;
 
   --spacing-header: 60px;
   --spacing-badge-md-height: 61px;
