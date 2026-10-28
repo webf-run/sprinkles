@@ -1,4 +1,5 @@
 export { AnnouncementCard } from './blocks/AnnouncementCard';
+export { AnnouncementListItem } from './blocks/AnnouncementListItem';
 export { Badge } from './blocks/Badge';
 export { BenefitCard } from './blocks/BenefitCard';
 export { Breadcrumb } from './blocks/Breadcrumb';
@@ -21,7 +22,6 @@ export { ProgramCard } from './blocks/ProgramCard';
 export { QuickLinkCard } from './blocks/QuickLinkCard';
 export { StatCard } from './blocks/StatCard';
 export { TestimonialCard } from './blocks/TestimonialCard';
-export { UpdateItem } from './blocks/UpdateItem';
 
 export { Bell } from './icons/Bell';
 export { Calendar } from './icons/Calendar';

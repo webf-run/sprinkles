@@ -1,5 +1,5 @@
 import { PlacementStatCard } from '@webf/sprinkles';
-import { Building2, Handshake, MapPin } from 'lucide-solid';
+import { BuildingComplex, Handshake, MapPin } from 'lucide-solid';
 
 export default function Example() {
   return (
@@ -16,7 +16,7 @@ export default function Example() {
         size='md'
         variant='blue'
         effect='lift'
-        icon={Building2}
+        icon={BuildingComplex}
         value='120'
         title='Employers'
         subtitle='This year'

@@ -2,7 +2,7 @@ import type { IconComponent } from '../types';
 import { cn } from '../utils';
 import { IconTile } from './IconTile';
 
-export interface UpdateItemProps {
+export interface AnnouncementListItemProps {
   icon: IconComponent;
   /** Small label above the title, e.g. "Notice". */
   category: string;
@@ -12,12 +12,12 @@ export interface UpdateItemProps {
   class?: string;
 }
 
-/** Row of an updates list: icon, category, title, summary and date. Render it inside a `<ul>`. */
-export function UpdateItem(props: UpdateItemProps) {
+/** Row of the announcements list: icon, category, title, summary and date. Render it inside a `<ul>`. */
+export function AnnouncementListItem(props: AnnouncementListItemProps) {
   return (
     <li
       class={cn(
-        'flex items-start gap-4 border-b border-ink-slate pt-6 pb-5.5 md:gap-6',
+        'flex items-start gap-5.5 border-b border-ink-rule py-5 md:gap-6 xl:pt-6 xl:pb-5.5',
         props.class
       )}
     >
@@ -28,11 +28,11 @@ export function UpdateItem(props: UpdateItemProps) {
           {props.category}
         </span>
 
-        <h3 class='mt-0.5 font-heading text-notice-body leading-126 font-bold text-ink-subdued'>
+        <h3 class='mt-0.5 font-heading text-base leading-126 font-bold text-ink-subdued xl:text-notice-body'>
           {props.title}
         </h3>
 
-        <p class='mt-2.5 text-notice-body text-ink-subdued'>
+        <p class='mt-2.5 text-sm leading-120 text-ink-subdued xl:text-notice-body'>
           {props.description}
         </p>
 

@@ -34,7 +34,7 @@ export function AnnouncementCard(props: AnnouncementCardProps) {
     <article
       class={cn(
         'flex flex-col items-start justify-center gap-4.25 rounded-badge-tag border border-brand-deep bg-surface',
-        'p-6 xl:px-7.5 xl:py-10',
+        'p-7.5 xl:py-10',
         props.class
       )}
     >
@@ -56,19 +56,19 @@ export function AnnouncementCard(props: AnnouncementCardProps) {
       </Badge>
 
       <h3 class='flex flex-col gap-1.25 font-heading text-brand-deep'>
-        <span class='text-subtitle font-bold xl:text-notice-title'>
+        <span class='text-heading-sm leading-none font-bold xl:text-notice-title xl:leading-126'>
           {props.title}
         </span>
-        <span class='text-card font-normal xl:text-notice-subtitle'>
+        <span class='text-heading-xs leading-none font-normal xl:text-notice-subtitle xl:leading-126'>
           {props.subtitle}
         </span>
       </h3>
 
-      <p class='max-w-notice-copy text-notice-body text-ink-subdued'>
+      <p class='max-w-notice-copy text-sm leading-120 text-ink-subdued xl:text-notice-body'>
         {props.description}
       </p>
 
-      <div class='mt-1 flex w-full flex-wrap items-center justify-between gap-4 border-t border-ink-slate pt-8'>
+      <div class='mt-1 flex flex-col items-start gap-3.5 self-stretch border-t border-ink-rule-plum pt-4.5 xl:flex-row xl:flex-wrap xl:items-center xl:justify-between xl:gap-4 xl:pt-8'>
         <div class='flex flex-col gap-2 whitespace-nowrap uppercase'>
           <span class='text-notice-label font-bold text-ink-faint'>
             {props.dateLabel}

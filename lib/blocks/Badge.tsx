@@ -40,7 +40,8 @@ const badgeVariants = cva(
         /** Small eyebrow tag used inside cards. */
         tag: 'px-3 py-1.5 text-eyebrow leading-120 tracking-wide-140 md:px-4 md:py-2',
         /** Announcement pill: 16px / 13% tracking, 172x35 box with the border inside. */
-        notice: 'px-3.75 py-1.75 text-notice-sub tracking-wide-130',
+        notice:
+          'px-3.75 py-2 text-xs leading-120 tracking-wide-130 xl:py-1.75 xl:text-notice-sub',
       },
     },
 

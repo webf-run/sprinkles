@@ -1,5 +1,5 @@
 import { PlacementStatCard } from '@webf/sprinkles';
-import { Building2, GraduationCap, Handshake } from 'lucide-solid';
+import { BuildingComplex, GraduationCap, Handshake } from 'lucide-solid';
 
 export default function Example() {
   return (
@@ -17,7 +17,7 @@ export default function Example() {
         subtitle='Hiring our students'
       />
       <PlacementStatCard
-        icon={Building2}
+        icon={BuildingComplex}
         value='32'
         title='Cities'
         subtitle='Where alumni work'

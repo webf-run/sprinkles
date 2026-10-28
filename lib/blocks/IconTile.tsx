@@ -11,7 +11,7 @@ const iconTileVariants = cva(
       tone: {
         plum: 'size-13.5 rounded-tile border-brand-plum-line bg-brand-plum',
         /* #202226 fill, 0.8px #3B3740 border */
-        ink: 'size-14.5 rounded-badge-tag border-tile-ink-line bg-tile-ink',
+        ink: 'size-10.5 rounded-badge-tag border-tile-ink-line bg-tile-ink *:size-5 xl:size-14.5 xl:*:size-6',
       },
     },
     defaultVariants: { tone: 'ink' },

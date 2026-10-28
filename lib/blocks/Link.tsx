@@ -22,6 +22,9 @@ const buttonVariants = cva(
         /** Solid orange call-to-action. */
         highlight:
           'border-0 bg-highlight text-highlight-foreground hover:bg-highlight-hover active:bg-highlight-active',
+        /** Solid orange call-to-action with deep-purple text, for dark backgrounds. */
+        'highlight-deep':
+          'border-0 bg-highlight text-brand-strong hover:bg-highlight-hover active:bg-highlight-active',
         /** Brand-coloured outline. */
         outline:
           'border-brand bg-transparent text-brand hover:bg-brand-wash active:bg-badge-purple-background',
@@ -48,7 +51,7 @@ const buttonVariants = cva(
           'h-12 cursor-pointer gap-1 duration-200 ease-out px-5 text-lg leading-165 whitespace-nowrap hover:-translate-y-px active:translate-y-0 focus:ring-0 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:h-14 md:gap-2 md:px-6',
         /** Announcement button: 16/8 padding, 18px semibold, 10px icon gap. */
         notice:
-          'gap-2.5 px-4 py-2 text-notice-body tracking-tight-30 whitespace-nowrap',
+          'gap-2.5 px-4 py-2 text-sm leading-120 tracking-tight-30 whitespace-nowrap xl:text-notice-body',
         /** Large marketing button. */
         'action-lg':
           'cursor-pointer gap-1 duration-200 ease-out px-6 py-4 text-body leading-165 whitespace-nowrap hover:-translate-y-px active:translate-y-0 focus:ring-0 focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 md:gap-2 md:px-7 xl:rounded-xl',

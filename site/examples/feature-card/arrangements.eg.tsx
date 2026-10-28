@@ -1,5 +1,5 @@
 import { FeatureCard } from '@webf/sprinkles';
-import { BarChart3, Globe, Layers, ShieldCheck, Zap } from 'lucide-solid';
+import { ChartColumn, Globe, Layers, ShieldCheck, Zap } from 'lucide-solid';
 
 export default function Example() {
   return (
@@ -49,7 +49,7 @@ export default function Example() {
         variant='neutral'
         title='Powerful Analytics'
         subtitle='Track performance and make informed decisions with meaningful insights.'
-        icon={BarChart3}
+        icon={ChartColumn}
       />
     </div>
   );
