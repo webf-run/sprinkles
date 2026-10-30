@@ -25,11 +25,15 @@ export { TestimonialCard } from './blocks/TestimonialCard';
 
 export { Bell } from './icons/Bell';
 export { Calendar } from './icons/Calendar';
+export { Divider } from './icons/Divider';
 export { Dot } from './icons/Dot';
+export { Download } from './icons/Download';
+export { FilePage } from './icons/FilePage';
 export { Facebook } from './icons/Facebook';
 export { Instagram } from './icons/Instagram';
 export { Linkedin } from './icons/Linkedin';
 export { News } from './icons/News';
+export { QuestionMark } from './icons/QuestionMark';
 export { Sparkle } from './icons/Sparkle';
 
 export type { FooterLink, FooterSocial } from './blocks/Footer';

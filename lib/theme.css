@@ -110,6 +110,15 @@
     --ink-rule: #444147;
     --ink-rule-plum: #51455f;
 
+    /* Documents library: heading ink, lavender tile, rules and soft badge fills. */
+    --ink-deep: #211b28;
+    --brand-lavender: #f5eefc;
+    --brand-rule: #e7dfef;
+    --badge-soft-blue-background: #edf2fc;
+    --badge-soft-green-background: #ebf5ef;
+    --badge-soft-orange-background: #fff2dc;
+    --badge-soft-neutral-background: #fbf9ff;
+
     --glow-from: #2c0062;
     --glow-to: #1f0449;
   }
@@ -202,6 +211,14 @@
   --color-ink-faint: var(--ink-faint);
   --color-ink-rule: var(--ink-rule);
   --color-ink-rule-plum: var(--ink-rule-plum);
+
+  --color-ink-deep: var(--ink-deep);
+  --color-brand-lavender: var(--brand-lavender);
+  --color-brand-rule: var(--brand-rule);
+  --color-badge-soft-blue-background: var(--badge-soft-blue-background);
+  --color-badge-soft-green-background: var(--badge-soft-green-background);
+  --color-badge-soft-orange-background: var(--badge-soft-orange-background);
+  --color-badge-soft-neutral-background: var(--badge-soft-neutral-background);
 }
 
 @theme {
@@ -277,6 +294,19 @@
   --text-notice-label: 9.5px;
   --text-notice-label--line-height: 1.2;
 
+  /* Documents library, exact values from the Figma design. */
+  --text-intro: 17px;
+  --text-doc-title: 14px;
+  --text-doc-title--line-height: 1;
+  --text-doc-meta: 11px;
+  --text-doc-meta--line-height: 1;
+  --text-doc-index: 13px;
+  --text-doc-index--line-height: 1;
+  --text-doc-cta-title: 21px;
+  --text-doc-cta-title--line-height: 1;
+  --text-doc-file: 6.5px;
+  --text-doc-file--line-height: 1;
+
   /* Mobile headings used by the announcement card and the institution list */
   --text-heading-sm: 1.75rem;
   --text-heading-sm--line-height: 1.1;
@@ -286,6 +316,8 @@
   --radius-tile: 20px;
 
   --container-notice-section: 1600px;
+  /* Documents library content column: 1600px inside the 1920px design frame. */
+  --container-document-library: 1600px;
   --container-notice-card: 650px;
   --container-notice-intro: 525px;
   --container-notice-copy: 475px;

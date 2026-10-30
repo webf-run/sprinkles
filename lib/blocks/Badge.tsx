@@ -14,6 +14,13 @@ const badgeVariants = cva(
         blue: 'bg-badge-blue-background text-badge-blue-foreground',
         neutral: 'bg-badge-neutral-background text-badge-neutral-foreground',
         pink: 'bg-badge-pink-background text-badge-pink-foreground',
+        /** Soft pills with the brand-purple label, used for document categories. */
+        'soft-purple': 'bg-brand-lavender text-brand-deep',
+        'soft-blue': 'bg-badge-soft-blue-background text-brand-deep',
+        'soft-green': 'bg-badge-soft-green-background text-brand-deep',
+        'soft-orange': 'bg-badge-soft-orange-background text-brand-deep',
+        /** Quiet slate-on-mist tag shown beside each document. */
+        'soft-neutral': 'bg-badge-soft-neutral-background text-ink-slate',
         /** Solid orange (#FFA037) with dark text. */
         highlight: 'bg-highlight text-highlight-foreground',
         /** White pill with brand-coloured text. */
@@ -39,6 +46,8 @@ const badgeVariants = cva(
         ],
         /** Small eyebrow tag used inside cards. */
         tag: 'px-3 py-1.5 text-eyebrow leading-120 tracking-wide-140 md:px-4 md:py-2',
+        /** Fixed-height 28px label: 11px bold, no tracking. Width is set by the caller. */
+        label: 'h-7 px-3 text-doc-meta font-bold leading-none tracking-normal',
         /** Announcement pill: 16px / 13% tracking, 172x35 box with the border inside. */
         notice:
           'px-3.75 py-2 text-xs leading-120 tracking-wide-130 xl:py-1.75 xl:text-notice-sub',

@@ -50,6 +50,12 @@ const twMerge = extendTailwindMerge({
         'notice-eyebrow',
         'notice-caption',
         'notice-label',
+        'intro',
+        'doc-title',
+        'doc-meta',
+        'doc-index',
+        'doc-cta-title',
+        'doc-file',
       ],
       tracking: [
         'tight-30',

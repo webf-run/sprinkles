@@ -44,7 +44,6 @@
     "prepack": "pnpm run build:lib"
   },
   "dependencies": {
-    "@webf/sprinkles": "link:..\\sprinkles",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-solid": "^1.25.0",

@@ -38,6 +38,9 @@ const buttonVariants = cva(
         /** Solid brand-purple button (programme pages). */
         brand:
           'border-transparent bg-brand text-white hover:bg-brand-deep active:bg-brand-strong',
+        /** Solid deep-brand (#4e13a6) button, e.g. the documents help banner. */
+        'brand-deep':
+          'border-transparent bg-brand-deep text-white hover:bg-brand-strong active:bg-brand-strong',
         /** Soft-bordered brand outline (secondary action next to `brand`). */
         'brand-outline':
           'border-2 border-brand-outline bg-transparent text-brand hover:bg-brand-wash active:bg-brand-tint',
