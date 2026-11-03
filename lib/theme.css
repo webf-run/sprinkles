@@ -1,353 +1,238 @@
 /*
  * Sprinkles design tokens, written as Tailwind v4 source.
  * Published as-is as `dist/theme.css`: a Tailwind app imports it and
- * compiles Sprinkles' classes itself.
+ * compiles Sprinkles' classes itself. This is the single source of design
+ * tokens for Sprinkles AND every app that consumes it (e.g. Foundation site).
+ *
+ * NAMING RULES (full version: doc/design-tokens.md)
+ *  1. Never put a component or feature name in a token (card, badge, tile,
+ *     banner, button, notice, document, ...). A token is a value or a role.
+ *  2. One category prefix per kind of value: --color-*, --text-*,
+ *     --leading-*, --tracking-*, --radius-*, --shadow-*, --container-*,
+ *     --font-*, --background-image-*.
+ *  3. Scales use t-shirt steps (xs, sm, md, lg, xl, 2xl, ...) or hue + shade
+ *     numbers for palettes (purple-705).
+ *  4. Colours come in two tiers: primitives (--color-<hue>-<shade>) and
+ *     semantic roles (--color-primary). Components use a role when one fits.
+ *  5. One value, one token. Do not add a second name for an existing value.
+ *  6. One-off, component-specific values stay in the component (arbitrary
+ *     value such as `w-[34rem]`); they do not become tokens.
+ *
+ * THEMING
+ *  `@theme` output is emitted in a cascade layer, so a consuming app's own
+ *  unlayered `:root { --color-primary: ...; }` always wins. Override semantic
+ *  tokens, not primitives.
+ *
+ * Tailwind's own default scales (text-sm, rounded-xl, leading-tight, ...)
+ * are NOT redefined here, so existing classes keep their meaning.
  */
 
 /* Resolves to `lib/` here and to `dist/` once published, so Tailwind finds
    the classes used by the components either way. */
 @source '.';
 
-/*
- * Defaults sit in a cascade layer so that a consuming app's own, unlayered
- * `:root { --brand: ... }` always wins, regardless of stylesheet order.
- */
-@layer theme {
-  :root {
-    --primary: #f97316;
-    --primary-foreground: #000000;
-    --primary-hover: #ea580c;
+/* `static`: always emit every variable, so components can also read them
+   through `var(--color-primary)` (e.g. inline styles). */
+@theme static {
+  /* ------------------------------------------------------------------ */
+  /* 1. Colour primitives: hue + shade. The shade number is roughly the   */
+  /*    darkness (lightness 100 = 0, black = 1000).                       */
+  /* ------------------------------------------------------------------ */
 
-    --secondary: #ffffff;
-    --secondary-foreground: #6d28d9;
-    --secondary-border: #ddd6fe;
+  --color-blue-45: #edf2fc;
+  --color-blue-80: #dbeafe;
+  --color-blue-610: #1d4ed8;
 
-    --success: transparent;
-    --success-foreground: #ffffff;
-    --success-border: #ffffff;
+  --color-green-40: #dcfce7;
+  --color-green-45: #ebf5ef;
+  --color-green-385: #00ad1a;
+  --color-green-530: #15803d;
 
-    --accent: #7e22ce;
-    --accent-foreground: #ffffff;
+  --color-neutral-40: #f4f4f5;
+  --color-neutral-85: #e5e7eb;
+  --color-neutral-150: #d1d5db;
+  --color-neutral-385: #97929e;
+  --color-neutral-445: #8a8390;
+  --color-neutral-520: #6b7280;
+  --color-neutral-605: #625b68;
+  --color-neutral-615: #5e5863;
+  --color-neutral-650: #52525b;
+  --color-neutral-685: #4d4852;
+  --color-neutral-705: #464646;
+  --color-neutral-720: #444147;
+  --color-neutral-760: #3b3740;
+  --color-neutral-870: #222222;
+  --color-neutral-875: #202226;
+  --color-neutral-890: #211b28;
+  --color-neutral-930: #17151b;
 
-    --surface: #ffffff;
-    --surface-muted: #f3e8ff;
-    --surface-accent: #e9d5ff;
-    --surface-accent-strong: #c084fc;
+  --color-orange-30: #fcf6eb;
+  --color-orange-40: #fff2dc;
+  --color-orange-55: #ffedd5;
+  --color-orange-215: #ffb35c;
+  --color-orange-260: #ffa037;
+  --color-orange-325: #f28a1f;
+  --color-orange-540: #c2410c;
 
-    --foreground: #111827;
-    --foreground-muted: #374151;
-    --foreground-subtle: #52525b;
-    --foreground-inverse: #ffffff;
+  --color-pink-65: #fce7f3;
+  --color-pink-505: #db2777;
 
-    --border: #ddd6fe;
-    --border-subtle: #d1d5db;
+  --color-purple-20: #fbf9ff;
+  --color-purple-35: #f8f4fc;
+  --color-purple-40: #f9f3ff;
+  --color-purple-45: #f6f1fc;
+  --color-purple-55: #f5eefc;
+  --color-purple-60: #f3eff6;
+  --color-purple-65: #f6ebff;
+  --color-purple-70: #f4ecfb;
+  --color-purple-75: #ededff;
+  --color-purple-80: #f0e7fb;
+  --color-purple-85: #efe5ff;
+  --color-purple-90: #ece5f0;
+  --color-purple-95: #ece3f2;
+  --color-purple-105: #e9e1ef;
+  --color-purple-110: #eeddff;
+  --color-purple-115: #e8dfef;
+  --color-purple-120: #e7dfef;
+  --color-purple-125: #e7dfed;
+  --color-purple-130: #e7d8f7;
+  --color-purple-135: #ddd6fe;
+  --color-purple-140: #e3d0f6;
+  --color-purple-230: #cab6e8;
+  --color-purple-235: #c9b4e6;
+  --color-purple-385: #a77bff;
+  --color-purple-575: #76569a;
+  --color-purple-625: #6d28d9;
+  --color-purple-685: #51455f;
+  --color-purple-690: #5b21b6;
+  --color-purple-705: #5d13b7;
+  --color-purple-735: #4e13a6;
+  --color-purple-775: #48108c;
+  --color-purple-785: #3e2a55;
+  --color-purple-820: #3d0080;
+  --color-purple-880: #2c0062;
+  --color-purple-920: #1f0449;
 
-    --icon: #5b21b6;
+  /* ------------------------------------------------------------------ */
+  /* 2. Semantic colours: roles only. Usable as text, border, fill or     */
+  /*    background (text-primary, border-primary, bg-primary).            */
+  /* ------------------------------------------------------------------ */
 
-    --badge-purple-background: #f3e8ff;
-    --badge-purple-foreground: #6d28d9;
+  /* Primary: main action / identity colour.
+     States (-hover, -active) apply to the base colour only.
+     Intensity steps (-dark, -darker, -darkest) are separate shades. */
+  --color-primary: var(--color-purple-705);
+  --color-primary-hover: var(--color-purple-690);
+  --color-primary-active: var(--color-purple-625);
+  --color-primary-foreground: var(--color-white);
+  --color-primary-dark: var(--color-purple-735);
+  --color-primary-darker: var(--color-purple-775);
+  --color-primary-darkest: var(--color-purple-880);
 
-    --badge-orange-background: #ffedd5;
-    --badge-orange-foreground: #c2410c;
+  /* Accent: secondary highlight colour. */
+  --color-accent: var(--color-orange-260);
+  --color-accent-hover: var(--color-orange-215);
+  --color-accent-active: var(--color-orange-325);
+  --color-accent-foreground: var(--color-black);
 
-    --badge-green-background: #dcfce7;
-    --badge-green-foreground: #15803d;
+  /* Status. */
+  --color-success: var(--color-green-385);
 
-    --badge-blue-background: #dbeafe;
-    --badge-blue-foreground: #1d4ed8;
+  /* Surfaces (backgrounds). */
+  --color-surface: var(--color-white);
+  --color-surface-muted: var(--color-purple-35);
+  --color-surface-tint: var(--color-purple-60);
+  --color-surface-soft: var(--color-purple-65);
+  --color-surface-emphasis: var(--color-purple-140);
 
-    --badge-neutral-background: #f4f4f5;
-    --badge-neutral-foreground: #52525b;
+  /* Foreground (text, icons), strongest to weakest. */
+  --color-foreground-strongest: var(--color-neutral-930);
+  --color-foreground-strong: var(--color-neutral-870);
+  --color-foreground: var(--color-neutral-705);
+  --color-foreground-muted: var(--color-neutral-615);
+  --color-foreground-subtle: var(--color-neutral-445);
+  --color-foreground-inverse: var(--color-white);
 
-    --badge-pink-background: #fce7f3;
-    --badge-pink-foreground: #db2777;
+  /* Borders and dividers. */
+  --color-border: var(--color-neutral-150);
+  --color-border-muted: var(--color-neutral-85);
+  --color-border-subtle: var(--color-purple-95);
+  --color-border-accent: var(--color-purple-130);
+  --color-border-inverse: var(--color-white);
 
-    /*
-     * Tokens used by the marketing / ACOP components (Badge, Link,
-     * InfoBadge, QuickLinkCard, ProgramCard, CtaBanner, CtaSection,
-     * NumberedFeatureCard, DotTag). Names are deliberately distinct from the
-     * older --primary / --accent tokens, whose roles are the other way round
-     * in most apps.
-     */
-    --brand: #5d13b7;
-    --brand-soft: #f9f3ff;
-    --brand-tint: #f3eff6;
-    --brand-wash: #f8f4fc;
-    --brand-strong: #2c0062;
-    --brand-strong-hover: #3d0080;
+  /* ------------------------------------------------------------------ */
+  /* 3. Typography                                                      */
+  /* ------------------------------------------------------------------ */
 
-    --highlight: #ffa037;
-    --highlight-hover: #ffb35c;
-    --highlight-active: #f28a1f;
-    --highlight-foreground: #000000;
+  --font-heading: Georgia, 'Times New Roman', serif;
+  --font-ui: Inter, sans-serif;
 
-    --foreground-strong: #222222;
+  /* Fluid font-size scale (375px to 1440px viewports). Each step carries
+     its own line-height and letter-spacing. Named `fluid` so it never
+     collides with Tailwind's fixed text-xs ... text-9xl. */
+  --text-fluid-xs: clamp(0.75rem, 0.728rem + 0.094vw, 0.8125rem);
+  --text-fluid-xs--line-height: 1.3;
+  --text-fluid-xs--letter-spacing: 0.08em;
+  --text-fluid-sm: clamp(0.875rem, 0.853rem + 0.094vw, 0.9375rem);
+  --text-fluid-sm--line-height: 1.55;
+  --text-fluid-sm--letter-spacing: 0em;
+  --text-fluid-md: clamp(1rem, 0.978rem + 0.094vw, 1.0625rem);
+  --text-fluid-md--line-height: 1.65;
+  --text-fluid-md--letter-spacing: 0em;
+  --text-fluid-lg: clamp(1.0625rem, 0.996rem + 0.282vw, 1.25rem);
+  --text-fluid-lg--line-height: 1.55;
+  --text-fluid-lg--letter-spacing: 0em;
+  --text-fluid-xl: clamp(1.125rem, 1.081rem + 0.188vw, 1.25rem);
+  --text-fluid-xl--line-height: 1.35;
+  --text-fluid-xl--letter-spacing: 0em;
+  --text-fluid-2xl: clamp(1.375rem, 1.243rem + 0.563vw, 1.75rem);
+  --text-fluid-2xl--line-height: 1.25;
+  --text-fluid-2xl--letter-spacing: -0.01em;
+  --text-fluid-3xl: clamp(1.5rem, 1.324rem + 0.751vw, 2rem);
+  --text-fluid-3xl--line-height: 1.1;
+  --text-fluid-3xl--letter-spacing: -0.01em;
+  --text-fluid-4xl: clamp(1.75rem, 1.486rem + 1.127vw, 2.5rem);
+  --text-fluid-4xl--line-height: 1.15;
+  --text-fluid-4xl--letter-spacing: -0.015em;
+  --text-fluid-5xl: clamp(2.25rem, 1.81rem + 1.878vw, 3.5rem);
+  --text-fluid-5xl--line-height: 1.08;
+  --text-fluid-5xl--letter-spacing: -0.02em;
 
-    /* Programme-page palette (B.Pharm hero, fact cards, breadcrumb). */
-    --brand-deep: #4e13a6;
-    --brand-pale: #efe5ff;
-    --brand-outline: #cab6e8;
-    --brand-hairline: #ece3f2;
-    --ink: #17151b;
-    --ink-muted: #5e5863;
-    --ink-subtle: #8a8390;
-
-    --brand-mist: #fbf9ff;
-    --brand-tile: #f0e7fb;
-    --brand-line: #ece5f0;
-
-    /* Announcements: plum tile / button, lilac eyebrows, slate rules. */
-    --brand-plum: #3e2a55;
-    --brand-plum-line: #76569a;
-    --brand-lilac: #a77bff;
-    --brand-lilac-soft: #c9b4e6;
-    --tile-foreground: #f6ebff;
-    --tile-ink: #202226;
-    --tile-ink-line: #3b3740;
-    --ink-slate: #625b68;
-    --ink-subdued: #464646;
-    --ink-faint: #97929e;
-    --ink-rule: #444147;
-    --ink-rule-plum: #51455f;
-
-    /* Documents library: heading ink, lavender tile, rules and soft badge fills. */
-    --ink-deep: #211b28;
-    --brand-lavender: #f5eefc;
-    --brand-rule: #e7dfef;
-    --badge-soft-blue-background: #edf2fc;
-    --badge-soft-green-background: #ebf5ef;
-    --badge-soft-orange-background: #fff2dc;
-    --badge-soft-neutral-background: #fbf9ff;
-
-    --glow-from: #2c0062;
-    --glow-to: #1f0449;
-  }
-}
-
-@theme inline {
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary-hover: var(--primary-hover);
-
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary-border: var(--secondary-border);
-
-  --color-success: var(--success);
-  --color-success-foreground: var(--success-foreground);
-  --color-success-border: var(--success-border);
-
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --color-surface: var(--surface);
-  --color-surface-muted: var(--surface-muted);
-  --color-surface-accent: var(--surface-accent);
-  --color-surface-accent-strong: var(--surface-accent-strong);
-
-  --color-foreground: var(--foreground);
-  --color-foreground-muted: var(--foreground-muted);
-  --color-foreground-subtle: var(--foreground-subtle);
-  --color-foreground-inverse: var(--foreground-inverse);
-
-  --color-border: var(--border);
-  --color-border-subtle: var(--border-subtle);
-
-  --color-icon: var(--icon);
-
-  --color-badge-purple-background: var(--badge-purple-background);
-  --color-badge-purple-foreground: var(--badge-purple-foreground);
-
-  --color-badge-orange-background: var(--badge-orange-background);
-  --color-badge-orange-foreground: var(--badge-orange-foreground);
-
-  --color-badge-green-background: var(--badge-green-background);
-  --color-badge-green-foreground: var(--badge-green-foreground);
-
-  --color-badge-blue-background: var(--badge-blue-background);
-  --color-badge-blue-foreground: var(--badge-blue-foreground);
-
-  --color-badge-neutral-background: var(--badge-neutral-background);
-  --color-badge-neutral-foreground: var(--badge-neutral-foreground);
-
-  --color-badge-pink-background: var(--badge-pink-background);
-  --color-badge-pink-foreground: var(--badge-pink-foreground);
-
-  --color-brand: var(--brand);
-  --color-brand-soft: var(--brand-soft);
-  --color-brand-tint: var(--brand-tint);
-  --color-brand-wash: var(--brand-wash);
-  --color-brand-strong: var(--brand-strong);
-  --color-brand-strong-hover: var(--brand-strong-hover);
-
-  --color-highlight: var(--highlight);
-  --color-highlight-hover: var(--highlight-hover);
-  --color-highlight-active: var(--highlight-active);
-  --color-highlight-foreground: var(--highlight-foreground);
-
-  --color-foreground-strong: var(--foreground-strong);
-
-  --color-brand-deep: var(--brand-deep);
-  --color-brand-pale: var(--brand-pale);
-  --color-brand-outline: var(--brand-outline);
-  --color-brand-hairline: var(--brand-hairline);
-  --color-ink: var(--ink);
-  --color-ink-muted: var(--ink-muted);
-  --color-ink-subtle: var(--ink-subtle);
-
-  --color-brand-mist: var(--brand-mist);
-  --color-brand-tile: var(--brand-tile);
-  --color-brand-line: var(--brand-line);
-
-  --color-brand-plum: var(--brand-plum);
-  --color-brand-plum-line: var(--brand-plum-line);
-  --color-brand-lilac: var(--brand-lilac);
-  --color-brand-lilac-soft: var(--brand-lilac-soft);
-  --color-tile-foreground: var(--tile-foreground);
-  --color-tile-ink: var(--tile-ink);
-  --color-tile-ink-line: var(--tile-ink-line);
-  --color-ink-slate: var(--ink-slate);
-  --color-ink-subdued: var(--ink-subdued);
-  --color-ink-faint: var(--ink-faint);
-  --color-ink-rule: var(--ink-rule);
-  --color-ink-rule-plum: var(--ink-rule-plum);
-
-  --color-ink-deep: var(--ink-deep);
-  --color-brand-lavender: var(--brand-lavender);
-  --color-brand-rule: var(--brand-rule);
-  --color-badge-soft-blue-background: var(--badge-soft-blue-background);
-  --color-badge-soft-green-background: var(--badge-soft-green-background);
-  --color-badge-soft-orange-background: var(--badge-soft-orange-background);
-  --color-badge-soft-neutral-background: var(--badge-soft-neutral-background);
-}
-
-@theme {
-  --line-height-143: 1.43;
+  /* Line-height and letter-spacing values used by the designs. */
   --leading-110: 1.1;
   --leading-115: 1.15;
   --leading-120: 1.2;
   --leading-126: 1.26;
-  --leading-143: var(--line-height-143);
+  --leading-143: 1.43;
   --leading-145: 1.45;
   --leading-150: 1.5;
   --leading-160: 1.6;
   --leading-165: 1.65;
-
-  --tracking-tight-30: -0.03em;
   --tracking-tight-20: -0.02em;
-  --tracking-tight-10: -0.01em;
+  --tracking-tight-30: -0.03em;
   --tracking-tight-8: -0.008em;
   --tracking-wide-130: 0.13em;
   --tracking-wide-140: 0.14em;
 
-  --text-eyebrow: clamp(0.6875rem, 0.642rem + 0.1942vw, 0.875rem);
-  --text-body: clamp(1rem, 0.9545rem + 0.1942vw, 1.188rem);
-  --text-body-sm: clamp(0.875rem, 0.8447rem + 0.1294vw, 1rem);
-  --text-lead: clamp(1.062rem, 0.9563rem + 0.4531vw, 1.5rem);
-  --text-lead-sm: 16px;
-  --text-lead-md: clamp(1rem, 0.78125vw + 0.625rem, 1.25rem);
-  --text-lead-xl: 24px;
-  --text-display-sm: 28px;
-  --text-display-md: clamp(2.25rem, 7.03125vw - 1.125rem, 4.5rem);
-  --text-heading-display: 28px;
-  --text-heading-display-xl: 82px;
-  --text-heading-xl: 40px;
+  /* ------------------------------------------------------------------ */
+  /* 4. Shape, depth and layout                                         */
+  /* ------------------------------------------------------------------ */
 
-  --text-badge-md: 24px;
-  --text-badge-md-mobile: 14px;
+  /* Radius: Tailwind's scale plus the exact-px steps the designs use. */
+  --radius-10: 10px;
+  --radius-15: 15px;
+  --radius-20: 20px;
+  --radius-30: 30px;
+  --radius-5xl: 3.125rem;
 
-  --text-card-heading-sm: 16px;
-  --text-card-heading-md: 24px;
-  --text-card-heading-lg: 32px;
-  --text-card-description-sm: 12px;
-  --text-card-description-md: 18px;
-  --text-card-description-lg: 24px;
-  --text-card-badge-sm: 12px;
-  --text-card-badge-md: 16px;
-  --text-card-badge-lg: 20px;
-  --text-card-tag-sm: 12px;
-  --text-card-tag-md: 14px;
-  --text-card-cta: 15px;
-  /* Fluid icon-card text: 16px -> 24px and 12px -> 15px (375px -> 1920px). */
-  --text-card-feature-title: clamp(1rem, 0.8786rem + 0.5178vw, 1.5rem);
-  --text-card-feature-description: clamp(0.75rem, 0.7045rem + 0.1942vw, 0.9375rem);
+  /* Offset shadows. */
+  --shadow-offset-sm: -4px 6px 16.9px 0px color-mix(in srgb, var(--color-black) 11%, transparent);
+  --shadow-offset-md: 5px 5px 17.3px 0px color-mix(in srgb, var(--color-primary) 10%, transparent);
+  --shadow-offset-lg: -12px 9px 33.3px 0px rgb(115 115 115 / 0.19);
 
-  /* Announcements & News, exact values from the 1920px design. */
-  --text-notice-heading: 36px;
-  --text-notice-heading--line-height: 1.26;
-  --text-notice-title: 30px;
-  --text-notice-title--line-height: 1.26;
-  --text-notice-subtitle: 25px;
-  --text-notice-subtitle--line-height: 1.26;
-  --text-notice-body: 18px;
-  --text-notice-body--line-height: 1.2;
-  --text-notice-sub: 16px;
-  --text-notice-sub--line-height: 1.2;
-  --text-notice-date: 13px;
-  --text-notice-date--line-height: 1.2;
-  --text-notice-meta: 12px;
-  --text-notice-meta--line-height: 1.2;
-  --text-notice-eyebrow: 11px;
-  --text-notice-eyebrow--line-height: 1.2;
-  --text-notice-caption: 10px;
-  --text-notice-caption--line-height: 1.2;
-  --text-notice-label: 9.5px;
-  --text-notice-label--line-height: 1.2;
+  /* Page-width containers: continue Tailwind's scale (7xl = 80rem). */
+  --container-8xl: 100rem;
+  --container-9xl: 120rem;
 
-  /* Documents library, exact values from the Figma design. */
-  --text-intro: 17px;
-  --text-doc-title: 14px;
-  --text-doc-title--line-height: 1;
-  --text-doc-meta: 11px;
-  --text-doc-meta--line-height: 1;
-  --text-doc-index: 13px;
-  --text-doc-index--line-height: 1;
-  --text-doc-cta-title: 21px;
-  --text-doc-cta-title--line-height: 1;
-  --text-doc-file: 6.5px;
-  --text-doc-file--line-height: 1;
-
-  /* Mobile headings used by the announcement card and the institution list */
-  --text-heading-sm: 1.75rem;
-  --text-heading-sm--line-height: 1.1;
-  --text-heading-xs: 1.375rem;
-  --text-heading-xs--line-height: 1.1;
-
-  --radius-tile: 20px;
-
-  --container-notice-section: 1600px;
-  /* Documents library content column: 1600px inside the 1920px design frame. */
-  --container-document-library: 1600px;
-  --container-notice-card: 650px;
-  --container-notice-intro: 525px;
-  --container-notice-copy: 475px;
-  --container-notice-item: 721px;
-
-  --spacing-header: 60px;
-  --spacing-badge-md-height: 61px;
-  --spacing-badge-md-x: 36px;
-  --spacing-badge-md-y: 16px;
-  --spacing-badge-md-mobile-width: 203px;
-  --spacing-badge-md-mobile-height: 41px;
-  --spacing-badge-md-mobile-x: 26px;
-  --spacing-badge-md-mobile-y: 12px;
-  --spacing-badge-md-mobile-gap: 10px;
-
-  --radius-badge-md: 54px;
-  --radius-badge-md-mobile: 54px;
-  --radius-badge-tag: 15px;
-  --radius-badge-outline: 10px;
-
-  --shadow-card-purple: 5px 5px 17.3px 0px #5d13b71a;
-
-  --container-site: 1920px;
-
-  --font-badge: Inter, sans-serif;
-  --font-heading: Georgia, 'Times New Roman', serif;
-
-  --background-image-glow: radial-gradient(
-    50% 50% at 50% 50%,
-    var(--glow-from) 0%,
-    var(--glow-to) 100%
-  );
+  --background-image-glow: radial-gradient( 50% 50% at 50% 50%, var(--color-primary-darkest) 0%, var(--color-purple-920) 100% );
 }

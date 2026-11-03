@@ -11,9 +11,9 @@ export function DotTag(props: DotTagProps) {
   return (
     <span
       class={cn(
-        'inline-flex items-center gap-2.5 rounded-badge-outline border-[0.5px] border-foreground bg-surface p-2.5',
+        'inline-flex items-center gap-2.5 rounded-10 border-[0.5px] border-foreground bg-surface p-2.5',
         'leading-120 tracking-tight-30 text-foreground',
-        'md:text-card-tag-md',
+        'md:text-(length:--text-fluid-sm)',
         props.class
       )}
     >

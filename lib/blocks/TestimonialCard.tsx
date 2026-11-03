@@ -11,15 +11,15 @@ const variants = cva(
       variant: {
         default: 'border-border bg-surface',
         muted: 'border-border bg-surface-muted',
-        accent: 'border-surface-accent-strong bg-surface-accent',
+        accent: 'border-surface-emphasis bg-surface-soft',
         inverse: 'border-accent bg-accent text-accent-foreground',
-        purple: 'border-badge-purple-background bg-badge-purple-background',
-        orange: 'border-badge-orange-background bg-badge-orange-background',
-        green: 'border-badge-green-background bg-badge-green-background',
-        blue: 'border-badge-blue-background bg-badge-blue-background',
-        neutral: 'border-badge-neutral-background bg-badge-neutral-background',
+        purple: 'border-surface-soft bg-surface-soft',
+        orange: 'border-orange-55 bg-orange-55',
+        green: 'border-green-40 bg-green-40',
+        blue: 'border-blue-80 bg-blue-80',
+        neutral: 'border-neutral-40 bg-neutral-40',
         /** Borderless white card with a plain quote, name and role. */
-        plain: 'rounded-badge-outline border-transparent bg-surface',
+        plain: 'rounded-10 border-transparent bg-surface',
       },
       size: {
         sm: 'gap-3 px-5 py-4',
@@ -42,11 +42,11 @@ const text = cva('', {
       muted: 'text-foreground',
       accent: 'text-foreground',
       inverse: 'text-accent-foreground',
-      purple: 'text-badge-purple-foreground',
-      orange: 'text-badge-orange-foreground',
-      green: 'text-badge-green-foreground',
-      blue: 'text-badge-blue-foreground',
-      neutral: 'text-badge-neutral-foreground',
+      purple: 'text-primary',
+      orange: 'text-orange-540',
+      green: 'text-green-530',
+      blue: 'text-blue-610',
+      neutral: 'text-neutral-650',
       plain: 'text-foreground',
     },
   },
@@ -55,16 +55,16 @@ const text = cva('', {
 const accent = cva('', {
   variants: {
     variant: {
-      default: 'text-foreground-subtle',
-      muted: 'text-foreground-subtle',
+      default: 'text-neutral-650',
+      muted: 'text-neutral-650',
       accent: 'text-primary',
       inverse: 'text-accent-foreground/70',
-      purple: 'text-badge-purple-foreground',
-      orange: 'text-badge-orange-foreground',
-      green: 'text-badge-green-foreground',
-      blue: 'text-badge-blue-foreground',
-      neutral: 'text-badge-neutral-foreground',
-      plain: 'text-foreground-subtle',
+      purple: 'text-primary',
+      orange: 'text-orange-540',
+      green: 'text-green-530',
+      blue: 'text-blue-610',
+      neutral: 'text-neutral-650',
+      plain: 'text-neutral-650',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -97,14 +97,14 @@ export function TestimonialCard(p: TestimonialCardProps) {
       fallback={
         <div
           class={cn(
-            'flex h-full flex-col rounded-badge-outline bg-surface',
+            'flex h-full flex-col rounded-10 bg-surface',
             'gap-4 p-6',
             'md:gap-6 md:p-8',
-            'xl:gap-2 xl:px-8 xl:py-header',
+            'xl:gap-2 xl:px-8 xl:py-15',
             p.class
           )}
         >
-          <p class='flex-1 text-lead leading-150 font-normal tracking-tight-8 text-foreground'>
+          <p class='flex-1 text-fluid-lg leading-150 font-normal tracking-tight-8 text-foreground'>
             {'\u201C'}
             {p.quote}
             {'\u201D'}
@@ -112,10 +112,10 @@ export function TestimonialCard(p: TestimonialCardProps) {
 
           <div class='flex items-center gap-3 xl:gap-4'>
             <div class='flex flex-col'>
-              <p class='text-body leading-165 font-bold text-foreground-strong'>
+              <p class='text-fluid-md leading-165 font-bold text-foreground-strong'>
                 {p.name}
               </p>
-              <p class='text-body-sm leading-160 font-normal text-foreground-muted'>
+              <p class='text-fluid-sm leading-160 font-normal text-neutral-520'>
                 {p.role}
               </p>
             </div>
@@ -149,7 +149,7 @@ export function TestimonialCard(p: TestimonialCardProps) {
                   size() === 'sm' ? 'size-3.5' : 'size-4',
                   i < rating()!
                     ? accent({ variant: v() })
-                    : 'text-border-subtle'
+                    : 'text-purple-70'
                 )}
                 fill={i < rating()! ? 'currentColor' : 'none'}
                 strokeWidth={1.75}

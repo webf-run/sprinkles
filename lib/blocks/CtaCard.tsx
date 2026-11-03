@@ -18,25 +18,25 @@ export interface CtaCardProps {
  * a primary + optional secondary (outline) button.
  */
 export function CtaCard(props: CtaCardProps) {
-  const buttonSize = 'h-12 px-4 py-0 text-lead md:h-15.25';
+  const buttonSize = 'h-12 px-4 py-0 text-fluid-lg md:h-15.25';
 
   return (
     <div
       class={cn(
-        'flex flex-col justify-center rounded-3xl bg-brand-wash',
+        'flex flex-col justify-center rounded-3xl bg-surface-muted',
         'p-6 md:px-8 md:py-10 xl:min-h-77.5',
         props.class
       )}
     >
       {props.eyebrow && (
-        <p class='text-body-sm leading-120 font-bold text-brand-deep uppercase 2xl:text-card-description-md'>
+        <p class='text-fluid-sm leading-120 font-bold text-primary-dark uppercase 2xl:text-(length:--text-fluid-md)'>
           {props.eyebrow}
         </p>
       )}
 
       <h2
         class={cn(
-          'font-heading text-subtitle leading-126 font-normal text-ink',
+          'font-heading text-fluid-2xl leading-126 font-normal text-foreground-strongest',
           props.eyebrow && 'mt-3'
         )}
       >
@@ -44,7 +44,7 @@ export function CtaCard(props: CtaCardProps) {
       </h2>
 
       {props.description && (
-        <p class='mt-3 text-lead leading-120 text-ink-muted'>
+        <p class='mt-3 text-fluid-lg leading-120 text-foreground-muted'>
           {props.description}
         </p>
       )}
@@ -53,7 +53,7 @@ export function CtaCard(props: CtaCardProps) {
         <Link
           href={props.primaryHref}
           variant='brand'
-          class={cn(buttonSize, 'hover:bg-brand-deep')}
+          class={cn(buttonSize, 'hover:bg-primary-dark')}
         >
           {props.primaryLabel}
         </Link>

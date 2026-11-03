@@ -41,3 +41,4 @@ export type { FooterColumn, FooterColumnLink } from './blocks/FooterColumns';
 export type { BreadcrumbItem } from './blocks/Breadcrumb';
 export type { FaqItem } from './blocks/FaqAccordion';
 export type { NavItem } from './blocks/Navbar';
+export { cn } from './utils';

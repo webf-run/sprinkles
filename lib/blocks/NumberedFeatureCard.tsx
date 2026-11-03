@@ -21,8 +21,8 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
       fallback={
         <div
           class={cn(
-            'flex w-full flex-col gap-2.5 rounded-badge-tag border border-brand bg-surface',
-            'shadow-card-purple',
+            'flex w-full flex-col gap-2.5 rounded-15 border border-primary bg-surface',
+            'shadow-offset-md',
             'p-6',
             'md:p-8',
             'xl:px-12 xl:py-13.5',
@@ -31,9 +31,9 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
         >
           <span
             class={cn(
-              'flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-tint',
-              'text-card-heading-sm leading-120 font-semibold text-brand',
-              'xl:h-23 xl:w-23 xl:text-heading-xl'
+              'flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-tint',
+              'text-(length:--text-fluid-md) leading-120 font-semibold text-primary',
+              'xl:h-23 xl:w-23 xl:text-(length:--text-fluid-2xl)'
             )}
           >
             {props.number}
@@ -41,8 +41,8 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
 
           <h3
             class={cn(
-              'text-card-heading-sm leading-120 font-semibold text-foreground-strong',
-              'md:text-card-heading-lg',
+              'text-(length:--text-fluid-md) leading-120 font-semibold text-foreground-strong',
+              'md:text-(length:--text-fluid-xl)',
               'xl:text-[48px]'
             )}
           >
@@ -51,9 +51,9 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
 
           <p
             class={cn(
-              'text-card-description-sm leading-143 text-foreground',
-              'md:text-card-description-md',
-              'xl:text-card-description-lg'
+              'text-(length:--text-fluid-sm) leading-143 text-foreground',
+              'md:text-(length:--text-fluid-md)',
+              'xl:text-(length:--text-fluid-md)'
             )}
           >
             {props.description}
@@ -63,7 +63,7 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
     >
       <div
         class={cn(
-          'flex w-full items-center gap-2.5 rounded-badge-outline border border-brand-hairline bg-surface',
+          'flex w-full items-center gap-2.5 rounded-10 border border-border-subtle bg-surface',
           'px-4 py-3',
           'md:px-6 md:py-4',
           '2xl:px-7.5',
@@ -72,8 +72,8 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
       >
         <span
           class={cn(
-            'flex size-8 shrink-0 items-center justify-center rounded-badge-outline bg-brand-pale',
-            'text-card-tag-md leading-none font-bold text-brand-deep',
+            'flex size-8 shrink-0 items-center justify-center rounded-10 bg-purple-85',
+            'text-(length:--text-fluid-sm) leading-none font-bold text-primary-dark',
             '2xl:size-9'
           )}
         >
@@ -84,8 +84,8 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
           <Show when={props.eyebrow}>
             <span
               class={cn(
-                'text-card-tag-md leading-120 font-semibold text-brand-deep',
-                '2xl:text-card-description-md'
+                'text-(length:--text-fluid-sm) leading-120 font-semibold text-primary-dark',
+                '2xl:text-(length:--text-fluid-md)'
               )}
             >
               {props.eyebrow}
@@ -94,8 +94,8 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
 
           <span
             class={cn(
-              'text-card-tag-md leading-120 font-semibold text-ink',
-              '2xl:text-card-description-md'
+              'text-(length:--text-fluid-sm) leading-120 font-semibold text-foreground-strongest',
+              '2xl:text-(length:--text-fluid-md)'
             )}
           >
             {props.title}
@@ -103,8 +103,8 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
 
           <span
             class={cn(
-              'text-card-tag-md leading-120 text-ink-muted',
-              '2xl:text-card-description-md'
+              'text-(length:--text-fluid-sm) leading-120 text-foreground-muted',
+              '2xl:text-(length:--text-fluid-md)'
             )}
           >
             {props.description}

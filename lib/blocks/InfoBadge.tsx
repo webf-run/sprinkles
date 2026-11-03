@@ -2,7 +2,7 @@ import { cn } from '../utils';
 
 const frame = {
   inverse: 'border-white/50',
-  subtle: 'border-border-subtle bg-surface',
+  subtle: 'border-purple-70 bg-surface',
 } as const;
 
 const text = {
@@ -26,16 +26,16 @@ export function InfoBadge(props: InfoBadgeProps) {
     <div
       class={cn(
         'flex h-20.75 w-full max-w-63.5 flex-col gap-0.5',
-        'justify-center rounded-badge-outline border-[0.5px] p-2.5',
+        'justify-center rounded-10 border-[0.5px] p-2.5',
         frame[variant()],
         props.class
       )}
     >
       <span
         class={cn(
-          'text-lead-sm leading-120',
-          'md:text-lead-md',
-          '2xl:text-lead-xl 2xl:tracking-tight-30',
+          'text-(length:--text-fluid-md) leading-120',
+          'md:text-(length:--text-fluid-lg)',
+          '2xl:text-(length:--text-fluid-lg) 2xl:tracking-tight-30',
           text[variant()].label
         )}
       >
@@ -44,9 +44,9 @@ export function InfoBadge(props: InfoBadgeProps) {
 
       <span
         class={cn(
-          'text-lead-sm leading-120 font-semibold',
-          'md:text-lead-md',
-          '2xl:text-lead-xl 2xl:tracking-tight-30',
+          'text-(length:--text-fluid-md) leading-120 font-semibold',
+          'md:text-(length:--text-fluid-lg)',
+          '2xl:text-(length:--text-fluid-lg) 2xl:tracking-tight-30',
           text[variant()].value
         )}
       >

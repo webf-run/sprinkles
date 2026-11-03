@@ -17,26 +17,26 @@ export function AnnouncementListItem(props: AnnouncementListItemProps) {
   return (
     <li
       class={cn(
-        'flex items-start gap-5.5 border-b border-ink-rule py-5 md:gap-6 xl:pt-6 xl:pb-5.5',
+        'flex items-start gap-5.5 border-b border-neutral-720 py-5 md:gap-6 xl:pt-6 xl:pb-5.5',
         props.class
       )}
     >
       <IconTile icon={props.icon} tone='ink' />
 
-      <div class='flex min-w-0 max-w-notice-item flex-col pt-0.5'>
-        <span class='text-notice-meta font-bold text-brand-lilac uppercase'>
+      <div class='flex min-w-0 max-w-[721px] flex-col pt-0.5'>
+        <span class='text-[12px]/[1.2] font-bold text-purple-385 uppercase'>
           {props.category}
         </span>
 
-        <h3 class='mt-0.5 font-heading text-base leading-126 font-bold text-ink-subdued xl:text-notice-body'>
+        <h3 class='mt-0.5 font-heading text-base leading-126 font-bold text-foreground xl:text-[18px]/[1.2]'>
           {props.title}
         </h3>
 
-        <p class='mt-2.5 text-sm leading-120 text-ink-subdued xl:text-notice-body'>
+        <p class='mt-2.5 text-sm leading-120 text-foreground xl:text-[18px]/[1.2]'>
           {props.description}
         </p>
 
-        <span class='mt-1 text-notice-meta text-ink-subdued uppercase'>
+        <span class='mt-1 text-[12px]/[1.2] text-foreground uppercase'>
           {props.date}
         </span>
       </div>

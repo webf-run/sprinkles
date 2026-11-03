@@ -7,7 +7,7 @@ import { IconTile } from './IconTile';
 import { Link } from './Link';
 
 const ActionArrow: IconComponent = (props) => (
-  <ArrowRight {...props} class='text-brand-lilac' />
+  <ArrowRight {...props} class='text-purple-385' />
 );
 
 export interface AnnouncementCardProps {
@@ -33,7 +33,7 @@ export function AnnouncementCard(props: AnnouncementCardProps) {
   return (
     <article
       class={cn(
-        'flex flex-col items-start justify-center gap-4.25 rounded-badge-tag border border-brand-deep bg-surface',
+        'flex flex-col items-start justify-center gap-4.25 rounded-15 border border-primary-dark bg-surface',
         'p-7.5 xl:py-10',
         props.class
       )}
@@ -42,10 +42,10 @@ export function AnnouncementCard(props: AnnouncementCardProps) {
         <IconTile icon={props.icon} tone='plum' />
 
         <div class='flex flex-col gap-2.5 font-bold uppercase'>
-          <span class='text-notice-eyebrow text-brand-lilac'>
+          <span class='text-[11px]/[1.2] text-purple-385'>
             {props.eyebrow}
           </span>
-          <span class='text-notice-caption text-brand-lilac-soft'>
+          <span class='text-[10px]/[1.2] text-purple-235'>
             {props.caption}
           </span>
         </div>
@@ -55,25 +55,25 @@ export function AnnouncementCard(props: AnnouncementCardProps) {
         {props.tag}
       </Badge>
 
-      <h3 class='flex flex-col gap-1.25 font-heading text-brand-deep'>
-        <span class='text-heading-sm leading-none font-bold xl:text-notice-title xl:leading-126'>
+      <h3 class='flex flex-col gap-1.25 font-heading text-primary-dark'>
+        <span class='text-[28px]/[1.1] leading-none font-bold xl:text-[30px]/[1.26] xl:leading-126'>
           {props.title}
         </span>
-        <span class='text-heading-xs leading-none font-normal xl:text-notice-subtitle xl:leading-126'>
+        <span class='text-[22px]/[1.1] leading-none font-normal xl:text-[25px]/[1.26] xl:leading-126'>
           {props.subtitle}
         </span>
       </h3>
 
-      <p class='max-w-notice-copy text-sm leading-120 text-ink-subdued xl:text-notice-body'>
+      <p class='max-w-[475px] text-sm leading-120 text-foreground xl:text-[18px]/[1.2]'>
         {props.description}
       </p>
 
-      <div class='mt-1 flex flex-col items-start gap-3.5 self-stretch border-t border-ink-rule-plum pt-4.5 xl:flex-row xl:flex-wrap xl:items-center xl:justify-between xl:gap-4 xl:pt-8'>
+      <div class='mt-1 flex flex-col items-start gap-3.5 self-stretch border-t border-purple-685 pt-4.5 xl:flex-row xl:flex-wrap xl:items-center xl:justify-between xl:gap-4 xl:pt-8'>
         <div class='flex flex-col gap-2 whitespace-nowrap uppercase'>
-          <span class='text-notice-label font-bold text-ink-faint'>
+          <span class='text-[9.5px]/[1.2] font-bold text-neutral-385'>
             {props.dateLabel}
           </span>
-          <span class='text-notice-date text-foreground-strong'>
+          <span class='text-[13px]/[1.2] text-foreground-strong'>
             {props.date}
           </span>
         </div>

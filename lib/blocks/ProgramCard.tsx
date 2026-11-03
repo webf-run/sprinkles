@@ -29,16 +29,16 @@ export function ProgramCard(props: ProgramCardProps) {
       <Badge
         variant='highlight'
         size='section'
-        class='h-auto w-auto px-4 py-2 text-card-badge-sm leading-120 text-white md:text-card-badge-lg'
+        class='h-auto w-auto px-4 py-2 text-(length:--text-fluid-xs) leading-120 text-white md:text-(length:--text-fluid-xs)'
       >
         {props.badge}
       </Badge>
 
       <h3
         class={cn(
-          'mt-4 text-card-heading-sm leading-120 font-semibold tracking-tight-30 text-foreground-strong',
-          'md:mt-5 md:text-card-heading-md',
-          'xl:mt-8 xl:text-display-sm'
+          'mt-4 text-(length:--text-fluid-md) leading-120 font-semibold tracking-tight-30 text-foreground-strong',
+          'md:mt-5 md:text-(length:--text-fluid-xl)',
+          'xl:mt-8 xl:text-(length:--text-fluid-2xl)'
         )}
       >
         {props.title}
@@ -46,9 +46,9 @@ export function ProgramCard(props: ProgramCardProps) {
 
       <p
         class={cn(
-          'mt-4 text-card-description-sm leading-143 text-foreground',
-          'md:mt-3 md:min-h-[3lh] md:text-body md:leading-145',
-          'xl:mt-4 xl:text-lead-xl xl:leading-145 xl:tracking-normal'
+          'mt-4 text-(length:--text-fluid-sm) leading-143 text-foreground',
+          'md:mt-3 md:min-h-[3lh] md:text-fluid-md md:leading-145',
+          'xl:mt-4 xl:text-(length:--text-fluid-lg) xl:leading-145 xl:tracking-normal'
         )}
       >
         {props.description}
@@ -60,7 +60,7 @@ export function ProgramCard(props: ProgramCardProps) {
             <Badge
               variant='tag'
               size='tag'
-              class='px-3.5 py-2 leading-120 md:text-card-badge-md'
+              class='px-3.5 py-2 leading-120 md:text-(length:--text-fluid-xs)'
             >
               {tag}
             </Badge>
@@ -75,9 +75,9 @@ export function ProgramCard(props: ProgramCardProps) {
           size='action'
           icon={ArrowRight}
           class={cn(
-            'h-14 gap-4 px-4 text-card-cta leading-120 tracking-tight-30',
-            'md:text-body md:leading-165 md:tracking-normal',
-            'xl:h-16 xl:rounded-lg xl:px-5.5 xl:text-lead-md xl:leading-120 xl:tracking-tight-30'
+            'h-14 gap-4 px-4 text-[15px] leading-120 tracking-tight-30',
+            'md:text-fluid-md md:leading-165 md:tracking-normal',
+            'xl:h-16 xl:rounded-lg xl:px-5.5 xl:text-(length:--text-fluid-lg) xl:leading-120 xl:tracking-tight-30'
           )}
         >
           {props.ctaLabel}
