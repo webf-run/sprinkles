@@ -9,17 +9,17 @@ const variants = cva(
   {
     variants: {
       variant: {
-        default: 'border-surface-accent-strong bg-surface-accent',
+        default: 'border-surface-emphasis bg-surface-soft',
         muted: 'border-border bg-surface-muted',
         surface: 'border-border bg-surface',
         accent: 'border-accent bg-accent text-accent-foreground',
-        purple: 'border-badge-purple-background bg-badge-purple-background',
-        orange: 'border-badge-orange-background bg-badge-orange-background',
-        green: 'border-badge-green-background bg-badge-green-background',
-        blue: 'border-badge-blue-background bg-badge-blue-background',
-        neutral: 'border-badge-neutral-background bg-badge-neutral-background',
+        purple: 'border-surface-soft bg-surface-soft',
+        orange: 'border-orange-55 bg-orange-55',
+        green: 'border-green-40 bg-green-40',
+        blue: 'border-blue-80 bg-blue-80',
+        neutral: 'border-neutral-40 bg-neutral-40',
         /** Light-lilac tile (#E3D0F6 at 25%) with body-coloured text. */
-        tinted: 'border-white bg-surface-accent-strong/25 text-foreground',
+        tinted: 'border-white bg-surface-emphasis/25 text-foreground',
       },
       size: {
         sm: 'w-full max-w-36 shrink-0 gap-2 px-4 py-4',
@@ -49,12 +49,12 @@ const iconBox = cva('flex shrink-0 items-center justify-center rounded-full', {
       muted: 'bg-surface text-foreground',
       surface: 'bg-surface-muted text-foreground',
       accent: 'bg-accent-foreground/20 text-accent-foreground',
-      purple: 'bg-badge-purple-foreground/15 text-badge-purple-foreground',
-      orange: 'bg-badge-orange-foreground/15 text-badge-orange-foreground',
-      green: 'bg-badge-green-foreground/15 text-badge-green-foreground',
-      blue: 'bg-badge-blue-foreground/15 text-badge-blue-foreground',
-      neutral: 'bg-badge-neutral-foreground/15 text-badge-neutral-foreground',
-      tinted: 'bg-brand/10 text-brand',
+      purple: 'bg-primary/15 text-primary',
+      orange: 'bg-orange-540/15 text-orange-540',
+      green: 'bg-green-530/15 text-green-530',
+      blue: 'bg-blue-610/15 text-blue-610',
+      neutral: 'bg-neutral-650/15 text-neutral-650',
+      tinted: 'bg-primary/10 text-primary',
     },
     size: {
       sm: 'size-9',
@@ -72,11 +72,11 @@ const text = cva('text-foreground', {
       muted: 'text-foreground',
       surface: 'text-foreground',
       accent: 'text-accent-foreground',
-      purple: 'text-badge-purple-foreground',
-      orange: 'text-badge-orange-foreground',
-      green: 'text-badge-green-foreground',
-      blue: 'text-badge-blue-foreground',
-      neutral: 'text-badge-neutral-foreground',
+      purple: 'text-primary',
+      orange: 'text-orange-540',
+      green: 'text-green-530',
+      blue: 'text-blue-610',
+      neutral: 'text-neutral-650',
       tinted: 'text-foreground',
     },
   },
@@ -84,47 +84,47 @@ const text = cva('text-foreground', {
 });
 const styles = {
   default: {
-    color: 'var(--foreground)',
-    backgroundColor: 'var(--surface-muted)',
+    color: 'var(--color-foreground)',
+    backgroundColor: 'var(--color-surface-muted)',
   },
-  muted: { color: 'var(--foreground)', backgroundColor: 'var(--surface)' },
+  muted: { color: 'var(--color-foreground)', backgroundColor: 'var(--color-surface)' },
   surface: {
-    color: 'var(--foreground)',
-    backgroundColor: 'var(--surface-muted)',
+    color: 'var(--color-foreground)',
+    backgroundColor: 'var(--color-surface-muted)',
   },
   accent: {
-    color: 'var(--accent-foreground)',
+    color: 'var(--color-accent-foreground)',
     backgroundColor:
-      'color-mix(in srgb, var(--accent-foreground) 20%, transparent)',
+      'color-mix(in srgb, var(--color-accent-foreground) 20%, transparent)',
   },
   purple: {
-    color: 'var(--badge-purple-foreground)',
+    color: 'var(--color-primary)',
     backgroundColor:
-      'color-mix(in srgb, var(--badge-purple-foreground) 15%, transparent)',
+      'color-mix(in srgb, var(--color-primary) 15%, transparent)',
   },
   orange: {
-    color: 'var(--badge-orange-foreground)',
+    color: 'var(--color-orange-540)',
     backgroundColor:
-      'color-mix(in srgb, var(--badge-orange-foreground) 15%, transparent)',
+      'color-mix(in srgb, var(--color-orange-540) 15%, transparent)',
   },
   green: {
-    color: 'var(--badge-green-foreground)',
+    color: 'var(--color-green-530)',
     backgroundColor:
-      'color-mix(in srgb, var(--badge-green-foreground) 15%, transparent)',
+      'color-mix(in srgb, var(--color-green-530) 15%, transparent)',
   },
   blue: {
-    color: 'var(--badge-blue-foreground)',
+    color: 'var(--color-blue-610)',
     backgroundColor:
-      'color-mix(in srgb, var(--badge-blue-foreground) 15%, transparent)',
+      'color-mix(in srgb, var(--color-blue-610) 15%, transparent)',
   },
   neutral: {
-    color: 'var(--badge-neutral-foreground)',
+    color: 'var(--color-neutral-650)',
     backgroundColor:
-      'color-mix(in srgb, var(--badge-neutral-foreground) 15%, transparent)',
+      'color-mix(in srgb, var(--color-neutral-650) 15%, transparent)',
   },
   tinted: {
-    color: 'var(--brand)',
-    backgroundColor: 'color-mix(in srgb, var(--brand) 10%, transparent)',
+    color: 'var(--color-primary)',
+    backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)',
   },
 } as const;
 interface StatCardProps extends VariantProps<typeof variants> {

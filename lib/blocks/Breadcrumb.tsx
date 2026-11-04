@@ -22,8 +22,8 @@ export function Breadcrumb(props: BreadcrumbProps) {
       <ol
         class={cn(
           'flex list-none flex-wrap items-center gap-x-1.5 gap-y-0.5 p-0',
-          'text-body-sm leading-120 text-ink-subtle',
-          '2xl:text-card-description-md'
+          'text-fluid-sm leading-120 text-foreground-subtle',
+          '2xl:text-(length:--text-fluid-md)'
         )}
       >
         <For each={props.items}>
@@ -39,7 +39,7 @@ export function Breadcrumb(props: BreadcrumbProps) {
               >
                 <a
                   href={item.href}
-                  class='text-inherit no-underline transition-colors duration-200 hover:text-brand hover:underline'
+                  class='text-inherit no-underline transition-colors duration-200 hover:text-primary hover:underline'
                 >
                   {item.label}
                 </a>

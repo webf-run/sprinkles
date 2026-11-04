@@ -97,7 +97,7 @@ export function Navbar(p: NavbarProps) {
               {(item) => (
                 <a
                   href={item.href}
-                  class='text-foreground hover:text-foreground-muted flex items-center gap-1 text-xs font-medium no-underline transition-colors sm:text-sm lg:text-base'
+                  class='text-foreground hover:text-neutral-520 flex items-center gap-1 text-xs font-medium no-underline transition-colors sm:text-sm lg:text-base'
                 >
                   <span>{item.label}</span>
                   {item.hasDropdown && (
@@ -120,7 +120,7 @@ export function Navbar(p: NavbarProps) {
                   aria-label='Toggle menu'
                   aria-expanded={open()}
                   aria-controls={panelId}
-                  class='border-border-subtle inline-flex h-9 w-9 items-center justify-center rounded-md border'
+                  class='border-purple-70 inline-flex h-9 w-9 items-center justify-center rounded-md border'
                 >
                   {open() ? <X size={20} /> : <Menu size={20} />}
                 </button>
@@ -128,7 +128,7 @@ export function Navbar(p: NavbarProps) {
                 {open() && (
                   <div
                     id={panelId}
-                    class='border-border-subtle bg-surface absolute inset-x-0 top-full border-t px-4 pb-4 shadow-sm sm:px-6'
+                    class='border-purple-70 bg-surface absolute inset-x-0 top-full border-t px-4 pb-4 shadow-sm sm:px-6'
                   >
                     <div class='flex flex-col pt-2'>
                       <For each={items()}>
@@ -136,7 +136,7 @@ export function Navbar(p: NavbarProps) {
                           <a
                             href={item.href}
                             onClick={close}
-                            class='border-border-subtle text-foreground flex items-center justify-between border-b px-2 py-3 text-sm font-medium no-underline'
+                            class='border-purple-70 text-foreground flex items-center justify-between border-b px-2 py-3 text-sm font-medium no-underline'
                           >
                             <span>{item.label}</span>
                             {item.hasDropdown && (

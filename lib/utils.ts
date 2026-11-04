@@ -3,71 +3,26 @@ import { extendTailwindMerge } from 'tailwind-merge';
 
 /**
  * Registers the custom design-scale classes so tailwind-merge understands them.
- * Without this, `text-lead-sm` would be mistaken for a text *colour* and
+ * Without this, `text-(length:--text-fluid-md)` would be mistaken for a text *colour* and
  * silently removed when it sits next to `text-white`.
  */
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
-      text: [
-        'card',
-        'stat',
-        'eyebrow',
-        'body',
-        'body-sm',
-        'lead',
-        'lead-sm',
-        'lead-md',
-        'lead-xl',
-        'display-sm',
-        'display-md',
-        'heading-display',
-        'heading-display-xl',
-        'heading-xl',
-        'badge-md',
-        'badge-md-mobile',
-        'card-heading-sm',
-        'card-heading-md',
-        'card-heading-lg',
-        'card-description-sm',
-        'card-description-md',
-        'card-description-lg',
-        'card-badge-sm',
-        'card-badge-md',
-        'card-badge-lg',
-        'card-tag-sm',
-        'card-tag-md',
-        'card-cta',
-        'card-feature-title',
-        'card-feature-description',
-      ],
-      tracking: [
-        'tight-30',
-        'tight-20',
-        'tight-10',
-        'tight-8',
-        'wide-130',
-        'wide-140',
-      ],
+      text: ['fluid-xs', 'fluid-sm', 'fluid-md', 'fluid-lg', 'fluid-xl', 'fluid-2xl', 'fluid-3xl', 'fluid-4xl', 'fluid-5xl'],
       leading: ['110', '115', '120', '126', '143', '145', '150', '160', '165'],
-      radius: ['badge-md', 'badge-md-mobile', 'badge-tag', 'badge-outline', 'card'],
-      shadow: ['card-purple', 'card-soft'],
-      font: ['badge'],
-      spacing: [
-        'header',
-        'badge-md-height',
-        'badge-md-x',
-        'badge-md-y',
-        'badge-md-mobile-width',
-        'badge-md-mobile-height',
-        'badge-md-mobile-x',
-        'badge-md-mobile-y',
-        'badge-md-mobile-gap',
-      ],
+      tracking: ['tight-20', 'tight-30', 'tight-8', 'wide-130', 'wide-140'],
+      radius: ['10', '15', '20', '30', '5xl'],
+      shadow: ['offset-sm', 'offset-md', 'offset-lg'],
+      container: ['8xl', '9xl'],
+      font: ['ui', 'heading'],
     },
     classGroups: {
-      'font-size': [{ text: ['subtitle'] }],
-      'bg-image': [{ bg: ['glow'] }],
+      'bg-image': [
+        {
+          bg: ['glow', 'overlay-strong', 'overlay-side', 'overlay-primary', 'scrim'],
+        },
+      ],
     },
   },
 });

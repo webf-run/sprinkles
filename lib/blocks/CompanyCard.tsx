@@ -10,13 +10,13 @@ const variants = cva(
     variants: {
       variant: {
         default: 'border-border bg-surface',
-        muted: 'border-border-subtle bg-surface-muted',
-        accent: 'border-surface-accent-strong bg-surface-accent',
-        purple: 'border-badge-purple-background bg-badge-purple-background',
-        orange: 'border-badge-orange-background bg-badge-orange-background',
-        green: 'border-badge-green-background bg-badge-green-background',
-        blue: 'border-badge-blue-background bg-badge-blue-background',
-        neutral: 'border-badge-neutral-background bg-badge-neutral-background',
+        muted: 'border-purple-70 bg-surface-muted',
+        accent: 'border-surface-emphasis bg-surface-soft',
+        purple: 'border-surface-soft bg-surface-soft',
+        orange: 'border-orange-55 bg-orange-55',
+        green: 'border-green-40 bg-green-40',
+        blue: 'border-blue-80 bg-blue-80',
+        neutral: 'border-neutral-40 bg-neutral-40',
       },
       size: {
         sm: 'h-15 w-30 p-3',

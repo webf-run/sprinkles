@@ -9,28 +9,28 @@ export default function Example() {
 
       <Badge
         variant='orange'
-        class='border-badge-orange-foreground border bg-transparent'
+        class='border-orange-540 border bg-transparent'
       >
         Warning
       </Badge>
 
       <Badge
         variant='green'
-        class='border-badge-green-foreground border bg-transparent'
+        class='border-green-530 border bg-transparent'
       >
         Success
       </Badge>
 
       <Badge
         variant='blue'
-        class='border-badge-blue-foreground border bg-transparent'
+        class='border-blue-610 border bg-transparent'
       >
         Information
       </Badge>
 
       <Badge
         variant='neutral'
-        class='border-badge-neutral-foreground border bg-transparent'
+        class='border-neutral-650 border bg-transparent'
       >
         Neutral
       </Badge>

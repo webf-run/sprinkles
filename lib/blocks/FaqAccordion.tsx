@@ -36,14 +36,14 @@ export function FaqAccordion(props: FaqAccordionProps) {
         {(item) => (
           <details
             {...group()}
-            class='group rounded-lg border border-brand-hairline bg-surface'
+            class='group rounded-lg border border-border-subtle bg-surface'
           >
             <summary
               class={cn(
                 'flex cursor-pointer list-none items-center justify-between gap-4',
                 'rounded-lg px-4 py-2.5 md:py-1.75',
-                'text-card-cta leading-120 text-ink-muted',
-                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
+                'text-[15px] leading-120 text-foreground-muted',
+                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                 '[&::-webkit-details-marker]:hidden'
               )}
             >
@@ -51,7 +51,7 @@ export function FaqAccordion(props: FaqAccordionProps) {
               <svg
                 aria-hidden='true'
                 viewBox='0 0 12 12'
-                class='size-3 shrink-0 text-ink-muted transition-transform duration-200 group-open:rotate-180'
+                class='size-3 shrink-0 text-foreground-muted transition-transform duration-200 group-open:rotate-180'
               >
                 <path
                   d='M2 4.25 6 8l4-3.75'
@@ -63,7 +63,7 @@ export function FaqAccordion(props: FaqAccordionProps) {
                 />
               </svg>
             </summary>
-            <div class='px-4 pt-1 pb-3.5 text-card-tag-md leading-126 text-ink-muted'>
+            <div class='px-4 pt-1 pb-3.5 text-(length:--text-fluid-sm) leading-126 text-foreground-muted'>
               {item.answer}
             </div>
           </details>

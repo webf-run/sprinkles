@@ -13,15 +13,15 @@ const benefitCardVariants = cva(
       variant: {
         default: 'border-border bg-surface',
         muted: 'border-border bg-surface-muted',
-        accent: 'border-surface-accent-strong bg-surface-accent',
+        accent: 'border-surface-emphasis bg-surface-soft',
         inverse: 'border-accent bg-accent text-accent-foreground',
-        purple: 'border-badge-purple-background bg-badge-purple-background',
-        orange: 'border-badge-orange-background bg-badge-orange-background',
-        green: 'border-badge-green-background bg-badge-green-background',
-        blue: 'border-badge-blue-background bg-badge-blue-background',
-        neutral: 'border-badge-neutral-background bg-badge-neutral-background',
-        warm: 'border-white bg-card-warm text-card-ink',
-        light: 'border-white bg-card-light text-card-ink',
+        purple: 'border-surface-soft bg-surface-soft',
+        orange: 'border-orange-55 bg-orange-55',
+        green: 'border-green-40 bg-green-40',
+        blue: 'border-blue-80 bg-blue-80',
+        neutral: 'border-neutral-40 bg-neutral-40',
+        warm: 'border-white bg-orange-30 text-primary-darker',
+        light: 'border-white bg-surface-soft text-primary-darker',
       },
       size: {
         sm: 'gap-3 px-4 py-3',
@@ -49,13 +49,13 @@ const benefitCardTextVariants = cva('text-foreground', {
       muted: 'text-foreground',
       accent: 'text-foreground',
       inverse: 'text-accent-foreground',
-      purple: 'text-badge-purple-foreground',
-      orange: 'text-badge-orange-foreground',
-      green: 'text-badge-green-foreground',
-      blue: 'text-badge-blue-foreground',
-      neutral: 'text-badge-neutral-foreground',
-      warm: 'text-card-ink',
-      light: 'text-card-ink',
+      purple: 'text-primary',
+      orange: 'text-orange-540',
+      green: 'text-green-530',
+      blue: 'text-blue-610',
+      neutral: 'text-neutral-650',
+      warm: 'text-primary-darker',
+      light: 'text-primary-darker',
     },
   },
   defaultVariants: { variant: 'default' },
@@ -67,15 +67,15 @@ const benefitCardIconVariants = cva(
       variant: {
         default: 'bg-surface-muted text-foreground',
         muted: 'bg-surface text-foreground',
-        accent: 'bg-surface-accent-strong text-primary',
+        accent: 'bg-surface-emphasis text-primary',
         inverse: 'bg-accent-foreground/20 text-accent-foreground',
-        purple: 'bg-badge-purple-foreground/15 text-badge-purple-foreground',
-        orange: 'bg-badge-orange-foreground/15 text-badge-orange-foreground',
-        green: 'bg-badge-green-foreground/15 text-badge-green-foreground',
-        blue: 'bg-badge-blue-foreground/15 text-badge-blue-foreground',
-        neutral: 'bg-badge-neutral-foreground/15 text-badge-neutral-foreground',
-        warm: 'rounded-none bg-transparent text-card-ink',
-        light: 'rounded-none bg-transparent text-card-ink',
+        purple: 'bg-primary/15 text-primary',
+        orange: 'bg-orange-540/15 text-orange-540',
+        green: 'bg-green-530/15 text-green-530',
+        blue: 'bg-blue-610/15 text-blue-610',
+        neutral: 'bg-neutral-650/15 text-neutral-650',
+        warm: 'rounded-none bg-transparent text-primary-darker',
+        light: 'rounded-none bg-transparent text-primary-darker',
       },
       size: {
         sm: 'size-9',
@@ -92,7 +92,7 @@ const headingSize = {
   sm: 'text-base',
   md: 'text-lg',
   lg: 'text-xl',
-  highlight: 'text-card',
+  highlight: 'text-fluid-xl',
 } as const;
 const listGap = {
   sm: 'gap-1.5',
@@ -104,7 +104,7 @@ const bulletSize = {
   sm: 'text-xs',
   md: 'text-sm',
   lg: 'text-base',
-  highlight: 'text-body-sm',
+  highlight: 'text-fluid-sm',
 } as const;
 
 interface BenefitCardProps extends VariantProps<typeof benefitCardVariants> {
@@ -170,7 +170,7 @@ export function BenefitCard(props: BenefitCardProps) {
                 {variant() === 'warm' || variant() === 'light' ? (
                   <span
                     aria-hidden='true'
-                    class='mt-2 size-1.5 shrink-0 rounded-full bg-card-ink'
+                    class='mt-2 size-1.5 shrink-0 rounded-full bg-primary-darker'
                   />
                 ) : (
                   <Check

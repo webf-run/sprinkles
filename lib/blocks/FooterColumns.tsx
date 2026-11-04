@@ -38,7 +38,7 @@ export function FooterColumns(props: FooterColumnsProps) {
         <div class='xl:w-72 xl:shrink-0'>
           {props.logo}
           <Show when={props.description}>
-            <p class='mt-7.5 max-w-60 text-card-description-sm leading-126 text-ink-muted'>
+            <p class='mt-7.5 max-w-60 text-(length:--text-fluid-sm) leading-126 text-foreground-muted'>
               {props.description}
             </p>
           </Show>
@@ -48,17 +48,17 @@ export function FooterColumns(props: FooterColumnsProps) {
           <For each={props.columns}>
             {(column) => (
               <div class='min-w-0'>
-                <h3 class='text-card-tag-md leading-120 font-bold text-ink'>
+                <h3 class='text-(length:--text-fluid-sm) leading-120 font-bold text-foreground-strongest'>
                   {column.title}
                 </h3>
                 <ul class='mt-5 flex list-none flex-col gap-4 p-0'>
                   <For each={column.links}>
                     {(link) => (
-                      <li class='text-card-description-sm leading-120 text-ink-muted'>
+                      <li class='text-(length:--text-fluid-sm) leading-120 text-foreground-muted'>
                         <Show when={link.href} fallback={link.label}>
                           <a
                             href={link.href}
-                            class='text-inherit no-underline transition-colors hover:text-brand hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand'
+                            class='text-inherit no-underline transition-colors hover:text-primary hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
                           >
                             {link.label}
                           </a>
@@ -81,7 +81,7 @@ export function FooterColumns(props: FooterColumnsProps) {
                 <a
                   href={social.href}
                   aria-label={social.label}
-                  class='flex size-7.75 items-center justify-center rounded-full border border-ink-muted text-ink-muted no-underline transition-colors hover:border-brand hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand'
+                  class='flex size-7.75 items-center justify-center rounded-full border border-foreground-muted text-foreground-muted no-underline transition-colors hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
                 >
                   <Show when={social.icon}>
                     <Dynamic
@@ -97,7 +97,7 @@ export function FooterColumns(props: FooterColumnsProps) {
         </ul>
       </Show>
 
-      <p class='mt-3.5 text-card-tag-md leading-120 font-semibold tracking-wide-130 text-ink-muted'>
+      <p class='mt-3.5 text-(length:--text-fluid-sm) leading-120 font-semibold tracking-wide-130 text-foreground-muted'>
         © {props.year ?? new Date().getFullYear()} {props.copyright}
       </p>
     </footer>

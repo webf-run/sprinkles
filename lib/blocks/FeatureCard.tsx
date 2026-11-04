@@ -11,14 +11,14 @@ const featureCardVariants = cva(
       variant: {
         default: 'border-border bg-surface',
         muted: 'border-border bg-surface-muted',
-        accent: 'border-surface-accent-strong bg-surface-accent',
+        accent: 'border-surface-emphasis bg-surface-soft',
         inverse: 'border-accent bg-accent text-accent-foreground',
-        purple: 'border-badge-purple-background bg-badge-purple-background',
-        orange: 'border-badge-orange-background bg-badge-orange-background',
-        green: 'border-badge-green-background bg-badge-green-background',
-        blue: 'border-badge-blue-background bg-badge-blue-background',
-        neutral: 'border-badge-neutral-background bg-badge-neutral-background',
-        brand: 'rounded-badge-tag border-brand-line bg-surface',
+        purple: 'border-surface-soft bg-surface-soft',
+        orange: 'border-orange-55 bg-orange-55',
+        green: 'border-green-40 bg-green-40',
+        blue: 'border-blue-80 bg-blue-80',
+        neutral: 'border-neutral-40 bg-neutral-40',
+        brand: 'rounded-15 border-purple-90 bg-surface',
         surface: 'border-border-accent bg-surface transition-colors',
       },
       size: {
@@ -44,12 +44,12 @@ const text = cva('text-foreground', {
       muted: 'text-foreground',
       accent: 'text-foreground',
       inverse: 'text-accent-foreground',
-      purple: 'text-badge-purple-foreground',
-      orange: 'text-badge-orange-foreground',
-      green: 'text-badge-green-foreground',
-      blue: 'text-badge-blue-foreground',
-      neutral: 'text-badge-neutral-foreground',
-      brand: 'text-ink',
+      purple: 'text-primary',
+      orange: 'text-orange-540',
+      green: 'text-green-530',
+      blue: 'text-blue-610',
+      neutral: 'text-neutral-650',
+      brand: 'text-foreground-strongest',
       surface: 'text-foreground-strong',
     },
   },
@@ -60,15 +60,15 @@ const iconBox = cva('flex shrink-0 items-center justify-center rounded-2xl', {
     variant: {
       default: 'bg-surface-muted text-foreground',
       muted: 'bg-surface text-foreground',
-      accent: 'bg-surface-accent-strong text-primary',
+      accent: 'bg-surface-emphasis text-primary',
       inverse: 'bg-accent-foreground/20 text-accent-foreground',
-      purple: 'bg-badge-purple-foreground/15 text-badge-purple-foreground',
-      orange: 'bg-badge-orange-foreground/15 text-badge-orange-foreground',
-      green: 'bg-badge-green-foreground/15 text-badge-green-foreground',
-      blue: 'bg-badge-blue-foreground/15 text-badge-blue-foreground',
-      neutral: 'bg-badge-neutral-foreground/15 text-badge-neutral-foreground',
-      brand: 'rounded-badge-outline bg-brand-tile text-brand-deep',
-      surface: 'bg-badge-purple-bg text-primary',
+      purple: 'bg-primary/15 text-primary',
+      orange: 'bg-orange-540/15 text-orange-540',
+      green: 'bg-green-530/15 text-green-530',
+      blue: 'bg-blue-610/15 text-blue-610',
+      neutral: 'bg-neutral-650/15 text-neutral-650',
+      brand: 'rounded-10 bg-purple-80 text-primary-dark',
+      surface: 'bg-surface-soft text-primary',
     },
     size: {
       sm: 'size-10',
@@ -84,14 +84,14 @@ const titleSize = {
   sm: 'text-base',
   md: 'text-xl',
   lg: 'text-2xl',
-  fluid: 'text-card-feature-title leading-120',
+  fluid: 'text-[length:clamp(16px,14.0576px_+_0.5178vw,24px)] leading-120',
 
 } as const;
 const subtitleSize = {
   sm: 'text-xs',
   md: 'text-base',
   lg: 'text-lg',
-  fluid: 'text-card-feature-description leading-120',
+  fluid: 'text-[length:clamp(12px,11.272px_+_0.1942vw,15px)] leading-120',
 
 } as const;
 const iconSize = {
@@ -147,7 +147,7 @@ export function FeatureCard(props: FeatureCardProps) {
             'mt-1 leading-normal opacity-80',
             subtitleSize[size()],
             variant() === 'surface' ? 'text-foreground' : text({ variant: variant() }),
-            variant() === 'brand' && 'text-ink-muted opacity-100'
+            variant() === 'brand' && 'text-foreground-muted opacity-100'
           )}
         >
           {props.subtitle}

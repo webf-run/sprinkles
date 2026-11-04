@@ -15,8 +15,8 @@ export function CtaBanner(props: CtaBannerProps) {
   return (
     <div
       class={cn(
-        'flex w-full flex-col items-start justify-between gap-4 rounded-badge-tag border border-brand bg-surface p-5',
-        'shadow-card-purple',
+        'flex w-full flex-col items-start justify-between gap-4 rounded-15 border border-primary bg-surface p-5',
+        'shadow-offset-md',
         'md:flex-row md:items-center md:px-8 md:py-6',
         'xl:px-12 xl:py-7',
         props.class
@@ -24,8 +24,8 @@ export function CtaBanner(props: CtaBannerProps) {
     >
       <p
         class={cn(
-          'text-body leading-145 text-foreground',
-          'xl:text-lead-xl xl:leading-145 xl:tracking-normal'
+          'text-fluid-md leading-145 text-foreground',
+          'xl:text-(length:--text-fluid-lg) xl:leading-145 xl:tracking-normal'
         )}
       >
         {props.text}
@@ -36,7 +36,7 @@ export function CtaBanner(props: CtaBannerProps) {
         variant='outline'
         size='action'
         icon={ArrowRight}
-        class='shrink-0 xl:h-16 xl:rounded-lg xl:px-5.5 xl:text-lead-md xl:leading-120 xl:tracking-tight-30'
+        class='shrink-0 xl:h-16 xl:rounded-lg xl:px-5.5 xl:text-(length:--text-fluid-lg) xl:leading-120 xl:tracking-tight-30'
       >
         {props.ctaLabel}
       </Link>

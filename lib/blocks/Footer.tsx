@@ -39,7 +39,7 @@ const footerVariants = cva(
         default: 'bg-surface text-foreground',
         muted: 'bg-surface-muted text-foreground',
         inverse: 'bg-accent text-accent-foreground',
-        green: 'bg-badge-green-background text-foreground',
+        green: 'bg-green-40 text-foreground',
       },
       size: { sm: 'px-5', md: 'px-6', lg: 'px-8' },
       effect: {
@@ -54,21 +54,21 @@ const footerVariants = cva(
 );
 const colors: Record<FooterColorVariant, string> = {
   primary: 'text-primary',
-  secondary: 'text-secondary-foreground',
-  success: 'text-success-foreground',
-  purple: 'text-badge-purple-foreground',
-  blue: 'text-badge-blue-foreground',
-  pink: 'text-badge-pink-foreground',
-  green: 'text-badge-green-foreground',
-  orange: 'text-badge-orange-foreground',
+  secondary: 'text-primary-active',
+  success: 'text-foreground-inverse',
+  purple: 'text-primary',
+  blue: 'text-blue-610',
+  pink: 'text-pink-505',
+  green: 'text-green-530',
+  orange: 'text-orange-540',
   foreground: 'text-foreground',
-  muted: 'text-foreground-muted',
+  muted: 'text-neutral-520',
 };
 const divider = cva('border-t', {
   variants: {
     variant: {
-      default: 'border-footer-subtle',
-      muted: 'border-footer-subtle',
+      default: 'border-border-subtle',
+      muted: 'border-border-subtle',
       inverse: 'border-accent-foreground/20',
       green: 'border-green-800',
     },
@@ -155,13 +155,13 @@ export function Footer(p: FooterProps) {
       <div class='flex min-w-0 flex-col gap-8 pb-5 md:flex-row md:items-center md:justify-between xl:pb-2'>
         <div class='max-w-190 min-w-0'>
           <h2
-            class={cn('font-heading text-subtitle font-semibold', heading())}
+            class={cn('font-heading text-fluid-2xl font-semibold', heading())}
             style={p.headingColor ? `color:${p.headingColor}` : undefined}
           >
             {p.ctaTitle ?? "Have Questions? We're here."}
           </h2>
           <p
-            class={cn('text-body mt-3', subtitle())}
+            class={cn('text-fluid-md mt-3', subtitle())}
             style={p.subtitleColor ? `color:${p.subtitleColor}` : undefined}
           >
             {p.ctaSubtitle ??
@@ -228,7 +228,7 @@ export function Footer(p: FooterProps) {
         </div>
         {p.description && (
           <p
-            class={cn(s().description, 'text-body max-w-2xl', description())}
+            class={cn(s().description, 'text-fluid-md max-w-2xl', description())}
             style={
               p.descriptionColor ? `color:${p.descriptionColor}` : undefined
             }
@@ -240,7 +240,7 @@ export function Footer(p: FooterProps) {
           <ul
             class={cn(
               s().contact,
-              'text-body max-w-2xl list-none space-y-3.5 border-b border-footer-subtle p-0 pb-10 md:border-b-0',
+              'text-fluid-md max-w-2xl list-none space-y-3.5 border-b border-border-subtle p-0 pb-10 md:border-b-0',
               contact()
             )}
             style={p.contactColor ? `color:${p.contactColor}` : undefined}
@@ -299,7 +299,7 @@ export function Footer(p: FooterProps) {
         {p.quickLinks?.length && (
           <div class={s().links}>
             <p
-              class={cn('text-eyebrow mb-5 font-semibold', subtitle())}
+              class={cn('text-fluid-xs mb-5 font-semibold', subtitle())}
               style={p.subtitleColor ? `color:${p.subtitleColor}` : undefined}
             >
               Quick Links
@@ -314,7 +314,7 @@ export function Footer(p: FooterProps) {
                           <a
                             href={link.href}
                             class={cn(
-                              'text-body font-medium no-underline transition-colors hover:opacity-70 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none',
+                              'text-fluid-md font-medium no-underline transition-colors hover:opacity-70 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none',
                               links()
                             )}
                             style={
@@ -370,7 +370,7 @@ export function Footer(p: FooterProps) {
           </div>
         )}
         <p
-          class={cn('text-body-sm', copyright())}
+          class={cn('text-fluid-sm', copyright())}
           style={p.copyrightColor ? `color:${p.copyrightColor}` : undefined}
         >
           © {p.year ?? new Date().getFullYear()}
