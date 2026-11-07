@@ -1,12 +1,13 @@
 import { Navbar } from '@webf/sprinkles';
 
 const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Courses', href: '/courses' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Home', href: '#home' },
+  { label: 'Classes', href: '#classes', current: true },
+  { label: 'Teachers', href: '#teachers' },
+  { label: 'Timetable', href: '#timetable' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export default function Example() {
-  return <Navbar logoText='Sprinkles' navItems={navItems} position='static' />;
+  return <Navbar logoText='Studio Nine' navItems={navItems} />;
 }

@@ -1,158 +1,234 @@
-import { ChevronDown, Menu, X } from 'lucide-solid';
+import Menu from 'lucide-solid/icons/menu';
+import X from 'lucide-solid/icons/x';
 import {
   For,
   type JSX,
+  Show,
   createSignal,
   createUniqueId,
   onCleanup,
   onMount,
 } from 'solid-js';
 
+import {
+  ControlHeight,
+  ControlMinWidth,
+  ControlRadius,
+  FocusRing,
+  IconSize,
+  Transition,
+} from '../core/control';
 import { cn } from '../utils';
-import { Link } from './Link';
 
 export interface NavItem {
   label: string;
   href: string;
-  hasDropdown?: boolean;
+  /** The page being shown: marked with `aria-current='page'` and highlighted. */
+  current?: boolean;
 }
-interface NavbarProps {
-  logoSrc?: string;
-  logoText?: string;
+
+export interface NavbarProps {
+  /** Custom brand mark; replaces `logoSrc` and `logoText`. */
   logo?: JSX.Element;
+  /** Logo image. `logoText` becomes its alt text. */
+  logoSrc?: string;
+  /** The site's name, shown when there is no `logoSrc`. */
+  logoText?: string;
+  /** Where the logo links to. */
+  logoHref?: string;
   navItems?: NavItem[];
+  /** Calls to action at the right end, e.g. a `Button`. Stays visible on small screens. */
   actions?: JSX.Element;
+  /** Accessible name of the navigation landmark. */
+  label?: string;
+  /** Accessible name of the menu button on small screens. */
+  menuLabel?: string;
+  position?: 'static' | 'sticky' | 'fixed';
   class?: string;
   style?: string;
-  position?: 'fixed' | 'sticky' | 'static';
 }
 
-export function Navbar(p: NavbarProps) {
+const Position = {
+  static: 'relative',
+  sticky: 'sticky top-0 z-50',
+  fixed: 'fixed inset-x-0 top-0 z-50',
+} as const;
+
+/** Shared by the inline links and the links in the small-screen menu. */
+const NavLink = cn(
+  'flex items-center rounded-lg px-3 font-medium text-foreground no-underline',
+  'hover:bg-neutral-subtle hover:text-foreground-strongest active:bg-neutral/12',
+  'current:bg-accent-subtle current:text-accent-subtle-foreground',
+  FocusRing,
+  Transition
+);
+
+/**
+ * The menu button: a secondary outline control at size L. Built from the
+ * control classes because it needs `aria-expanded` and a ref for focus.
+ */
+const MenuButton = cn(
+  'inline-flex shrink-0 cursor-pointer items-center justify-center border-2 border-border bg-transparent p-0 text-foreground-strong @4xl:hidden',
+  'hover:bg-neutral-subtle active:bg-neutral/12',
+  ControlHeight.l,
+  ControlMinWidth.l,
+  ControlRadius.l,
+  FocusRing,
+  Transition
+);
+
+/**
+ * The site's top bar: brand, navigation links and calls to action. It lays
+ * out by its own width (a container query), not the viewport's: from 56rem
+ * the links sit in the bar, below that they fold into a menu.
+ */
+export function Navbar(props: NavbarProps) {
   const [open, setOpen] = createSignal(false);
-  const items = () => p.navItems ?? [];
+  const items = () => props.navItems ?? [];
+  const label = () => props.label ?? 'Main';
   const panelId = `navbar-menu-${createUniqueId()}`;
 
-  let containerRef: HTMLDivElement | undefined;
+  let rootRef: HTMLElement | undefined;
   let triggerRef: HTMLButtonElement | undefined;
 
   const close = () => setOpen(false);
 
+  // Browser-only listeners: close on Escape, on a press outside, and when
+  // the bar grows wide enough to show its links inline (the menu button is
+  // hidden then).
   onMount(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || !open()) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || !open()) return;
       close();
       triggerRef?.focus();
     };
-    const onResize = () =>
-      window.matchMedia('(min-width: 768px)').matches && close();
-    const onOutsidePress = (e: PointerEvent) => {
-      if (open() && !e.composedPath().includes(containerRef!)) {
+    const onPointerDown = (event: PointerEvent) => {
+      if (open() && rootRef && !event.composedPath().includes(rootRef)) {
         close();
       }
     };
+    const onResize = () => {
+      if (triggerRef && getComputedStyle(triggerRef).display === 'none') {
+        close();
+      }
+    };
+    const resizeObserver = new ResizeObserver(onResize);
 
-    document.addEventListener('keydown', onKey);
-    document.addEventListener('pointerdown', onOutsidePress);
-    window.addEventListener('resize', onResize);
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('pointerdown', onPointerDown);
+    if (rootRef) resizeObserver.observe(rootRef);
 
     onCleanup(() => {
-      document.removeEventListener('keydown', onKey);
-      document.removeEventListener('pointerdown', onOutsidePress);
-      window.removeEventListener('resize', onResize);
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('pointerdown', onPointerDown);
+      resizeObserver.disconnect();
     });
   });
 
+  const brand = () =>
+    props.logo ??
+    (props.logoSrc ? (
+      <img
+        src={props.logoSrc}
+        alt={props.logoText ?? 'Home'}
+        class='block h-10 w-auto object-contain'
+      />
+    ) : (
+      <span class='text-fluid-xl font-bold text-foreground-strongest'>
+        {props.logoText}
+      </span>
+    ));
+
   return (
-    <nav
+    <header
+      ref={rootRef}
       class={cn(
-        'bg-surface left-0 w-full shadow-sm',
-        p.position === 'fixed' && 'fixed top-0 z-50',
-        p.position === 'sticky' && 'sticky top-0 z-50',
-        (!p.position || p.position === 'static') && 'relative',
-        p.class
+        '@container w-full border-b border-border-muted bg-surface text-foreground',
+        Position[props.position ?? 'static'],
+        props.class
       )}
-      style={p.style}
+      style={props.style}
     >
-      <div class='mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8'>
-        <div class='flex h-16 items-center justify-between sm:h-20'>
-          <a href='/' class='flex items-center text-inherit no-underline'>
-            {p.logo ??
-              (p.logoSrc ? (
-                <img
-                  src={p.logoSrc}
-                  alt='Logo'
-                  class='h-10 w-auto object-contain sm:h-12'
-                />
-              ) : (
-                p.logoText && (
-                  <span class='text-foreground text-xl font-bold sm:text-2xl'>
-                    {p.logoText}
-                  </span>
-                )
-              ))}
-          </a>
+      <div class='mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 @xl:px-6 @4xl:h-20 @5xl:px-8'>
+        <a
+          href={props.logoHref ?? '/'}
+          class={cn(
+            'flex shrink-0 items-center gap-2 rounded-md text-inherit no-underline',
+            FocusRing
+          )}
+        >
+          {brand()}
+        </a>
 
-          <div class='hidden items-center gap-4 md:flex md:gap-6 lg:gap-8'>
-            <For each={items()}>
-              {(item) => (
-                <a
-                  href={item.href}
-                  class='text-foreground hover:text-neutral-520 flex items-center gap-1 text-xs font-medium no-underline transition-colors sm:text-sm lg:text-base'
-                >
-                  <span>{item.label}</span>
-                  {item.hasDropdown && (
-                    <ChevronDown size={16} strokeWidth={2} />
-                  )}
-                </a>
-              )}
-            </For>
-          </div>
-
-          <div class='flex items-center gap-3 sm:gap-5'>
-            {p.actions ?? <Link variant='purple'>Apply Now</Link>}
-
-            {items().length > 0 && (
-              <div class='relative md:hidden' ref={containerRef}>
-                <button
-                  ref={triggerRef}
-                  type='button'
-                  onClick={() => setOpen(!open())}
-                  aria-label='Toggle menu'
-                  aria-expanded={open()}
-                  aria-controls={panelId}
-                  class='border-purple-70 inline-flex h-9 w-9 items-center justify-center rounded-md border'
-                >
-                  {open() ? <X size={20} /> : <Menu size={20} />}
-                </button>
-
-                {open() && (
-                  <div
-                    id={panelId}
-                    class='border-purple-70 bg-surface absolute inset-x-0 top-full border-t px-4 pb-4 shadow-sm sm:px-6'
-                  >
-                    <div class='flex flex-col pt-2'>
-                      <For each={items()}>
-                        {(item) => (
-                          <a
-                            href={item.href}
-                            onClick={close}
-                            class='border-purple-70 text-foreground flex items-center justify-between border-b px-2 py-3 text-sm font-medium no-underline'
-                          >
-                            <span>{item.label}</span>
-                            {item.hasDropdown && (
-                              <ChevronDown size={16} strokeWidth={2} />
-                            )}
-                          </a>
-                        )}
-                      </For>
-                    </div>
-                  </div>
+        <Show when={items().length > 0}>
+          <nav aria-label={label()} class='hidden min-w-0 @4xl:block'>
+            <ul class='m-0 flex list-none items-center gap-1 p-0 @5xl:gap-2'>
+              <For each={items()}>
+                {(item) => (
+                  <li>
+                    <a
+                      href={item.href}
+                      aria-current={item.current ? 'page' : undefined}
+                      class={cn(NavLink, 'h-10 text-sm @5xl:text-base')}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
                 )}
-              </div>
-            )}
-          </div>
+              </For>
+            </ul>
+          </nav>
+        </Show>
+
+        <div class='flex shrink-0 items-center gap-2 @xl:gap-3'>
+          {props.actions}
+
+          <Show when={items().length > 0}>
+            <button
+              ref={triggerRef}
+              type='button'
+              class={MenuButton}
+              aria-label={props.menuLabel ?? 'Menu'}
+              aria-expanded={open()}
+              aria-controls={panelId}
+              onClick={() => setOpen(!open())}
+            >
+              <Show
+                when={open()}
+                fallback={<Menu class={IconSize.l} aria-hidden='true' />}
+              >
+                <X class={IconSize.l} aria-hidden='true' />
+              </Show>
+            </button>
+          </Show>
         </div>
       </div>
-    </nav>
+
+      <Show when={items().length > 0}>
+        <nav
+          id={panelId}
+          aria-label={label()}
+          hidden={!open()}
+          class='border-t border-border-muted @4xl:hidden'
+        >
+          <ul class='m-0 mx-auto flex w-full max-w-7xl list-none flex-col gap-1 px-4 py-3 @xl:px-6'>
+            <For each={items()}>
+              {(item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={item.current ? 'page' : undefined}
+                    class={cn(NavLink, 'h-12 text-base')}
+                    onClick={close}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              )}
+            </For>
+          </ul>
+        </nav>
+      </Show>
+    </header>
   );
 }

@@ -1,0 +1,104 @@
+---
+title: CtaCard
+description: A call to action on a muted card, with an eyebrow, a title, a description and one or two buttons.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/cta-card/anatomy.eg.tsx';
+import BasicOutput from '../../../examples/cta-card/basic.eg.tsx';
+import basicCode from '../../../examples/cta-card/basic.eg.tsx?raw';
+import DoShort from '../../../examples/cta-card/do-short.eg.tsx';
+import DontLong from '../../../examples/cta-card/dont-long.eg.tsx';
+import LayoutOutput from '../../../examples/cta-card/layout.eg.tsx';
+import layoutCode from '../../../examples/cta-card/layout.eg.tsx?raw';
+import TwoActionsOutput from '../../../examples/cta-card/two-actions.eg.tsx';
+import twoActionsCode from '../../../examples/cta-card/two-actions.eg.tsx?raw';
+
+```tsx
+import { CtaCard } from '@webf/sprinkles';
+```
+
+A CtaCard asks for an action from inside the page's grid: beside an
+article, at the end of a list, or two side by side for two audiences. It's
+left-aligned and sits on a muted card, so it reads as part of the content.
+For a full-width band, use [CtaSection](/blocks/cta-section/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Eyebrow (optional)',
+      note: 'An outline Badge with one to three words.',
+    },
+    { name: 'Title', note: 'The offer, in the heading font.' },
+    { name: 'Description (optional)', note: 'One sentence, two at most.' },
+    { name: 'Primary action', note: 'An accent button.' },
+    {
+      name: 'Secondary action (optional)',
+      note: 'An outline button beside it.',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## One action
+
+`title`, `primaryLabel` and `primaryHref` are all a card needs.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Two actions
+
+`secondaryLabel` and `secondaryHref` add an outline button for a second,
+quieter way forward.
+
+<ExampleBlock code={twoActionsCode}>
+  <TwoActionsOutput />
+</ExampleBlock>
+
+## In a grid
+
+The card fills its column, so it lines up with the content around it. Two
+cards side by side speak to two audiences.
+
+<ExampleBlock code={layoutCode}>
+  <LayoutOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- Renders a `<section>` with an `<h2>` title: the card stands at the level
+  of the page's sections, not inside one.
+- Buttons are links (`<a>`), 40 px tall, with the focus ring on keyboard
+  focus only.
+- Title and description pass 4.5:1 contrast on the muted card.
+
+## Do and don't
+
+<DoDont
+  doText='Keep the description to one sentence that answers the main doubt.'
+  dontText='Write a paragraph; the button gets lost under it.'
+>
+  <DoShort slot='do' />
+  <DontLong slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop             | Type     | Default |
+| ---------------- | -------- | ------- |
+| `title`          | `string` |         |
+| `primaryLabel`   | `string` |         |
+| `primaryHref`    | `string` |         |
+| `secondaryLabel` | `string` |         |
+| `secondaryHref`  | `string` |         |
+| `eyebrow`        | `string` |         |
+| `description`    | `string` |         |
+| `class`          | `string` |         |

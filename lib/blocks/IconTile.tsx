@@ -1,32 +1,47 @@
-import { type VariantProps, cva } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { Dynamic } from 'solid-js/web';
 
+import type { FillStyle } from '../core/control';
+import { type Tone, ToneFill, toTone } from '../core/tone';
 import type { IconComponent } from '../types';
 import { cn } from '../utils';
 
-const iconTileVariants = cva(
-  'flex shrink-0 items-center justify-center border-[0.8px] text-surface-soft',
+const tile = cva(
+  'box-border flex shrink-0 items-center justify-center border border-transparent',
   {
     variants: {
-      tone: {
-        plum: 'size-13.5 rounded-20 border-purple-575 bg-purple-785',
-        /* #202226 fill, 0.8px #3B3740 border */
-        ink: 'size-10.5 rounded-15 border-neutral-760 bg-neutral-875 *:size-5 xl:size-14.5 xl:*:size-6',
+      size: {
+        m: 'size-10 rounded-xl *:size-5',
+        l: 'size-12 rounded-xl *:size-6',
+        xl: 'size-14 rounded-2xl *:size-6',
       },
     },
-    defaultVariants: { tone: 'ink' },
+    defaultVariants: { size: 'l' },
   }
 );
 
-export interface IconTileProps extends VariantProps<typeof iconTileVariants> {
+export interface IconTileProps {
   icon: IconComponent;
+  /** A tone, or `inverse` for the dark tile of `surface-inverse`. */
+  variant?: Tone | 'inverse';
+  fillStyle?: Exclude<FillStyle, 'outline'>;
+  /** 40, 48 or 56 px. */
+  size?: 'm' | 'l' | 'xl';
   class?: string;
 }
 
-/** Rounded square holding a decorative icon at its natural size: 54px (plum) or 58px (ink). */
+/** A rounded square holding a decorative icon, e.g. beside an announcement. */
 export function IconTile(props: IconTileProps) {
+  const colour = () =>
+    props.variant === 'inverse'
+      ? 'bg-surface-inverse text-foreground-inverse'
+      : ToneFill[toTone(props.variant)][props.fillStyle ?? 'bold'];
+
   return (
-    <span class={cn(iconTileVariants({ tone: props.tone }), props.class)}>
+    <span
+      aria-hidden='true'
+      class={cn(tile({ size: props.size }), colour(), props.class)}
+    >
       <Dynamic component={props.icon} />
     </span>
   );

@@ -1,0 +1,154 @@
+---
+title: Toggle
+description: A button that stays pressed, for a setting that is on or off.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/toggle/anatomy.eg.tsx';
+import ControlledOutput from '../../../examples/toggle/controlled.eg.tsx';
+import controlledCode from '../../../examples/toggle/controlled.eg.tsx?raw';
+import DoSetting from '../../../examples/toggle/do-setting.eg.tsx';
+import DoState from '../../../examples/toggle/do-state.eg.tsx';
+import DontSetting from '../../../examples/toggle/dont-setting.eg.tsx';
+import DontState from '../../../examples/toggle/dont-state.eg.tsx';
+import IconOnlyOutput from '../../../examples/toggle/icon-only.eg.tsx';
+import iconOnlyCode from '../../../examples/toggle/icon-only.eg.tsx?raw';
+import LabelOutput from '../../../examples/toggle/label.eg.tsx';
+import labelCode from '../../../examples/toggle/label.eg.tsx?raw';
+import QuietOutput from '../../../examples/toggle/quiet.eg.tsx';
+import quietCode from '../../../examples/toggle/quiet.eg.tsx?raw';
+import SizesOutput from '../../../examples/toggle/sizes.eg.tsx';
+import sizesCode from '../../../examples/toggle/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/toggle/states.eg.tsx';
+import statesCode from '../../../examples/toggle/states.eg.tsx?raw';
+
+```tsx
+import { Toggle } from '@webf/sprinkles';
+```
+
+A toggle is a button that stays pressed: Bold in the editor's toolbar,
+“Pin to top” on a post. Pressing it again turns it off. It looks like a
+secondary button while off and takes a bold neutral fill while on.
+
+For an action that happens once (save, publish), use a
+[Button](/actions/button/). For a setting in a form, a Switch reads more
+clearly as on/off.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Container',
+      note: 'Grey while off, a bold neutral fill while on.',
+    },
+    {
+      name: 'Icon (optional)',
+      note: 'A lucide-solid icon; the only content of an icon-only toggle.',
+    },
+    {
+      name: 'Label (optional)',
+      note: 'Names the setting. Without it, an aria-label is required.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## With a label
+
+The label names the setting and stays the same in both states; the fill
+shows whether it's on.
+
+<ExampleBlock code={labelCode}>
+  <LabelOutput client:load />
+</ExampleBlock>
+
+## Icon only
+
+Without a label the toggle is square. Give it an `aria-label` that names the
+setting.
+
+<ExampleBlock code={iconOnlyCode}>
+  <IconOnlyOutput client:load />
+</ExampleBlock>
+
+## Quiet
+
+`quiet` drops the grey fill while off, for toolbars. On still shows the bold
+fill.
+
+<ExampleBlock code={quietCode}>
+  <QuietOutput client:load />
+</ExampleBlock>
+
+## Controlled
+
+Pass `pressed` and `onPressedChange` to keep the state yourself, or
+`defaultPressed` to let the toggle keep it.
+
+<ExampleBlock code={controlledCode}>
+  <ControlledOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+24, 32, 40 and 48 px tall, the same scale as Button. M is the default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Off (top) and on (bottom): default, hover, keyboard focus and disabled. A
+disabled toggle that is on keeps a darker grey fill, so its state still
+shows.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Renders a native `<button>` with `aria-pressed`, so screen readers say
+  “toggle button, pressed” or “not pressed”. Enter and Space toggle it.
+- Name the setting, not the state: the label or `aria-label` is “Bold”,
+  never “Bold on”. The pressed state is announced for you.
+- Group related toggles in a `role="toolbar"` with a label.
+- Every size is at least 24 × 24 px.
+
+## Do and don't
+
+<DoDont
+  doText='Name the setting; the fill shows whether it’s on.'
+  dontText='Change the label to describe what pressing will do.'
+>
+  <DoSetting slot='do' client:load />
+  <DontSetting slot='dont' client:load />
+</DoDont>
+
+<DoDont
+  doText='Use a toggle for a state that stays, like a text style.'
+  dontText='Use a toggle for a one-off action; that’s a button.'
+>
+  <DoState slot='do' client:load />
+  <DontState slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop              | Type                               | Default |
+| ----------------- | ---------------------------------- | ------- |
+| `pressed`         | `boolean`; controlled state        |         |
+| `defaultPressed`  | `boolean`; initial state           | `false` |
+| `onPressedChange` | `(pressed: boolean) => void`       |         |
+| `disabled`        | `boolean`                          | `false` |
+| `size`            | `'s' \| 'm' \| 'l' \| 'xl'`        | `'m'`   |
+| `quiet`           | `boolean`                          | `false` |
+| `icon`            | a lucide-solid icon                |         |
+| `children`        | the label                          |         |
+| `aria-label`      | `string`; required without a label |         |

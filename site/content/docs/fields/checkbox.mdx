@@ -1,0 +1,127 @@
+---
+title: Checkbox
+description: A yes-or-no choice that is saved with the form.
+sidebar:
+  order: 7
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/checkbox/anatomy.eg.tsx';
+import DoPositive from '../../../examples/checkbox/do-positive.eg.tsx';
+import DontNegative from '../../../examples/checkbox/dont-negative.eg.tsx';
+import EmphasizedOutput from '../../../examples/checkbox/emphasized.eg.tsx';
+import emphasizedCode from '../../../examples/checkbox/emphasized.eg.tsx?raw';
+import IndeterminateOutput from '../../../examples/checkbox/indeterminate.eg.tsx';
+import indeterminateCode from '../../../examples/checkbox/indeterminate.eg.tsx?raw';
+import SizesOutput from '../../../examples/checkbox/sizes.eg.tsx';
+import sizesCode from '../../../examples/checkbox/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/checkbox/states.eg.tsx';
+import statesCode from '../../../examples/checkbox/states.eg.tsx?raw';
+
+```tsx
+import { Checkbox } from '@webf/sprinkles';
+```
+
+A checkbox turns one option on or off, or picks several options from a set.
+The choice takes effect when the form is saved. For a setting that takes
+effect the moment it's flipped, use a [Switch](/fields/switch/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Box', note: 'Empty, checked (a tick) or indeterminate (a dash).' },
+    {
+      name: 'Label',
+      note: 'What checking it means. Clicking it toggles the box.',
+    },
+    {
+      name: 'Description or error',
+      note: 'Help under the row; the error replaces it while invalid.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Emphasis
+
+A checked box is filled with the neutral colour, so a form full of them stays
+calm. `emphasized` fills it with the accent colour instead, for the few that
+should stand out.
+
+<ExampleBlock code={emphasizedCode}>
+  <EmphasizedOutput client:load />
+</ExampleBlock>
+
+## Indeterminate
+
+`indeterminate` shows a dash: some, but not all, of the options it stands for
+are checked. It wins over `checked`. Pressing it calls `onCheckedChange(true)`,
+and it's up to you to check every option and clear `indeterminate`.
+
+<ExampleBlock code={indeterminateCode}>
+  <IndeterminateOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+The box is 12, 16, 20 or 24 px for S, M, L and XL, and the row is as tall as
+any control of the same size (24 to 48 px), so a checkbox lines up with the
+fields beside it. The whole row, label included, is the target. M is the
+default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover and press darken the box; keyboard focus draws the focus ring around it.
+Invalid outlines the box in the negative colour and shows `errorText`.
+Disabled greys out the box and the label. Read-only keeps the value legible,
+in a muted colour, and ignores presses.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Built on Ark UI's checkbox: a visually hidden native
+  `<input type="checkbox">` takes focus and is submitted with forms, so
+  Space toggles it and `name` and `value` work as usual.
+- Indeterminate is announced as "mixed".
+- The label is part of the target, so the row is at least 24 × 24 px at every
+  size (WCAG 2.2 target size).
+- A checkbox without a visible label must get an `aria-label`.
+
+## Do and don't
+
+<DoDont
+  doText='Phrase the label so that checking it turns something on.'
+  dontText='Use a negative label; people have to work out what unchecking a “don’t” means.'
+>
+  <DoPositive slot='do' client:load />
+  <DontNegative slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                       | Default |
+| --------------------------------------------- | ------------------------------------------ | ------- |
+| `checked`                                     | `boolean`                                  |         |
+| `defaultChecked`                              | `boolean`                                  |         |
+| `indeterminate`                               | `boolean`; wins over `checked`             | `false` |
+| `onCheckedChange`                             | `(checked: boolean) => void`               |         |
+| `emphasized`                                  | `boolean`; accent fill when checked        | `false` |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                | `'m'`   |
+| `name`                                        | `string`                                   |         |
+| `value`                                       | `string`; submitted while checked          | `'on'`  |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field/) |         |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                  | `false` |
+| `id`                                          | `string`; the hidden input's id            |         |
+| `aria-label`                                  | `string`; required without a visible label |         |

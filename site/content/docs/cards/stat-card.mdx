@@ -1,71 +1,62 @@
 ---
 title: Stat Card
-description: Present a metric with a compact label and icon.
+description: A figure and what it counts.
 ---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
 import BasicOutput from '../../../examples/stat-card/basic.eg.tsx';
 import basicCode from '../../../examples/stat-card/basic.eg.tsx?raw';
-import ColorsOutput from '../../../examples/stat-card/colors.eg.tsx';
-import colorsCode from '../../../examples/stat-card/colors.eg.tsx?raw';
-import EffectsOutput from '../../../examples/stat-card/effects.eg.tsx';
-import effectsCode from '../../../examples/stat-card/effects.eg.tsx?raw';
-import RowOutput from '../../../examples/stat-card/row.eg.tsx';
-import rowCode from '../../../examples/stat-card/row.eg.tsx?raw';
+import FillStylesOutput from '../../../examples/stat-card/fill-styles.eg.tsx';
+import fillStylesCode from '../../../examples/stat-card/fill-styles.eg.tsx?raw';
 import SizesOutput from '../../../examples/stat-card/sizes.eg.tsx';
 import sizesCode from '../../../examples/stat-card/sizes.eg.tsx?raw';
-import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
-`StatCard` surfaces a key number alongside a label and Lucide icon. Its flexible width makes it work as a standalone summary or as part of a responsive metric grid.
+```tsx
+import { StatCard } from '@webf/sprinkles';
+```
+
+A stat card shows one number and its label: “98%, placement rate”. Use them in a row of three to five.
 
 ## Basic
 
-Use the basic variant to display a single metric with an icon, value, and descriptive label. This is suitable for dashboards, summary sections, and overview pages.
+With an icon chip in the card's tone.
 
 <ExampleBlock code={basicCode}>
   <BasicOutput />
 </ExampleBlock>
 
-## Color variants
-
-Use color variants to visually distinguish different types of metrics or highlight important information. The available variants use semantic design tokens for consistent theming.
-
-<ExampleBlock code={colorsCode}>
-  <ColorsOutput />
-</ExampleBlock>
-
 ## Sizes
 
-Use the `size` prop to adjust the spacing and overall scale of the card. Choose `sm`, `md`, or `lg` depending on the available space and visual hierarchy of your layout.
+S and M are fixed-width tiles. L is square on phones and a fixed height from `md` up, with large type, for a row of headline figures.
 
 <ExampleBlock code={sizesCode}>
   <SizesOutput />
 </ExampleBlock>
 
-## Hover effects
+## Fill style
 
-Use the `effect` prop to add interaction feedback when users hover over the card. Available effects include `none`, `lift`, and `glow`.
+`outline` (default), `subtle` and `bold`, as on every marketing card.
 
-<ExampleBlock code={effectsCode}>
-  <EffectsOutput />
+<ExampleBlock code={fillStylesCode}>
+  <FillStylesOutput />
 </ExampleBlock>
 
-## Responsive rows
+## Accessibility
 
-Use multiple `StatCard` components together to create a responsive metrics row. The cards can adapt to different screen sizes using Tailwind's responsive utilities.
-
-<ExampleBlock code={rowCode}>
-  <RowOutput />
-</ExampleBlock>
+- The figure and label are paragraphs, not headings: a page's outline shouldn't be a list of numbers.
+- Write the label so the pair reads as a sentence (“98% placement rate”).
 
 ## Props
 
-| Prop        | Type                                                                                                      | Default     | Description                    |
-| ----------- | --------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------ |
-| `icon`      | `Component`                                                                                               | —           | Lucide icon component.         |
-| `value`     | `string`                                                                                                  | —           | Metric value.                  |
-| `label`     | `string`                                                                                                  | —           | Metric label.                  |
-| `iconClass` | `string`                                                                                                  | `'size-7'`  | Extra icon Tailwind utilities. |
-| `variant`   | `'default' \| 'muted' \| 'surface' \| 'accent' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.   |
-| `size`      | `'sm' \| 'md' \| 'lg'`                                                                                    | `'md'`      | Card spacing scale.            |
-| `effect`    | `'none' \| 'lift' \| 'glow'`                                                                              | `'none'`    | Hover effect.                  |
-| `class`     | `string`                                                                                                  | —           | Additional Tailwind utilities. |
+| Prop                                | Type                                           | Default     |
+| ----------------------------------- | ---------------------------------------------- | ----------- |
+| `value`                             | `string`                                       |             |
+| `label`                             | `string`                                       |             |
+| `icon`                              | a lucide-solid icon                            |             |
+| `variant`                           | a role, `'highlight'`, or a categorical colour | `'accent'`  |
+| `fillStyle`                         | `'outline' \| 'subtle' \| 'bold'`              | `'outline'` |
+| `size`                              | `'s' \| 'm' \| 'l'`                            | `'m'`       |
+| `iconBackground`                    | `boolean`                                      | `true`      |
+| `lift`                              | `boolean`                                      | `false`     |
+| `iconClass, valueClass, labelClass` | `string`                                       |             |

@@ -1,0 +1,121 @@
+---
+title: FileUpload
+description: Adds files by dropping or picking them, and lists them.
+sidebar:
+  order: 10
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/file-upload/anatomy.eg.tsx';
+import DoHint from '../../../examples/file-upload/do-hint.eg.tsx';
+import DontHint from '../../../examples/file-upload/dont-hint.eg.tsx';
+import LimitsOutput from '../../../examples/file-upload/limits.eg.tsx';
+import limitsCode from '../../../examples/file-upload/limits.eg.tsx?raw';
+import MultipleOutput from '../../../examples/file-upload/multiple.eg.tsx';
+import multipleCode from '../../../examples/file-upload/multiple.eg.tsx?raw';
+import StatesOutput from '../../../examples/file-upload/states.eg.tsx';
+import statesCode from '../../../examples/file-upload/states.eg.tsx?raw';
+
+```tsx
+import { FileUpload } from '@webf/sprinkles';
+```
+
+A file upload takes files from people's devices: a featured image, a PDF to
+attach. They drop files on the dropzone or press it to pick them; each file is
+then listed with its size and a remove button. It only collects `File`
+objects; uploading them is up to you. To pick from files already in the media
+library, use the media picker instead.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Label', note: 'Names what the file is for.' },
+    {
+      name: 'Dropzone',
+      note: 'Drop files here, or press it (or Enter, or Space) to pick them.',
+    },
+    { name: 'Hint (optional)', note: 'The accepted types and sizes.' },
+    {
+      name: 'File list',
+      note: 'Name, size, a thumbnail for images, and a remove button.',
+    },
+    {
+      name: 'Description or error',
+      note: 'Help under the field; the error replaces it while invalid.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Several files
+
+`maxFiles` is 1 by default, and a new file replaces the old one. Raise it to
+collect several; the value is always a `File[]`. With `name`, the files are
+submitted with a plain multipart form.
+
+<ExampleBlock code={multipleCode}>
+  <MultipleOutput client:load />
+</ExampleBlock>
+
+## Types and size limits
+
+`accept` takes MIME types (`'image/*'`, `'application/pdf'`) or extensions
+(`'.docx'`), and `maxFileSize` a size in bytes. Files that break a rule are
+listed with the reason, so people know what to fix; remove them from the list
+or add another file. Say the rules up front in `hint`.
+
+<ExampleBlock code={limitsCode}>
+  <LimitsOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover tints the dropzone; dragging files over it fills it with the accent
+colour; keyboard focus draws the focus ring. Invalid outlines it in the
+negative colour and shows `errorText`. Disabled can't take files. Read-only
+hides the dropzone and the remove buttons and only lists the files.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Built on Ark UI's file upload: the dropzone is a `role="button"`, named by
+  the field's label and its instruction, and opens the file picker with Enter
+  or Space. Dropping is never the only way in.
+- A hidden native `<input type="file">` holds the files, so `accept` and
+  forms work as usual.
+- Each remove button is labelled with the file's name.
+- Rejected files say why in text, not only in colour.
+
+## Do and don't
+
+<DoDont
+  doText='Say which files are accepted, and why when it isn’t obvious.'
+  dontText='Leave people to find out from a rejection.'
+>
+  <DoHint slot='do' client:load />
+  <DontHint slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                           | Default |
+| --------------------------------------------- | ---------------------------------------------- | ------- |
+| `value`                                       | `File[]`                                       |         |
+| `defaultValue`                                | `File[]`                                       |         |
+| `onValueChange`                               | `(files: File[]) => void`                      |         |
+| `accept`                                      | `string \| string[]`; MIME types or extensions |         |
+| `maxFiles`                                    | `number`                                       | `1`     |
+| `maxFileSize`                                 | `number`; bytes                                |         |
+| `hint`                                        | `JSX.Element`; shown in the dropzone           |         |
+| `name`                                        | `string`                                       |         |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field/)     |         |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                      | `false` |
+| `id`                                          | `string`; the hidden file input's id           |         |

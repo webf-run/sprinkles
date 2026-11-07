@@ -1,381 +1,381 @@
-import { type VariantProps, cva } from 'class-variance-authority';
-import { Mail, MapPin, Phone } from 'lucide-solid';
-import { For, type JSX } from 'solid-js';
+import Mail from 'lucide-solid/icons/mail';
+import MapPin from 'lucide-solid/icons/map-pin';
+import Phone from 'lucide-solid/icons/phone';
+import { For, type JSX, Show } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
+import { Button } from '../components/Button';
+import { Link } from '../components/Link';
 import type { IconComponent } from '../types';
 import { cn } from '../utils';
-import { Link } from './Link';
-
-export type { IconComponent };
 
 export interface FooterLink {
   label: string;
   href: string;
 }
+
 export interface FooterSocial {
+  /** Names the link for screen readers, e.g. "Instagram". */
   label: string;
   href: string;
-  icon?: IconComponent;
-  iconVariant?: FooterColorVariant;
-  iconColor?: string;
+  /** A brand mark (`Instagram`, `Facebook`, `Linkedin`) or a lucide-solid icon. */
+  icon: IconComponent;
 }
-type FooterColorVariant =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'purple'
-  | 'blue'
-  | 'pink'
-  | 'green'
-  | 'orange'
-  | 'foreground'
-  | 'muted';
-const footerVariants = cva(
-  'flex w-full flex-col px-4 py-6 md:px-6 md:py-8 xl:px-8 xl:py-10',
+
+/** The band a footer sits on: the page surface, the muted one, or a dark band. */
+export type FooterSurface = 'default' | 'muted' | 'inverse';
+
+/** Colours for each footer surface. Text colour is set on the footer and inherited. */
+export const FooterSurfaces: Record<
+  FooterSurface,
   {
-    variants: {
-      variant: {
-        default: 'bg-surface text-foreground',
-        muted: 'bg-surface-muted text-foreground',
-        inverse: 'bg-accent text-accent-foreground',
-        green: 'bg-green-40 text-foreground',
-      },
-      size: { sm: 'px-5', md: 'px-6', lg: 'px-8' },
-      effect: {
-        none: '',
-        shadow: 'shadow-sm',
-        lift: 'transition-shadow hover:shadow-lg',
-        glow: 'transition-shadow hover:shadow-lg',
-      },
-    },
-    defaultVariants: { variant: 'default', size: 'md', effect: 'none' },
+    root: string;
+    strong: string;
+    muted: string;
+    link: string;
+    icon: string;
+    rule: string;
+    /** Social buttons: grey discs on the page surface, outlines elsewhere. */
+    social: { fillStyle: 'bold' | 'outline'; staticColor?: 'white' };
   }
-);
-const colors: Record<FooterColorVariant, string> = {
-  primary: 'text-primary',
-  secondary: 'text-primary-active',
-  success: 'text-foreground-inverse',
-  purple: 'text-primary',
-  blue: 'text-blue-610',
-  pink: 'text-pink-505',
-  green: 'text-green-530',
-  orange: 'text-orange-540',
-  foreground: 'text-foreground',
-  muted: 'text-neutral-520',
+> = {
+  default: {
+    root: 'border-t border-border-muted bg-surface text-foreground',
+    strong: 'text-foreground-strongest',
+    muted: 'text-foreground-muted',
+    link: 'hover:text-foreground-strongest',
+    icon: 'text-accent',
+    rule: 'border-border-muted',
+    social: { fillStyle: 'bold' },
+  },
+  muted: {
+    root: 'bg-surface-muted text-foreground',
+    strong: 'text-foreground-strongest',
+    muted: 'text-foreground-muted',
+    link: 'hover:text-foreground-strongest',
+    icon: 'text-accent',
+    rule: 'border-border-muted',
+    social: { fillStyle: 'outline' },
+  },
+  inverse: {
+    root: 'bg-surface-inverse text-foreground-inverse',
+    strong: 'text-foreground-inverse',
+    muted: 'text-foreground-inverse/80',
+    link: 'hover:text-foreground-inverse',
+    icon: 'text-foreground-inverse/70',
+    rule: 'border-border-inverse/20',
+    social: { fillStyle: 'outline', staticColor: 'white' },
+  },
 };
-const divider = cva('border-t', {
-  variants: {
-    variant: {
-      default: 'border-border-subtle',
-      muted: 'border-border-subtle',
-      inverse: 'border-accent-foreground/20',
-      green: 'border-green-800',
-    },
-  },
-  defaultVariants: { variant: 'default' },
-});
-const sizes = {
-  sm: {
-    content: 'max-w-205',
-    logo: 'h-10 w-auto',
-    description: 'mt-6',
-    contact: 'mt-6',
-    links: 'mt-8',
-    bottom: 'pt-6 pb-8',
-  },
-  md: {
-    content: 'max-w-217',
-    logo: 'h-12.25 w-auto',
-    description: 'mt-8',
-    contact: 'mt-8',
-    links: 'mt-10',
-    bottom: 'pt-8 pb-10',
-  },
-  lg: {
-    content: 'max-w-240',
-    logo: 'h-14 w-auto',
-    description: 'mt-9',
-    contact: 'mt-9',
-    links: 'mt-12',
-    bottom: 'pt-9 pb-12',
-  },
-} as const;
-interface FooterProps extends VariantProps<typeof footerVariants> {
+
+/** The page-width container every footer row sits in. */
+export const FooterContainer = 'mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8';
+
+interface FooterBrandProps {
+  surface: FooterSurface;
+  logo?: JSX.Element;
+  logoSrc?: string;
+  logoText?: string;
+  description?: string;
+}
+
+/** The logo (slot, image or text) and an optional line about the site. */
+export function FooterBrand(props: FooterBrandProps) {
+  const colours = () => FooterSurfaces[props.surface];
+
+  return (
+    <div class='flex flex-col items-start gap-4'>
+      {props.logo ??
+        (props.logoSrc ? (
+          <img
+            src={props.logoSrc}
+            alt={props.logoText ?? ''}
+            class='block h-10 w-auto object-contain'
+          />
+        ) : (
+          <Show when={props.logoText}>
+            <span
+              class={cn(
+                'font-heading text-fluid-2xl font-semibold',
+                colours().strong
+              )}
+            >
+              {props.logoText}
+            </span>
+          </Show>
+        ))}
+      <Show when={props.description}>
+        <p class={cn('m-0 max-w-sm text-fluid-sm', colours().muted)}>
+          {props.description}
+        </p>
+      </Show>
+    </div>
+  );
+}
+
+interface FooterBottomProps {
+  surface: FooterSurface;
+  socialLinks?: FooterSocial[];
+  year?: number;
+  copyright?: string;
+}
+
+/** The last row: copyright on the left, social links on the right. */
+export function FooterBottom(props: FooterBottomProps) {
+  const colours = () => FooterSurfaces[props.surface];
+
+  return (
+    <div
+      class={cn(
+        'flex flex-col-reverse gap-4 border-t py-6 @2xl:flex-row @2xl:items-center @2xl:justify-between',
+        colours().rule
+      )}
+    >
+      <p class={cn('m-0 text-fluid-sm', colours().muted)}>
+        © {props.year ?? new Date().getFullYear()} {props.copyright}
+      </p>
+
+      <Show when={props.socialLinks?.length}>
+        <ul class='m-0 flex list-none flex-wrap items-center gap-2 p-0'>
+          <For each={props.socialLinks}>
+            {(social) => (
+              <li>
+                <Button
+                  href={social.href}
+                  icon={social.icon}
+                  aria-label={social.label}
+                  size='l'
+                  variant='secondary'
+                  fillStyle={colours().social.fillStyle}
+                  staticColor={colours().social.staticColor}
+                  class='rounded-full px-0'
+                />
+              </li>
+            )}
+          </For>
+        </ul>
+      </Show>
+    </div>
+  );
+}
+
+export interface FooterProps {
+  surface?: FooterSurface;
+  /** Custom brand mark; replaces `logoSrc` and `logoText`. */
+  logo?: JSX.Element;
+  /** Logo image. `logoText` becomes its alt text. */
   logoSrc?: string;
   logoText?: string;
   description?: string;
   address?: string;
   phone?: string;
   email?: string;
-  emailLabel?: string;
+  /** Heading of the contact strip at the top. The strip shows when it is set. */
   ctaTitle?: string;
-  ctaSubtitle?: string;
+  ctaDescription?: string;
+  /** Label of the strip's email button. */
+  emailLabel?: string;
+  /** Heading above `quickLinks`. */
+  linksTitle?: string;
+  /** Columns of links, shown side by side under one heading. */
   quickLinks?: FooterLink[][];
   socialLinks?: FooterSocial[];
+  /** Defaults to the current year. */
   year?: number;
   copyright?: string;
-  phoneVariant?: 'primary' | 'secondary' | 'success' | 'purple' | 'blackwhite';
-  emailVariant?: 'primary' | 'secondary' | 'success' | 'purple' | 'blackwhite';
-  headingVariant?: FooterColorVariant;
-  headingColor?: string;
-  subtitleVariant?: FooterColorVariant;
-  subtitleColor?: string;
-  descriptionVariant?: FooterColorVariant;
-  descriptionColor?: string;
-  linkVariant?: FooterColorVariant;
-  linkColor?: string;
-  contactVariant?: FooterColorVariant;
-  contactColor?: string;
-  contactIconVariant?: FooterColorVariant;
-  contactIconColor?: string;
-  copyrightVariant?: FooterColorVariant;
-  copyrightColor?: string;
-  logo?: JSX.Element;
   class?: string;
 }
-export function Footer(p: FooterProps) {
-  const size = () => p.size ?? 'md';
-  const s = () => sizes[size()];
-  const heading = () => colors[p.headingVariant ?? 'foreground'];
-  const subtitle = () => colors[p.subtitleVariant ?? 'muted'];
-  const description = () => colors[p.descriptionVariant ?? 'foreground'];
-  const links = () => colors[p.linkVariant ?? 'foreground'];
-  const contact = () => colors[p.contactVariant ?? 'foreground'];
-  const iconColor = () => colors[p.contactIconVariant ?? 'primary'];
-  const copyright = () => colors[p.copyrightVariant ?? 'muted'];
-  const tel = () => (p.phone ? `tel:${p.phone.replace(/\s+/g, '')}` : '#');
+
+/** `tel:` links take digits and a leading plus only. */
+function telHref(phone: string): string {
+  return `tel:${phone.replace(/[^\d+]/g, '')}`;
+}
+
+/** A line of contact details, its icon centred on the first line of text. */
+function ContactItem(props: {
+  icon: IconComponent;
+  iconClass: string;
+  children: JSX.Element;
+}) {
   return (
-    <footer
-      class={cn(
-        footerVariants({ variant: p.variant, size: p.size, effect: p.effect }),
-        p.class
-      )}
-    >
-      <div class='flex min-w-0 flex-col gap-8 pb-5 md:flex-row md:items-center md:justify-between xl:pb-2'>
-        <div class='max-w-190 min-w-0'>
-          <h2
-            class={cn('font-heading text-fluid-2xl font-semibold', heading())}
-            style={p.headingColor ? `color:${p.headingColor}` : undefined}
-          >
-            {p.ctaTitle ?? "Have Questions? We're here."}
-          </h2>
-          <p
-            class={cn('text-fluid-md mt-3', subtitle())}
-            style={p.subtitleColor ? `color:${p.subtitleColor}` : undefined}
-          >
-            {p.ctaSubtitle ??
-              'Our counselors respond to queries within 1-2 days'}
-          </p>
-        </div>
-        <div class='flex w-full min-w-0 flex-row gap-2 md:w-auto md:max-w-full'>
-          {p.phone && (
-            <Link
-              href={tel()}
-              variant={p.phoneVariant ?? 'secondary'}
-              size='lg'
-              icon={Phone}
-              class='flex max-w-full min-w-0 flex-1 items-center justify-center gap-1.5 px-2 text-sm whitespace-nowrap min-[350px]:gap-2 min-[350px]:px-3 md:flex-none md:px-6 md:text-base xl:text-lg'
-            >
-              {p.phone}
-            </Link>
-          )}
-          {p.email && (
-            <Link
-              href={`mailto:${p.email}`}
-              variant={p.emailVariant ?? 'primary'}
-              size='lg'
-              icon={Mail}
-              class='flex max-w-full min-w-0 flex-1 items-center justify-center gap-1.5 px-2 text-sm whitespace-nowrap min-[350px]:gap-2 min-[350px]:px-3 md:flex-none md:px-6 md:text-base xl:text-lg'
-            >
-              {p.emailLabel ?? 'Email address'}
-            </Link>
-          )}
-        </div>
-      </div>
-      <div
-        class={cn(
-          s().content,
-          'mx-auto w-full max-w-full min-w-0 pt-14 pb-8 xl:pt-16 xl:pb-10'
-        )}
-      >
-        <div>
-          {p.logo ??
-            (p.logoSrc ? (
-              <img
-                src={p.logoSrc}
-                alt={p.logoText ?? 'Logo'}
-                class={cn(s().logo, 'object-contain')}
-              />
-            ) : (
-              p.logoText && (
-                <span
-                  class={cn(
-                    'font-heading font-bold',
-                    heading(),
-                    size() === 'lg'
-                      ? 'text-3xl'
-                      : size() === 'sm'
-                        ? 'text-xl'
-                        : 'text-2xl'
-                  )}
-                  style={p.headingColor ? `color:${p.headingColor}` : undefined}
-                >
-                  {p.logoText}
-                </span>
-              )
-            ))}
-        </div>
-        {p.description && (
-          <p
-            class={cn(s().description, 'text-fluid-md max-w-2xl', description())}
-            style={
-              p.descriptionColor ? `color:${p.descriptionColor}` : undefined
-            }
-          >
-            {p.description}
-          </p>
-        )}
-        {(p.address || p.phone || p.email) && (
-          <ul
+    <li class='flex items-start gap-3'>
+      <span aria-hidden='true' class='flex h-lh shrink-0 items-center'>
+        <Dynamic component={props.icon} class={cn('size-5', props.iconClass)} />
+      </span>
+      <span class='min-w-0'>{props.children}</span>
+    </li>
+  );
+}
+
+/**
+ * A contact footer: an optional "get in touch" strip, the brand with the
+ * address, phone and email, a block of quick links, then the copyright and
+ * social links.
+ */
+export function Footer(props: FooterProps) {
+  const surface = () => props.surface ?? 'default';
+  const colours = () => FooterSurfaces[surface()];
+  const inverse = () => surface() === 'inverse';
+  const hasContact = () => Boolean(props.address || props.phone || props.email);
+
+  return (
+    <footer class={cn('@container w-full', colours().root, props.class)}>
+      <div class={FooterContainer}>
+        <Show when={props.ctaTitle}>
+          <div
             class={cn(
-              s().contact,
-              'text-fluid-md max-w-2xl list-none space-y-3.5 border-b border-border-subtle p-0 pb-10 md:border-b-0',
-              contact()
+              'flex flex-col gap-6 border-b py-10 @3xl:flex-row @3xl:items-center @3xl:justify-between @3xl:py-12',
+              colours().rule
             )}
-            style={p.contactColor ? `color:${p.contactColor}` : undefined}
           >
-            {p.address && (
-              <li class='flex items-start gap-3'>
-                <MapPin
-                  class={cn('mt-1 h-5 w-5 shrink-0', iconColor())}
-                  style={
-                    p.contactIconColor
-                      ? `color:${p.contactIconColor}`
-                      : undefined
-                  }
-                />
-                <span>{p.address}</span>
-              </li>
-            )}
-            {p.phone && (
-              <li class='flex items-start gap-3'>
-                <Phone
-                  class={cn('mt-1 h-5 w-5 shrink-0', iconColor())}
-                  style={
-                    p.contactIconColor
-                      ? `color:${p.contactIconColor}`
-                      : undefined
-                  }
-                />
-                <a
-                  href={tel()}
-                  class='text-inherit no-underline transition-colors hover:opacity-80'
-                >
-                  {p.phone}
-                </a>
-              </li>
-            )}
-            {p.email && (
-              <li class='flex items-start gap-3'>
-                <Mail
-                  class={cn('mt-1 h-5 w-5 shrink-0', iconColor())}
-                  style={
-                    p.contactIconColor
-                      ? `color:${p.contactIconColor}`
-                      : undefined
-                  }
-                />
-                <a
-                  href={`mailto:${p.email}`}
-                  class='text-inherit no-underline transition-colors hover:opacity-80'
-                >
-                  {p.email}
-                </a>
-              </li>
-            )}
-          </ul>
-        )}
-        {p.quickLinks?.length && (
-          <div class={s().links}>
-            <p
-              class={cn('text-fluid-xs mb-5 font-semibold', subtitle())}
-              style={p.subtitleColor ? `color:${p.subtitleColor}` : undefined}
-            >
-              Quick Links
-            </p>
-            <div class='grid max-w-104.75 grid-cols-2 gap-x-10 gap-y-4 md:gap-x-16 xl:gap-x-22.25'>
-              <For each={p.quickLinks}>
-                {(column) => (
-                  <ul class='list-none space-y-3 p-0'>
-                    <For each={column}>
-                      {(link) => (
-                        <li>
-                          <a
-                            href={link.href}
-                            class={cn(
-                              'text-fluid-md font-medium no-underline transition-colors hover:opacity-70 focus-visible:rounded focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none',
-                              links()
-                            )}
-                            style={
-                              p.linkColor ? `color:${p.linkColor}` : undefined
-                            }
-                          >
-                            {link.label}
-                          </a>
-                        </li>
-                      )}
-                    </For>
-                  </ul>
+            <div class='flex max-w-2xl flex-col gap-2'>
+              <h2
+                class={cn(
+                  'm-0 font-heading text-fluid-3xl font-semibold',
+                  colours().strong
                 )}
-              </For>
+              >
+                {props.ctaTitle}
+              </h2>
+              <Show when={props.ctaDescription}>
+                <p class={cn('m-0 text-fluid-md', colours().muted)}>
+                  {props.ctaDescription}
+                </p>
+              </Show>
             </div>
-          </div>
-        )}
-      </div>
-      <div
-        class={cn(
-          s().bottom,
-          'mt-2 flex min-w-0 flex-col gap-6 md:border-t-0 xl:border-t-0',
-          divider({ variant: p.variant })
-        )}
-      >
-        {p.socialLinks?.length && (
-          <div class='flex flex-wrap items-center gap-2.5'>
-            <For each={p.socialLinks}>
-              {(social) => (
-                <a
-                  href={social.href}
-                  aria-label={social.label}
-                  class='flex h-7.75 w-7.75 items-center justify-center rounded-full border-foreground-strong border text-inherit no-underline transition-colors focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none'
-                >
-                  {social.icon && (
-                    <Dynamic
-                      component={social.icon}
-                      size={18}
-                      class={cn(
-                        'shrink-0',
-                        social.iconVariant && colors[social.iconVariant]
-                      )}
-                      style={
-                        social.iconColor
-                          ? `color:${social.iconColor}`
-                          : undefined
-                      }
-                    />
+
+            <Show when={props.phone || props.email}>
+              <div class='flex flex-wrap gap-3'>
+                <Show when={props.phone}>
+                  {(phone) => (
+                    <Button
+                      href={telHref(phone())}
+                      icon={Phone}
+                      size='l'
+                      variant='secondary'
+                      fillStyle='outline'
+                      staticColor={inverse() ? 'white' : undefined}
+                    >
+                      {phone()}
+                    </Button>
                   )}
-                </a>
-              )}
-            </For>
+                </Show>
+                <Show when={props.email}>
+                  {(email) => (
+                    <Button
+                      href={`mailto:${email()}`}
+                      icon={Mail}
+                      size='l'
+                      staticColor={inverse() ? 'white' : undefined}
+                    >
+                      {props.emailLabel ?? 'Email us'}
+                    </Button>
+                  )}
+                </Show>
+              </div>
+            </Show>
           </div>
-        )}
-        <p
-          class={cn('text-fluid-sm', copyright())}
-          style={p.copyrightColor ? `color:${p.copyrightColor}` : undefined}
-        >
-          © {p.year ?? new Date().getFullYear()}
-          {p.copyright}
-        </p>
+        </Show>
+
+        <div class='grid gap-10 py-12 @3xl:grid-cols-2 @3xl:gap-16'>
+          <div class='flex flex-col gap-8'>
+            <FooterBrand
+              surface={surface()}
+              logo={props.logo}
+              logoSrc={props.logoSrc}
+              logoText={props.logoText}
+              description={props.description}
+            />
+
+            <Show when={hasContact()}>
+              <address class='not-italic'>
+                <ul class='m-0 flex list-none flex-col gap-3 p-0 text-fluid-sm'>
+                  <Show when={props.address}>
+                    <ContactItem icon={MapPin} iconClass={colours().icon}>
+                      {props.address}
+                    </ContactItem>
+                  </Show>
+                  <Show when={props.phone}>
+                    {(phone) => (
+                      <ContactItem icon={Phone} iconClass={colours().icon}>
+                        <Link
+                          href={telHref(phone())}
+                          variant='secondary'
+                          quiet
+                          class={colours().link}
+                        >
+                          {phone()}
+                        </Link>
+                      </ContactItem>
+                    )}
+                  </Show>
+                  <Show when={props.email}>
+                    {(email) => (
+                      <ContactItem icon={Mail} iconClass={colours().icon}>
+                        <Link
+                          href={`mailto:${email()}`}
+                          variant='secondary'
+                          quiet
+                          class={colours().link}
+                        >
+                          {email()}
+                        </Link>
+                      </ContactItem>
+                    )}
+                  </Show>
+                </ul>
+              </address>
+            </Show>
+          </div>
+
+          <Show when={props.quickLinks?.length}>
+            <nav
+              aria-label={props.linksTitle ?? 'Quick links'}
+              class='flex flex-col gap-5'
+            >
+              <h2
+                class={cn(
+                  'm-0 text-fluid-xs font-semibold uppercase',
+                  colours().muted
+                )}
+              >
+                {props.linksTitle ?? 'Quick links'}
+              </h2>
+              <div class='grid grid-cols-2 gap-x-8 gap-y-3 @xl:grid-cols-3'>
+                <For each={props.quickLinks}>
+                  {(column) => (
+                    <ul class='m-0 flex list-none flex-col gap-3 p-0'>
+                      <For each={column}>
+                        {(link) => (
+                          <li>
+                            <Link
+                              href={link.href}
+                              variant='secondary'
+                              quiet
+                              class={cn(
+                                'text-fluid-sm font-medium',
+                                colours().link
+                              )}
+                            >
+                              {link.label}
+                            </Link>
+                          </li>
+                        )}
+                      </For>
+                    </ul>
+                  )}
+                </For>
+              </div>
+            </nav>
+          </Show>
+        </div>
+
+        <FooterBottom
+          surface={surface()}
+          socialLinks={props.socialLinks}
+          year={props.year}
+          copyright={props.copyright}
+        />
       </div>
     </footer>
   );

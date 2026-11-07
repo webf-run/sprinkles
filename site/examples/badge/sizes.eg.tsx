@@ -2,10 +2,11 @@ import { Badge } from '@webf/sprinkles';
 
 export default function Example() {
   return (
-    <div class='flex flex-wrap items-center gap-3'>
-      <Badge size='sm'>Small Badge</Badge>
-      <Badge size='md'>Medium Badge</Badge>
-      <Badge size='lg'>Large Badge</Badge>
-    </div>
+    <>
+      <Badge size='s'>Small</Badge>
+      <Badge size='m'>Medium</Badge>
+      <Badge size='l'>Large</Badge>
+      <Badge size='xl'>Extra large</Badge>
+    </>
   );
 }

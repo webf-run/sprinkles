@@ -1,153 +1,90 @@
-import { type VariantProps, cva } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { Dynamic } from 'solid-js/web';
 
+import { CardLift, cardIcon, cardSurface } from '../core/card';
+import type { FillStyle } from '../core/control';
+import { type Tone, toTone } from '../core/tone';
 import type { IconComponent } from '../types';
 import { cn } from '../utils';
 
-const featureCardVariants = cva(
-  'flex w-full items-center rounded-3xl border transition-shadow duration-200',
-  {
-    variants: {
-      variant: {
-        default: 'border-border bg-surface',
-        muted: 'border-border bg-surface-muted',
-        accent: 'border-surface-emphasis bg-surface-soft',
-        inverse: 'border-accent bg-accent text-accent-foreground',
-        purple: 'border-surface-soft bg-surface-soft',
-        orange: 'border-orange-55 bg-orange-55',
-        green: 'border-green-40 bg-green-40',
-        blue: 'border-blue-80 bg-blue-80',
-        neutral: 'border-neutral-40 bg-neutral-40',
-        brand: 'rounded-15 border-purple-90 bg-surface',
-        surface: 'border-border-accent bg-surface transition-colors',
-      },
-      size: {
-        sm: 'gap-3 px-4 py-3',
-        md: 'gap-4 px-5 py-4',
-        lg: 'gap-5 px-6 py-5',
-        fluid: 'gap-3.5 px-3.5 py-3 md:gap-4 md:px-4.5 md:py-4 2xl:min-h-25',
-
-      },
-      effect: {
-        none: '',
-        lift: 'hover:-translate-y-1 hover:shadow-lg',
-        glow: 'hover:shadow-md hover:shadow-primary/25',
-      },
-    },
-    defaultVariants: { variant: 'default', size: 'md', effect: 'none' },
-  }
-);
-const text = cva('text-foreground', {
+const card = cva('box-border flex w-full items-center rounded-2xl border', {
   variants: {
-    variant: {
-      default: 'text-foreground',
-      muted: 'text-foreground',
-      accent: 'text-foreground',
-      inverse: 'text-accent-foreground',
-      purple: 'text-primary',
-      orange: 'text-orange-540',
-      green: 'text-green-530',
-      blue: 'text-blue-610',
-      neutral: 'text-neutral-650',
-      brand: 'text-foreground-strongest',
-      surface: 'text-foreground-strong',
-    },
-  },
-  defaultVariants: { variant: 'default' },
-});
-const iconBox = cva('flex shrink-0 items-center justify-center rounded-2xl', {
-  variants: {
-    variant: {
-      default: 'bg-surface-muted text-foreground',
-      muted: 'bg-surface text-foreground',
-      accent: 'bg-surface-emphasis text-primary',
-      inverse: 'bg-accent-foreground/20 text-accent-foreground',
-      purple: 'bg-primary/15 text-primary',
-      orange: 'bg-orange-540/15 text-orange-540',
-      green: 'bg-green-530/15 text-green-530',
-      blue: 'bg-blue-610/15 text-blue-610',
-      neutral: 'bg-neutral-650/15 text-neutral-650',
-      brand: 'rounded-10 bg-purple-80 text-primary-dark',
-      surface: 'bg-surface-soft text-primary',
-    },
     size: {
-      sm: 'size-10',
-      md: 'size-14',
-      lg: 'size-16',
-      fluid: 'size-9 md:size-11',
-
+      s: 'gap-3 px-4 py-3',
+      m: 'gap-4 px-5 py-4',
+      l: 'gap-5 px-6 py-5',
     },
   },
-  defaultVariants: { variant: 'default', size: 'md' },
+  defaultVariants: { size: 'm' },
 });
-const titleSize = {
-  sm: 'text-base',
-  md: 'text-xl',
-  lg: 'text-2xl',
-  fluid: 'text-[length:clamp(16px,14.0576px_+_0.5178vw,24px)] leading-120',
 
+const Chip = {
+  s: 'size-10 rounded-xl',
+  m: 'size-14 rounded-2xl',
+  l: 'size-16 rounded-2xl',
 } as const;
-const subtitleSize = {
-  sm: 'text-xs',
-  md: 'text-base',
-  lg: 'text-lg',
-  fluid: 'text-[length:clamp(12px,11.272px_+_0.1942vw,15px)] leading-120',
+const Icon = { s: 'size-5', m: 'size-7', l: 'size-8' } as const;
+const Title = { s: 'text-base', m: 'text-xl', l: 'text-2xl' } as const;
+const Subtitle = { s: 'text-sm', m: 'text-base', l: 'text-lg' } as const;
 
-} as const;
-const iconSize = {
-  sm: 'size-5',
-  md: 'size-7',
-  lg: 'size-8',
-  fluid: 'size-3.5',
-
-} as const;
-
-interface FeatureCardProps extends VariantProps<typeof featureCardVariants> {
+export interface FeatureCardProps {
   title: string;
   subtitle: string;
   icon: IconComponent;
+  /** The tone of the icon chip (or the card, with `subtle` and `bold`). */
+  variant?: Tone;
+  fillStyle?: FillStyle;
+  size?: 's' | 'm' | 'l';
+  /** Lift on hover. Use it only when the card is inside a link. */
+  lift?: boolean;
   class?: string;
+  titleClass?: string;
+  subtitleClass?: string;
+  iconClass?: string;
 }
+
+/** An icon chip beside a title and a short line, e.g. "Research labs / 28 centres". */
 export function FeatureCard(props: FeatureCardProps) {
-  const size = () => props.size ?? 'md';
-  const variant = () => props.variant ?? 'default';
+  const size = () => props.size ?? 'm';
+  const tone = () => toTone(props.variant, 'accent');
+  const fill = () => props.fillStyle ?? 'outline';
+
   return (
     <div
       class={cn(
-        featureCardVariants({
-          variant: variant(),
-          size: size(),
-          effect: props.effect,
-        }),
-        variant() === 'surface' && 'group',
+        card({ size: size() }),
+        cardSurface(tone(), fill()),
+        props.lift && CardLift,
         props.class
       )}
     >
       <div
+        aria-hidden='true'
         class={cn(
-          iconBox({ variant: variant(), size: size() }),
-          variant() === 'surface' &&
-            'group-hover:bg-primary group-hover:text-primary-foreground'
+          'flex shrink-0 items-center justify-center',
+          Chip[size()],
+          cardIcon(tone(), fill()),
+          props.iconClass
         )}
       >
-        <Dynamic component={props.icon} class={iconSize[size()]} />
+        <Dynamic component={props.icon} class={Icon[size()]} />
       </div>
-      <div class='flex min-w-0 flex-col justify-center'>
+      <div class='flex min-w-0 flex-col justify-center gap-1'>
         <h4
           class={cn(
-            'leading-normal font-semibold',
-            titleSize[size()],
-            text({ variant: variant() })
+            'm-0 leading-snug font-semibold',
+            Title[size()],
+            props.titleClass
           )}
         >
           {props.title}
         </h4>
         <p
           class={cn(
-            'mt-1 leading-normal opacity-80',
-            subtitleSize[size()],
-            variant() === 'surface' ? 'text-foreground' : text({ variant: variant() }),
-            variant() === 'brand' && 'text-foreground-muted opacity-100'
+            'm-0 leading-normal',
+            Subtitle[size()],
+            fill() !== 'bold' && 'text-foreground-muted',
+            props.subtitleClass
           )}
         >
           {props.subtitle}
@@ -156,4 +93,3 @@ export function FeatureCard(props: FeatureCardProps) {
     </div>
   );
 }
-

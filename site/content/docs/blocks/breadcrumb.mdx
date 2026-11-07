@@ -1,0 +1,32 @@
+---
+title: Breadcrumb
+description: Where the page sits in the site.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import BasicOutput from '../../../examples/breadcrumb/basic.eg.tsx';
+import basicCode from '../../../examples/breadcrumb/basic.eg.tsx?raw';
+
+```tsx
+import { Breadcrumb } from '@webf/sprinkles';
+```
+
+A slash-separated trail of the pages above this one. The last item is the current page and isn't a link.
+
+## Basic
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- Renders `<nav aria-label='Breadcrumb'>` with an ordered list; the current page has `aria-current='page'`.
+- The slashes are hidden from screen readers.
+
+## Props
+
+| Prop    | Type                                 | Default |
+| ------- | ------------------------------------ | ------- |
+| `items` | `{ label: string; href?: string }[]` |         |

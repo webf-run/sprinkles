@@ -1,0 +1,126 @@
+---
+title: DropdownMenu
+description: A list of actions behind a button.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/dropdown-menu/anatomy.eg.tsx';
+import DoOrder from '../../../examples/dropdown-menu/do-order.eg.tsx';
+import DontOrder from '../../../examples/dropdown-menu/dont-order.eg.tsx';
+import GroupsOutput from '../../../examples/dropdown-menu/groups.eg.tsx';
+import groupsCode from '../../../examples/dropdown-menu/groups.eg.tsx?raw';
+import ItemsOutput from '../../../examples/dropdown-menu/items.eg.tsx';
+import itemsCode from '../../../examples/dropdown-menu/items.eg.tsx?raw';
+import StatesOutput from '../../../examples/dropdown-menu/states.eg.tsx';
+import statesCode from '../../../examples/dropdown-menu/states.eg.tsx?raw';
+
+```tsx
+import { DropdownMenu } from '@webf/sprinkles';
+```
+
+A dropdown menu keeps secondary actions out of the way until they're needed:
+a page's actions in the editor's toolbar, a row's actions in a table. Each
+item does something when chosen.
+
+To choose a value in a form, use a Select. For two or three actions, show
+them as [Buttons](/actions/button/) instead; a menu hides them.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Trigger',
+      note: 'A Button, often with a chevron or only an ellipsis icon.',
+    },
+    { name: 'Group label (optional)', note: 'Names the items below it.' },
+    { name: 'Item', note: 'Icon (optional), label and shortcut (optional).' },
+    { name: 'Separator', note: 'Sets the destructive actions apart.' },
+    { name: 'Negative item', note: 'Red, for actions that destroy something.' },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Items
+
+`items` is a list of entries. An item has a `value`, a `label`, and
+optionally an `icon` and a `shortcut`. Choosing one calls the menu's
+`onSelect` with its value (and the item's own `onSelect`, if it has one).
+
+Shortcuts are only shown; bind the keys yourself.
+
+<ExampleBlock code={itemsCode}>
+  <ItemsOutput client:load />
+</ExampleBlock>
+
+## Groups and separators
+
+`{ type: 'group', label, items }` puts items under a label;
+`{ type: 'separator' }` draws a line. Use groups when a menu has more than
+about seven items.
+
+<ExampleBlock code={groupsCode}>
+  <GroupsOutput client:load />
+</ExampleBlock>
+
+## States
+
+Items highlight on hover and with the arrow keys, and darken while pressed.
+A `disabled` item stays in place, greyed, so the menu doesn't change shape;
+arrow keys skip it. A `negative` item is red and highlights in a red tint.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- The trigger gets `aria-haspopup="menu"` and `aria-expanded`; the list is a
+  `menu` of `menuitem`s, and groups are labelled by their label.
+- Enter, Space or Arrow Down on the trigger opens the menu with the first
+  item highlighted; Arrow Up opens it on the last.
+- Arrow keys move between items, Home and End jump to the ends, and typing
+  a letter jumps to the next item that starts with it.
+- Enter or Space chooses an item and closes the menu; Escape or Tab closes it
+  without choosing. Focus returns to the trigger.
+- An icon-only trigger needs an `aria-label` that names what the actions
+  apply to: “More actions for “About us””.
+
+## Do and don't
+
+<DoDont
+  doText='Put destructive actions last, after a separator, in the negative style.'
+  dontText='Put “Delete” first, or style it like the rest, where a slip of the mouse chooses it.'
+>
+  <DoOrder slot='do' client:load />
+  <DontOrder slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop           | Type                                                              | Default          |
+| -------------- | ----------------------------------------------------------------- | ---------------- |
+| `trigger`      | `(props: TriggerProps) => JSX.Element`; required                  |                  |
+| `items`        | `DropdownMenuEntry[]`; required                                   |                  |
+| `onSelect`     | `(value: string) => void`                                         |                  |
+| `placement`    | `'top' \| 'right' \| 'bottom' \| 'left'`, with `-start` or `-end` | `'bottom-start'` |
+| `open`         | `boolean`; controlled                                             |                  |
+| `defaultOpen`  | `boolean`                                                         | `false`          |
+| `onOpenChange` | `(open: boolean) => void`                                         |                  |
+| `class`        | `string`; added to the menu's panel                               |                  |
+
+An item (`DropdownMenuItem`):
+
+| Field      | Type                       |
+| ---------- | -------------------------- |
+| `value`    | `string`; required, unique |
+| `label`    | `JSX.Element`; required    |
+| `icon`     | a lucide-solid icon        |
+| `shortcut` | `string`, such as `'⌘D'`   |
+| `negative` | `boolean`                  |
+| `disabled` | `boolean`                  |
+| `onSelect` | `() => void`               |

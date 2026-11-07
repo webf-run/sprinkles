@@ -1,0 +1,156 @@
+---
+title: Tabs
+description: Switch between views of the same thing without leaving the page.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/tabs/anatomy.eg.tsx';
+import ComposedOutput from '../../../examples/tabs/composed.eg.tsx';
+import composedCode from '../../../examples/tabs/composed.eg.tsx?raw';
+import DoNouns from '../../../examples/tabs/do-nouns.eg.tsx';
+import DoViews from '../../../examples/tabs/do-views.eg.tsx';
+import DontNouns from '../../../examples/tabs/dont-nouns.eg.tsx';
+import DontViews from '../../../examples/tabs/dont-views.eg.tsx';
+import IconsOutput from '../../../examples/tabs/icons.eg.tsx';
+import iconsCode from '../../../examples/tabs/icons.eg.tsx?raw';
+import ItemsOutput from '../../../examples/tabs/items.eg.tsx';
+import itemsCode from '../../../examples/tabs/items.eg.tsx?raw';
+import SizesOutput from '../../../examples/tabs/sizes.eg.tsx';
+import sizesCode from '../../../examples/tabs/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/tabs/states.eg.tsx';
+import statesCode from '../../../examples/tabs/states.eg.tsx?raw';
+import VerticalOutput from '../../../examples/tabs/vertical.eg.tsx';
+import verticalCode from '../../../examples/tabs/vertical.eg.tsx?raw';
+
+```tsx
+import { Tab, TabList, TabPanel, Tabs } from '@webf/sprinkles';
+```
+
+Tabs switch between views of one thing: a page's Content, SEO and History.
+Only one panel shows at a time. To move between different pages of the
+app, use the [AppShell](/layout/app-shell/)'s sidebar; to step through a
+process, use a stepper or separate pages.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Tab list', note: 'A row of tabs on a 1 px divider.' },
+    { name: 'Tab', note: 'A short noun, with an optional icon before it.' },
+    { name: 'Selection line', note: 'A 2 px line under the selected tab.' },
+    { name: 'Panel', note: 'The selected tab’s content.' },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## With items
+
+Pass `items` (value, label, optional icon, content) and the tabs render
+their list and panels. Name the list with `aria-label`.
+
+<ExampleBlock code={itemsCode}>
+  <ItemsOutput client:load />
+</ExampleBlock>
+
+## Composed
+
+For richer tabs, compose `TabList`, `Tab` and `TabPanel`. A tab can hold
+more than text, such as a count in a [Badge](/feedback/badge/).
+
+<ExampleBlock code={composedCode}>
+  <ComposedOutput client:load />
+</ExampleBlock>
+
+## Icons
+
+An icon goes before the label. Use icons on every tab or on none.
+
+<ExampleBlock code={iconsCode}>
+  <IconsOutput client:load />
+</ExampleBlock>
+
+## Vertical
+
+`orientation='vertical'` stacks the tabs beside their panel, for settings
+with several sections. The line moves to the tab's left edge, and the up and
+down arrow keys move between tabs.
+
+<ExampleBlock code={verticalCode}>
+  <VerticalOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+S, M and L tabs are 32, 40 and 48 px tall. M is the default; use S in dense
+panels and L for a page's main tabs.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Selected, default, hover (a faint line appears), keyboard focus and
+disabled. Selected text is darker and doesn't change weight, so tabs don't
+shift as the selection moves.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Ark UI gives the list `role="tablist"`, each tab `role="tab"` with
+  `aria-selected` and `aria-controls`, and each panel `role="tabpanel"`.
+- Tab moves into the tab list (to the selected tab) and then into the panel.
+  Left and Right arrows (Up and Down when vertical) move between tabs; Home
+  and End jump to the first and last. Disabled tabs are skipped.
+- By default a tab is selected as the arrow keys reach it. With
+  `activationMode='manual'`, it waits for Enter or Space, for panels that are
+  slow to render.
+- Name the tab list with `aria-label` when no heading above it does.
+
+## Do and don't
+
+<DoDont
+  doText='Label tabs with one or two words, usually nouns.'
+  dontText='Write sentences; long labels crowd the row and wrap on small screens.'
+>
+  <DoNouns slot='do' client:load />
+  <DontNouns slot='dont' client:load />
+</DoDont>
+
+<DoDont
+  doText='Use tabs for views of the same thing.'
+  dontText='Use tabs as the app’s main navigation; that’s the sidebar’s job.'
+>
+  <DoViews slot='do' client:load />
+  <DontViews slot='dont' client:load />
+</DoDont>
+
+## Props
+
+### Tabs
+
+| Prop             | Type                                             | Default        |
+| ---------------- | ------------------------------------------------ | -------------- |
+| `items`          | `{ value, label, icon?, disabled?, content? }[]` |                |
+| `value`          | `string`; controlled selection                   |                |
+| `defaultValue`   | `string`; initial selection                      |                |
+| `onValueChange`  | `(value: string) => void`                        |                |
+| `size`           | `'s' \| 'm' \| 'l'`                              | `'m'`          |
+| `orientation`    | `'horizontal' \| 'vertical'`                     | `'horizontal'` |
+| `activationMode` | `'automatic' \| 'manual'`                        | `'automatic'`  |
+| `aria-label`     | `string`; names the tab list (with `items`)      |                |
+
+### TabList, Tab, TabPanel
+
+| Part       | Props                                                       |
+| ---------- | ----------------------------------------------------------- |
+| `TabList`  | `aria-label`, `class`                                       |
+| `Tab`      | `value` (required), `icon`, `disabled`, `class`, `children` |
+| `TabPanel` | `value` (required), `class`, `children`                     |

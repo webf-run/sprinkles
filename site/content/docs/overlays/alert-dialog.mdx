@@ -1,0 +1,143 @@
+---
+title: AlertDialog
+description: Asks for a decision before something important or irreversible happens.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/alert-dialog/anatomy.eg.tsx';
+import ConflictOutput from '../../../examples/alert-dialog/conflict.eg.tsx';
+import conflictCode from '../../../examples/alert-dialog/conflict.eg.tsx?raw';
+import DoLabel from '../../../examples/alert-dialog/do-label.eg.tsx';
+import DontLabel from '../../../examples/alert-dialog/dont-label.eg.tsx';
+import PendingOutput from '../../../examples/alert-dialog/pending.eg.tsx';
+import pendingCode from '../../../examples/alert-dialog/pending.eg.tsx?raw';
+import VariantsOutput from '../../../examples/alert-dialog/variants.eg.tsx';
+import variantsCode from '../../../examples/alert-dialog/variants.eg.tsx?raw';
+
+```tsx
+import { AlertDialog } from '@webf/sprinkles';
+```
+
+An alert dialog interrupts to ask for a decision: delete these images,
+publish this page, overwrite a newer version. It has a title, a message and
+two or three buttons, and closes only through them (or Escape, which
+cancels). A click outside does nothing.
+
+Use it sparingly, for actions that are hard to undo or that affect other
+people. For a task with a form, use a [Dialog](/overlays/dialog/); to report
+something that already happened, a [Toast](/feedback/toast/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Title',
+      note: 'A question that names the thing: “Delete this image?”',
+    },
+    {
+      name: 'Message',
+      note: 'What happens, to what, and whether it can be undone.',
+    },
+    {
+      name: 'Secondary button (optional)',
+      note: 'A third choice, such as “Reload page”.',
+    },
+    {
+      name: 'Cancel button',
+      note: '“Cancel” by default; focused first for destructive actions.',
+    },
+    {
+      name: 'Confirm button',
+      note: 'Repeats the action’s verb; negative when destructive.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Variants
+
+`variant='confirmation'` (default) gives an accent confirm button and puts
+focus on it. `variant='destructive'` makes it negative and puts focus on
+Cancel, so a quick Enter doesn't delete anything.
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput client:load />
+</ExampleBlock>
+
+## Pending
+
+Return a promise from `onConfirm`: the confirm button shows a spinner, the
+other buttons and Escape are disabled, and the dialog closes when the
+promise resolves. If it rejects, the dialog stays open so the person can
+retry or cancel; report the error yourself (a [Toast](/feedback/toast/)
+works well). For an action you track elsewhere, pass `pending`.
+
+<ExampleBlock code={pendingCode}>
+  <PendingOutput client:load />
+</ExampleBlock>
+
+## Secondary action and controlled open
+
+`secondaryLabel` adds a third choice. Here a save finds a newer version on
+the server, so the app opens the dialog itself with `open` and
+`onOpenChange`. `onCancel` runs for Cancel and for Escape.
+
+<ExampleBlock code={conflictCode}>
+  <ConflictOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+`size` is `s` (384 px, the default) or `m` (512 px, the default when there's
+a secondary action, so three buttons fit on one line).
+
+## States
+
+- **Open:** focus is on the confirm button, or on Cancel when destructive.
+- **Pending:** the confirm button shows a spinner and keeps its width; Cancel
+  and the secondary button are disabled; Escape is ignored.
+- **Closing:** focus returns to the trigger, or to whatever had focus before.
+
+## Accessibility
+
+- Rendered with `role="alertdialog"` and `aria-modal="true"`; the title
+  labels it and the message describes it, so screen readers read both.
+- Focus is trapped inside; Tab cycles through the buttons.
+- Escape cancels (except while pending). A click outside doesn't close it.
+- While pending, the confirm button has `aria-busy` and stays focusable.
+
+## Do and don't
+
+<DoDont
+  doText='Say what will happen and repeat the verb on the button: “Delete page”.'
+  dontText='Ask “Are you sure?” with “OK”: it makes people re-read the page to know what they’re agreeing to.'
+>
+  <DoLabel slot='do' client:load />
+  <DontLabel slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop             | Type                                   | Default          |
+| ---------------- | -------------------------------------- | ---------------- |
+| `title`          | `JSX.Element`; required                |                  |
+| `children`       | `JSX.Element`; the message             |                  |
+| `variant`        | `'confirmation' \| 'destructive'`      | `'confirmation'` |
+| `confirmLabel`   | `string`; required                     |                  |
+| `onConfirm`      | `() => unknown`; may return a promise  |                  |
+| `cancelLabel`    | `string`                               | `'Cancel'`       |
+| `onCancel`       | `() => void`; Cancel or Escape         |                  |
+| `secondaryLabel` | `string`                               |                  |
+| `onSecondary`    | `() => void`                           |                  |
+| `pending`        | `boolean`                              | `false`          |
+| `size`           | `'s' \| 'm'`                           | `'s'`            |
+| `trigger`        | `(props: TriggerProps) => JSX.Element` |                  |
+| `open`           | `boolean`; controlled                  |                  |
+| `defaultOpen`    | `boolean`                              | `false`          |
+| `onOpenChange`   | `(open: boolean) => void`              |                  |
+| `class`          | `string`                               |                  |

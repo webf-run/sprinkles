@@ -3,9 +3,10 @@ import { TestimonialCard } from '@webf/sprinkles';
 export default function Example() {
   return (
     <TestimonialCard
-      quote='Switching to this component kit cut our landing page build time in half. Everything just fits together.'
-      name='Amara Chen'
-      role='Head of Design, Loopwave'
+      class='max-w-md'
+      quote='Every detail of our trip was taken care of, down to the table by the window on our last night.'
+      name='Daniel Wu'
+      role='Travelled to Kyoto, 2026'
     />
   );
 }

@@ -1,19 +1,14 @@
 import { cn } from '../utils';
 
 const frame = {
-  inverse: 'border-white/50',
-  subtle: 'border-purple-70 bg-surface',
-} as const;
-
-const text = {
-  inverse: { label: 'text-white', value: 'text-white' },
-  subtle: { label: 'text-foreground', value: 'text-foreground-strong' },
+  inverse: 'border-border-inverse/50 text-foreground-inverse',
+  subtle: 'border-border-subtle bg-surface text-foreground',
 } as const;
 
 export interface InfoBadgeProps {
   label: string;
   value: string;
-  /** `inverse` for dark/purple backgrounds, `subtle` for light ones. */
+  /** `inverse` for dark bands and photos, `subtle` for light surfaces. */
   variant?: keyof typeof frame;
   class?: string;
 }
@@ -25,29 +20,17 @@ export function InfoBadge(props: InfoBadgeProps) {
   return (
     <div
       class={cn(
-        'flex h-20.75 w-full max-w-63.5 flex-col gap-0.5',
-        'justify-center rounded-10 border-[0.5px] p-2.5',
+        'flex min-h-20 w-full max-w-64 flex-col justify-center gap-1 rounded-xl border p-3',
+        'text-fluid-md leading-120 tracking-normal md:text-fluid-lg md:leading-120 2xl:tracking-tight-30',
         frame[variant()],
         props.class
       )}
     >
+      <span>{props.label}</span>
       <span
         class={cn(
-          'text-(length:--text-fluid-md) leading-120',
-          'md:text-(length:--text-fluid-lg)',
-          '2xl:text-(length:--text-fluid-lg) 2xl:tracking-tight-30',
-          text[variant()].label
-        )}
-      >
-        {props.label}
-      </span>
-
-      <span
-        class={cn(
-          'text-(length:--text-fluid-md) leading-120 font-semibold',
-          'md:text-(length:--text-fluid-lg)',
-          '2xl:text-(length:--text-fluid-lg) 2xl:tracking-tight-30',
-          text[variant()].value
+          'font-semibold',
+          variant() === 'subtle' && 'text-foreground-strong'
         )}
       >
         {props.value}

@@ -1,59 +1,113 @@
-import { ArrowRight } from 'lucide-solid';
+import ArrowRight from 'lucide-solid/icons/arrow-right';
+import { Show, createUniqueId } from 'solid-js';
 
+import { Badge } from '../components/Badge';
+import { Button } from '../components/Button';
 import { cn } from '../utils';
-import { Badge } from './Badge';
-import { Link } from './Link';
+
+/** The band a call-to-action section sits on. */
+export type CtaSectionSurface = 'inverse' | 'muted' | 'default';
+
+const Surfaces: Record<
+  CtaSectionSurface,
+  { root: string; title: string; description: string }
+> = {
+  inverse: {
+    root: 'bg-surface-inverse bg-glow',
+    title: 'text-foreground-inverse',
+    description: 'text-foreground-inverse/80',
+  },
+  muted: {
+    root: 'bg-surface-muted',
+    title: 'text-foreground-strongest',
+    description: 'text-foreground-muted',
+  },
+  default: {
+    root: 'bg-surface',
+    title: 'text-foreground-strongest',
+    description: 'text-foreground-muted',
+  },
+};
 
 export interface CtaSectionProps {
-  badge: string;
+  /** A short label above the title: one to three words. */
+  eyebrow?: string;
   title: string;
-  description: string;
-  ctaLabel: string;
-  ctaHref?: string;
+  description?: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  /** `inverse` (default) is a dark band; `muted` and `default` are light. */
+  surface?: CtaSectionSurface;
   class?: string;
 }
 
-/** Full-width dark call-to-action section. */
+/** A full-width band that asks for one action: eyebrow, title, description and buttons. */
 export function CtaSection(props: CtaSectionProps) {
+  const surface = () => props.surface ?? 'inverse';
+  const colours = () => Surfaces[surface()];
+  const inverse = () => surface() === 'inverse';
+  const titleId = `cta-section-${createUniqueId()}`;
+
   return (
-    <section class={cn('w-full bg-glow', props.class)}>
-      <div class='mx-auto w-full max-w-9xl px-5.5 md:px-15 xl:px-37.25'>
-        <div
+    <section
+      aria-labelledby={titleId}
+      class={cn('w-full', colours().root, props.class)}
+    >
+      <div class='mx-auto flex w-full max-w-4xl flex-col items-center px-4 py-16 text-center sm:px-6 md:py-24'>
+        <Show when={props.eyebrow}>
+          <Badge
+            size='l'
+            variant='accent'
+            staticColor={inverse() ? 'white' : undefined}
+            class='mb-6'
+          >
+            {props.eyebrow}
+          </Badge>
+        </Show>
+
+        <h2
+          id={titleId}
           class={cn(
-            'mx-auto flex max-w-303 flex-col items-center gap-9 py-12 text-center',
-            'md:gap-10 md:py-16',
-            'xl:gap-14.5 xl:py-19.5'
+            'm-0 font-heading text-fluid-5xl font-semibold text-balance',
+            colours().title
           )}
         >
-          <Badge
-            variant='purple'
-            size='section'
-            class='mb-6 max-md:h-auto max-md:min-h-7 max-md:w-auto max-md:max-w-full max-md:px-5 max-md:py-2.5 max-md:leading-126 max-md:whitespace-normal xl:mb-8.25'
-          >
-            {props.badge}
-          </Badge>
+          {props.title}
+        </h2>
 
-          <h2
+        <Show when={props.description}>
+          <p
             class={cn(
-              'mx-auto max-w-303 font-heading text-(length:--text-fluid-4xl) leading-115 font-semibold tracking-tight-20 text-white',
-              'xl:text-(length:--text-fluid-5xl) xl:leading-110 xl:tracking-tight-30'
+              'm-0 mt-5 max-w-2xl text-fluid-lg text-pretty',
+              colours().description
             )}
           >
-            {props.title}
-          </h2>
-
-          <p class='mx-auto max-w-135 text-fluid-lg leading-150 tracking-tight-8 text-white xl:max-w-190.25'>
             {props.description}
           </p>
+        </Show>
 
-          <Link
-            variant='highlight'
-            size='action-lg'
-            icon={ArrowRight}
-            href={props.ctaHref}
+        <div class='mt-10 flex flex-wrap justify-center gap-3'>
+          <Button
+            href={props.primaryHref}
+            size='xl'
+            iconEnd={ArrowRight}
+            staticColor={inverse() ? 'white' : undefined}
           >
-            {props.ctaLabel}
-          </Link>
+            {props.primaryLabel}
+          </Button>
+          <Show when={props.secondaryLabel && props.secondaryHref}>
+            <Button
+              href={props.secondaryHref}
+              size='xl'
+              variant='secondary'
+              fillStyle='outline'
+              staticColor={inverse() ? 'white' : undefined}
+            >
+              {props.secondaryLabel}
+            </Button>
+          </Show>
         </div>
       </div>
     </section>

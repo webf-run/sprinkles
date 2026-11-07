@@ -1,0 +1,108 @@
+---
+title: Tooltip
+description: A short label shown on hover and keyboard focus.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/tooltip/anatomy.eg.tsx';
+import DoLabel from '../../../examples/tooltip/do-label.eg.tsx';
+import DontLabel from '../../../examples/tooltip/dont-label.eg.tsx';
+import PlacementOutput from '../../../examples/tooltip/placement.eg.tsx';
+import placementCode from '../../../examples/tooltip/placement.eg.tsx?raw';
+import ToolbarOutput from '../../../examples/tooltip/toolbar.eg.tsx';
+import toolbarCode from '../../../examples/tooltip/toolbar.eg.tsx?raw';
+
+```tsx
+import { Tooltip } from '@webf/sprinkles';
+```
+
+A tooltip names or briefly explains the element under the pointer: the
+action of an icon-only button, the shortcut for a toolbar command, the full
+text of a truncated title. It opens after a short hover, or at once on
+keyboard focus.
+
+Touch screens can't hover, so a tooltip must never hold the only copy of
+something important. Help that people need belongs in the page, such as a
+field's description; details on demand belong in a
+[Popover](/overlays/popover/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Trigger',
+      note: 'A focusable element, usually an icon-only button.',
+    },
+    { name: 'Label', note: 'A few words on a dark neutral fill.' },
+    { name: 'Tip', note: 'Points at the trigger.' },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## In a toolbar
+
+Icon-only buttons need an `aria-label` for screen readers; the tooltip shows
+the same name to sighted people, plus the shortcut if there is one.
+
+<ExampleBlock code={toolbarCode}>
+  <ToolbarOutput client:load />
+</ExampleBlock>
+
+## Placement
+
+`placement` is `top` by default and flips when there's no room. Use `bottom`
+for triggers at the top of the window, such as a header's buttons.
+
+<ExampleBlock code={placementCode}>
+  <PlacementOutput client:load />
+</ExampleBlock>
+
+## States
+
+- **Hover:** opens after `openDelay` (500 ms), closes `closeDelay` (100 ms)
+  after the pointer leaves. Moving between triggers in a toolbar skips the
+  delay.
+- **Keyboard focus:** opens at once; closes on blur or Escape.
+- **Disabled:** `disabled` stops it opening. A disabled button gets no
+  pointer events, so it can't show a tooltip at all.
+- **Fading:** fades in (150 ms) and out (100 ms); with reduced motion it
+  appears and disappears at once.
+
+## Accessibility
+
+- The tooltip has `role="tooltip"`; while it's open, the trigger points to it
+  with `aria-describedby`.
+- It describes; it doesn't name. An icon-only trigger still needs its own
+  `aria-label`.
+- Escape closes it without moving focus.
+- Content isn't interactive: links or buttons inside can't be reached.
+
+## Do and don't
+
+<DoDont
+  doText='Name an icon-only button, using the same words as its aria-label.'
+  dontText='Hide a rule people need to follow in a tooltip on a labelled button; show it as help text instead.'
+>
+  <DoLabel slot='do' client:load />
+  <DontLabel slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop           | Type                                                              | Default |
+| -------------- | ----------------------------------------------------------------- | ------- |
+| `content`      | `JSX.Element`; required                                           |         |
+| `trigger`      | `(props: TriggerProps) => JSX.Element`; required                  |         |
+| `placement`    | `'top' \| 'right' \| 'bottom' \| 'left'`, with `-start` or `-end` | `'top'` |
+| `openDelay`    | `number` (ms)                                                     | `500`   |
+| `closeDelay`   | `number` (ms)                                                     | `100`   |
+| `disabled`     | `boolean`                                                         | `false` |
+| `open`         | `boolean`; controlled                                             |         |
+| `defaultOpen`  | `boolean`                                                         | `false` |
+| `onOpenChange` | `(open: boolean) => void`                                         |         |
+| `class`        | `string`                                                          |         |

@@ -1,86 +1,140 @@
 ---
-title: Testimonial Card
-description: Showcase a customer quote alongside their name, role, and an optional rating.
+title: TestimonialCard
+description: A quote and the person who said it, with an optional photo and star rating.
 ---
 
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/testimonial-card/anatomy.eg.tsx';
 import BasicOutput from '../../../examples/testimonial-card/basic.eg.tsx';
 import basicCode from '../../../examples/testimonial-card/basic.eg.tsx?raw';
-import ColorsOutput from '../../../examples/testimonial-card/colors.eg.tsx';
-import colorsCode from '../../../examples/testimonial-card/colors.eg.tsx?raw';
+import DoAttribution from '../../../examples/testimonial-card/do-attribution.eg.tsx';
+import DontAttribution from '../../../examples/testimonial-card/dont-attribution.eg.tsx';
+import FillStylesOutput from '../../../examples/testimonial-card/fill-styles.eg.tsx';
+import fillStylesCode from '../../../examples/testimonial-card/fill-styles.eg.tsx?raw';
 import GridOutput from '../../../examples/testimonial-card/grid.eg.tsx';
 import gridCode from '../../../examples/testimonial-card/grid.eg.tsx?raw';
 import RatingOutput from '../../../examples/testimonial-card/rating.eg.tsx';
 import ratingCode from '../../../examples/testimonial-card/rating.eg.tsx?raw';
 import SizesOutput from '../../../examples/testimonial-card/sizes.eg.tsx';
 import sizesCode from '../../../examples/testimonial-card/sizes.eg.tsx?raw';
-import ExampleBlock from '../../../playground/ExampleBlock.astro';
+import VariantsOutput from '../../../examples/testimonial-card/variants.eg.tsx';
+import variantsCode from '../../../examples/testimonial-card/variants.eg.tsx?raw';
 
-`TestimonialCard` pairs a quote with the person who said it. It works as a
-single highlighted quote or repeated in a grid, and it carries no
-site-specific copy so it drops into a marketing page, a product changelog,
-or a review section on any theme.
+```tsx
+import { TestimonialCard } from '@webf/sprinkles';
+```
 
-## Basic
+A testimonial card shows what a student, a parent or a traveller said, and
+who they are. Use one to back up a claim next to it, or a grid of them as a
+section of their own. It shares its look with the other cards
+([FeatureCard](/cards/feature-card/), [BenefitCard](/cards/benefit-card/)):
+the same `variant`, `fillStyle` and `size`.
 
-Use the basic example when you need to display a simple customer testimonial
-with the quote, person's name, and role. This is the simplest way to introduce
-a testimonial without additional visual options.
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Quote mark', note: 'A chip in the card’s tone.' },
+    { name: 'Rating (optional)', note: 'Up to five stars.' },
+    { name: 'Quote', note: 'What they said, in their words.' },
+    {
+      name: 'Photo or initials',
+      note: 'Initials in the tone’s chip when there is no photo.',
+    },
+    { name: 'Name and role', note: 'Who they are, and why their word counts.' },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Quote and attribution
+
+`quote` and `name` are required; `role` says why the reader should trust
+them: “Parent of a Grade 4 student”, “Travelled to Kyoto, 2026”.
 
 <ExampleBlock code={basicCode}>
   <BasicOutput />
 </ExampleBlock>
 
-## Color variants
+## Variants
 
-Use color variants to give testimonials different visual treatments while
-keeping them consistent with the application's semantic color system. These
-variants are useful when testimonials need to match different sections,
-brands, or themes.
+`variant` takes a tone: a semantic role (`accent` by default, `neutral`,
+`informative`, `positive`, `notice`, `negative`), `highlight`, or a
+categorical colour (`seafoam`, `indigo`, `purple`, `fuchsia`, `yellow`).
+In the default outline style it colours the quote mark and the initials.
 
-<ExampleBlock code={colorsCode}>
-  <ColorsOutput />
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Fill style
+
+`fillStyle` says how strongly the tone shows: `outline` (default) is a
+surface card with a quiet border, `subtle` tints the card, and `bold` fills
+it. Use `bold` for one quote that stands out, not for a whole grid.
+
+<ExampleBlock code={fillStylesCode}>
+  <FillStylesOutput />
 </ExampleBlock>
 
 ## Sizes
 
-The size option controls the spacing and typography of the testimonial card.
-Use `sm` for compact layouts, `md` for the default layout, and `lg` when the
-testimonial needs more visual emphasis.
+`s`, `m` (default) and `l` set the padding, the quote's type size and the
+chip. Use `l` for a single quote that carries a section.
 
 <ExampleBlock code={sizesCode}>
   <SizesOutput />
 </ExampleBlock>
 
-## Avatar and rating
+## Photo and rating
 
-Use the avatar option when you want to show the testimonial author's image.
-The optional rating can be added independently to display a 0–5 star rating.
-Both options can also be omitted when a text-focused testimonial is preferred.
+`avatar` shows a photo in place of the initials. `rating` adds stars out of
+five, rounded to a whole star.
 
 <ExampleBlock code={ratingCode}>
   <RatingOutput />
 </ExampleBlock>
 
-## Grid arrangement
+## In a grid
 
-Use the testimonial card in a grid when displaying multiple customer reviews
-or testimonials together. This example demonstrates how multiple cards can be
-arranged while maintaining consistent spacing and alignment.
+Cards stretch to the height of their row, so a grid of quotes lines up.
 
 <ExampleBlock code={gridCode}>
   <GridOutput />
 </ExampleBlock>
 
+## Accessibility
+
+- Renders a `<figure>`: the quote in a `<blockquote>`, the person in a
+  `<figcaption>`.
+- The quote mark and the initials are hidden from screen readers; the photo
+  has empty alt text, since the name sits beside it.
+- The rating is one image named “Rated 4 out of 5”, not five separate stars.
+- Quote, name and role pass 4.5:1 contrast in every tone and fill style.
+
+## Do and don't
+
+<DoDont
+  doText='Quote a real person, and say who they are.'
+  dontText='Use anonymous praise; it reads as made up.'
+>
+  <DoAttribution slot='do' />
+  <DontAttribution slot='dont' />
+</DoDont>
+
 ## Props
 
-| Prop      | Type                                                                                                      | Default     | Description                        |
-| --------- | --------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------- |
-| `quote`   | `string`                                                                                                  | —           | The testimonial text.              |
-| `name`    | `string`                                                                                                  | —           | Name of the person quoted.         |
-| `role`    | `string`                                                                                                  | —           | Their role, title, or affiliation. |
-| `avatar`  | `string`                                                                                                  | —           | Optional avatar image URL.         |
-| `rating`  | `number`                                                                                                  | —           | Optional star rating from 0–5.     |
-| `variant` | `'default' \| 'muted' \| 'accent' \| 'inverse' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.       |
-| `size`    | `'sm' \| 'md' \| 'lg'`                                                                                    | `'md'`      | Card spacing and type scale.       |
-| `effect`  | `'none' \| 'lift' \| 'glow'`                                                                              | `'none'`    | Hover effect.                      |
-| `class`   | `string`                                                                                                  |
+| Prop        | Type                                                | Default     |
+| ----------- | --------------------------------------------------- | ----------- |
+| `quote`     | `string`                                            |             |
+| `name`      | `string`                                            |             |
+| `role`      | `string`                                            |             |
+| `avatar`    | `string`; a photo URL                               |             |
+| `rating`    | `number`, 0 to 5                                    |             |
+| `variant`   | a tone: a role, `highlight` or a categorical colour | `'accent'`  |
+| `fillStyle` | `'outline' \| 'subtle' \| 'bold'`                   | `'outline'` |
+| `size`      | `'s' \| 'm' \| 'l'`                                 | `'m'`       |
+| `class`     | `string`                                            |             |

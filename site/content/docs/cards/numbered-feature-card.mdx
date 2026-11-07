@@ -1,0 +1,47 @@
+---
+title: Numbered Feature Card
+description: A numbered step or reason.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import CompactOutput from '../../../examples/numbered-feature-card/compact.eg.tsx';
+import compactCode from '../../../examples/numbered-feature-card/compact.eg.tsx?raw';
+import DefaultOutput from '../../../examples/numbered-feature-card/default.eg.tsx';
+import defaultCode from '../../../examples/numbered-feature-card/default.eg.tsx?raw';
+
+```tsx
+import { NumberedFeatureCard } from '@webf/sprinkles';
+```
+
+A numbered card presents one item of an ordered set: the steps to apply, or the reasons to choose a college.
+
+## Default
+
+A tall card with a large number, for a few weighty items.
+
+<ExampleBlock code={defaultCode}>
+  <DefaultOutput />
+</ExampleBlock>
+
+## Compact
+
+A one-line row with an optional eyebrow, for steps in a sidebar or a short list.
+
+<ExampleBlock code={compactCode}>
+  <CompactOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- The number is decorative (hidden from screen readers). When order matters, put the cards in an `<ol>`.
+
+## Props
+
+| Prop          | Type                     | Default     |
+| ------------- | ------------------------ | ----------- |
+| `number`      | `number \| string`       |             |
+| `title`       | `string`                 |             |
+| `description` | `string`                 |             |
+| `variant`     | `'default' \| 'compact'` | `'default'` |
+| `eyebrow`     | `string` (compact only)  |             |

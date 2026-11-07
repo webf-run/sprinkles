@@ -1,7 +1,7 @@
-import { ArrowRight } from 'lucide-solid';
+import ArrowRight from 'lucide-solid/icons/arrow-right';
 
+import { Button } from '../components/Button';
 import { cn } from '../utils';
-import { Link } from './Link';
 
 export interface CtaBannerProps {
   text: string;
@@ -15,31 +15,25 @@ export function CtaBanner(props: CtaBannerProps) {
   return (
     <div
       class={cn(
-        'flex w-full flex-col items-start justify-between gap-4 rounded-15 border border-primary bg-surface p-5',
-        'shadow-offset-md',
+        'flex w-full flex-col items-start justify-between gap-4 rounded-2xl border border-accent bg-surface p-5 shadow-elevated',
         'md:flex-row md:items-center md:px-8 md:py-6',
         'xl:px-12 xl:py-7',
         props.class
       )}
     >
-      <p
-        class={cn(
-          'text-fluid-md leading-145 text-foreground',
-          'xl:text-(length:--text-fluid-lg) xl:leading-145 xl:tracking-normal'
-        )}
-      >
+      <p class='m-0 text-fluid-md leading-145 tracking-normal text-foreground xl:text-fluid-lg xl:leading-145'>
         {props.text}
       </p>
 
-      <Link
+      <Button
         href={props.ctaHref}
-        variant='outline'
-        size='action'
-        icon={ArrowRight}
-        class='shrink-0 xl:h-16 xl:rounded-lg xl:px-5.5 xl:text-(length:--text-fluid-lg) xl:leading-120 xl:tracking-tight-30'
+        fillStyle='outline'
+        size='xl'
+        iconEnd={ArrowRight}
+        class='shrink-0'
       >
         {props.ctaLabel}
-      </Link>
+      </Button>
     </div>
   );
 }

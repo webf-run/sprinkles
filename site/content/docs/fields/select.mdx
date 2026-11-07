@@ -1,0 +1,148 @@
+---
+title: Select
+description: Picks one option, or several, from a short list.
+sidebar:
+  order: 5
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/select/anatomy.eg.tsx';
+import DisabledItemsOutput from '../../../examples/select/disabled-items.eg.tsx';
+import disabledItemsCode from '../../../examples/select/disabled-items.eg.tsx?raw';
+import DoShort from '../../../examples/select/do-short.eg.tsx';
+import DontLong from '../../../examples/select/dont-long.eg.tsx';
+import MultipleOutput from '../../../examples/select/multiple.eg.tsx';
+import multipleCode from '../../../examples/select/multiple.eg.tsx?raw';
+import SingleOutput from '../../../examples/select/single.eg.tsx';
+import singleCode from '../../../examples/select/single.eg.tsx?raw';
+import SizesOutput from '../../../examples/select/sizes.eg.tsx';
+import sizesCode from '../../../examples/select/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/select/states.eg.tsx';
+import statesCode from '../../../examples/select/states.eg.tsx?raw';
+
+```tsx
+import { Select } from '@webf/sprinkles';
+```
+
+A select picks from a short, fixed list: a page's status, its template, the
+categories of a post. The options stay hidden until the trigger is pressed.
+When the list is long enough that people would rather type than scroll (authors,
+tags, pages), use a [Combobox](/fields/combobox/). For two or three options
+that should all stay visible, use radio buttons.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Label', note: 'Names the value. Points at the trigger.' },
+    { name: 'Trigger', note: 'Shows the selected label, or the placeholder.' },
+    { name: 'Chevron', note: 'Says the trigger opens a list.' },
+    {
+      name: 'Description or error',
+      note: 'Help under the trigger; the error replaces it while invalid.',
+    },
+    {
+      name: 'Popover (when open)',
+      note: 'The options; a check marks the selected ones.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Single selection
+
+Each option is `{ label, value, disabled? }`. The value is a string, or
+`null` while nothing is selected. Pass `value` and `onValueChange` to control
+it, or `defaultValue` to let the select keep it. With `name`, the value is
+submitted with a plain form.
+
+<ExampleBlock code={singleCode}>
+  <SingleOutput client:load />
+</ExampleBlock>
+
+## Multiple selection
+
+`multiple` lets people pick several options; the value is then a string array
+and the list stays open between picks. The trigger lists the selected labels,
+cut short with an ellipsis when they don't fit.
+
+<ExampleBlock code={multipleCode}>
+  <MultipleOutput client:load />
+</ExampleBlock>
+
+## Disabled options
+
+An option with `disabled: true` stays in the list, greyed out, so people can
+see it exists. Say why in its label or in the description.
+
+<ExampleBlock code={disabledItemsCode}>
+  <DisabledItemsOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+S, M, L and XL are 24, 32, 40 and 48 px tall, like every other control; the
+options in the list follow the trigger's size. M is the default; use S only in
+dense tables and toolbars.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover darkens the outline; keyboard focus draws the focus ring; while the list
+is open, the highlighted option is tinted. Invalid outlines the trigger in the
+negative colour and shows `errorText`. Disabled can't be opened. Read-only
+shows the value on a muted surface and can't be opened, but stays focusable so
+it can be read and copied.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Built on Ark UI's select: the trigger has `role="combobox"`, the list
+  `role="listbox"`, and each option `role="option"` with `aria-selected`.
+- Keyboard: Enter, Space or the arrow keys open the list; the arrow keys,
+  Home and End move the highlight; typing jumps to the first option that
+  starts with those letters; Enter or Space picks; Escape closes and returns
+  focus to the trigger.
+- The visible label names the trigger (`aria-labelledby`), and the
+  description or error text describes it (`aria-describedby`). Without a
+  label, pass `aria-label`.
+- A hidden native `<select>` carries `name`, `required` and the value, so
+  forms and browser autofill work without JavaScript glue.
+
+## Do and don't
+
+<DoDont
+  doText='Use a select for a short list people can scan at a glance.'
+  dontText='Hide a long list behind a select; people have to scroll to find their option. Use a combobox.'
+>
+  <DoShort slot='do' client:load />
+  <DontLong slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                                          | Default        |
+| --------------------------------------------- | ------------------------------------------------------------- | -------------- |
+| `items`                                       | `{ label: string; value: string; disabled?: boolean }[]`      |                |
+| `multiple`                                    | `boolean`                                                     | `false`        |
+| `value`                                       | `string \| null`; `string[]` with `multiple`                  |                |
+| `defaultValue`                                | `string \| null`; `string[]` with `multiple`                  |                |
+| `onValueChange`                               | `(value: string \| null) => void`; `string[]` with `multiple` |                |
+| `placeholder`                                 | `string`                                                      |                |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                                   | `'m'`          |
+| `name`                                        | `string`; submits the value with a form                       |                |
+| `emptyText`                                   | `JSX.Element`; shown when `items` is empty                    | `'No options'` |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field/)                    |                |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                                     | `false`        |
+| `id`                                          | `string`; the field's control id                              |                |
+| `aria-label`                                  | `string`; required without a visible label                    |                |

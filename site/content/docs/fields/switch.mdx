@@ -1,0 +1,122 @@
+---
+title: Switch
+description: Turns a setting on or off, taking effect immediately.
+sidebar:
+  order: 8
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/switch/anatomy.eg.tsx';
+import ControlledOutput from '../../../examples/switch/controlled.eg.tsx';
+import controlledCode from '../../../examples/switch/controlled.eg.tsx?raw';
+import DoImmediate from '../../../examples/switch/do-immediate.eg.tsx';
+import DontConsent from '../../../examples/switch/dont-consent.eg.tsx';
+import EmphasizedOutput from '../../../examples/switch/emphasized.eg.tsx';
+import emphasizedCode from '../../../examples/switch/emphasized.eg.tsx?raw';
+import SizesOutput from '../../../examples/switch/sizes.eg.tsx';
+import sizesCode from '../../../examples/switch/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/switch/states.eg.tsx';
+import statesCode from '../../../examples/switch/states.eg.tsx?raw';
+
+```tsx
+import { Switch } from '@webf/sprinkles';
+```
+
+A switch turns a setting on or off, and the change takes effect at once:
+maintenance mode, comments, an announcement banner. For a choice that is saved
+with a form, or a statement people agree to, use a
+[Checkbox](/fields/checkbox/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Track', note: 'Outlined when off, filled when on.' },
+    { name: 'Thumb', note: 'Slides to the end when on.' },
+    {
+      name: 'Label',
+      note: 'The setting’s name. Clicking it flips the switch.',
+    },
+    { name: 'Description', note: 'What the setting does.' },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Emphasis
+
+An "on" track is filled with the neutral colour. `emphasized` fills it with the
+accent colour, for the few switches that should stand out.
+
+<ExampleBlock code={emphasizedCode}>
+  <EmphasizedOutput client:load />
+</ExampleBlock>
+
+## Controlled
+
+Pass `checked` and `onCheckedChange` to drive the switch from your own state,
+for example to save the setting as soon as it changes.
+
+<ExampleBlock code={controlledCode}>
+  <ControlledOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+The track is 24, 32, 40 or 48 px wide for S, M, L and XL, and the row is as
+tall as any control of the same size, so the whole row (label included) is the
+target. M is the default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover and press darken the track; keyboard focus draws the focus ring around
+it. The thumb slides where motion is allowed. Disabled greys out the track and
+the label. Read-only keeps the value legible, in a muted colour, and ignores
+presses.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Built on Ark UI's switch: a visually hidden native checkbox with
+  `role="switch"` takes focus, so Space flips it and screen readers announce
+  "on" or "off".
+- The label is part of the target, so the row is at least 24 × 24 px at every
+  size (WCAG 2.2 target size).
+- On and off differ in fill and in the thumb's position, not only in colour.
+- A switch without a visible label must get an `aria-label`.
+
+## Do and don't
+
+<DoDont
+  doText='Use a switch for a setting that changes something right away.'
+  dontText='Use a switch for consent or a statement; that is a checkbox.'
+>
+  <DoImmediate slot='do' client:load />
+  <DontConsent slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                       | Default |
+| --------------------------------------------- | ------------------------------------------ | ------- |
+| `checked`                                     | `boolean`                                  |         |
+| `defaultChecked`                              | `boolean`                                  |         |
+| `onCheckedChange`                             | `(checked: boolean) => void`               |         |
+| `emphasized`                                  | `boolean`; accent fill when on             | `false` |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                | `'m'`   |
+| `name`                                        | `string`                                   |         |
+| `value`                                       | `string`; submitted while on               | `'on'`  |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field/) |         |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                  | `false` |
+| `id`                                          | `string`; the hidden input's id            |         |
+| `aria-label`                                  | `string`; required without a visible label |         |

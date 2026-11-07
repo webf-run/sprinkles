@@ -1,0 +1,174 @@
+---
+title: Toast
+description: A brief message about something that just happened.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import ToasterRegion from '../../../examples/toast/toaster-region.tsx';
+
+import ActionOutput from '../../../examples/toast/action.eg.tsx';
+import actionCode from '../../../examples/toast/action.eg.tsx?raw';
+import AnatomyOutput from '../../../examples/toast/anatomy.eg.tsx';
+import DoBrief from '../../../examples/toast/do-brief.eg.tsx';
+import DontBrief from '../../../examples/toast/dont-brief.eg.tsx';
+import PromiseOutput from '../../../examples/toast/promise.eg.tsx';
+import promiseCode from '../../../examples/toast/promise.eg.tsx?raw';
+import TypesOutput from '../../../examples/toast/types.eg.tsx';
+import typesCode from '../../../examples/toast/types.eg.tsx?raw';
+
+```tsx
+import { Toaster, createToaster } from '@webf/sprinkles';
+```
+
+<ToasterRegion client:load />
+
+A toast confirms an action or reports a background event without
+interrupting: “Page published”, “Draft saved”, “Upload failed”. It appears
+in the bottom-right corner and goes away on its own.
+
+For a problem people must fix before they can go on, use an
+[InlineAlert](/feedback/inline-alert/) next to its cause; for a decision,
+an [AlertDialog](/overlays/alert-dialog/).
+
+## Setup
+
+Sprinkles keeps no global state, so the app creates the toast store itself,
+once, where it starts, and renders one `<Toaster>` for it. Share the store
+with the rest of the app through a context (or a module, if your app allows
+module state); anything that can reach it can send toasts.
+
+```tsx
+import { type ToastStore, Toaster, createToaster } from '@webf/sprinkles';
+import { createContext, useContext } from 'solid-js';
+
+const ToastContext = createContext<ToastStore>();
+export const useToaster = () => useContext(ToastContext)!;
+
+export function App() {
+  const toaster = createToaster();
+  return (
+    <ToastContext.Provider value={toaster}>
+      <Toaster toaster={toaster} />
+      <Editor />
+    </ToastContext.Provider>
+  );
+}
+
+// In any component below App:
+useToaster().success({ title: 'Page published' });
+```
+
+`createToaster` takes Ark UI's options, with these defaults: `placement:
+'bottom-end'`, `overlap: false` (toasts stack instead of piling up), `gap:
+12` and `max: 5`. The examples on this page share one store, `toaster`.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Icon', note: 'From the type; none for neutral toasts.' },
+    { name: 'Title', note: 'What happened, in a few words.' },
+    { name: 'Description (optional)', note: 'One sentence more.' },
+    { name: 'Action (optional)', note: 'One button: “Undo”, “View page”.' },
+    { name: 'Close button', note: 'Dismisses it early.' },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Types
+
+The type picks the colour (a semantic role) and the icon.
+
+| Call                                  | Type      | Role          | Lasts |
+| ------------------------------------- | --------- | ------------- | ----- |
+| `toaster.create({ type: 'neutral' })` | `neutral` | `neutral`     | 5 s   |
+| `toaster.info()`                      | `info`    | `informative` | 5 s   |
+| `toaster.success()`                   | `success` | `positive`    | 2 s   |
+| `toaster.warning()`                   | `warning` | `notice`      | 5 s   |
+| `toaster.error()`                     | `error`   | `negative`    | 5 s   |
+
+`toaster.create()` without a type makes an `info` toast, so pass
+`type: 'neutral'` for a plain one. Pass `duration` (ms) to change how long
+one stays, or `Infinity` to keep it
+until it's dismissed. A toast also stays while the pointer is over the stack
+or focus is inside it.
+
+<ExampleBlock code={typesCode}>
+  <TypesOutput client:load />
+</ExampleBlock>
+
+## With an action
+
+`action: { label, onClick }` adds one button; choosing it also dismisses the
+toast. Give the toast a longer `duration` so the action can be read and
+reached, and make it something people can also do elsewhere, since the
+toast may be gone before they get to it.
+
+<ExampleBlock code={actionCode}>
+  <ActionOutput client:load />
+</ExampleBlock>
+
+## Following a promise
+
+`toaster.promise()` shows a loading toast with a spinner while the promise
+runs, then replaces it with the success or error toast.
+
+<ExampleBlock code={promiseCode}>
+  <PromiseOutput client:load />
+</ExampleBlock>
+
+## States
+
+- **Entering:** slides in from the bottom edge (200 ms), pushing older
+  toasts up.
+- **Paused:** the countdown stops while the pointer is over the stack, focus
+  is inside it, or the browser tab is hidden.
+- **Leaving:** slides out and fades (200 ms) when its time is up, when the
+  close button or action is pressed, or on Escape.
+- **Reduced motion:** toasts appear and disappear without moving.
+
+## Accessibility
+
+- The stack is a `region` labelled “Notifications” with `aria-live="polite"`,
+  so screen readers read new toasts without interrupting.
+- Alt+T moves focus to the stack; Tab reaches each toast's action and close
+  button. Escape dismisses the focused toast.
+- The close button is labelled “Dismiss notification”.
+- White text on each role's bold fill passes 4.5:1 contrast in the default
+  theme.
+
+## Do and don't
+
+<DoDont
+  doText='Confirm a finished action in a few words.'
+  dontText='Report a problem that needs fixing in a toast; it vanishes before people can act. Show it next to the field instead.'
+>
+  <DoBrief slot='do' client:load />
+  <DontBrief slot='dont' client:load />
+</DoDont>
+
+## Props
+
+`<Toaster>`:
+
+| Prop      | Type                                         | Default           |
+| --------- | -------------------------------------------- | ----------------- |
+| `toaster` | `ToastStore`, from `createToaster`; required |                   |
+| `label`   | `string`; names the region                   | `'Notifications'` |
+| `class`   | `string`; added to the stack                 |                   |
+
+Each toast (`toaster.create(options)` and friends):
+
+| Option        | Type                                                                    | Default   |
+| ------------- | ----------------------------------------------------------------------- | --------- |
+| `title`       | `JSX.Element`                                                           |           |
+| `description` | `JSX.Element`                                                           |           |
+| `type`        | `'neutral' \| 'info' \| 'success' \| 'warning' \| 'error' \| 'loading'` | `'info'`  |
+| `action`      | `{ label: string; onClick: () => void }`                                |           |
+| `duration`    | `number` (ms)                                                           | by type   |
+| `closable`    | `boolean`; shows the close button                                       | `true`    |
+| `id`          | `string`; to update or dismiss it later                                 | generated |

@@ -1,0 +1,104 @@
+---
+title: Separator
+description: A thin line that separates groups of content, horizontally or vertically.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/separator/anatomy.eg.tsx';
+import DecorativeOutput from '../../../examples/separator/decorative.eg.tsx';
+import decorativeCode from '../../../examples/separator/decorative.eg.tsx?raw';
+import DoGroups from '../../../examples/separator/do-groups.eg.tsx';
+import DontGroups from '../../../examples/separator/dont-groups.eg.tsx';
+import HorizontalOutput from '../../../examples/separator/horizontal.eg.tsx';
+import horizontalCode from '../../../examples/separator/horizontal.eg.tsx?raw';
+import SizesOutput from '../../../examples/separator/sizes.eg.tsx';
+import sizesCode from '../../../examples/separator/sizes.eg.tsx?raw';
+import VerticalOutput from '../../../examples/separator/vertical.eg.tsx';
+import verticalCode from '../../../examples/separator/vertical.eg.tsx?raw';
+
+```tsx
+import { Separator } from '@webf/sprinkles';
+```
+
+A separator is a thin line between groups of content: rows of settings, the
+sections of a card, groups of buttons in a toolbar. Spacing alone often does
+the job; reach for a line when groups sit close together. To group content
+on its own surface, use a [Card](/layout/card/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Line',
+      note: '1, 2 or 4 px, full width (horizontal) or full height (vertical).',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Horizontal
+
+The default. It spans the width of its container.
+
+<ExampleBlock code={horizontalCode}>
+  <HorizontalOutput />
+</ExampleBlock>
+
+## Vertical
+
+`orientation='vertical'` goes inside a flex row and stretches to the row's
+height; margins (`my-2`) shorten it.
+
+<ExampleBlock code={verticalCode}>
+  <VerticalOutput />
+</ExampleBlock>
+
+## Sizes
+
+Spectrum's three dividers: S (1 px) between items, M (2 px) between groups,
+and L (4 px, in the strong foreground colour) under a page or section title.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## Decorative
+
+When the line only echoes a break that headings or layout already make,
+mark it `decorative` so screen readers skip it.
+
+<ExampleBlock code={decorativeCode}>
+  <DecorativeOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- By default it has `role="separator"` (plus `aria-orientation="vertical"`
+  when vertical), so screen readers announce the break between groups.
+- `decorative` sets `role="none"`, for lines that add nothing a heading or
+  the layout doesn't already say.
+- It isn't focusable or interactive.
+
+## Do and don't
+
+<DoDont
+  doText='Separate groups of related items.'
+  dontText='Put a line between every item; spacing alone separates items.'
+>
+  <DoGroups slot='do' />
+  <DontGroups slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop          | Type                         | Default        |
+| ------------- | ---------------------------- | -------------- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `size`        | `'s' \| 'm' \| 'l'`          | `'s'`          |
+| `decorative`  | `boolean`                    | `false`        |
+| `class`       | `string`                     |                |

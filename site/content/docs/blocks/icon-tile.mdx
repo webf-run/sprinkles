@@ -1,0 +1,34 @@
+---
+title: Icon Tile
+description: A rounded square holding a decorative icon.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import VariantsOutput from '../../../examples/icon-tile/variants.eg.tsx';
+import variantsCode from '../../../examples/icon-tile/variants.eg.tsx?raw';
+
+```tsx
+import { IconTile } from '@webf/sprinkles';
+```
+
+A tile that frames an icon beside a heading or list item. `variant='inverse'` is the dark tile of `surface-inverse`; any tone works with `fillStyle` `bold` (default) or `subtle`.
+
+## Variants
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- Decorative: hidden from screen readers (`aria-hidden`).
+
+## Props
+
+| Prop        | Type                                 | Default     |
+| ----------- | ------------------------------------ | ----------- |
+| `icon`      | a lucide-solid icon                  |             |
+| `variant`   | a tone, or `'inverse'`               | `'neutral'` |
+| `fillStyle` | `'bold' \| 'subtle'`                 | `'bold'`    |
+| `size`      | `'m' \| 'l' \| 'xl'` (40, 48, 56 px) | `'l'`       |

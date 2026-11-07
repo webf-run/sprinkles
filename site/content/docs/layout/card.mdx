@@ -1,0 +1,158 @@
+---
+title: Card
+description: A surface that groups content about one subject, optionally linking to it as a whole.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/card/anatomy.eg.tsx';
+import BasicOutput from '../../../examples/card/basic.eg.tsx';
+import basicCode from '../../../examples/card/basic.eg.tsx?raw';
+import DoFlat from '../../../examples/card/do-flat.eg.tsx';
+import DoLink from '../../../examples/card/do-link.eg.tsx';
+import DontLink from '../../../examples/card/dont-link.eg.tsx';
+import DontNested from '../../../examples/card/dont-nested.eg.tsx';
+import ElevatedOutput from '../../../examples/card/elevated.eg.tsx';
+import elevatedCode from '../../../examples/card/elevated.eg.tsx?raw';
+import HeaderActionsOutput from '../../../examples/card/header-actions.eg.tsx';
+import headerActionsCode from '../../../examples/card/header-actions.eg.tsx?raw';
+import LinkOutput from '../../../examples/card/link.eg.tsx';
+import linkCode from '../../../examples/card/link.eg.tsx?raw';
+import StatesOutput from '../../../examples/card/states.eg.tsx';
+import statesCode from '../../../examples/card/states.eg.tsx?raw';
+
+```tsx
+import { Card, CardBody, CardFooter, CardHeader } from '@webf/sprinkles';
+```
+
+A card groups content about one subject on its own surface: a dashboard
+figure, a group of settings, a shortcut to a section. Compose a
+`CardHeader`, `CardBody` and `CardFooter` inside; each is padded, and the
+card spaces them evenly.
+
+The marketing cards in [Cards](/cards/feature-card/) are for websites; this
+one is the admin's plain container. To separate parts of one card, use a
+[Separator](/layout/separator/), not another card.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Container', note: 'Surface, a quiet border and 16 px corners.' },
+    {
+      name: 'Title',
+      note: 'An h3 by default; set headingLevel to fit the page.',
+    },
+    {
+      name: 'Description (optional)',
+      note: 'One line of context under the title.',
+    },
+    {
+      name: 'Actions (optional)',
+      note: 'Quiet buttons or a menu at the header’s end.',
+    },
+    { name: 'Body', note: 'The content.' },
+    { name: 'Footer (optional)', note: 'Status and actions in a row.' },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Header and body
+
+Most cards need only a header and a body.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Actions and footer
+
+`actions` sits at the header's end; `CardFooter` lays out buttons and status
+in a row. Pass `class='justify-end'` to push footer buttons to the end.
+
+<ExampleBlock code={headerActionsCode}>
+  <HeaderActionsOutput />
+</ExampleBlock>
+
+## Elevated
+
+`elevated` lifts the card off the page with the `elevated` shadow. Keep it
+for the one card that should stand out; flat cards are the default.
+
+<ExampleBlock code={elevatedCode}>
+  <ElevatedOutput />
+</ExampleBlock>
+
+## As a link
+
+With `href`, the whole card is one link: its edge darkens and it lifts on
+hover, and it shows the focus ring on keyboard focus. The link's name is the
+card's text, so keep it short, or give the card an `aria-label`.
+
+<ExampleBlock code={linkCode}>
+  <LinkOutput />
+</ExampleBlock>
+
+## States
+
+A linked card's default, hover, pressed and keyboard focus. Unlinked cards
+have no interactive states.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- An unlinked card is a `<div>`; pass `as='article'` for self-contained
+  content or `as='li'` inside a list of cards.
+- The title is a real heading (`h3` by default). Set `headingLevel` so the
+  page's outline has no gaps.
+- A linked card is a single `<a>`. Don't put buttons or other links inside
+  it: nested controls are invalid HTML and unreachable for many users.
+- A list of linked cards belongs in a `<ul>`, so screen readers announce how
+  many there are.
+
+## Do and don't
+
+<DoDont
+  doText='Keep a linked card to text, so the whole card is one clear target.'
+  dontText='Put buttons inside a linked card; they compete with the card’s own link.'
+>
+  <DoLink slot='do' />
+  <DontLink slot='dont' />
+</DoDont>
+
+<DoDont
+  doText='Separate parts of a card with a Separator or spacing.'
+  dontText='Nest cards inside cards; the borders pile up and the hierarchy blurs.'
+>
+  <DoFlat slot='do' />
+  <DontNested slot='dont' />
+</DoDont>
+
+## Props
+
+### Card
+
+| Prop                    | Type                                                 | Default |
+| ----------------------- | ---------------------------------------------------- | ------- |
+| `as`                    | `'div' \| 'article' \| 'section' \| 'li'` (unlinked) | `'div'` |
+| `elevated`              | `boolean`                                            | `false` |
+| `href`, `target`, `rel` | `string`; `href` makes the card one link             |         |
+| `aria-label`            | `string`; names a linked card                        |         |
+
+### CardHeader
+
+| Prop           | Type                          | Default |
+| -------------- | ----------------------------- | ------- |
+| `title`        | `JSX.Element`                 |         |
+| `description`  | `JSX.Element`                 |         |
+| `actions`      | `JSX.Element`                 |         |
+| `headingLevel` | `2 \| 3 \| 4 \| 5 \| 6`       | `3`     |
+| `children`     | extra content under the title |         |
+
+`CardBody` and `CardFooter` take `class` and `children`.

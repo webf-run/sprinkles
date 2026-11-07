@@ -15,6 +15,10 @@
 @import '../../lib/theme.css';
 @import './token.css';
 
+/* A second site's token values, for the header's theme switcher. Unlayered,
+   so it overrides the base tokens. */
+@import './themes/studio.css';
+
 /* Starlight reads its UI and code fonts from these. */
 @theme {
   --font-sans:
@@ -128,6 +132,8 @@ body {
   font-size: var(--sl-text-xs);
 }
 
+/* Previews always show components on the component theme's surface, also
+   when the docs themselves are dark. */
 .preview-body {
   display: flex;
   flex-wrap: wrap;
@@ -135,6 +141,10 @@ body {
   justify-content: flex-start;
   gap: 20px;
   padding: 40px;
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  /* Examples lay out by the preview's width (`@md:`), not the window's. */
+  container-type: inline-size;
 }
 
 .preview-code {

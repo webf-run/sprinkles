@@ -1,15 +1,16 @@
 import { BenefitCard } from '@webf/sprinkles';
-import { ShieldCheck } from 'lucide-solid';
+import GraduationCap from 'lucide-solid/icons/graduation-cap';
 
 export default function Example() {
   return (
     <BenefitCard
-      icon={ShieldCheck}
-      title='Reliable by default'
+      class='max-w-sm'
+      icon={GraduationCap}
+      title='Industry-ready curriculum'
       bullets={[
-        'Accessible markup out of the box',
-        'Consistent spacing across breakpoints',
-        'Works with any color token set',
+        'Updated every year with industry input',
+        'Hands-on lab work from the first term',
+        'Internships in the final year',
       ]}
     />
   );

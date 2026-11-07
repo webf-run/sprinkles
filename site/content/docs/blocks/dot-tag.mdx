@@ -1,0 +1,31 @@
+---
+title: Dot Tag
+description: An outlined tag with a bullet.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import BasicOutput from '../../../examples/dot-tag/basic.eg.tsx';
+import basicCode from '../../../examples/dot-tag/basic.eg.tsx?raw';
+
+```tsx
+import { DotTag } from '@webf/sprinkles';
+```
+
+A quiet tag for a topic or a subject area. It isn't interactive; for a status, use a [Badge](/feedback/badge/).
+
+## Basic
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- The bullet is decorative and hidden from screen readers.
+
+## Props
+
+| Prop    | Type     | Default |
+| ------- | -------- | ------- |
+| `label` | `string` |         |

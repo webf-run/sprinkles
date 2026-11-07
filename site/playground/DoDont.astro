@@ -1,0 +1,68 @@
+---
+/**
+ * A "do" and a "don't" side by side, as Spectrum's guidelines show them.
+ * Put the good example in the `do` slot and the bad one in the `dont` slot.
+ */
+interface Props {
+  /** Why the "do" works. */
+  doText: string;
+  /** What goes wrong in the "don't". */
+  dontText: string;
+}
+
+// Named apart from the `do` and `dont` slots: props with a slot's name arrive empty.
+const { doText, dontText } = Astro.props;
+---
+
+<div class='do-dont not-content'>
+  <figure class='do-dont-item' data-kind='do'>
+    <div class='do-dont-preview'><slot name='do' /></div>
+    <figcaption><strong>Do.</strong> {doText}</figcaption>
+  </figure>
+  <figure class='do-dont-item' data-kind='dont'>
+    <div class='do-dont-preview'><slot name='dont' /></div>
+    <figcaption><strong>Don't.</strong> {dontText}</figcaption>
+  </figure>
+</div>
+
+<style>
+  .do-dont {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .do-dont-item {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 16px;
+  }
+
+  .do-dont-item[data-kind='do'] {
+    border-top: 4px solid var(--color-positive);
+  }
+
+  .do-dont-item[data-kind='dont'] {
+    border-top: 4px solid var(--color-negative);
+  }
+
+  .do-dont-preview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    min-height: 7rem;
+    padding: 24px;
+    background: var(--color-surface);
+    color: var(--color-foreground);
+  }
+
+  figcaption {
+    padding: 12px 16px;
+    border-top: 1px solid var(--sl-color-gray-5);
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+</style>

@@ -2,25 +2,27 @@ import { TestimonialCard } from '@webf/sprinkles';
 
 export default function Example() {
   return (
-    <div class='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-      <TestimonialCard
-        effect='lift'
-        quote='Every component we needed for the marketing site was already here.'
-        name='Isabella Rossi'
-        role='Web Lead, Portico'
-      />
-      <TestimonialCard
-        effect='lift'
-        quote='The variant system made restyling for a client rebrand painless.'
-        name='Kenji Sato'
-        role='Freelance Developer'
-      />
-      <TestimonialCard
-        effect='lift'
-        quote='We reused the same card across three different product themes.'
-        name='Hannah Wright'
-        role='Design Systems, Vela'
-      />
+    <div class='@container w-full'>
+      <div class='grid gap-4 @lg:grid-cols-2 @3xl:grid-cols-3'>
+        <TestimonialCard
+          fillStyle='subtle'
+          quote='The open day answered every question we had about the course.'
+          name='Isabella Rossi'
+          role='First-year student'
+        />
+        <TestimonialCard
+          fillStyle='subtle'
+          quote='Lecturers who actually reply to email.'
+          name='Kenji Sato'
+          role='Engineering, 2026'
+        />
+        <TestimonialCard
+          fillStyle='subtle'
+          quote='The careers office found me my first internship in the second year.'
+          name='Hannah Wright'
+          role='Graduate, 2025'
+        />
+      </div>
     </div>
   );
 }

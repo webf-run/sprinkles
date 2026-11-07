@@ -1,0 +1,154 @@
+---
+title: Footer
+description: A contact footer with an optional "get in touch" strip, the address, phone and email, quick links, social links and the copyright.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/footer/anatomy.eg.tsx';
+import BasicOutput from '../../../examples/footer/basic.eg.tsx';
+import basicCode from '../../../examples/footer/basic.eg.tsx?raw';
+import ContactStripOutput from '../../../examples/footer/contact-strip.eg.tsx';
+import contactStripCode from '../../../examples/footer/contact-strip.eg.tsx?raw';
+import DoSurface from '../../../examples/footer/do-surface.eg.tsx';
+import DontSurface from '../../../examples/footer/dont-surface.eg.tsx';
+import InverseOutput from '../../../examples/footer/inverse.eg.tsx';
+import inverseCode from '../../../examples/footer/inverse.eg.tsx?raw';
+import MutedOutput from '../../../examples/footer/muted.eg.tsx';
+import mutedCode from '../../../examples/footer/muted.eg.tsx?raw';
+
+```tsx
+import { Footer } from '@webf/sprinkles';
+```
+
+The footer closes every page with the ways to reach you: the address, phone
+and email, a few quick links, and your social accounts. It suits a site whose
+visitors come to get in touch: a studio, a school, a clinic, a travel agency.
+For a footer that is mostly a sitemap, use [FooterColumns](/blocks/footer-columns/).
+
+Every part is optional, and the footer is laid out by its own width, so it
+stacks in a narrow column and spreads into two from 48rem (768 px).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Contact strip (optional)',
+      note: 'A question, a line of text, and call and email buttons.',
+    },
+    {
+      name: 'Brand',
+      note: 'Text, an image or your own mark, with a line about the site.',
+    },
+    {
+      name: 'Contact details',
+      note: 'Address, phone and email; phone and email are links.',
+    },
+    { name: 'Quick links', note: 'One or more columns under one heading.' },
+    { name: 'Copyright', note: '© and the year, then your text.' },
+    {
+      name: 'Social links',
+      note: 'Icon buttons, each named for screen readers.',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Contact details and links
+
+`address`, `phone` and `email` appear under the brand. `quickLinks` is a list
+of columns, each a list of links, shown side by side under `linksTitle`
+(“Quick links” by default). `socialLinks` take a brand mark (`Instagram`,
+`Facebook`, `Linkedin` from Sprinkles) or any lucide-solid icon, and a
+`label` that names the link.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Contact strip
+
+Set `ctaTitle` and a strip opens the footer: the question, an optional
+`ctaDescription`, and buttons to call `phone` and to email `email`.
+`emailLabel` names the email button (“Email us” by default); the call button
+shows the number itself.
+
+<ExampleBlock code={contactStripCode}>
+  <ContactStripOutput />
+</ExampleBlock>
+
+## Surface
+
+`surface` picks the band the footer sits on, and its text, links, icons,
+dividers and buttons follow:
+
+| Surface   | Use it for                                               |
+| --------- | -------------------------------------------------------- |
+| `default` | The page's own surface, with a divider above (default).  |
+| `muted`   | A quiet band that sets the footer apart from the page.   |
+| `inverse` | A dark band; buttons switch to their static white style. |
+
+<ExampleBlock code={mutedCode}>
+  <MutedOutput />
+</ExampleBlock>
+
+<ExampleBlock code={inverseCode}>
+  <InverseOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- Renders a `<footer>` (the page's content-info landmark). The contact
+  details sit in an `<address>`, and the quick links in a `<nav>` named by
+  `linksTitle`.
+- The strip's title and the links heading are `<h2>`s, so they fit after the
+  page's own sections.
+- Phone numbers become `tel:` links (spaces, brackets and dashes removed) and
+  email addresses `mailto:` links.
+- Social links show only an icon, so `label` is required: it's the link's
+  accessible name. Each is 40 × 40 px.
+- Text and links pass 4.5:1 contrast on all three surfaces.
+
+## Do and don't
+
+<DoDont
+  doText='Pick the band with the surface prop: text, links and buttons follow it.'
+  dontText='Recolour the footer with a class; its text keeps the light-surface colours.'
+>
+  <DoSurface slot='do' />
+  <DontSurface slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop             | Type                                             | Default         |
+| ---------------- | ------------------------------------------------ | --------------- |
+| `surface`        | `'default' \| 'muted' \| 'inverse'`              | `'default'`     |
+| `logoText`       | `string`; also the logo image's alt text         |                 |
+| `logoSrc`        | `string`                                         |                 |
+| `logo`           | `JSX.Element`; replaces `logoSrc` and `logoText` |                 |
+| `description`    | `string`                                         |                 |
+| `address`        | `string`                                         |                 |
+| `phone`          | `string`                                         |                 |
+| `email`          | `string`                                         |                 |
+| `ctaTitle`       | `string`; shows the contact strip                |                 |
+| `ctaDescription` | `string`                                         |                 |
+| `emailLabel`     | `string`                                         | `'Email us'`    |
+| `linksTitle`     | `string`                                         | `'Quick links'` |
+| `quickLinks`     | `FooterLink[][]`: columns of links               |                 |
+| `socialLinks`    | `FooterSocial[]`                                 |                 |
+| `year`           | `number`                                         | this year       |
+| `copyright`      | `string`; follows “© year”                       |                 |
+| `class`          | `string`                                         |                 |
+
+### FooterLink and FooterSocial
+
+| Field   | Type                                                 |
+| ------- | ---------------------------------------------------- |
+| `label` | `string`; for a social link, its accessible name     |
+| `href`  | `string`                                             |
+| `icon`  | FooterSocial only: a brand mark or lucide-solid icon |

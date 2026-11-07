@@ -2,7 +2,10 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "jsxImportSource": "solid-js",
+    // The docs import the library by its package name; check them against
+    // the source, not a stale dist/ (astro.config.ts aliases it the same way).
+    "paths": { "@webf/sprinkles": ["./lib/index.ts"] }
   },
   "include": [
     ".astro/types.d.ts",
@@ -11,6 +14,5 @@
     "astro.config.mjs",
     "public",
     "scripts/**/*"
-  ],
-  "exclude": ["lib-legacy/**/*"]
+  ]
 }

@@ -1,0 +1,114 @@
+---
+title: CtaSection
+description: A full-width band that asks for one action, with an eyebrow, a title, a description and one or two buttons.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/cta-section/anatomy.eg.tsx';
+import BasicOutput from '../../../examples/cta-section/basic.eg.tsx';
+import basicCode from '../../../examples/cta-section/basic.eg.tsx?raw';
+import DoLabel from '../../../examples/cta-section/do-label.eg.tsx';
+import DontLabel from '../../../examples/cta-section/dont-label.eg.tsx';
+import MutedOutput from '../../../examples/cta-section/muted.eg.tsx';
+import mutedCode from '../../../examples/cta-section/muted.eg.tsx?raw';
+import TwoActionsOutput from '../../../examples/cta-section/two-actions.eg.tsx';
+import twoActionsCode from '../../../examples/cta-section/two-actions.eg.tsx?raw';
+
+```tsx
+import { CtaSection } from '@webf/sprinkles';
+```
+
+A call-to-action section is a full-width band, usually near the end of a
+page, that asks the visitor to do one thing: book a class, apply, plan a
+trip. Everything in it is centred and leads to the button. For a call to
+action inside the page's grid, use [CtaCard](/blocks/cta-card/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Eyebrow (optional)', note: 'A Badge with one to three words.' },
+    { name: 'Title', note: 'The offer, in the heading font.' },
+    {
+      name: 'Description (optional)',
+      note: 'One or two sentences that remove a doubt.',
+    },
+    { name: 'Primary action', note: 'An extra-large button with an arrow.' },
+    {
+      name: 'Secondary action (optional)',
+      note: 'An outline button beside it.',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Primary action
+
+`primaryLabel` and `primaryHref` make the one button most visitors should
+press. The eyebrow and the description are optional.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Secondary action
+
+Add `secondaryLabel` and `secondaryHref` for a second, quieter way forward,
+such as more detail before deciding. It's an outline button, so the primary
+action still stands out.
+
+<ExampleBlock code={twoActionsCode}>
+  <TwoActionsOutput />
+</ExampleBlock>
+
+## Surface
+
+`surface` picks the band:
+
+| Surface   | Use it for                                                                    |
+| --------- | ----------------------------------------------------------------------------- |
+| `inverse` | A dark band with a soft glow (default); buttons use their static white style. |
+| `muted`   | A quiet light band, for pages that already have a dark hero or footer.        |
+| `default` | The page's own surface, between tinted sections.                              |
+
+<ExampleBlock code={mutedCode}>
+  <MutedOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- Renders a `<section>` labelled by its title, an `<h2>`, so it's a region
+  landmark with a name.
+- Buttons are links (`<a>`), 48 px tall, with the focus ring on keyboard
+  focus only. The arrow icon is hidden from screen readers.
+- Text and buttons pass 4.5:1 contrast on every surface; on `inverse` they
+  switch to white, whatever the theme's colours.
+- Keep the eyebrow short: a Badge stays on one line.
+
+## Do and don't
+
+<DoDont
+  doText='Say what happens when people press the button.'
+  dontText='Use a label that only says it is a link.'
+>
+  <DoLabel slot='do' />
+  <DontLabel slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop             | Type                                | Default     |
+| ---------------- | ----------------------------------- | ----------- |
+| `title`          | `string`                            |             |
+| `primaryLabel`   | `string`                            |             |
+| `primaryHref`    | `string`                            |             |
+| `secondaryLabel` | `string`                            |             |
+| `secondaryHref`  | `string`                            |             |
+| `eyebrow`        | `string`                            |             |
+| `description`    | `string`                            |             |
+| `surface`        | `'inverse' \| 'muted' \| 'default'` | `'inverse'` |
+| `class`          | `string`                            |             |

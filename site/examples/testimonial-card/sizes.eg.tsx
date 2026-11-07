@@ -2,28 +2,27 @@ import { TestimonialCard } from '@webf/sprinkles';
 
 export default function Example() {
   return (
-    <div class='grid gap-4 md:grid-cols-3'>
-      <TestimonialCard
-        size='sm'
-        variant='muted'
-        quote='Compact and clean for dense testimonial grids.'
-        name='Liam Brooks'
-        role='PM, Fieldkit'
-      />
-      <TestimonialCard
-        size='md'
-        variant='muted'
-        quote='The default size works well as a standalone highlight on a landing page.'
-        name='Noor Haddad'
-        role='Marketing Lead, Basil & Co.'
-      />
-      <TestimonialCard
-        size='lg'
-        variant='muted'
-        quote='Great for a single hero testimonial that needs more breathing room and a longer quote.'
-        name='Marcus Feld'
-        role='CEO, Northbound'
-      />
+    <div class='@container w-full'>
+      <div class='grid items-start gap-4 @3xl:grid-cols-3'>
+        <TestimonialCard
+          size='s'
+          quote='Compact, for dense grids.'
+          name='Liam Brooks'
+          role='Student'
+        />
+        <TestimonialCard
+          size='m'
+          quote='The default, for most grids of quotes.'
+          name='Noor Haddad'
+          role='Parent'
+        />
+        <TestimonialCard
+          size='l'
+          quote='Large, for one quote that carries a section.'
+          name='Marcus Feld'
+          role='Graduate, 2024'
+        />
+      </div>
     </div>
   );
 }

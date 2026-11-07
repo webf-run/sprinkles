@@ -1,0 +1,158 @@
+---
+title: Field
+description: The label, help and error text every field shares.
+sidebar:
+  order: 1
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/field/anatomy.eg.tsx';
+import CustomControlOutput from '../../../examples/field/custom-control.eg.tsx';
+import customControlCode from '../../../examples/field/custom-control.eg.tsx?raw';
+import DescriptionOutput from '../../../examples/field/description.eg.tsx';
+import descriptionCode from '../../../examples/field/description.eg.tsx?raw';
+import DisabledReadOnlyOutput from '../../../examples/field/disabled-read-only.eg.tsx';
+import disabledReadOnlyCode from '../../../examples/field/disabled-read-only.eg.tsx?raw';
+import DoError from '../../../examples/field/do-error.eg.tsx';
+import DoLabel from '../../../examples/field/do-label.eg.tsx';
+import DontError from '../../../examples/field/dont-error.eg.tsx';
+import DontLabel from '../../../examples/field/dont-label.eg.tsx';
+import ErrorOutput from '../../../examples/field/error.eg.tsx';
+import errorCode from '../../../examples/field/error.eg.tsx?raw';
+import RequiredOutput from '../../../examples/field/required.eg.tsx';
+import requiredCode from '../../../examples/field/required.eg.tsx?raw';
+
+```tsx
+import { Field, type FieldOptions } from '@webf/sprinkles';
+```
+
+Every field (TextField, TextArea, NumberInput, Select, Combobox, Checkbox,
+Switch, DatePicker and FileUpload) takes the same `FieldOptions` and wraps
+itself in `Field`. So a label, a description, an error, `required`,
+`invalid`, `disabled` and `readOnly` look and behave the same everywhere.
+
+You rarely use `Field` directly. Reach for it when you build a control of
+your own and want it to line up with the rest of the form.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Label',
+      note: 'Names the value. An asterisk marks a required field.',
+    },
+    { name: 'Control', note: 'The input, trigger or dropzone.' },
+    {
+      name: 'Description',
+      note: 'Help under the control: a format, a limit, what happens next.',
+    },
+    {
+      name: 'Error text (while invalid)',
+      note: 'Replaces the description and says how to fix the value.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Label and description
+
+Every field needs a visible `label`: a noun for the value, in sentence case,
+without a colon. `description` adds what the label can't say in a few words,
+such as a format or what the value is used for.
+
+<ExampleBlock code={descriptionCode}>
+  <DescriptionOutput client:load />
+</ExampleBlock>
+
+## Errors
+
+Set `invalid` and give `errorText`. The error replaces the description, the
+control's outline turns negative, and screen readers hear the error with the
+control. Say what to do, not what went wrong.
+
+<ExampleBlock code={errorCode}>
+  <ErrorOutput client:load />
+</ExampleBlock>
+
+## Required
+
+`required` adds an asterisk to the label and sets `required` on the control,
+so the browser and screen readers know too. When most fields in a form are
+required, mark the optional ones instead.
+
+<ExampleBlock code={requiredCode}>
+  <RequiredOutput client:load />
+</ExampleBlock>
+
+## Disabled and read-only
+
+Disabled fields can't be focused or changed, and their value isn't submitted:
+use them for settings that don't apply right now, and say why. Read-only
+fields show a value people can read, select and copy, but not change, on a
+muted surface.
+
+<ExampleBlock code={disabledReadOnlyCode}>
+  <DisabledReadOnlyOutput client:load />
+</ExampleBlock>
+
+## Custom controls
+
+Wrap your own control in `Field` and render it with Ark UI's field parts
+(`Field.Input`, `Field.Textarea`, `Field.Select` from `@ark-ui/solid/field`).
+They pick up the label, description, error and state from the field.
+
+<ExampleBlock code={customControlCode}>
+  <CustomControlOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- The label is a `<label>` pointing at the control, so clicking it focuses the
+  control and screen readers announce it as the control's name.
+- The description and the error text are linked with `aria-describedby`; the
+  error is linked only while `invalid`.
+- `invalid` sets `aria-invalid` on the control. The error colour is never the
+  only signal: the error text and its icon say it too.
+- The asterisk is hidden from screen readers, which hear "required" from the
+  control itself.
+- A field without a visible label must get an `aria-label`.
+
+## Do and don't
+
+<DoDont
+  doText='Label every field, and put help in the description.'
+  dontText='Use the placeholder as the label; it disappears as soon as people type.'
+>
+  <DoLabel slot='do' client:load />
+  <DontLabel slot='dont' client:load />
+</DoDont>
+
+<DoDont
+  doText='Say how to fix the value, with an example when it helps.'
+  dontText='Say only that something is wrong.'
+>
+  <DoError slot='do' client:load />
+  <DontError slot='dont' client:load />
+</DoDont>
+
+## Props
+
+`FieldOptions`, taken by every field:
+
+| Prop          | Type                                                 | Default |
+| ------------- | ---------------------------------------------------- | ------- |
+| `label`       | `JSX.Element`                                        |         |
+| `description` | `JSX.Element`; hidden while `invalid`                |         |
+| `errorText`   | `JSX.Element`; shown only while `invalid`            |         |
+| `required`    | `boolean`                                            | `false` |
+| `invalid`     | `boolean`                                            | `false` |
+| `disabled`    | `boolean`                                            | `false` |
+| `readOnly`    | `boolean`                                            | `false` |
+| `id`          | `string`; the control's id (generated when left out) |         |
+
+`Field` also takes `class` (for the wrapper) and `children` (the control).

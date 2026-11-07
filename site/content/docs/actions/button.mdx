@@ -1,0 +1,178 @@
+---
+title: Button
+description: Starts an action, or goes somewhere when it has an href.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/button/anatomy.eg.tsx';
+import DoLabel from '../../../examples/button/do-label.eg.tsx';
+import DoOneAccent from '../../../examples/button/do-one-accent.eg.tsx';
+import DontLabel from '../../../examples/button/dont-label.eg.tsx';
+import DontManyAccents from '../../../examples/button/dont-many-accents.eg.tsx';
+import FillStylesOutput from '../../../examples/button/fill-styles.eg.tsx';
+import fillStylesCode from '../../../examples/button/fill-styles.eg.tsx?raw';
+import IconsOutput from '../../../examples/button/icons.eg.tsx';
+import iconsCode from '../../../examples/button/icons.eg.tsx?raw';
+import LinkOutput from '../../../examples/button/link.eg.tsx';
+import linkCode from '../../../examples/button/link.eg.tsx?raw';
+import SizesOutput from '../../../examples/button/sizes.eg.tsx';
+import sizesCode from '../../../examples/button/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/button/states.eg.tsx';
+import statesCode from '../../../examples/button/states.eg.tsx?raw';
+import StaticColorOutput from '../../../examples/button/static-color.eg.tsx';
+import staticColorCode from '../../../examples/button/static-color.eg.tsx?raw';
+import VariantsOutput from '../../../examples/button/variants.eg.tsx';
+import variantsCode from '../../../examples/button/variants.eg.tsx?raw';
+
+```tsx
+import { Button } from '@webf/sprinkles';
+```
+
+A button starts an action: save, publish, delete. Give it `href` and it
+renders a link that looks like a button, for navigation that should read as
+a call to action. For a link inside text, use [Link](/navigation/link/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Container',
+      note: 'Fill or outline in the variant’s colour; height from the size.',
+    },
+    {
+      name: 'Icon (optional)',
+      note: 'A lucide-solid icon, sized by the button.',
+    },
+    {
+      name: 'Label',
+      note: 'A verb, or verb and noun: “Publish”, “Delete page”.',
+    },
+    {
+      name: 'End icon (optional)',
+      note: 'Usually an arrow for “go somewhere”.',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Variants
+
+`variant` says what the action means, not what colour it is.
+
+| Variant     | Use it for                                                            |
+| ----------- | --------------------------------------------------------------------- |
+| `accent`    | The one call to action in a view (default).                           |
+| `primary`   | A strong action without the accent colour.                            |
+| `secondary` | Everything else. Most buttons are secondary.                          |
+| `negative`  | Destructive actions that can't be undone easily.                      |
+| `highlight` | A design's second emphasis colour, for marketing pages that have one. |
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Fill style
+
+`fillStyle='bold'` (default) fills the button; `outline` draws only the border
+and label, for actions that sit beside a bold one.
+
+<ExampleBlock code={fillStylesCode}>
+  <FillStylesOutput />
+</ExampleBlock>
+
+## Sizes
+
+One scale for every control: S, M, L and XL are 24, 32, 40 and 48 px tall.
+Padding, text and icon size follow. M is the default; use L or XL for
+marketing calls to action, and S only in dense tables and toolbars.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## States
+
+Every state is designed: hover, pressed, keyboard focus, disabled and
+pending. The focus ring appears for keyboard focus only, never on click.
+Disabled looks the same for every variant. Pending keeps the label's width,
+shows a spinner, and ignores presses.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput />
+</ExampleBlock>
+
+## Icons
+
+`icon` goes before the label and `iconEnd` after it. A button with only an
+icon must have an `aria-label`.
+
+<ExampleBlock code={iconsCode}>
+  <IconsOutput />
+</ExampleBlock>
+
+## Static colour
+
+Over photos or a coloured band, `staticColor='white'` or `'black'` ignores the
+theme so the button keeps its contrast.
+
+<ExampleBlock code={staticColorCode}>
+  <StaticColorOutput />
+</ExampleBlock>
+
+## As a link
+
+With `href`, the button renders an `<a>`. A disabled button with `href`
+renders a disabled `<button>`, because a link can't be disabled.
+
+<ExampleBlock code={linkCode}>
+  <LinkOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- Renders a native `<button type="button">` (or `<a>`), so Enter and Space
+  work without extra code. Pass `type='submit'` inside forms.
+- Pending sets `aria-busy` and `aria-disabled` but keeps the button
+  focusable, so focus isn't lost while an action runs.
+- Every size is at least 24 × 24 px (WCAG 2.2 target size).
+- Label and fill pass 4.5:1 contrast in the default theme; `pnpm
+check:tokens` checks it.
+
+## Do and don't
+
+<DoDont
+  doText='Use one accent button per view, for the action most people take.'
+  dontText='Make every action an accent button; nothing then stands out.'
+>
+  <DoOneAccent slot='do' />
+  <DontManyAccents slot='dont' />
+</DoDont>
+
+<DoDont
+  doText='Say what happens: a verb, plus a noun when it helps.'
+  dontText='Use vague labels like “OK” or “Yes”, least of all for destructive actions.'
+>
+  <DoLabel slot='do' />
+  <DontLabel slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop          | Type                                                                | Default    |
+| ------------- | ------------------------------------------------------------------- | ---------- |
+| `variant`     | `'accent' \| 'primary' \| 'secondary' \| 'negative' \| 'highlight'` | `'accent'` |
+| `fillStyle`   | `'bold' \| 'outline'`                                               | `'bold'`   |
+| `size`        | `'s' \| 'm' \| 'l' \| 'xl'`                                         | `'m'`      |
+| `staticColor` | `'white' \| 'black'`                                                |            |
+| `pending`     | `boolean`                                                           | `false`    |
+| `disabled`    | `boolean`                                                           | `false`    |
+| `href`        | `string`; renders an `<a>`                                          |            |
+| `icon`        | a lucide-solid icon, before the label                               |            |
+| `iconEnd`     | a lucide-solid icon, after the label                                |            |
+| `type`        | `'button' \| 'submit' \| 'reset'`                                   | `'button'` |
+| `aria-label`  | `string`; required without a visible label                          |            |

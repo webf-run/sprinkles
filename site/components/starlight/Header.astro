@@ -21,18 +21,7 @@ import { Github, Sun, Moon } from 'lucide-astro';
           'transition-opacity duration-200 hover:opacity-85',
         ]}
       >
-        <span class:list={['text-(--sl-color-white)']}> Astro </span>
-
-        <span
-          class:list={[
-            'rounded-md px-2 py-0.5',
-            'text-[13px] font-semibold tracking-normal',
-            'bg-(--sl-color-accent-low)',
-            'text-(--sl-color-accent-high)',
-          ]}
-        >
-          UI
-        </span>
+        <span class:list={['text-(--sl-color-white)']}>Sprinkles</span>
       </a>
     </div>
 
@@ -89,7 +78,7 @@ import { Github, Sun, Moon } from 'lucide-astro';
 
       <!-- GitHub -->
       <a
-        href='https://github.com/webf-run/astro-ui'
+        href='https://github.com/webf-run/sprinkles'
         target='_blank'
         rel='noopener noreferrer'
         class:list={[
@@ -106,6 +95,26 @@ import { Github, Sun, Moon } from 'lucide-astro';
       >
         <Github size={18} />
       </a>
+
+      <!-- Component theme: re-skins every example with another site's token values. -->
+      <label
+        class:list={[
+          'hidden items-center gap-2 text-sm text-(--sl-color-gray-3)',
+          'lg:flex',
+        ]}
+      >
+        <span>Theme</span>
+        <select
+          id='sprinkles-theme'
+          class:list={[
+            'h-9 rounded-lg border border-(--sl-color-gray-5) bg-(--sl-color-bg) px-2',
+            'text-sm text-(--sl-color-white)',
+          ]}
+        >
+          <option value='default'>Sprinkles</option>
+          <option value='studio'>Studio</option>
+        </select>
+      </label>
 
       <!-- Theme toggle -->
       <button
@@ -132,6 +141,28 @@ import { Github, Sun, Moon } from 'lucide-astro';
 </div>
 
 <script is:inline>
+  // The component theme, applied before paint so examples don't flash.
+  (() => {
+    const select = document.getElementById('sprinkles-theme');
+    const apply = (theme) => {
+      if (theme === 'default')
+        delete document.documentElement.dataset.sprinklesTheme;
+      else document.documentElement.dataset.sprinklesTheme = theme;
+    };
+    let saved = 'default';
+    try {
+      saved = localStorage.getItem('sprinkles-theme') ?? 'default';
+    } catch {}
+    apply(saved);
+    if (select) select.value = saved;
+    select?.addEventListener('change', () => {
+      apply(select.value);
+      try {
+        localStorage.setItem('sprinkles-theme', select.value);
+      } catch {}
+    });
+  })();
+
   const btn = document.getElementById('theme-toggle');
   const sunIcon = document.getElementById('theme-icon-sun');
   const moonIcon = document.getElementById('theme-icon-moon');

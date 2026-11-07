@@ -1,0 +1,156 @@
+---
+title: AppShell
+description: The admin's frame, with a sidebar for navigation, a header and the page.
+# The examples need the room: the shell shows its sidebar from 768 px wide.
+tableOfContents: false
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AdminOutput from '../../../examples/app-shell/admin.eg.tsx';
+import adminCode from '../../../examples/app-shell/admin.eg.tsx?raw';
+import AnatomyOutput from '../../../examples/app-shell/anatomy.eg.tsx';
+import DoIcons from '../../../examples/app-shell/do-icons.eg.tsx';
+import DoLabels from '../../../examples/app-shell/do-labels.eg.tsx';
+import DontIcons from '../../../examples/app-shell/dont-icons.eg.tsx';
+import DontLabels from '../../../examples/app-shell/dont-labels.eg.tsx';
+import NarrowOutput from '../../../examples/app-shell/narrow.eg.tsx';
+import narrowCode from '../../../examples/app-shell/narrow.eg.tsx?raw';
+import NavItemsOutput from '../../../examples/app-shell/nav-items.eg.tsx';
+import navItemsCode from '../../../examples/app-shell/nav-items.eg.tsx?raw';
+
+```tsx
+import { AppShell, AppShellNavGroup, AppShellNavItem } from '@webf/sprinkles';
+```
+
+AppShell is the frame around every admin page: a sidebar with the app's
+sections, a header with the project's name, actions and the user menu, and
+the page itself in `<main>`. Use it once, at the root of an admin app. A
+website's header is a [Navbar](/blocks/navbar/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Sidebar',
+      note: 'An <aside>: the brand on top, then the <nav>, then an optional footer.',
+    },
+    {
+      name: 'Nav items',
+      note: 'Links with an icon; the current page is tinted.',
+    },
+    {
+      name: 'Header',
+      note: 'A <header>: the menu button (narrow only), the title, actions and the user menu.',
+    },
+    {
+      name: 'Main',
+      note: 'The page, in <main>. It scrolls on its own; the frame stays put.',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## The admin frame
+
+Pass the navigation as `sidebar`, the project's name as `title`, buttons as
+`actions` and the account control as `userMenu`. The page goes in as
+children.
+
+The shell fills the viewport (`h-dvh`). Here it sits in a fixed-height box,
+so it gets `class='h-full'`.
+
+<ExampleBlock code={adminCode}>
+  <AdminOutput client:load />
+</ExampleBlock>
+
+## Responsive
+
+The shell responds to its own width (a container query), not the window's.
+From 768 px the sidebar is a fixed 256 px column. Below that it's hidden,
+and a menu button at the start of the header opens it as a drawer over the
+page. The drawer closes with Escape, the close button, a click outside, or
+when a link in it is followed. It also closes if the shell grows wide enough
+to show the sidebar.
+
+<ExampleBlock code={narrowCode}>
+  <NarrowOutput client:load />
+</ExampleBlock>
+
+## Nav items
+
+`AppShellNavGroup` is a list of links with an optional label; the label
+names the list for screen readers. `AppShellNavItem` takes an `href`, an
+`icon` and, for the page being shown, `current`. `end` adds a count at the
+end, such as drafts waiting for review.
+
+<ExampleBlock code={navItemsCode}>
+  <NavItemsOutput />
+</ExampleBlock>
+
+## States
+
+Nav items show hover (grey), current (accent tint) and keyboard focus (the
+focus ring), as above. The current item stays tinted on hover, so it's
+always clear where you are.
+
+## Accessibility
+
+- Landmarks: the sidebar is an `<aside>` holding a `<nav>` (named by
+  `navLabel`, “Main” by default), the header is a `<header>`, and the page
+  is `<main>`. Screen reader users can jump straight to each.
+- `current` sets `aria-current="page"`, so screen readers say “current
+  page”.
+- The menu button has `aria-haspopup="dialog"` and `aria-expanded`. The
+  drawer is a modal dialog (Ark UI): focus moves into it and is trapped
+  there, Escape closes it, and focus returns to the menu button.
+- The drawer and its close button are labelled through `navLabel`,
+  `openNavLabel` and `closeNavLabel`; translate them with the rest of the
+  app.
+- Nav items are 32 px tall, above the 24 px minimum target.
+
+## Do and don't
+
+<DoDont
+  doText='Label sections with one word where you can.'
+  dontText='Write descriptions in the sidebar; they truncate and slow scanning.'
+>
+  <DoLabels slot='do' />
+  <DontLabels slot='dont' />
+</DoDont>
+
+<DoDont
+  doText='Give every item an icon, or none.'
+  dontText='Mix items with and without icons; the labels stop lining up.'
+>
+  <DoIcons slot='do' />
+  <DontIcons slot='dont' />
+</DoDont>
+
+## Props
+
+### AppShell
+
+| Prop            | Type                                               | Default              |
+| --------------- | -------------------------------------------------- | -------------------- |
+| `brand`         | `JSX.Element`; top of the sidebar and drawer       |                      |
+| `title`         | `JSX.Element`; plain text in the header            |                      |
+| `actions`       | `JSX.Element`; header buttons                      |                      |
+| `userMenu`      | `JSX.Element`; the header's last control           |                      |
+| `sidebar`       | `JSX.Element`; nav groups and items, passed inline |                      |
+| `sidebarFooter` | `JSX.Element`; pinned to the sidebar's bottom      |                      |
+| `navLabel`      | `string`                                           | `'Main'`             |
+| `openNavLabel`  | `string`                                           | `'Open navigation'`  |
+| `closeNavLabel` | `string`                                           | `'Close navigation'` |
+| `class`         | `string`; `'h-full'` to fill a container           |                      |
+
+### AppShellNavGroup and AppShellNavItem
+
+| Part               | Props                                                                       |
+| ------------------ | --------------------------------------------------------------------------- |
+| `AppShellNavGroup` | `label`, `class`, `children`                                                |
+| `AppShellNavItem`  | `href` (required), `icon`, `current`, `end`, `onClick`, `class`, `children` |

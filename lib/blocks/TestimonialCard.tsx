@@ -1,227 +1,155 @@
-import { type VariantProps, cva } from 'class-variance-authority';
-import { Quote, Star } from 'lucide-solid';
-import { Show } from 'solid-js';
+import { cva } from 'class-variance-authority';
+import Quote from 'lucide-solid/icons/quote';
+import Star from 'lucide-solid/icons/star';
+import { For, Show } from 'solid-js';
 
+import { cardIcon, cardSurface } from '../core/card';
+import type { FillStyle } from '../core/control';
+import { type Tone, toTone } from '../core/tone';
 import { cn } from '../utils';
 
-const variants = cva(
-  'flex w-full flex-col rounded-3xl border transition-shadow duration-200',
-  {
-    variants: {
-      variant: {
-        default: 'border-border bg-surface',
-        muted: 'border-border bg-surface-muted',
-        accent: 'border-surface-emphasis bg-surface-soft',
-        inverse: 'border-accent bg-accent text-accent-foreground',
-        purple: 'border-surface-soft bg-surface-soft',
-        orange: 'border-orange-55 bg-orange-55',
-        green: 'border-green-40 bg-green-40',
-        blue: 'border-blue-80 bg-blue-80',
-        neutral: 'border-neutral-40 bg-neutral-40',
-        /** Borderless white card with a plain quote, name and role. */
-        plain: 'rounded-10 border-transparent bg-surface',
-      },
-      size: {
-        sm: 'gap-3 px-5 py-4',
-        md: 'gap-4 px-6 py-5',
-        lg: 'gap-5 px-8 py-7',
-      },
-      effect: {
-        none: '',
-        lift: 'hover:-translate-y-1 hover:shadow-lg',
-        glow: 'hover:shadow-md hover:shadow-primary/25',
-      },
-    },
-    defaultVariants: { variant: 'default', size: 'md', effect: 'none' },
-  }
-);
-const text = cva('', {
+const card = cva('m-0 flex w-full flex-col rounded-2xl border', {
   variants: {
-    variant: {
-      default: 'text-foreground',
-      muted: 'text-foreground',
-      accent: 'text-foreground',
-      inverse: 'text-accent-foreground',
-      purple: 'text-primary',
-      orange: 'text-orange-540',
-      green: 'text-green-530',
-      blue: 'text-blue-610',
-      neutral: 'text-neutral-650',
-      plain: 'text-foreground',
+    size: {
+      s: 'gap-3 p-5',
+      m: 'gap-4 p-6',
+      l: 'gap-6 p-8',
     },
   },
-  defaultVariants: { variant: 'default' },
+  defaultVariants: { size: 'm' },
 });
-const accent = cva('', {
-  variants: {
-    variant: {
-      default: 'text-neutral-650',
-      muted: 'text-neutral-650',
-      accent: 'text-primary',
-      inverse: 'text-accent-foreground/70',
-      purple: 'text-primary',
-      orange: 'text-orange-540',
-      green: 'text-green-530',
-      blue: 'text-blue-610',
-      neutral: 'text-neutral-650',
-      plain: 'text-neutral-650',
-    },
-  },
-  defaultVariants: { variant: 'default' },
-});
-interface TestimonialCardProps extends VariantProps<typeof variants> {
+
+const Chip = { s: 'size-8', m: 'size-10', l: 'size-12' } as const;
+const ChipIcon = { s: 'size-4', m: 'size-5', l: 'size-6' } as const;
+const StarSize = { s: 'size-4', m: 'size-4', l: 'size-5' } as const;
+const QuoteText = {
+  s: 'text-fluid-sm',
+  m: 'text-fluid-md',
+  l: 'text-fluid-xl',
+} as const;
+const Avatar = {
+  s: 'size-9 text-xs',
+  m: 'size-10 text-sm',
+  l: 'size-12 text-base',
+} as const;
+const Caption = { s: 'text-sm', m: 'text-sm', l: 'text-base' } as const;
+
+/** The five positions of a star rating. */
+const StarSlots = [1, 2, 3, 4, 5] as const;
+
+export interface TestimonialCardProps {
   quote: string;
   name: string;
+  /** Their role, title or relationship, e.g. "Parent of a Grade 4 student". */
   role?: string;
+  /** Photo URL. Without it, the card shows their initials. */
   avatar?: string;
+  /** Stars out of five, rounded to a whole star. */
   rating?: number;
+  /** The tone of the quote mark and initials (or the card, with `subtle` and `bold`). */
+  variant?: Tone;
+  fillStyle?: FillStyle;
+  size?: 's' | 'm' | 'l';
   class?: string;
 }
-export function TestimonialCard(p: TestimonialCardProps) {
-  const size = () => p.size ?? 'md';
-  const v = () => p.variant ?? 'default';
-  const rating = () =>
-    p.rating === undefined
-      ? undefined
-      : Math.min(5, Math.max(0, Math.round(p.rating)));
-  const initials = () =>
-    p.name
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((x) => x[0]?.toUpperCase())
-      .join('');
-  return (
-    <Show
-      when={p.variant !== 'plain'}
-      fallback={
-        <div
-          class={cn(
-            'flex h-full flex-col rounded-10 bg-surface',
-            'gap-4 p-6',
-            'md:gap-6 md:p-8',
-            'xl:gap-2 xl:px-8 xl:py-15',
-            p.class
-          )}
-        >
-          <p class='flex-1 text-fluid-lg leading-150 font-normal tracking-tight-8 text-foreground'>
-            {'\u201C'}
-            {p.quote}
-            {'\u201D'}
-          </p>
 
-          <div class='flex items-center gap-3 xl:gap-4'>
-            <div class='flex flex-col'>
-              <p class='text-fluid-md leading-165 font-bold text-foreground-strong'>
-                {p.name}
-              </p>
-              <p class='text-fluid-sm leading-160 font-normal text-neutral-520'>
-                {p.role}
-              </p>
-            </div>
-          </div>
-        </div>
-      }
+/** Up to two initials from a name: "Amara Chen" → "AC". */
+function initialsOf(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0]?.toUpperCase())
+    .join('');
+}
+
+/** A quote and the person who said it, with an optional photo and rating. */
+export function TestimonialCard(props: TestimonialCardProps) {
+  const size = () => props.size ?? 'm';
+  const tone = () => toTone(props.variant, 'accent');
+  const fill = () => props.fillStyle ?? 'outline';
+  const chip = () => cardIcon(tone(), fill());
+  const muted = () => (fill() === 'bold' ? undefined : 'text-foreground-muted');
+  const rating = () =>
+    props.rating === undefined
+      ? undefined
+      : Math.min(5, Math.max(0, Math.round(props.rating)));
+
+  return (
+    <figure
+      class={cn(
+        card({ size: size() }),
+        cardSurface(tone(), fill()),
+        props.class
+      )}
     >
-      <figure
-        class={cn(
-          variants({ variant: v(), size: size(), effect: p.effect }),
-          p.class
-        )}
-      >
-        <Quote
+      <div class='flex items-center justify-between gap-3'>
+        <span
+          aria-hidden='true'
           class={cn(
-            'shrink-0',
-            size() === 'sm' ? 'size-6' : size() === 'md' ? 'size-7' : 'size-8',
-            accent({ variant: v() })
-          )}
-          fill='currentColor'
-          stroke='none'
-        />
-        {rating() !== undefined && (
-          <div
-            class='flex items-center gap-0.5'
-            aria-label={`Rated ${rating()} out of 5`}
-          >
-            {[0, 1, 2, 3, 4].map((i) => (
-              <Star
-                class={cn(
-                  size() === 'sm' ? 'size-3.5' : 'size-4',
-                  i < rating()!
-                    ? accent({ variant: v() })
-                    : 'text-purple-70'
-                )}
-                fill={i < rating()! ? 'currentColor' : 'none'}
-                strokeWidth={1.75}
-              />
-            ))}
-          </div>
-        )}
-        <blockquote
-          class={cn(
-            'flex-1 leading-relaxed font-medium',
-            size() === 'sm'
-              ? 'text-sm'
-              : size() === 'md'
-                ? 'text-base'
-                : 'text-lg',
-            text({ variant: v() })
+            'flex shrink-0 items-center justify-center rounded-full',
+            Chip[size()],
+            chip()
           )}
         >
-          {p.quote}
-        </blockquote>
-        <figcaption class='mt-1 flex items-center gap-3'>
-          {p.avatar ? (
-            <img
-              src={p.avatar}
-              alt={p.name}
-              class={cn(
-                'shrink-0 rounded-full object-cover',
-                size() === 'sm'
-                  ? 'size-9'
-                  : size() === 'lg'
-                    ? 'size-12'
-                    : 'size-10'
+          <Quote class={ChipIcon[size()]} fill='currentColor' stroke='none' />
+        </span>
+
+        <Show when={rating() !== undefined}>
+          <div
+            role='img'
+            aria-label={`Rated ${rating()} out of 5`}
+            class='flex items-center gap-1'
+          >
+            <For each={StarSlots}>
+              {(slot) => (
+                <Star
+                  aria-hidden='true'
+                  class={cn(StarSize[size()], slot > rating()! && 'opacity-30')}
+                  fill='currentColor'
+                  stroke='none'
+                />
               )}
-            />
-          ) : (
-            <span
-              class={cn(
-                'flex shrink-0 items-center justify-center rounded-full bg-current/10 font-semibold',
-                size() === 'sm'
-                  ? 'size-9 text-xs'
-                  : size() === 'lg'
-                    ? 'size-12 text-sm'
-                    : 'size-10 text-xs',
-                accent({ variant: v() })
-              )}
-            >
-              <span class={text({ variant: v() })}>{initials()}</span>
-            </span>
-          )}
-          <div class='flex min-w-0 flex-col'>
-            <span
-              class={cn(
-                'truncate leading-normal font-semibold',
-                size() === 'lg' ? 'text-base' : 'text-sm',
-                text({ variant: v() })
-              )}
-            >
-              {p.name}
-            </span>
-            {p.role && (
-              <span
-                class={cn(
-                  'truncate text-xs leading-normal opacity-70',
-                  text({ variant: v() })
-                )}
-              >
-                {p.role}
-              </span>
-            )}
+            </For>
           </div>
-        </figcaption>
-      </figure>
-    </Show>
+        </Show>
+      </div>
+
+      <blockquote class={cn('m-0 flex-1 font-medium', QuoteText[size()])}>
+        {props.quote}
+      </blockquote>
+
+      <figcaption class='flex items-center gap-3'>
+        <Show
+          when={props.avatar}
+          fallback={
+            <span
+              aria-hidden='true'
+              class={cn(
+                'flex shrink-0 items-center justify-center rounded-full font-semibold',
+                Avatar[size()],
+                chip()
+              )}
+            >
+              {initialsOf(props.name)}
+            </span>
+          }
+        >
+          {(avatar) => (
+            <img
+              src={avatar()}
+              alt=''
+              class={cn('shrink-0 rounded-full object-cover', Avatar[size()])}
+            />
+          )}
+        </Show>
+        <span class={cn('flex min-w-0 flex-col', Caption[size()])}>
+          <span class='font-semibold'>{props.name}</span>
+          <Show when={props.role}>
+            <span class={muted()}>{props.role}</span>
+          </Show>
+        </span>
+      </figcaption>
+    </figure>
   );
 }

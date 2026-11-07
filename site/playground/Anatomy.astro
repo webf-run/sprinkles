@@ -1,0 +1,75 @@
+---
+/**
+ * A component's parts: the component in the slot, its parts listed beside it.
+ * Number the parts in the order a reader meets them (left to right, top to
+ * bottom).
+ */
+interface Props {
+  parts: { name: string; note?: string }[];
+}
+
+const { parts } = Astro.props;
+---
+
+<div class='anatomy not-content'>
+  <div class='anatomy-preview'><slot /></div>
+  <ol class='anatomy-parts'>
+    {
+      parts.map((part) => (
+        <li>
+          <span class='anatomy-name'>{part.name}</span>
+          {part.note && <span class='anatomy-note'>{part.note}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .anatomy {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    margin: 1.5rem 0;
+    overflow: hidden;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 16px;
+  }
+
+  @media (max-width: 50rem) {
+    .anatomy {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .anatomy-preview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 9rem;
+    padding: 32px;
+    background: var(--color-surface);
+    color: var(--color-foreground);
+  }
+
+  .anatomy-parts {
+    margin: 0;
+    padding: 20px 20px 20px 40px;
+    border-left: 1px solid var(--sl-color-gray-5);
+    font-size: var(--sl-text-sm);
+  }
+
+  .anatomy-parts li + li {
+    margin-top: 8px;
+  }
+
+  .anatomy-name {
+    font-weight: 600;
+  }
+
+  .anatomy-note {
+    display: block;
+    color: var(--sl-color-gray-3);
+  }
+</style>

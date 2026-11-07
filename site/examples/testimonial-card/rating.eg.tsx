@@ -2,22 +2,22 @@ import { TestimonialCard } from '@webf/sprinkles';
 
 export default function Example() {
   return (
-    <div class='grid gap-4 sm:grid-cols-2'>
-      <TestimonialCard
-        variant='accent'
-        rating={5}
-        avatar='https://i.pravatar.cc/100?img=32'
-        quote='Five stars end to end — support, docs, and the components themselves.'
-        name='Elena Popescu'
-        role='Verified Customer'
-      />
-      <TestimonialCard
-        rating={4}
-        avatar='https://i.pravatar.cc/100?img=15'
-        quote='Solid product overall, a couple of edge cases needed workarounds.'
-        name='Tomás Silva'
-        role='Verified Customer'
-      />
+    <div class='@container w-full'>
+      <div class='grid gap-4 @lg:grid-cols-2'>
+        <TestimonialCard
+          rating={5}
+          avatar='https://i.pravatar.cc/96?img=32'
+          quote='Booking took two minutes and the guide was wonderful.'
+          name='Elena Popescu'
+          role='Travelled to Lisbon'
+        />
+        <TestimonialCard
+          rating={4}
+          quote='A great week. The hotel on the second night was too far from the old town.'
+          name='Tomás Silva'
+          role='Travelled to Porto'
+        />
+      </div>
     </div>
   );
 }

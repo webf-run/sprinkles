@@ -1,0 +1,151 @@
+---
+title: Dialog
+description: A modal window for a focused task, such as editing settings.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/dialog/anatomy.eg.tsx';
+import ControlledOutput from '../../../examples/dialog/controlled.eg.tsx';
+import controlledCode from '../../../examples/dialog/controlled.eg.tsx?raw';
+import DoActions from '../../../examples/dialog/do-actions.eg.tsx';
+import DontActions from '../../../examples/dialog/dont-actions.eg.tsx';
+import ScrollingOutput from '../../../examples/dialog/scrolling.eg.tsx';
+import scrollingCode from '../../../examples/dialog/scrolling.eg.tsx?raw';
+import SizesOutput from '../../../examples/dialog/sizes.eg.tsx';
+import sizesCode from '../../../examples/dialog/sizes.eg.tsx?raw';
+import TriggerOutput from '../../../examples/dialog/trigger.eg.tsx';
+import triggerCode from '../../../examples/dialog/trigger.eg.tsx?raw';
+
+```tsx
+import { Dialog } from '@webf/sprinkles';
+```
+
+A dialog opens over the page for a task that needs full attention and has a
+clear end: renaming a page, editing its settings, moving an image. The page
+behind is dimmed and can't be used until the dialog closes.
+
+To confirm or cancel a single action (delete, publish, overwrite), use an
+[AlertDialog](/overlays/alert-dialog/). For a small form or details that
+shouldn't hide the page, use a [Popover](/overlays/popover/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Backdrop',
+      note: 'Dims the page behind; a click on it closes the dialog.',
+    },
+    { name: 'Title', note: 'Names the task. Screen readers read it first.' },
+    {
+      name: 'Description (optional)',
+      note: 'One or two sentences of context.',
+    },
+    {
+      name: 'Body',
+      note: 'The form or content. It scrolls when it doesn’t fit.',
+    },
+    { name: 'Footer (optional)', note: 'Buttons, the main action last.' },
+    {
+      name: 'Close button',
+      note: 'Top right; hide it with dismissable={false}.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## With a trigger
+
+`trigger` renders the element that opens the dialog. It receives the props
+Ark needs (ARIA attributes, the click handler): spread them on a
+[Button](/actions/button/). Give `footer` a function to get `close` for the
+Cancel button.
+
+<ExampleBlock code={triggerCode}>
+  <TriggerOutput client:load />
+</ExampleBlock>
+
+## Controlled
+
+Pass `open` and `onOpenChange` to open the dialog from your own code, for
+example from a menu item or after a check. `onOpenChange(false)` fires for
+Escape, the close button and a click on the backdrop.
+
+<ExampleBlock code={controlledCode}>
+  <ControlledOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+`size` sets the maximum width: S, M and L are 384, 512 and 672 px. M is the
+default; use S for a single field and L for a table or a preview. On small
+screens every size fills the width, less a 16 px margin.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## Long content
+
+The header and footer stay put; the body scrolls. The dialog is never taller
+than the window.
+
+<ExampleBlock code={scrollingCode}>
+  <ScrollingOutput client:load />
+</ExampleBlock>
+
+## States
+
+- **Opening:** the backdrop fades in and the dialog pops in (200 ms). Focus
+  moves to the first field or button in the body, then the footer; the close
+  button comes last.
+- **Closing:** both fade out (100 ms), the content unmounts, and focus
+  returns to the trigger, or to whatever had focus before.
+- **Reopening:** the body and footer are created afresh, so a form starts
+  from its default values.
+- **Reduced motion:** no fade or scale; it appears and disappears at once.
+
+## Accessibility
+
+- Rendered with `role="dialog"` and `aria-modal="true"`; the title and the
+  description label and describe it.
+- Focus is trapped inside while it's open: Tab and Shift+Tab cycle through
+  its controls. The page behind is hidden from screen readers and doesn't
+  scroll.
+- Escape closes it (unless `closeOnEscape={false}`), as do the close button
+  and a click on the backdrop (unless `closeOnInteractOutside={false}`).
+- The close button is labelled “Close”, is 32 × 32 px, and is last in the
+  tab order so focus starts on the task.
+
+## Do and don't
+
+<DoDont
+  doText='Name the button after the task, and the dialog after the button: “Add redirect” opens “Add redirect”, which ends with “Add redirect”.'
+  dontText='Use vague titles and “OK”/“No”: people have to read the form to know what OK does.'
+>
+  <DoActions slot='do' client:load />
+  <DontActions slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                     | Type                                                  | Default    |
+| ------------------------ | ----------------------------------------------------- | ---------- |
+| `title`                  | `JSX.Element`; required                               |            |
+| `description`            | `JSX.Element`                                         |            |
+| `children`               | `JSX.Element`; the body                               |            |
+| `footer`                 | `JSX.Element \| ((close: () => void) => JSX.Element)` |            |
+| `size`                   | `'s' \| 'm' \| 'l'`                                   | `'m'`      |
+| `trigger`                | `(props: TriggerProps) => JSX.Element`                |            |
+| `open`                   | `boolean`; controlled                                 |            |
+| `defaultOpen`            | `boolean`                                             | `false`    |
+| `onOpenChange`           | `(open: boolean) => void`                             |            |
+| `dismissable`            | `boolean`; shows the close button                     | `true`     |
+| `closeOnEscape`          | `boolean`                                             | `true`     |
+| `closeOnInteractOutside` | `boolean`                                             | `true`     |
+| `role`                   | `'dialog' \| 'alertdialog'`                           | `'dialog'` |
+| `class`                  | `string`; added to the dialog's panel                 |            |

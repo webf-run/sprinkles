@@ -1,8 +1,11 @@
+import { Show } from 'solid-js';
+
+import { Badge } from '../components/Badge';
+import { Button } from '../components/Button';
 import { cn } from '../utils';
-import { Link } from './Link';
 
 export interface CtaCardProps {
-  /** Small uppercase label above the title. */
+  /** A short label above the title: one to three words. */
   eyebrow?: string;
   title: string;
   description?: string;
@@ -14,60 +17,49 @@ export interface CtaCardProps {
 }
 
 /**
- * Light, left-aligned call-to-action card: eyebrow, heading, description and
- * a primary + optional secondary (outline) button.
+ * A left-aligned call to action on a muted card: eyebrow, title,
+ * description, a primary button and an optional secondary one. For a
+ * full-width band, use `CtaSection`.
  */
 export function CtaCard(props: CtaCardProps) {
-  const buttonSize = 'h-12 px-4 py-0 text-fluid-lg md:h-15.25';
-
   return (
-    <div
+    <section
       class={cn(
-        'flex flex-col justify-center rounded-3xl bg-surface-muted',
-        'p-6 md:px-8 md:py-10 xl:min-h-77.5',
+        'flex w-full flex-col items-start rounded-3xl bg-surface-muted p-6 sm:p-8',
         props.class
       )}
     >
-      {props.eyebrow && (
-        <p class='text-fluid-sm leading-120 font-bold text-primary-dark uppercase 2xl:text-(length:--text-fluid-md)'>
+      <Show when={props.eyebrow}>
+        <Badge size='l' variant='accent' fillStyle='outline' class='mb-4'>
           {props.eyebrow}
-        </p>
-      )}
+        </Badge>
+      </Show>
 
-      <h2
-        class={cn(
-          'font-heading text-fluid-2xl leading-126 font-normal text-foreground-strongest',
-          props.eyebrow && 'mt-3'
-        )}
-      >
+      <h2 class='m-0 font-heading text-fluid-3xl font-semibold text-balance text-foreground-strongest'>
         {props.title}
       </h2>
 
-      {props.description && (
-        <p class='mt-3 text-fluid-lg leading-120 text-foreground-muted'>
+      <Show when={props.description}>
+        <p class='m-0 mt-3 max-w-2xl text-fluid-lg text-pretty text-foreground-muted'>
           {props.description}
         </p>
-      )}
+      </Show>
 
-      <div class='mt-6 flex flex-wrap items-center gap-2.5 xl:mt-7'>
-        <Link
-          href={props.primaryHref}
-          variant='brand'
-          class={cn(buttonSize, 'hover:bg-primary-dark')}
-        >
+      <div class='mt-auto flex flex-wrap gap-3 pt-8'>
+        <Button href={props.primaryHref} size='l'>
           {props.primaryLabel}
-        </Link>
-
-        {props.secondaryLabel && props.secondaryHref && (
-          <Link
+        </Button>
+        <Show when={props.secondaryLabel && props.secondaryHref}>
+          <Button
             href={props.secondaryHref}
-            variant='brand-outline'
-            class={buttonSize}
+            size='l'
+            variant='secondary'
+            fillStyle='outline'
           >
             {props.secondaryLabel}
-          </Link>
-        )}
+          </Button>
+        </Show>
       </div>
-    </div>
+    </section>
   );
 }

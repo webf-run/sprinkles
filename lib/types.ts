@@ -7,4 +7,5 @@ export type IconComponent = Component<{
   color?: string;
   strokeWidth?: number | string;
   style?: string | JSX.CSSProperties;
+  'aria-hidden'?: boolean | 'true' | 'false';
 }>;

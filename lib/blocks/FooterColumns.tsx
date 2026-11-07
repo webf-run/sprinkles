@@ -1,8 +1,15 @@
 import { For, type JSX, Show } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
 
+import { Link } from '../components/Link';
 import { cn } from '../utils';
-import type { FooterSocial } from './Footer';
+import {
+  FooterBottom,
+  FooterBrand,
+  FooterContainer,
+  type FooterSocial,
+  type FooterSurface,
+  FooterSurfaces,
+} from './Footer';
 
 export interface FooterColumnLink {
   label: string;
@@ -16,90 +23,98 @@ export interface FooterColumn {
 }
 
 export interface FooterColumnsProps {
-  /** Brand mark. From Astro pass it as a named slot: `<Fragment slot='logo'>…</Fragment>`. */
+  surface?: FooterSurface;
+  /** Custom brand mark; replaces `logoSrc` and `logoText`. */
   logo?: JSX.Element;
+  /** Logo image. `logoText` becomes its alt text. */
+  logoSrc?: string;
+  logoText?: string;
   description?: string;
   columns: FooterColumn[];
+  /** Accessible name of the navigation landmark that holds the columns. */
+  label?: string;
   socialLinks?: FooterSocial[];
+  /** Defaults to the current year. */
   year?: number;
   copyright?: string;
   class?: string;
 }
 
 /**
- * Light footer: brand + tagline on the left, titled link columns on the
- * right, then social icons and the copyright line. It renders the content
- * only – wrap it in the page container / background you need.
+ * A sitemap footer: the brand and a line about the site, titled columns of
+ * links beside it, then the copyright and social links.
  */
 export function FooterColumns(props: FooterColumnsProps) {
+  const surface = () => props.surface ?? 'default';
+  const colours = () => FooterSurfaces[surface()];
+
   return (
-    <footer class={cn('flex flex-col', props.class)}>
-      <div class='flex flex-col gap-10 xl:flex-row xl:gap-20'>
-        <div class='xl:w-72 xl:shrink-0'>
-          {props.logo}
-          <Show when={props.description}>
-            <p class='mt-7.5 max-w-60 text-(length:--text-fluid-sm) leading-126 text-foreground-muted'>
-              {props.description}
-            </p>
-          </Show>
-        </div>
+    <footer class={cn('@container w-full', colours().root, props.class)}>
+      <div class={FooterContainer}>
+        <div class='flex flex-col gap-12 py-12 @4xl:flex-row @4xl:justify-between @4xl:gap-16'>
+          <div class='@4xl:max-w-xs'>
+            <FooterBrand
+              surface={surface()}
+              logo={props.logo}
+              logoSrc={props.logoSrc}
+              logoText={props.logoText}
+              description={props.description}
+            />
+          </div>
 
-        <div class='grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 md:flex md:flex-wrap md:gap-x-16 2xl:gap-x-44'>
-          <For each={props.columns}>
-            {(column) => (
-              <div class='min-w-0'>
-                <h3 class='text-(length:--text-fluid-sm) leading-120 font-bold text-foreground-strongest'>
-                  {column.title}
-                </h3>
-                <ul class='mt-5 flex list-none flex-col gap-4 p-0'>
-                  <For each={column.links}>
-                    {(link) => (
-                      <li class='text-(length:--text-fluid-sm) leading-120 text-foreground-muted'>
-                        <Show when={link.href} fallback={link.label}>
-                          <a
-                            href={link.href}
-                            class='text-inherit no-underline transition-colors hover:text-primary hover:underline focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
-                          >
-                            {link.label}
-                          </a>
-                        </Show>
-                      </li>
+          <nav
+            aria-label={props.label ?? 'Footer'}
+            class='grid grid-cols-2 gap-x-8 gap-y-10 @xl:grid-cols-3 @4xl:flex @4xl:gap-x-16'
+          >
+            <For each={props.columns}>
+              {(column) => (
+                <div class='flex min-w-0 flex-col gap-4'>
+                  <h2
+                    class={cn(
+                      'm-0 text-fluid-sm font-semibold',
+                      colours().strong
                     )}
-                  </For>
-                </ul>
-              </div>
-            )}
-          </For>
+                  >
+                    {column.title}
+                  </h2>
+                  <ul
+                    class={cn(
+                      'm-0 flex list-none flex-col gap-3 p-0 text-fluid-sm',
+                      colours().muted
+                    )}
+                  >
+                    <For each={column.links}>
+                      {(link) => (
+                        <li>
+                          <Show when={link.href} fallback={link.label}>
+                            {(href) => (
+                              <Link
+                                href={href()}
+                                variant='secondary'
+                                quiet
+                                class={colours().link}
+                              >
+                                {link.label}
+                              </Link>
+                            )}
+                          </Show>
+                        </li>
+                      )}
+                    </For>
+                  </ul>
+                </div>
+              )}
+            </For>
+          </nav>
         </div>
+
+        <FooterBottom
+          surface={surface()}
+          socialLinks={props.socialLinks}
+          year={props.year}
+          copyright={props.copyright}
+        />
       </div>
-
-      <Show when={props.socialLinks?.length}>
-        <ul class='mt-12 flex list-none items-center gap-2.5 p-0 xl:mt-24'>
-          <For each={props.socialLinks}>
-            {(social) => (
-              <li>
-                <a
-                  href={social.href}
-                  aria-label={social.label}
-                  class='flex size-7.75 items-center justify-center rounded-full border border-foreground-muted text-foreground-muted no-underline transition-colors hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
-                >
-                  <Show when={social.icon}>
-                    <Dynamic
-                      component={social.icon!}
-                      size={16}
-                      class='shrink-0'
-                    />
-                  </Show>
-                </a>
-              </li>
-            )}
-          </For>
-        </ul>
-      </Show>
-
-      <p class='mt-3.5 text-(length:--text-fluid-sm) leading-120 font-semibold tracking-wide-130 text-foreground-muted'>
-        © {props.year ?? new Date().getFullYear()} {props.copyright}
-      </p>
     </footer>
   );
 }

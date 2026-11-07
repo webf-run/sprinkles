@@ -1,0 +1,123 @@
+---
+title: Popover
+description: A small panel anchored to a button, for a quick setting or details on demand.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/popover/anatomy.eg.tsx';
+import ArrowOutput from '../../../examples/popover/arrow.eg.tsx';
+import arrowCode from '../../../examples/popover/arrow.eg.tsx?raw';
+import CloseOutput from '../../../examples/popover/close.eg.tsx';
+import closeCode from '../../../examples/popover/close.eg.tsx?raw';
+import DoShort from '../../../examples/popover/do-short.eg.tsx';
+import DontLong from '../../../examples/popover/dont-long.eg.tsx';
+import PlacementOutput from '../../../examples/popover/placement.eg.tsx';
+import placementCode from '../../../examples/popover/placement.eg.tsx?raw';
+
+```tsx
+import { Popover } from '@webf/sprinkles';
+```
+
+A popover opens next to its trigger without dimming the page: a share link,
+who else is editing, a one-field form. It closes on Escape or a click
+outside, and the page stays usable around it.
+
+For a task that needs full attention, or more than two or three fields, use
+a [Dialog](/overlays/dialog/). For a list of actions, use a
+[DropdownMenu](/overlays/dropdown-menu/); for a hint on hover, a
+[Tooltip](/overlays/tooltip/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Trigger',
+      note: 'Usually a Button; it gets aria-expanded and aria-controls.',
+    },
+    {
+      name: 'Panel',
+      note: 'Surface colour, a quiet border and the overlay shadow.',
+    },
+    {
+      name: 'Title (optional)',
+      note: 'Names the popover for screen readers too.',
+    },
+    { name: 'Content', note: 'Text, fields and buttons.' },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Closing from inside
+
+Pass a function as the child to get `close`, for a button that finishes the
+task. The content is created afresh each time the popover opens, so a form
+starts empty.
+
+<ExampleBlock code={closeCode}>
+  <CloseOutput client:load />
+</ExampleBlock>
+
+## Placement
+
+`placement` says where it opens relative to the trigger: a side (`top`,
+`right`, `bottom`, `left`), optionally with `-start` or `-end`. The default
+is `bottom-start`. It flips to the other side when there's no room.
+
+<ExampleBlock code={placementCode}>
+  <PlacementOutput client:load />
+</ExampleBlock>
+
+## Arrow
+
+`arrow` adds a tip pointing at the trigger, which helps when the trigger is
+small or several sit close together.
+
+<ExampleBlock code={arrowCode}>
+  <ArrowOutput client:load />
+</ExampleBlock>
+
+## States
+
+- **Opening:** pops in from the trigger (200 ms). Focus moves to
+  the first field or button inside.
+- **Closing:** fades out (100 ms) and unmounts; focus returns to the trigger.
+- **Reduced motion:** appears and disappears at once.
+
+## Accessibility
+
+- The trigger gets `aria-haspopup="dialog"`, `aria-expanded` and
+  `aria-controls`; the panel has `role="dialog"`, labelled by its title. Pass
+  `aria-label` when there's no title.
+- Focus isn't trapped: Tab moves on through the page and closes the popover
+  when focus leaves it.
+- Escape closes it and returns focus to the trigger.
+
+## Do and don't
+
+<DoDont
+  doText='Keep it short: a sentence, a link, or a field or two.'
+  dontText='Put a long form in a popover; it’s easy to dismiss by accident and loses its contents. Use a Dialog.'
+>
+  <DoShort slot='do' client:load />
+  <DontLong slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop           | Type                                                              | Default          |
+| -------------- | ----------------------------------------------------------------- | ---------------- |
+| `trigger`      | `(props: TriggerProps) => JSX.Element`; required                  |                  |
+| `title`        | `JSX.Element`                                                     |                  |
+| `children`     | `JSX.Element \| ((close: () => void) => JSX.Element)`             |                  |
+| `placement`    | `'top' \| 'right' \| 'bottom' \| 'left'`, with `-start` or `-end` | `'bottom-start'` |
+| `arrow`        | `boolean`                                                         | `false`          |
+| `open`         | `boolean`; controlled                                             |                  |
+| `defaultOpen`  | `boolean`                                                         | `false`          |
+| `onOpenChange` | `(open: boolean) => void`                                         |                  |
+| `aria-label`   | `string`; when there's no title                                   |                  |
+| `class`        | `string`; added to the panel (set its width here)                 |                  |

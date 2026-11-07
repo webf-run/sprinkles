@@ -1,0 +1,46 @@
+---
+title: Announcement Card
+description: A featured announcement, and the rows of an announcement list.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import CardOutput from '../../../examples/announcement-card/card.eg.tsx';
+import cardCode from '../../../examples/announcement-card/card.eg.tsx?raw';
+import ListOutput from '../../../examples/announcement-card/list.eg.tsx';
+import listCode from '../../../examples/announcement-card/list.eg.tsx?raw';
+
+```tsx
+import { AnnouncementCard, AnnouncementListItem } from '@webf/sprinkles';
+```
+
+`AnnouncementCard` spotlights one announcement with its date and a call to action. `AnnouncementListItem` is a row of the list beside it.
+
+## Card
+
+<ExampleBlock code={cardCode}>
+  <CardOutput />
+</ExampleBlock>
+
+## List
+
+Render the items inside a `<ul>`.
+
+<ExampleBlock code={listCode}>
+  <ListOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- The title is an `<h3>`; the eyebrow and date are text, not headings.
+- The icon tile is hidden from screen readers.
+
+## Props
+
+| Prop                                              | Type                | Default |
+| ------------------------------------------------- | ------------------- | ------- |
+| `icon`                                            | a lucide-solid icon |         |
+| `eyebrow, caption, tag (card)`                    | `string`            |         |
+| `title, subtitle, description`                    | `string`            |         |
+| `dateLabel, date, actionLabel, actionHref (card)` | `string`            |         |
+| `category, title, description, date (list item)`  | `string`            |         |

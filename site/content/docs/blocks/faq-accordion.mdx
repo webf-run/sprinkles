@@ -1,0 +1,36 @@
+---
+title: FAQ Accordion
+description: Questions that open to show their answers.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import BasicOutput from '../../../examples/faq-accordion/basic.eg.tsx';
+import basicCode from '../../../examples/faq-accordion/basic.eg.tsx?raw';
+
+```tsx
+import { FaqAccordion } from '@webf/sprinkles';
+```
+
+A stack of questions on native `<details>`, so it works without JavaScript and can be rendered on the server with no hydration.
+
+## Basic
+
+By default one answer is open at a time (`exclusive`); set `exclusive={false}` to let several stay open.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- Native `<details>` and `<summary>`: Enter and Space toggle, and screen readers announce expanded or collapsed.
+- Keyboard focus shows the focus ring on the question.
+
+## Props
+
+| Prop        | Type                                     | Default   |
+| ----------- | ---------------------------------------- | --------- |
+| `items`     | `{ question: string; answer: string }[]` |           |
+| `exclusive` | `boolean`                                | `true`    |
+| `name`      | `string`; the group name for `exclusive` | generated |

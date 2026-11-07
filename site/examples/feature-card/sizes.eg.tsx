@@ -1,34 +1,26 @@
 import { FeatureCard } from '@webf/sprinkles';
-import { Boxes } from 'lucide-solid';
+import FlaskConical from 'lucide-solid/icons/flask-conical';
 
 export default function Example() {
   return (
-    <div class='flex flex-col items-stretch gap-4 overflow-x-auto'>
+    <div class='grid w-full gap-4'>
       <FeatureCard
-        class='w-56 shrink-0'
-        variant='orange'
-        size='sm'
-        title='Small card'
-        subtitle='Compact sidebar feature.'
-        icon={Boxes}
+        size='s'
+        icon={FlaskConical}
+        title='Research labs'
+        subtitle='28 centres'
       />
-
       <FeatureCard
-        class='w-72 shrink-0'
-        variant='orange'
-        size='md'
-        title='Medium card'
-        subtitle='Balanced default layout.'
-        icon={Boxes}
+        size='m'
+        icon={FlaskConical}
+        title='Research labs'
+        subtitle='28 centres'
       />
-
       <FeatureCard
-        class='w-96 shrink-0'
-        variant='orange'
-        size='lg'
-        title='Large card'
-        subtitle='Prominent landing-page feature.'
-        icon={Boxes}
+        size='l'
+        icon={FlaskConical}
+        title='Research labs'
+        subtitle='28 centres'
       />
     </div>
   );

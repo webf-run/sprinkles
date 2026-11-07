@@ -1,0 +1,133 @@
+---
+title: DatePicker
+description: One date, typed or picked from a calendar, as ISO text.
+sidebar:
+  order: 9
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/date-picker/anatomy.eg.tsx';
+import DoLabel from '../../../examples/date-picker/do-label.eg.tsx';
+import DontLabel from '../../../examples/date-picker/dont-label.eg.tsx';
+import MinMaxOutput from '../../../examples/date-picker/min-max.eg.tsx';
+import minMaxCode from '../../../examples/date-picker/min-max.eg.tsx?raw';
+import SizesOutput from '../../../examples/date-picker/sizes.eg.tsx';
+import sizesCode from '../../../examples/date-picker/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/date-picker/states.eg.tsx';
+import statesCode from '../../../examples/date-picker/states.eg.tsx?raw';
+import ValueOutput from '../../../examples/date-picker/value.eg.tsx';
+import valueCode from '../../../examples/date-picker/value.eg.tsx?raw';
+
+```tsx
+import { DatePicker } from '@webf/sprinkles';
+```
+
+A date picker takes one date: a publish date, an event date, a deadline.
+People type it in their own format or pick it from a calendar. The value goes
+in and out as ISO text (`YYYY-MM-DD`), the way the CMS stores dates.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Label', note: 'Says what the date controls.' },
+    {
+      name: 'Input',
+      note: 'The date in the locale’s format (11/20/2026 in en-US).',
+    },
+    { name: 'Calendar button', note: 'Opens the calendar.' },
+    {
+      name: 'Description or error',
+      note: 'Help under the input; the error replaces it while invalid.',
+    },
+    {
+      name: 'Calendar (when open)',
+      note: 'Month navigation and a grid of days; the title zooms out to months and years.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Value
+
+`value`, `defaultValue` and `onValueChange` use ISO dates, `'2027-03-14'`, or
+`null` for no date. Typed dates are read in the locale's format (set `locale`
+to change it) and handed back as ISO. With `name`, the ISO date is submitted
+with a form, not the formatted text.
+
+<ExampleBlock code={valueCode}>
+  <ValueOutput client:load />
+</ExampleBlock>
+
+## Minimum and maximum
+
+`min` and `max`, also ISO dates, grey out the days outside the range in the
+calendar and stop the month navigation at its ends.
+
+<ExampleBlock code={minMaxCode}>
+  <MinMaxOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+The input follows the same S, M, L and XL scale as the other fields (24 to
+48 px tall). The calendar keeps one size, with 36 px days. M is the default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover darkens the outline; keyboard focus draws the focus ring on the input,
+the calendar button and each day. In the calendar, today is bold and accent;
+the selected day is filled. Invalid turns the outline negative and shows
+`errorText`. Disabled and read-only can't open the calendar.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Built on Ark UI's date picker: the calendar is a `role="grid"`, labelled
+  with the visible month, and each day says its full date, for example
+  "Friday, November 20, 2026".
+- Keyboard in the calendar: the arrow keys move by a day or a week; Page Up and
+  Page Down by a month; Home and End to the start and end of the week; Enter
+  picks; Escape closes and returns focus.
+- The input accepts typed dates, so the calendar is never the only way in.
+- The calendar button and the previous and next buttons are labelled for
+  screen readers.
+
+## Do and don't
+
+<DoDont
+  doText='Say what the date does, and when in the day it applies.'
+  dontText='Label it “Date” and leave people to guess.'
+>
+  <DoLabel slot='do' client:load />
+  <DontLabel slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                       | Default             |
+| --------------------------------------------- | ------------------------------------------ | ------------------- |
+| `value`                                       | `string \| null`; ISO date                 |                     |
+| `defaultValue`                                | `string \| null`; ISO date                 |                     |
+| `onValueChange`                               | `(value: string \| null) => void`          |                     |
+| `min`                                         | `string`; ISO date                         |                     |
+| `max`                                         | `string`; ISO date                         |                     |
+| `locale`                                      | `string`; BCP 47 tag                       | `'en-US'`           |
+| `placeholder`                                 | `string`                                   | the locale's format |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                | `'m'`               |
+| `name`                                        | `string`; submits the ISO date             |                     |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field/) |                     |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                  | `false`             |
+| `id`                                          | `string`; the input's id                   |                     |
+| `aria-label`                                  | `string`; required without a visible label |                     |

@@ -17,26 +17,31 @@ export function AnnouncementListItem(props: AnnouncementListItemProps) {
   return (
     <li
       class={cn(
-        'flex items-start gap-5.5 border-b border-neutral-720 py-5 md:gap-6 xl:pt-6 xl:pb-5.5',
+        'flex items-start gap-6 border-b border-border-strong py-5 xl:py-6',
         props.class
       )}
     >
-      <IconTile icon={props.icon} tone='ink' />
+      <IconTile
+        icon={props.icon}
+        variant='neutral'
+        size='m'
+        class='xl:size-14 xl:*:size-6'
+      />
 
-      <div class='flex min-w-0 max-w-[721px] flex-col pt-0.5'>
-        <span class='text-[12px]/[1.2] font-bold text-purple-385 uppercase'>
+      <div class='flex max-w-180 min-w-0 flex-col pt-1'>
+        <span class='text-xs leading-120 font-bold text-accent uppercase'>
           {props.category}
         </span>
 
-        <h3 class='mt-0.5 font-heading text-base leading-126 font-bold text-foreground xl:text-[18px]/[1.2]'>
+        <h3 class='m-0 mt-1 font-heading text-base leading-126 font-bold text-foreground xl:text-lg xl:leading-120'>
           {props.title}
         </h3>
 
-        <p class='mt-2.5 text-sm leading-120 text-foreground xl:text-[18px]/[1.2]'>
+        <p class='m-0 mt-2 text-sm leading-120 text-foreground xl:text-lg xl:leading-120'>
           {props.description}
         </p>
 
-        <span class='mt-1 text-[12px]/[1.2] text-foreground uppercase'>
+        <span class='mt-1 text-xs leading-120 text-foreground uppercase'>
           {props.date}
         </span>
       </div>

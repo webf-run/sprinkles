@@ -2,14 +2,12 @@ import { Link } from '@webf/sprinkles';
 
 export default function Example() {
   return (
-    <>
-      <Link variant='primary'>Primary</Link>
-      <Link variant='secondary'>Secondary</Link>
-      <Link variant='success' style='background:#1f2937;'>
-        Success
-      </Link>
-      <Link variant='purple'>Purple</Link>
-      <Link variant='blackwhite'>Black & White</Link>
-    </>
+    <p class='m-0 max-w-prose text-foreground'>
+      Read the <Link href='#'>admission guidelines</Link> before you apply, or{' '}
+      <Link href='#' variant='secondary'>
+        contact the office
+      </Link>{' '}
+      for help.
+    </p>
   );
 }

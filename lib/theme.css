@@ -2,51 +2,84 @@
  * Sprinkles design tokens, written as Tailwind v4 source.
  * Published as-is as `dist/theme.css`: a Tailwind app imports it and
  * compiles Sprinkles' classes itself. This is the single source of design
- * tokens for Sprinkles AND every app that consumes it (e.g. Foundation site).
+ * tokens for Sprinkles AND every app that uses it.
  *
- * NAMING RULES (full version: doc/design-tokens.md)
- *  1. Never put a component or feature name in a token (card, badge, tile,
- *     banner, button, notice, document, ...). A token is a value or a role.
- *  2. One category prefix per kind of value: --color-*, --text-*,
- *     --leading-*, --tracking-*, --radius-*, --shadow-*, --container-*,
- *     --font-*, --background-image-*.
- *  3. Scales use t-shirt steps (xs, sm, md, lg, xl, 2xl, ...) or hue + shade
- *     numbers for palettes (purple-705).
- *  4. Colours come in two tiers: primitives (--color-<hue>-<shade>) and
- *     semantic roles (--color-primary). Components use a role when one fits.
- *  5. One value, one token. Do not add a second name for an existing value.
- *  6. One-off, component-specific values stay in the component (arbitrary
- *     value such as `w-[34rem]`); they do not become tokens.
+ * The design follows Adobe Spectrum 2's principles (not its look): a small
+ * set of tokens, semantic names, one size scale, every state designed, and
+ * accessibility built in. Full rules: doc/design-tokens.md.
+ *
+ * TIERS
+ *  1. Palette primitives, `--color-<hue>-<shade>`. Only tokens reference
+ *     them; components never do.
+ *  2. Semantic roles (`accent`, `neutral`, `informative`, `positive`,
+ *     `notice`, `negative`, `highlight`), surfaces, foregrounds and borders.
+ *  3. Categorical colours, for labels that carry no meaning.
  *
  * THEMING
- *  `@theme` output is emitted in a cascade layer, so a consuming app's own
- *  unlayered `:root { --color-primary: ...; }` always wins. Override semantic
- *  tokens, not primitives.
+ *  `@theme` output is emitted in a cascade layer, so an app's own unlayered
+ *  `:root { --color-accent: …; }` always wins. A site re-skins everything by
+ *  overriding the values of semantic tokens, never by adding new names.
+ *  The same overrides on any element re-skin just that subtree.
  *
- * Tailwind's own default scales (text-sm, rounded-xl, leading-tight, ...)
- * are NOT redefined here, so existing classes keep their meaning.
+ * Every text/background pair in tiers 2 and 3 is checked for WCAG 2.2 AA
+ * contrast by `pnpm check:tokens` (scripts/check-tokens.mjs).
  */
 
 /* Resolves to `lib/` here and to `dist/` once published, so Tailwind finds
    the classes used by the components either way. */
 @source '.';
 
-/* `static`: always emit every variable, so components can also read them
-   through `var(--color-primary)` (e.g. inline styles). */
+/* Variants for Ark UI's state attributes, so components style states without
+   arbitrary selectors: `state-open:`, `state-checked:`, … Presence-only
+   attributes need nothing: `data-highlighted:`, `data-invalid:`,
+   `data-disabled:`, `data-focus-visible:` work as they are. */
+@custom-variant state-open (&[data-state='open']);
+@custom-variant state-closed (&[data-state='closed']);
+@custom-variant state-checked (&[data-state='checked']);
+@custom-variant state-unchecked (&[data-state='unchecked']);
+@custom-variant state-indeterminate (&[data-state='indeterminate']);
+@custom-variant selected (&[data-selected], &[aria-selected='true']);
+@custom-variant current (&[aria-current='page'], &[aria-current='true']);
+/* Safari's disclosure triangle on <summary> (others hide it with `list-none`). */
+@custom-variant details-marker (&::-webkit-details-marker);
+
+/* Native buttons and inputs don't inherit the page's font without
+   Preflight; controls add this. */
+@utility font-inherit {
+  font-family: inherit;
+}
+
+/* Grows a floating panel from its trigger: Ark sets --transform-origin. */
+@utility origin-anchor {
+  transform-origin: var(--transform-origin);
+}
+
+/* `static`: always emit every variable, so components and apps can also read
+   them through `var(--color-accent)`. */
 @theme static {
   /* ------------------------------------------------------------------ */
-  /* 1. Colour primitives: hue + shade. The shade number is roughly the   */
-  /*    darkness (lightness 100 = 0, black = 1000).                       */
+  /* 1. Palette primitives: hue + shade. The shade is 1000 − 10 × L*     */
+  /*    (CIELAB lightness): 0 is white, 1000 is black.                   */
   /* ------------------------------------------------------------------ */
 
   --color-blue-45: #edf2fc;
   --color-blue-80: #dbeafe;
   --color-blue-610: #1d4ed8;
+  --color-blue-681: #1e40af;
+  --color-blue-729: #1e3a8a;
+
+  --color-fuchsia-60: #fae8ff;
+  --color-fuchsia-594: #a21caf;
 
   --color-green-40: #dcfce7;
   --color-green-45: #ebf5ef;
   --color-green-385: #00ad1a;
   --color-green-530: #15803d;
+  --color-green-627: #166534;
+  --color-green-693: #14532d;
+
+  --color-indigo-82: #e0e7ff;
+  --color-indigo-654: #4338ca;
 
   --color-neutral-40: #f4f4f5;
   --color-neutral-85: #e5e7eb;
@@ -54,6 +87,7 @@
   --color-neutral-385: #97929e;
   --color-neutral-445: #8a8390;
   --color-neutral-520: #6b7280;
+  --color-neutral-550: #6f6875;
   --color-neutral-605: #625b68;
   --color-neutral-615: #5e5863;
   --color-neutral-650: #52525b;
@@ -73,6 +107,8 @@
   --color-orange-260: #ffa037;
   --color-orange-325: #f28a1f;
   --color-orange-540: #c2410c;
+  --color-orange-633: #9a3412;
+  --color-orange-701: #7c2d12;
 
   --color-pink-65: #fce7f3;
   --color-pink-505: #db2777;
@@ -113,55 +149,153 @@
   --color-purple-880: #2c0062;
   --color-purple-920: #1f0449;
 
+  --color-red-36: #fef2f2;
+  --color-red-601: #b91c1c;
+  --color-red-668: #991b1b;
+  --color-red-719: #7f1d1d;
+
+  --color-seafoam-48: #ccfbf1;
+  --color-seafoam-555: #0f766e;
+
+  --color-yellow-29: #fef9c3;
+  --color-yellow-163: #facc15;
+  --color-yellow-616: #854d0e;
+  --color-yellow-835: #422006;
+
   /* ------------------------------------------------------------------ */
-  /* 2. Semantic colours: roles only. Usable as text, border, fill or     */
-  /*    background (text-primary, border-primary, bg-primary).            */
+  /* 2. Semantic roles. Each role has:                                  */
+  /*      <role>                     bold fill; text and icons on a     */
+  /*                                 surface                            */
+  /*      <role>-hover, <role>-down  the bold fill, hovered and pressed */
+  /*      <role>-foreground          text and icons on the bold fill    */
+  /*      <role>-subtle              quiet fill                         */
+  /*      <role>-subtle-foreground   text and icons on the quiet fill   */
   /* ------------------------------------------------------------------ */
 
-  /* Primary: main action / identity colour.
-     States (-hover, -active) apply to the base colour only.
-     Intensity steps (-dark, -darker, -darkest) are separate shades. */
-  --color-primary: var(--color-purple-705);
-  --color-primary-hover: var(--color-purple-690);
-  --color-primary-active: var(--color-purple-625);
-  --color-primary-foreground: var(--color-white);
-  --color-primary-dark: var(--color-purple-735);
-  --color-primary-darker: var(--color-purple-775);
-  --color-primary-darkest: var(--color-purple-880);
+  /* Accent: the call to action and the product's identity. */
+  --color-accent: var(--color-purple-705);
+  --color-accent-hover: var(--color-purple-735);
+  --color-accent-down: var(--color-purple-775);
+  --color-accent-foreground: var(--color-white);
+  --color-accent-subtle: var(--color-purple-65);
+  --color-accent-subtle-foreground: var(--color-purple-705);
 
-  /* Accent: secondary highlight colour. */
-  --color-accent: var(--color-orange-260);
-  --color-accent-hover: var(--color-orange-215);
-  --color-accent-active: var(--color-orange-325);
-  --color-accent-foreground: var(--color-black);
+  /* Neutral: emphasis without colour (primary buttons, quiet controls). */
+  --color-neutral: var(--color-neutral-870);
+  --color-neutral-hover: var(--color-neutral-930);
+  --color-neutral-down: var(--color-black);
+  --color-neutral-foreground: var(--color-white);
+  --color-neutral-subtle: var(--color-neutral-40);
+  --color-neutral-subtle-foreground: var(--color-neutral-870);
 
-  /* Status. */
-  --color-success: var(--color-green-385);
+  /* Informative: help and neutral status. */
+  --color-informative: var(--color-blue-610);
+  --color-informative-hover: var(--color-blue-681);
+  --color-informative-down: var(--color-blue-729);
+  --color-informative-foreground: var(--color-white);
+  --color-informative-subtle: var(--color-blue-80);
+  --color-informative-subtle-foreground: var(--color-blue-610);
 
-  /* Surfaces (backgrounds). */
+  /* Positive: success and approval. */
+  --color-positive: var(--color-green-530);
+  --color-positive-hover: var(--color-green-627);
+  --color-positive-down: var(--color-green-693);
+  --color-positive-foreground: var(--color-white);
+  --color-positive-subtle: var(--color-green-40);
+  --color-positive-subtle-foreground: var(--color-green-530);
+
+  /* Notice: caution, things that need attention soon. */
+  --color-notice: var(--color-orange-540);
+  --color-notice-hover: var(--color-orange-633);
+  --color-notice-down: var(--color-orange-701);
+  --color-notice-foreground: var(--color-white);
+  --color-notice-subtle: var(--color-orange-55);
+  --color-notice-subtle-foreground: var(--color-orange-540);
+
+  /* Negative: errors and destructive actions. */
+  --color-negative: var(--color-red-601);
+  --color-negative-hover: var(--color-red-668);
+  --color-negative-down: var(--color-red-719);
+  --color-negative-foreground: var(--color-white);
+  --color-negative-subtle: var(--color-red-36);
+  --color-negative-subtle-foreground: var(--color-red-601);
+
+  /* Highlight: a second emphasis colour for marketing calls to action and
+     decorative marks, for designs that have one. A fill (with its
+     foreground), or text on `surface-inverse`; never text on a light
+     surface. Sprinkles' one addition to Spectrum's roles. */
+  --color-highlight: var(--color-orange-260);
+  --color-highlight-hover: var(--color-orange-215);
+  --color-highlight-down: var(--color-orange-325);
+  --color-highlight-foreground: var(--color-black);
+  --color-highlight-subtle: var(--color-orange-40);
+  --color-highlight-subtle-foreground: var(--color-orange-701);
+
+  /* Surfaces (backgrounds), lightest first. `surface-inverse` is a dark
+     band (hero, banner, footer) that takes `foreground-inverse`. */
   --color-surface: var(--color-white);
   --color-surface-muted: var(--color-purple-35);
   --color-surface-tint: var(--color-purple-60);
   --color-surface-soft: var(--color-purple-65);
   --color-surface-emphasis: var(--color-purple-140);
+  --color-surface-inverse: var(--color-purple-880);
 
   /* Foreground (text, icons), strongest to weakest. */
   --color-foreground-strongest: var(--color-neutral-930);
   --color-foreground-strong: var(--color-neutral-870);
   --color-foreground: var(--color-neutral-705);
   --color-foreground-muted: var(--color-neutral-615);
-  --color-foreground-subtle: var(--color-neutral-445);
+  --color-foreground-subtle: var(--color-neutral-550);
   --color-foreground-inverse: var(--color-white);
 
-  /* Borders and dividers. */
+  /* Borders and dividers. `border-strong` outlines form controls, which
+     need 3:1 against the surface. */
+  --color-border-strong: var(--color-neutral-520);
   --color-border: var(--color-neutral-150);
   --color-border-muted: var(--color-neutral-85);
   --color-border-subtle: var(--color-purple-95);
   --color-border-accent: var(--color-purple-130);
   --color-border-inverse: var(--color-white);
 
+  /* Focus: one ring for every control, shown on :focus-visible only
+     (`outline-2 outline-offset-2 outline-focus-ring`). */
+  --color-focus-ring: var(--color-purple-625);
+
+  /* Backdrop: dims the page behind a modal dialog or drawer. */
+  --color-backdrop: color-mix(in srgb, var(--color-neutral-930) 48%, transparent);
+
   /* ------------------------------------------------------------------ */
-  /* 3. Typography                                                      */
+  /* 3. Categorical colours: labels that carry no meaning (categories,   */
+  /*    tags). Same shape as a role, without hover and down.             */
+  /* ------------------------------------------------------------------ */
+
+  --color-seafoam: var(--color-seafoam-555);
+  --color-seafoam-foreground: var(--color-white);
+  --color-seafoam-subtle: var(--color-seafoam-48);
+  --color-seafoam-subtle-foreground: var(--color-seafoam-555);
+
+  --color-indigo: var(--color-indigo-654);
+  --color-indigo-foreground: var(--color-white);
+  --color-indigo-subtle: var(--color-indigo-82);
+  --color-indigo-subtle-foreground: var(--color-indigo-654);
+
+  --color-purple: var(--color-purple-705);
+  --color-purple-foreground: var(--color-white);
+  --color-purple-subtle: var(--color-purple-55);
+  --color-purple-subtle-foreground: var(--color-purple-735);
+
+  --color-fuchsia: var(--color-fuchsia-594);
+  --color-fuchsia-foreground: var(--color-white);
+  --color-fuchsia-subtle: var(--color-fuchsia-60);
+  --color-fuchsia-subtle-foreground: var(--color-fuchsia-594);
+
+  --color-yellow: var(--color-yellow-163);
+  --color-yellow-foreground: var(--color-yellow-835);
+  --color-yellow-subtle: var(--color-yellow-29);
+  --color-yellow-subtle-foreground: var(--color-yellow-616);
+
+  /* ------------------------------------------------------------------ */
+  /* 4. Typography                                                      */
   /* ------------------------------------------------------------------ */
 
   --font-heading: Georgia, 'Times New Roman', serif;
@@ -198,7 +332,7 @@
   --text-fluid-5xl--line-height: 1.08;
   --text-fluid-5xl--letter-spacing: -0.02em;
 
-  /* Line-height and letter-spacing values used by the designs. */
+  /* Line-height and letter-spacing steps for the type roles. */
   --leading-110: 1.1;
   --leading-115: 1.15;
   --leading-120: 1.2;
@@ -215,24 +349,89 @@
   --tracking-wide-140: 0.14em;
 
   /* ------------------------------------------------------------------ */
-  /* 4. Shape, depth and layout                                         */
+  /* 5. Shape, depth, motion and layout                                 */
   /* ------------------------------------------------------------------ */
 
-  /* Radius: Tailwind's scale plus the exact-px steps the designs use. */
+  /* Radius: Tailwind's scale. Controls use rounded-md (S), rounded-lg (M)
+     and rounded-xl (L, XL); surfaces use rounded-2xl. The px steps below
+     are kept for 0.3.x so existing sites don't change; components don't
+     use them, and 0.4 removes them. */
   --radius-10: 10px;
   --radius-15: 15px;
   --radius-20: 20px;
   --radius-30: 30px;
   --radius-5xl: 3.125rem;
 
-  /* Offset shadows. */
-  --shadow-offset-sm: -4px 6px 16.9px 0px color-mix(in srgb, var(--color-black) 11%, transparent);
-  --shadow-offset-md: 5px 5px 17.3px 0px color-mix(in srgb, var(--color-primary) 10%, transparent);
-  --shadow-offset-lg: -12px 9px 33.3px 0px rgb(115 115 115 / 0.19);
+  /* Elevation, named by role: `elevated` lifts a card off the page,
+     `overlay` floats popovers, menus and dialogs above everything. */
+  --shadow-elevated: 5px 5px 17.3px 0px color-mix(in srgb, var(--color-accent) 10%, transparent);
+  --shadow-overlay: 0 12px 32px -4px color-mix(in srgb, var(--color-neutral-930) 18%, transparent), 0 2px 6px 0 color-mix(in srgb, var(--color-neutral-930) 8%, transparent);
+
+  /* Motion: two curves; durations use Tailwind's duration-100 (fast),
+     duration-200 (standard) and duration-300 (slow). Components animate
+     through `motion-safe:`, so prefers-reduced-motion turns motion off. */
+  --ease-standard: cubic-bezier(0.45, 0, 0.4, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+
+  /* Enter and exit animations for overlays. Ark keeps a closing overlay
+     mounted until its animation (not a transition) ends, so exits need
+     keyframes. Use them under `motion-safe:` with `state-open:` and
+     `state-closed:`. */
+  --animate-fade-in: fade-in 150ms var(--ease-standard);
+  --animate-fade-out: fade-out 100ms var(--ease-standard) forwards;
+  --animate-pop-in: pop-in 200ms var(--ease-emphasized);
+  --animate-pop-out: pop-out 100ms var(--ease-standard) forwards;
+  --animate-slide-in-start: slide-in-start 250ms var(--ease-emphasized);
+  --animate-slide-out-start: slide-out-start 200ms var(--ease-standard) forwards;
 
   /* Page-width containers: continue Tailwind's scale (7xl = 80rem). */
   --container-8xl: 100rem;
   --container-9xl: 120rem;
 
-  --background-image-glow: radial-gradient( 50% 50% at 50% 50%, var(--color-primary-darkest) 0%, var(--color-purple-920) 100% );
+  /* Derived from surface-inverse, so a site's dark band brings its own glow. */
+  --background-image-glow: radial-gradient(50% 50% at 50% 50%, var(--color-surface-inverse) 0%, color-mix(in srgb, var(--color-surface-inverse) 70%, black) 100%);
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+  @keyframes pop-out {
+    to {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+  @keyframes slide-in-start {
+    from {
+      translate: -100% 0;
+    }
+  }
+  @keyframes slide-out-start {
+    to {
+      translate: -100% 0;
+    }
+  }
+
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
 }

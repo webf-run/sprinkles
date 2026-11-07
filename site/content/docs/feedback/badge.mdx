@@ -1,0 +1,121 @@
+---
+title: Badge
+description: A short label for a status, a category or a count.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/badge/anatomy.eg.tsx';
+import CategoricalOutput from '../../../examples/badge/categorical.eg.tsx';
+import categoricalCode from '../../../examples/badge/categorical.eg.tsx?raw';
+import DoMeaning from '../../../examples/badge/do-meaning.eg.tsx';
+import DontMeaning from '../../../examples/badge/dont-meaning.eg.tsx';
+import FillStylesOutput from '../../../examples/badge/fill-styles.eg.tsx';
+import fillStylesCode from '../../../examples/badge/fill-styles.eg.tsx?raw';
+import SemanticOutput from '../../../examples/badge/semantic.eg.tsx';
+import semanticCode from '../../../examples/badge/semantic.eg.tsx?raw';
+import SizesOutput from '../../../examples/badge/sizes.eg.tsx';
+import sizesCode from '../../../examples/badge/sizes.eg.tsx?raw';
+import StaticColorOutput from '../../../examples/badge/static-color.eg.tsx';
+import staticColorCode from '../../../examples/badge/static-color.eg.tsx?raw';
+
+```tsx
+import { Badge } from '@webf/sprinkles';
+```
+
+A badge labels something: a page's status, a document's category, a section's
+eyebrow. It isn't interactive; for something people press, use a
+[Button](/actions/button/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Container',
+      note: 'A pill in the variant’s colour and fill style.',
+    },
+    {
+      name: 'Icon (optional)',
+      note: 'A lucide-solid icon, sized by the badge.',
+    },
+    { name: 'Label', note: 'One or two words.' },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Semantic variants
+
+When the label carries meaning, use a semantic role: the colour then means
+the same thing everywhere (green is always "done", red is always "wrong").
+
+<ExampleBlock code={semanticCode}>
+  <SemanticOutput />
+</ExampleBlock>
+
+## Categorical variants
+
+When the colour only tells categories apart, use a categorical colour. They
+carry no meaning, so they never compete with a status.
+
+<ExampleBlock code={categoricalCode}>
+  <CategoricalOutput />
+</ExampleBlock>
+
+## Fill style
+
+`subtle` (default) is a quiet tint. `bold` is a solid fill for the few labels
+that must stand out. `outline` draws only the border.
+
+<ExampleBlock code={fillStylesCode}>
+  <FillStylesOutput />
+</ExampleBlock>
+
+## Sizes
+
+Badges are labels, not controls, so they sit half a step below the control
+scale: S, M, L and XL are 20, 24, 28 and 32 px tall.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## Static colour
+
+Over photos or a coloured band, `staticColor='white'` or `'black'` ignores the
+theme. The subtle fill turns into frosted glass.
+
+<ExampleBlock code={staticColorCode}>
+  <StaticColorOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- A badge is plain text in a `<span>`; screen readers read its label in
+  place. Don't rely on colour alone: the label must say the status.
+- Text and fill pass 4.5:1 in every variant and fill style in the default
+  theme (`pnpm check:tokens`).
+- The icon is hidden from screen readers, since the label already says it.
+
+## Do and don't
+
+<DoDont
+  doText='Use semantic colours for status and categorical colours for categories.'
+  dontText='Use a semantic colour for a category: red reads as an error.'
+>
+  <DoMeaning slot='do' />
+  <DontMeaning slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop          | Type                                           | Default     |
+| ------------- | ---------------------------------------------- | ----------- |
+| `variant`     | a role, `'highlight'`, or a categorical colour | `'neutral'` |
+| `fillStyle`   | `'bold' \| 'subtle' \| 'outline'`              | `'subtle'`  |
+| `size`        | `'s' \| 'm' \| 'l' \| 'xl'`                    | `'m'`       |
+| `staticColor` | `'white' \| 'black'`                           |             |
+| `icon`        | a lucide-solid icon                            |             |

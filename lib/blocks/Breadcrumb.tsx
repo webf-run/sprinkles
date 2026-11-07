@@ -1,5 +1,6 @@
 import { For, Show } from 'solid-js';
 
+import { FocusRing, Transition } from '../core/control';
 import { cn } from '../utils';
 
 export interface BreadcrumbItem {
@@ -21,14 +22,14 @@ export function Breadcrumb(props: BreadcrumbProps) {
     <nav aria-label='Breadcrumb' class={props.class}>
       <ol
         class={cn(
-          'flex list-none flex-wrap items-center gap-x-1.5 gap-y-0.5 p-0',
-          'text-fluid-sm leading-120 text-foreground-subtle',
-          '2xl:text-(length:--text-fluid-md)'
+          'm-0 flex list-none flex-wrap items-center gap-x-2 gap-y-1 p-0',
+          'text-fluid-sm leading-120 tracking-normal text-foreground-subtle',
+          '2xl:text-fluid-md 2xl:leading-120'
         )}
       >
         <For each={props.items}>
           {(item, index) => (
-            <li class='flex items-center gap-1.5'>
+            <li class='flex items-center gap-2'>
               <Show
                 when={item.href && !isLast(index())}
                 fallback={
@@ -39,7 +40,11 @@ export function Breadcrumb(props: BreadcrumbProps) {
               >
                 <a
                   href={item.href}
-                  class='text-inherit no-underline transition-colors duration-200 hover:text-primary hover:underline'
+                  class={cn(
+                    'rounded-xs text-inherit no-underline hover:text-accent hover:underline',
+                    FocusRing,
+                    Transition
+                  )}
                 >
                   {item.label}
                 </a>

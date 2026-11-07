@@ -1,0 +1,78 @@
+---
+title: Link
+description: A text link, inside a sentence or in a list.
+---
+
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import DoText from '../../../examples/link/do-text.eg.tsx';
+import DontText from '../../../examples/link/dont-text.eg.tsx';
+import QuietOutput from '../../../examples/link/quiet.eg.tsx';
+import quietCode from '../../../examples/link/quiet.eg.tsx?raw';
+import StaticColorOutput from '../../../examples/link/static-color.eg.tsx';
+import staticColorCode from '../../../examples/link/static-color.eg.tsx?raw';
+import VariantsOutput from '../../../examples/link/variants.eg.tsx';
+import variantsCode from '../../../examples/link/variants.eg.tsx?raw';
+
+```tsx
+import { Link } from '@webf/sprinkles';
+```
+
+A link takes people somewhere else. It is text, underlined so it reads as a
+link without relying on colour. For a call to action that should look like a
+button, use [`<Button href>`](/actions/button/#as-a-link).
+
+## Variants
+
+`accent` (default) stands out from the text around it. `secondary` takes the
+text's own colour, for links in dense text where colour would be noise.
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Quiet
+
+`quiet` hides the underline until hover. Use it only where the context
+already says "these are links", such as a navigation list or a footer.
+
+<ExampleBlock code={quietCode}>
+  <QuietOutput />
+</ExampleBlock>
+
+## Static colour
+
+Over photos or a coloured band, `staticColor='white'` or `'black'` ignores the
+theme.
+
+<ExampleBlock code={staticColorCode}>
+  <StaticColorOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- Renders a native `<a>`; every attribute (`href`, `target`, `rel`, …) passes
+  through.
+- Underlined by default, so the link is visible without colour (WCAG 1.4.1).
+- Keyboard focus shows the focus ring.
+- With `target='_blank'`, say so in the label or add `rel='noopener'`.
+
+## Do and don't
+
+<DoDont
+  doText='Make the link text say where it goes.'
+  dontText='Use “click here”: out of context (a screen reader’s list of links), it means nothing.'
+>
+  <DoText slot='do' />
+  <DontText slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop          | Type                      | Default    |
+| ------------- | ------------------------- | ---------- |
+| `variant`     | `'accent' \| 'secondary'` | `'accent'` |
+| `quiet`       | `boolean`                 | `false`    |
+| `staticColor` | `'white' \| 'black'`      |            |
+| …             | any `<a>` attribute       |            |

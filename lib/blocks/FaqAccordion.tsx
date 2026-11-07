@@ -1,5 +1,7 @@
+import ChevronDown from 'lucide-solid/icons/chevron-down';
 import { For, createUniqueId } from 'solid-js';
 
+import { FocusRing, Transition } from '../core/control';
 import { cn } from '../utils';
 
 export interface FaqItem {
@@ -40,30 +42,21 @@ export function FaqAccordion(props: FaqAccordionProps) {
           >
             <summary
               class={cn(
-                'flex cursor-pointer list-none items-center justify-between gap-4',
-                'rounded-lg px-4 py-2.5 md:py-1.75',
-                'text-[15px] leading-120 text-foreground-muted',
-                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
-                '[&::-webkit-details-marker]:hidden'
+                'flex cursor-pointer list-none items-center justify-between gap-4 rounded-lg px-4 py-3 md:py-2',
+                'text-fluid-sm leading-120 tracking-normal text-foreground-muted hover:text-foreground-strong',
+                // Hides Safari's disclosure triangle; `list-none` hides the others'.
+                'details-marker:hidden',
+                FocusRing,
+                Transition
               )}
             >
               <span>{item.question}</span>
-              <svg
+              <ChevronDown
                 aria-hidden='true'
-                viewBox='0 0 12 12'
-                class='size-3 shrink-0 text-foreground-muted transition-transform duration-200 group-open:rotate-180'
-              >
-                <path
-                  d='M2 4.25 6 8l4-3.75'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='1.6'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                />
-              </svg>
+                class='size-4 shrink-0 motion-safe:transition-transform motion-safe:duration-200 group-open:rotate-180'
+              />
             </summary>
-            <div class='px-4 pt-1 pb-3.5 text-(length:--text-fluid-sm) leading-126 text-foreground-muted'>
+            <div class='px-4 pt-1 pb-4 text-fluid-sm leading-126 tracking-normal text-foreground-muted'>
               {item.answer}
             </div>
           </details>

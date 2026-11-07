@@ -1,0 +1,134 @@
+---
+title: NumberInput
+description: A number, typed or stepped, with its label, help and error.
+sidebar:
+  order: 4
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/number-input/anatomy.eg.tsx';
+import DoUnit from '../../../examples/number-input/do-unit.eg.tsx';
+import DontUnit from '../../../examples/number-input/dont-unit.eg.tsx';
+import FormatOutput from '../../../examples/number-input/format.eg.tsx';
+import formatCode from '../../../examples/number-input/format.eg.tsx?raw';
+import RangeOutput from '../../../examples/number-input/range.eg.tsx';
+import rangeCode from '../../../examples/number-input/range.eg.tsx?raw';
+import SizesOutput from '../../../examples/number-input/sizes.eg.tsx';
+import sizesCode from '../../../examples/number-input/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/number-input/states.eg.tsx';
+import statesCode from '../../../examples/number-input/states.eg.tsx?raw';
+
+```tsx
+import { NumberInput } from '@webf/sprinkles';
+```
+
+A number input takes a quantity: a sort order, a capacity, a price, a
+reading time. People type the number or nudge it with the steppers and the
+arrow keys. For numbers that aren't quantities (a phone number, a postcode, an
+ID), use a [TextField](/fields/text-field/): nobody steps a postcode.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Label',
+      note: 'Names the value; say the unit when it isn’t obvious.',
+    },
+    {
+      name: 'Input',
+      note: 'The number, formatted when the field isn’t being edited.',
+    },
+    { name: 'Steppers', note: 'Minus and plus; disabled at `min` and `max`.' },
+    {
+      name: 'Description or error',
+      note: 'Help under the input; the error replaces it while invalid.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Value, range and step
+
+The value is a `number`, or `null` while the field is empty. `min` and `max`
+bound it: the steppers stop there, and a typed value outside the range is
+clamped when the field loses focus. `step` is how far the steppers and arrow
+keys move it. With `name`, the plain number is submitted with a form.
+
+<ExampleBlock code={rangeCode}>
+  <RangeOutput client:load />
+</ExampleBlock>
+
+## Formatting
+
+`formatOptions` takes `Intl.NumberFormat` options: currency, percent, a fixed
+number of decimals. The value stays a plain number; a percent of 15% is
+`0.15`.
+
+<ExampleBlock code={formatCode}>
+  <FormatOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+S, M, L and XL are 24, 32, 40 and 48 px tall, like every other control. Each
+stepper is as wide as the field is tall. M is the default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover darkens the outline and tints a hovered stepper; keyboard focus draws the
+focus ring. Invalid turns the outline negative and shows `errorText`. Disabled
+greys out the field and its steppers. Read-only hides the steppers and shows
+the number on a muted surface.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Built on Ark UI's number input: the input has `role="spinbutton"` with
+  `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, and announces the
+  formatted value (`aria-valuetext`).
+- Keyboard: Up and Down step by `step`; Page Up and Page Down by ten steps;
+  Home and End jump to `min` and `max`.
+- The steppers are labelled ("Increase value", "Decrease value") and skipped
+  by the Tab key, since the arrow keys do the same.
+- Phones show a numeric keyboard (`inputmode="decimal"`).
+
+## Do and don't
+
+<DoDont
+  doText='Put the unit in the label.'
+  dontText='Leave people to guess whether it’s seats, rows or tickets.'
+>
+  <DoUnit slot='do' client:load />
+  <DontUnit slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                       | Default |
+| --------------------------------------------- | ------------------------------------------ | ------- |
+| `value`                                       | `number \| null`                           |         |
+| `defaultValue`                                | `number \| null`                           |         |
+| `onValueChange`                               | `(value: number \| null) => void`          |         |
+| `min`                                         | `number`                                   |         |
+| `max`                                         | `number`                                   |         |
+| `step`                                        | `number`                                   | `1`     |
+| `formatOptions`                               | `Intl.NumberFormatOptions`                 |         |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                | `'m'`   |
+| `placeholder`                                 | `string`                                   |         |
+| `name`                                        | `string`; submits the plain number         |         |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field/) |         |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                  | `false` |
+| `id`                                          | `string`; the input's id                   |         |
+| `aria-label`                                  | `string`; required without a visible label |         |

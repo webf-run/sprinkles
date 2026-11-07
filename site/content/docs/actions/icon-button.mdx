@@ -1,0 +1,168 @@
+---
+title: IconButton
+description: A square button that shows a single icon, for familiar actions where space is tight.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/icon-button/anatomy.eg.tsx';
+import DoLabel from '../../../examples/icon-button/do-label.eg.tsx';
+import DoQuietRows from '../../../examples/icon-button/do-quiet-rows.eg.tsx';
+import DontFilledRows from '../../../examples/icon-button/dont-filled-rows.eg.tsx';
+import DontLabel from '../../../examples/icon-button/dont-label.eg.tsx';
+import FillStylesOutput from '../../../examples/icon-button/fill-styles.eg.tsx';
+import fillStylesCode from '../../../examples/icon-button/fill-styles.eg.tsx?raw';
+import LinkOutput from '../../../examples/icon-button/link.eg.tsx';
+import linkCode from '../../../examples/icon-button/link.eg.tsx?raw';
+import QuietOutput from '../../../examples/icon-button/quiet.eg.tsx';
+import quietCode from '../../../examples/icon-button/quiet.eg.tsx?raw';
+import SizesOutput from '../../../examples/icon-button/sizes.eg.tsx';
+import sizesCode from '../../../examples/icon-button/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/icon-button/states.eg.tsx';
+import statesCode from '../../../examples/icon-button/states.eg.tsx?raw';
+import StaticColorOutput from '../../../examples/icon-button/static-color.eg.tsx';
+import staticColorCode from '../../../examples/icon-button/static-color.eg.tsx?raw';
+import VariantsOutput from '../../../examples/icon-button/variants.eg.tsx';
+import variantsCode from '../../../examples/icon-button/variants.eg.tsx?raw';
+
+```tsx
+import { IconButton } from '@webf/sprinkles';
+```
+
+An icon button starts an action with an icon alone: edit, delete, close,
+open the menu. Use it where space is tight and the icon is one people
+already know, such as row actions in a table or a toolbar. When the icon
+needs explaining, use a [Button](/actions/button/) with a label. For an
+on/off setting, use a [Toggle](/actions/toggle/).
+
+It is a Button underneath, so variants, fill styles, sizes, pending and
+links work the same way.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Container', note: 'Square: as wide as it is tall at every size.' },
+    { name: 'Icon', note: 'One lucide-solid icon, sized by the button.' },
+    {
+      name: 'Accessible name',
+      note: 'Not visible: the required aria-label says what the button does.',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Variants
+
+`variant` takes Button's names. It defaults to `secondary`, because an icon
+alone is rarely a view's call to action.
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Fill style
+
+`fillStyle='outline'` draws only the border and icon.
+
+<ExampleBlock code={fillStylesCode}>
+  <FillStylesOutput />
+</ExampleBlock>
+
+## Quiet
+
+`quiet` drops the fill and border until the pointer is over the button,
+like Spectrum's quiet action button. Use it for actions repeated on every
+row, in toolbars and in headers, where filled buttons would crowd the
+content. `negative` and `accent` colour the icon.
+
+<ExampleBlock code={quietCode}>
+  <QuietOutput />
+</ExampleBlock>
+
+## Sizes
+
+24, 32, 40 and 48 px square, the same scale as every control. Use S in
+dense tables, M (default) almost everywhere else.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## States
+
+Hover, pressed, keyboard focus, disabled and pending, filled (top) and quiet
+(bottom). Disabled doesn't react to hover or press. Pending replaces the
+icon with a spinner and ignores presses.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput />
+</ExampleBlock>
+
+## Static colour
+
+Over photos or a coloured band, `staticColor='white'` or `'black'` ignores
+the theme, filled, outlined or quiet.
+
+<ExampleBlock code={staticColorCode}>
+  <StaticColorOutput />
+</ExampleBlock>
+
+## As a link
+
+With `href`, it renders an `<a>`. Say in the label when the link opens a
+new tab.
+
+<ExampleBlock code={linkCode}>
+  <LinkOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- `aria-label` is required: name the action (“Delete page”), not the icon
+  (“Trash”). In a list, include the item: “Delete Admissions 2027”.
+- Renders a native `<button type="button">` (or `<a>`), so Enter and Space
+  work. Pass `aria-expanded`, `aria-controls` and `aria-haspopup` when it
+  opens a menu, dialog or drawer.
+- Every size is at least 24 × 24 px (WCAG 2.2 target size).
+- Pending sets `aria-busy` and keeps the button focusable.
+- Group related icon buttons in a `role="toolbar"` with a label.
+
+## Do and don't
+
+<DoDont
+  doText='Use quiet icon buttons for actions repeated on every row.'
+  dontText='Fill every row action; the list turns into a wall of colour.'
+>
+  <DoQuietRows slot='do' />
+  <DontFilledRows slot='dont' />
+</DoDont>
+
+<DoDont
+  doText='Give an action a visible label when its icon isn’t universally known.'
+  dontText='Leave people guessing what an unfamiliar icon does.'
+>
+  <DoLabel slot='do' />
+  <DontLabel slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop                                              | Type                                                                | Default       |
+| ------------------------------------------------- | ------------------------------------------------------------------- | ------------- |
+| `icon`                                            | a lucide-solid icon; required                                       |               |
+| `aria-label`                                      | `string`; required                                                  |               |
+| `variant`                                         | `'accent' \| 'primary' \| 'secondary' \| 'negative' \| 'highlight'` | `'secondary'` |
+| `fillStyle`                                       | `'bold' \| 'outline'`                                               | `'bold'`      |
+| `quiet`                                           | `boolean`                                                           | `false`       |
+| `size`                                            | `'s' \| 'm' \| 'l' \| 'xl'`                                         | `'m'`         |
+| `staticColor`                                     | `'white' \| 'black'`                                                |               |
+| `pending`                                         | `boolean`                                                           | `false`       |
+| `disabled`                                        | `boolean`                                                           | `false`       |
+| `href`, `target`, `rel`                           | `string`; `href` renders an `<a>`                                   |               |
+| `type`                                            | `'button' \| 'submit' \| 'reset'`                                   | `'button'`    |
+| `aria-expanded`, `aria-controls`, `aria-haspopup` | for buttons that open something                                     |               |
+| `onClick`                                         | `(event: MouseEvent) => void`                                       |               |

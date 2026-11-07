@@ -1,0 +1,112 @@
+---
+title: QuickLinkCard
+description: A card that is one big link, with a numbered or icon chip, a title and a short description.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/quick-link-card/anatomy.eg.tsx';
+import DoTitle from '../../../examples/quick-link-card/do-title.eg.tsx';
+import DontTitle from '../../../examples/quick-link-card/dont-title.eg.tsx';
+import FillStylesOutput from '../../../examples/quick-link-card/fill-styles.eg.tsx';
+import fillStylesCode from '../../../examples/quick-link-card/fill-styles.eg.tsx?raw';
+import IconsOutput from '../../../examples/quick-link-card/icons.eg.tsx';
+import iconsCode from '../../../examples/quick-link-card/icons.eg.tsx?raw';
+import StepsOutput from '../../../examples/quick-link-card/steps.eg.tsx';
+import stepsCode from '../../../examples/quick-link-card/steps.eg.tsx?raw';
+
+```tsx
+import { QuickLinkCard } from '@webf/sprinkles';
+```
+
+A quick link card sends visitors straight to a page they came for:
+the steps to apply, the timetable, the price list. The whole card is the
+link's target and lifts on hover. It shares its look with the other cards:
+the same `variant` and `fillStyle`.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Chip (optional)',
+      note: 'A step number or an icon, in the card’s tone.',
+    },
+    { name: 'Title', note: 'The link: the name of the page it opens.' },
+    { name: 'Description (optional)', note: 'What people find there.' },
+    { name: 'Arrow', note: 'Says “this goes somewhere”; moves on hover.' },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Steps
+
+`step` puts a number (or any short label) in the chip, for a sequence such
+as the steps to apply.
+
+<ExampleBlock code={stepsCode}>
+  <StepsOutput />
+</ExampleBlock>
+
+## Icons
+
+`icon` takes a lucide-solid icon for the chip, in place of `step`, for links
+that aren't in an order.
+
+<ExampleBlock code={iconsCode}>
+  <IconsOutput />
+</ExampleBlock>
+
+## Variant and fill style
+
+`variant` takes a tone (`accent` by default) and `fillStyle` how strongly it
+shows: `outline` (default) colours only the chip, `subtle` tints the card,
+and `bold` fills it. See [TestimonialCard](/cards/testimonial-card/#variants)
+for the full list of tones.
+
+<ExampleBlock code={fillStylesCode}>
+  <FillStylesOutput />
+</ExampleBlock>
+
+## States
+
+Hover lifts the card and, in the outline style, tints its border; pressing
+sets it back down. Keyboard focus lands on the title link and draws the
+focus ring around the whole card. Motion is off when the visitor prefers
+reduced motion.
+
+## Accessibility
+
+- Renders an `<article>` with an `<h3>` title. The title is the only link,
+  so a screen reader announces just the title, not the whole card; a
+  pseudo-element stretches its target over the card.
+- The step number is read before the title; an icon chip is hidden from
+  screen readers.
+- Write titles that name the destination, since they are what link lists
+  and screen readers show.
+
+## Do and don't
+
+<DoDont
+  doText='Title the card with the page it opens.'
+  dontText='Use “Learn more” and explain the link in the description.'
+>
+  <DoTitle slot='do' />
+  <DontTitle slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop          | Type                                                | Default     |
+| ------------- | --------------------------------------------------- | ----------- |
+| `title`       | `string`                                            |             |
+| `href`        | `string`                                            |             |
+| `description` | `string`                                            |             |
+| `step`        | `string`; a number or short label in the chip       |             |
+| `icon`        | a lucide-solid icon; replaces `step`                |             |
+| `variant`     | a tone: a role, `highlight` or a categorical colour | `'accent'`  |
+| `fillStyle`   | `'outline' \| 'subtle' \| 'bold'`                   | `'outline'` |
+| `class`       | `string`                                            |             |

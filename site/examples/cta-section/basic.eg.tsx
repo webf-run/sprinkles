@@ -2,14 +2,12 @@ import { CtaSection } from '@webf/sprinkles';
 
 export default function Example() {
   return (
-    <div class='w-full'>
-      <CtaSection
-        badge='LET’S BUILD'
-        title='Make your next move count'
-        description='Everything you need to turn a promising idea into a real result.'
-        ctaLabel='Get started'
-        ctaHref='/start'
-      />
-    </div>
+    <CtaSection
+      eyebrow='First class free'
+      title='Try a class this week'
+      description='Every class welcomes beginners. Come as you are, in clothes you can move in.'
+      primaryLabel='Book a free class'
+      primaryHref='#book'
+    />
   );
 }

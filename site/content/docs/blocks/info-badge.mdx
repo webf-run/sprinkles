@@ -1,0 +1,33 @@
+---
+title: Info Badge
+description: A two-line outlined label, such as an accreditation.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import VariantsOutput from '../../../examples/info-badge/variants.eg.tsx';
+import variantsCode from '../../../examples/info-badge/variants.eg.tsx?raw';
+
+```tsx
+import { InfoBadge } from '@webf/sprinkles';
+```
+
+A label and a value in an outlined box: “NAAC accredited / B+ grade”. Use `inverse` (default) on dark bands and photos, `subtle` on light surfaces.
+
+## Variants
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- Plain text; the label and value read in order.
+
+## Props
+
+| Prop      | Type                    | Default     |
+| --------- | ----------------------- | ----------- |
+| `label`   | `string`                |             |
+| `value`   | `string`                |             |
+| `variant` | `'inverse' \| 'subtle'` | `'inverse'` |

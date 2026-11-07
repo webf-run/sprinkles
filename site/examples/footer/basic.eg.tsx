@@ -1,36 +1,30 @@
-import { Facebook, Footer, Instagram, Linkedin } from '@webf/sprinkles';
+import { Facebook, Footer, Instagram } from '@webf/sprinkles';
 
 export default function Example() {
   return (
     <Footer
-      variant='default'
-      size='md'
-      effect='none'
-      logoText='Sprinkles'
-      description='A collection of accessible, reusable, and customizable UI components for building modern web interfaces.'
-      address='Sprinkles Documentation'
-      phone='+1 (000) 000-0000'
-      email='hello@astroui.dev'
-      ctaTitle='Need help with Sprinkles?'
-      ctaSubtitle='Explore the documentation or reach out to our team for support.'
+      logoText='Studio Nine'
+      description='Dance classes for all ages, from first steps to stage, in the heart of Riverside.'
+      address='12 Mill Lane, Riverside'
+      phone='+1 (555) 010-2030'
+      email='hello@studionine.example'
       quickLinks={[
         [
-          { label: 'Components', href: '#' },
-          { label: 'Documentation', href: '#' },
-          { label: 'Examples', href: '#' },
+          { label: 'Classes', href: '#classes' },
+          { label: 'Timetable', href: '#timetable' },
+          { label: 'Teachers', href: '#teachers' },
         ],
         [
-          { label: 'Getting Started', href: '#' },
-          { label: 'GitHub', href: '#' },
-          { label: 'Contact', href: '#' },
+          { label: 'Pricing', href: '#pricing' },
+          { label: 'Private lessons', href: '#private' },
+          { label: 'Contact', href: '#contact' },
         ],
       ]}
       socialLinks={[
-        { label: 'Facebook', href: '#', icon: Facebook },
-        { label: 'Instagram', href: '#', icon: Instagram },
-        { label: 'LinkedIn', href: '#', icon: Linkedin },
+        { label: 'Instagram', href: '#instagram', icon: Instagram },
+        { label: 'Facebook', href: '#facebook', icon: Facebook },
       ]}
-      copyright='Sprinkles. All rights reserved.'
+      copyright='Studio Nine. All rights reserved.'
     />
   );
 }

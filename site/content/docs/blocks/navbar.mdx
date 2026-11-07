@@ -1,0 +1,165 @@
+---
+title: Navbar
+description: The site's top bar, with the brand, navigation links and calls to action. Links fold into a menu on small screens.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import ActionsOutput from '../../../examples/navbar/actions.eg.tsx';
+import actionsCode from '../../../examples/navbar/actions.eg.tsx?raw';
+import AnatomyOutput from '../../../examples/navbar/anatomy.eg.tsx';
+import BasicOutput from '../../../examples/navbar/basic.eg.tsx';
+import basicCode from '../../../examples/navbar/basic.eg.tsx?raw';
+import DoActions from '../../../examples/navbar/do-actions.eg.tsx';
+import DontActions from '../../../examples/navbar/dont-actions.eg.tsx';
+import ImageLogoOutput from '../../../examples/navbar/image-logo.eg.tsx';
+import imageLogoCode from '../../../examples/navbar/image-logo.eg.tsx?raw';
+import LogoMarkOutput from '../../../examples/navbar/logo-mark.eg.tsx';
+import logoMarkCode from '../../../examples/navbar/logo-mark.eg.tsx?raw';
+import LogoOnlyOutput from '../../../examples/navbar/logo-only.eg.tsx';
+import logoOnlyCode from '../../../examples/navbar/logo-only.eg.tsx?raw';
+
+```tsx
+import { Navbar } from '@webf/sprinkles';
+```
+
+The navbar is the bar at the top of every page: the brand on the left, the
+main sections of the site, and one or two calls to action on the right. When
+the bar is at least 56rem (896 px) wide, the links sit in it; when it's
+narrower they fold into a menu that the menu button opens. The bar goes by
+its own width, not the window's (a container query), so it also folds in a
+narrow frame, like the previews on this page on most screens.
+
+The navbar is interactive, so hydrate it: `client:load` in Astro.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Brand', note: 'Text, an image or your own mark; links home.' },
+    {
+      name: 'Navigation links',
+      note: 'The site’s main sections. The current page is highlighted.',
+    },
+    {
+      name: 'Actions (optional)',
+      note: 'One or two buttons; they stay visible on small screens.',
+    },
+    {
+      name: 'Menu button',
+      note: 'On a narrow bar: opens the links as a list under it.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Navigation links
+
+`navItems` lists the links. Mark the page being shown with `current: true`:
+it's highlighted and announced as the current page. Open the menu to see it,
+or widen your window until the links fit in the bar. Five or six short links
+fit; more than that belongs in the footer.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput client:load />
+</ExampleBlock>
+
+## Actions
+
+`actions` takes any elements, usually [Buttons](/actions/button/) at size L.
+Use one accent button for the action most visitors take, and a secondary
+outline button beside it if you need a second. Actions stay in the bar on
+small screens, so hide extra ones there (here with `max-sm:hidden`) and
+keep the main action.
+
+<ExampleBlock code={actionsCode}>
+  <ActionsOutput client:load />
+</ExampleBlock>
+
+## Logo
+
+`logoText` shows the site's name. `logoSrc` shows an image instead, with
+`logoText` as its alt text. For anything else, such as a mark beside a
+wordmark, pass your own elements to `logo`. The logo links to `logoHref`,
+`/` by default.
+
+<ExampleBlock code={imageLogoCode}>
+  <ImageLogoOutput client:load />
+</ExampleBlock>
+
+<ExampleBlock code={logoMarkCode}>
+  <LogoMarkOutput client:load />
+</ExampleBlock>
+
+## Without links
+
+Without `navItems` there are no links and no menu button: just the brand and
+the actions. Use it on focused pages such as a sign-in or checkout page.
+
+<ExampleBlock code={logoOnlyCode}>
+  <LogoOnlyOutput client:load />
+</ExampleBlock>
+
+## Position
+
+`position` says how the bar behaves as the page scrolls:
+
+- `static` (default): scrolls away with the page.
+- `sticky`: scrolls until it reaches the top of the viewport, then stays.
+- `fixed`: always at the top. The page's content starts under it, so give
+  the page a top padding of `pt-16 md:pt-20`.
+
+## Accessibility
+
+- Renders a `<header>` (the page's banner landmark) holding a `<nav>`
+  named by `label` (“Main” by default). Don't wrap it in another `<header>`.
+- The current link has `aria-current='page'`, and its highlight is a filled
+  background, not only a colour change.
+- The menu button is a `<button>` with `aria-expanded` and
+  `aria-controls`. Its name comes from `menuLabel` (“Menu” by default).
+  Escape closes the menu and returns focus to the button. A press outside
+  the bar closes it too, and so does the bar growing wide enough to show its
+  links.
+- Links and the menu button are at least 40 px tall, and show the focus
+  ring on keyboard focus only.
+- With `logoSrc`, always pass `logoText`: it's the image's alt text, and so
+  the name of the home link.
+- The navbar renders on the server; the menu's listeners are added in the
+  browser only.
+
+## Do and don't
+
+<DoDont
+  doText='Give the bar one accent action, plus a quieter one if you need it.'
+  dontText='Line up several accent buttons; none of them stands out.'
+>
+  <DoActions slot='do' />
+  <DontActions slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop        | Type                                             | Default    |
+| ----------- | ------------------------------------------------ | ---------- |
+| `navItems`  | `NavItem[]`                                      | `[]`       |
+| `logoText`  | `string`; also the logo image's alt text         |            |
+| `logoSrc`   | `string`                                         |            |
+| `logo`      | `JSX.Element`; replaces `logoSrc` and `logoText` |            |
+| `logoHref`  | `string`                                         | `'/'`      |
+| `actions`   | `JSX.Element`                                    |            |
+| `position`  | `'static' \| 'sticky' \| 'fixed'`                | `'static'` |
+| `label`     | `string`; names the `<nav>`                      | `'Main'`   |
+| `menuLabel` | `string`; names the menu button                  | `'Menu'`   |
+| `class`     | `string`                                         |            |
+| `style`     | `string`                                         |            |
+
+### NavItem
+
+| Field     | Type      | Default |
+| --------- | --------- | ------- |
+| `label`   | `string`  |         |
+| `href`    | `string`  |         |
+| `current` | `boolean` | `false` |

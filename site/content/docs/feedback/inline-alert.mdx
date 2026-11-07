@@ -1,0 +1,117 @@
+---
+title: InlineAlert
+description: A message in the page that stays until its cause is dealt with.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/inline-alert/anatomy.eg.tsx';
+import DoSpecific from '../../../examples/inline-alert/do-specific.eg.tsx';
+import DontSpecific from '../../../examples/inline-alert/dont-specific.eg.tsx';
+import FillStylesOutput from '../../../examples/inline-alert/fill-styles.eg.tsx';
+import fillStylesCode from '../../../examples/inline-alert/fill-styles.eg.tsx?raw';
+import UrgentOutput from '../../../examples/inline-alert/urgent.eg.tsx';
+import urgentCode from '../../../examples/inline-alert/urgent.eg.tsx?raw';
+import VariantsOutput from '../../../examples/inline-alert/variants.eg.tsx';
+import variantsCode from '../../../examples/inline-alert/variants.eg.tsx?raw';
+
+```tsx
+import { InlineAlert } from '@webf/sprinkles';
+```
+
+An inline alert sits in the page, next to what it's about, and stays there:
+a page that's scheduled, someone else editing, a save that failed. It can
+offer actions that resolve it.
+
+For a passing confirmation (“Draft saved”), use a [Toast](/feedback/toast/).
+For a decision that must be made before anything else, an
+[AlertDialog](/overlays/alert-dialog/). For a status label, a
+[Badge](/feedback/badge/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Container',
+      note: 'A 2 px border in the role’s colour, or a tint of it.',
+    },
+    { name: 'Icon', note: 'From the variant; none for neutral.' },
+    { name: 'Heading (optional)', note: 'What it’s about, in one line.' },
+    { name: 'Body', note: 'What it means and what to do.' },
+    { name: 'Actions (optional)', note: 'Small Buttons that resolve it.' },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Variants
+
+`variant` says what kind of message it is. The colour and the icon follow,
+so red always means something is wrong.
+
+| Variant       | Use it for                                  |
+| ------------- | ------------------------------------------- |
+| `neutral`     | A plain status with no judgement (default). |
+| `informative` | Something good to know.                     |
+| `positive`    | Something done, or working as it should.    |
+| `notice`      | Something that needs attention soon.        |
+| `negative`    | An error, or something that's broken.       |
+
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
+</ExampleBlock>
+
+## Fill style
+
+`fillStyle='border'` (default) draws a border on the page's surface.
+`subtle` tints the whole block, which stands out more on a busy page.
+
+<ExampleBlock code={fillStylesCode}>
+  <FillStylesOutput />
+</ExampleBlock>
+
+## Urgent
+
+An alert that appears after something the person did, such as a failed
+save, should be announced at once: set `urgent` to give it `role="alert"`.
+Leave it off for alerts that are there when the page loads; announcing them
+would interrupt for no reason.
+
+<ExampleBlock code={urgentCode}>
+  <UrgentOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Without `urgent` it's a plain block, read in page order. With `urgent` it's
+  `role="alert"`, which screen readers announce as soon as it appears; render
+  it only when it's needed rather than hiding and showing it.
+- The icon is decorative; the heading and the body carry the meaning, so
+  colour is never the only cue.
+- Body text keeps `foreground` contrast on every tint; icons use the role's
+  `-subtle-foreground` on a tint, checked by `pnpm check:tokens`.
+
+## Do and don't
+
+<DoDont
+  doText='Say what happened and how to fix it, with the fix as an action.'
+  dontText='Show “Error: Something went wrong” with no way forward.'
+>
+  <DoSpecific slot='do' />
+  <DontSpecific slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop        | Type                                                                 | Default     |
+| ----------- | -------------------------------------------------------------------- | ----------- |
+| `variant`   | `'neutral' \| 'informative' \| 'positive' \| 'notice' \| 'negative'` | `'neutral'` |
+| `fillStyle` | `'border' \| 'subtle'`                                               | `'border'`  |
+| `heading`   | `JSX.Element`                                                        |             |
+| `children`  | `JSX.Element`; the body                                              |             |
+| `actions`   | `JSX.Element`; small Buttons                                         |             |
+| `urgent`    | `boolean`; adds `role="alert"`                                       | `false`     |
+| `class`     | `string`                                                             |             |

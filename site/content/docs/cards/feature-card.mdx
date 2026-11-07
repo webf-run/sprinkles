@@ -1,70 +1,62 @@
 ---
 title: Feature Card
-description: Highlight a product benefit with an icon, title, and supporting text.
+description: An icon chip beside a title and a short line.
 ---
 
-import ArrangementsOutput from '../../../examples/feature-card/arrangements.eg.tsx';
-import arrangementsCode from '../../../examples/feature-card/arrangements.eg.tsx?raw';
-import BasicOutput from '../../../examples/feature-card/basic.eg.tsx';
-import basicCode from '../../../examples/feature-card/basic.eg.tsx?raw';
-import ColorsOutput from '../../../examples/feature-card/colors.eg.tsx';
-import colorsCode from '../../../examples/feature-card/colors.eg.tsx?raw';
-import EffectsOutput from '../../../examples/feature-card/effects.eg.tsx';
-import effectsCode from '../../../examples/feature-card/effects.eg.tsx?raw';
-import SizesOutput from '../../../examples/feature-card/sizes.eg.tsx';
-import sizesCode from '../../../examples/feature-card/sizes.eg.tsx?raw';
 import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
-`FeatureCard` pairs a Lucide icon with a concise title and description. It is useful for product features, benefits, and service highlights.
+import FillStylesOutput from '../../../examples/feature-card/fill-styles.eg.tsx';
+import fillStylesCode from '../../../examples/feature-card/fill-styles.eg.tsx?raw';
+import SizesOutput from '../../../examples/feature-card/sizes.eg.tsx';
+import sizesCode from '../../../examples/feature-card/sizes.eg.tsx?raw';
+import VariantsOutput from '../../../examples/feature-card/variants.eg.tsx';
+import variantsCode from '../../../examples/feature-card/variants.eg.tsx?raw';
 
-## Basic
+```tsx
+import { FeatureCard } from '@webf/sprinkles';
+```
 
-The basic example demonstrates the default `FeatureCard` configuration with an icon, title, and supporting description. Use this configuration when you need a simple feature or benefit presentation.
+A feature card names one thing a place or product offers, with an icon and a short supporting line: “Research labs, 28 centres”. Use them in a list or grid of three to six. For a figure, use [Stat Card](/cards/stat-card/); for a list of points, [Benefit Card](/cards/benefit-card/).
 
-<ExampleBlock code={basicCode}>
-  <BasicOutput />
+## Fill style
+
+The marketing cards share one vocabulary. `outline` (default) is a white card with a quiet border, and the tone shows in the icon chip only. `subtle` tints the card. `bold` fills it, for one card that must stand out.
+
+<ExampleBlock code={fillStylesCode}>
+  <FillStylesOutput />
 </ExampleBlock>
 
-## Color variants
+## Variants
 
-The color variants example demonstrates how `FeatureCard` can use different semantic color treatments while keeping the component consistent with the design system. These variants can be used to visually distinguish different types of features or content.
+`variant` picks the tone: a semantic role when the colour means something, a categorical colour when it only tells items apart. The default is `accent`.
 
-<ExampleBlock code={colorsCode}>
-  <ColorsOutput />
+<ExampleBlock code={variantsCode}>
+  <VariantsOutput />
 </ExampleBlock>
 
 ## Sizes
 
-The sizes example demonstrates the available `sm`, `md`, and `lg` card sizes. Use the size option to adjust the card's spacing and overall visual scale based on the available layout space.
+S, M and L scale the padding, chip, icon and type together.
 
 <ExampleBlock code={sizesCode}>
   <SizesOutput />
 </ExampleBlock>
 
-## Hover effects
+## Accessibility
 
-The hover effects example demonstrates the available interaction styles for the card. You can choose `none`, `lift`, or `glow` depending on the level of visual feedback required when users interact with the card.
-
-<ExampleBlock code={effectsCode}>
-  <EffectsOutput />
-</ExampleBlock>
-
-## Row and column arrangements
-
-The arrangements example demonstrates how Feature Cards can be displayed in different layouts, including horizontal rows and vertical columns. The cards use responsive Tailwind utilities so the layout can adapt across mobile, tablet, and desktop screen sizes.
-
-<ExampleBlock code={arrangementsCode}>
-  <ArrangementsOutput />
-</ExampleBlock>
+- The title is an `<h4>`; place the cards under an `<h3>` (or pass the cards inside a list whose heading fits).
+- The icon is decorative and hidden from screen readers; the title says what it is.
+- `lift` animates only with `prefers-reduced-motion: no-preference`. Use it only when the card is inside a link.
 
 ## Props
 
-| Prop       | Type                                                                                                      | Default     | Description                    |
-| ---------- | --------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------ |
-| `title`    | `string`                                                                                                  | —           | Feature heading.               |
-| `subtitle` | `string`                                                                                                  | —           | Supporting feature text.       |
-| `icon`     | `Component`                                                                                               | —           | Lucide icon component.         |
-| `variant`  | `'default' \| 'muted' \| 'accent' \| 'inverse' \| 'purple' \| 'orange' \| 'green' \| 'blue' \| 'neutral'` | `'default'` | Token-based color treatment.   |
-| `size`     | `'sm' \| 'md' \| 'lg'`                                                                                    | `'md'`      | Card spacing scale.            |
-| `effect`   | `'none' \| 'lift' \| 'glow'`                                                                              | `'none'`    | Hover effect.                  |
-| `class`    | `string`                                                                                                  | —           | Additional Tailwind utilities. |
+| Prop                                   | Type                                           | Default     |
+| -------------------------------------- | ---------------------------------------------- | ----------- |
+| `title`                                | `string`                                       |             |
+| `subtitle`                             | `string`                                       |             |
+| `icon`                                 | a lucide-solid icon                            |             |
+| `variant`                              | a role, `'highlight'`, or a categorical colour | `'accent'`  |
+| `fillStyle`                            | `'outline' \| 'subtle' \| 'bold'`              | `'outline'` |
+| `size`                                 | `'s' \| 'm' \| 'l'`                            | `'m'`       |
+| `lift`                                 | `boolean`                                      | `false`     |
+| `titleClass, subtitleClass, iconClass` | `string`                                       |             |

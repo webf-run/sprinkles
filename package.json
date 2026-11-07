@@ -1,6 +1,6 @@
 {
   "name": "@webf/sprinkles",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Solid.js component library styled with Tailwind CSS",
   "license": "Apache-2.0",
   "repository": {
@@ -22,6 +22,21 @@
       "solid": "./dist/index.jsx",
       "default": "./dist/index.jsx"
     },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "solid": "./dist/components/*.jsx",
+      "default": "./dist/components/*.jsx"
+    },
+    "./blocks/*": {
+      "types": "./dist/blocks/*.d.ts",
+      "solid": "./dist/blocks/*.jsx",
+      "default": "./dist/blocks/*.jsx"
+    },
+    "./icons/*": {
+      "types": "./dist/icons/*.d.ts",
+      "solid": "./dist/icons/*.jsx",
+      "default": "./dist/icons/*.jsx"
+    },
     "./style.css": "./dist/style.css",
     "./theme.css": "./dist/theme.css",
     "./package.json": "./package.json"
@@ -35,16 +50,17 @@
     "dev:lib": "tsdown --watch",
     "check": "astro check && pnpm run check:types",
     "check:types": "tsc --noEmit",
-    "check:tokens": "node scripts/check-tokens.mjs lib/theme.css",
+    "check:tokens": "node scripts/check-tokens.mjs lib/theme.css --theme site/style/themes/studio.css",
     "build": "pnpm run build:lib && pnpm run build:site",
     "build:lib": "tsdown",
     "build:site": "astro build",
     "preview": "astro preview",
-    "lint": "pnpm -r lint",
+    "lint": "eslint lib",
     "format:check": "prettier . --check",
     "prepack": "pnpm run build:lib"
   },
   "dependencies": {
+    "@ark-ui/solid": "^5.40.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-solid": "^1.25.0",
@@ -65,7 +81,10 @@
     "@tailwindcss/vite": "^4.3.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "^24.13.2",
+    "@typescript-eslint/parser": "^8.72.1",
     "astro": "^7.2.2",
+    "eslint": "^10.14.0",
+    "eslint-plugin-tailwindcss": "^4.4.0",
     "lucide-astro": "^0.556.0",
     "prettier": "^3.9.4",
     "prettier-plugin-astro": "^0.14.1",

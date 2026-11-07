@@ -1,0 +1,135 @@
+---
+title: Combobox
+description: Picks one option from a long list by typing to filter it.
+sidebar:
+  order: 6
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/combobox/anatomy.eg.tsx';
+import DoLong from '../../../examples/combobox/do-long.eg.tsx';
+import DontShort from '../../../examples/combobox/dont-short.eg.tsx';
+import EmptyOutput from '../../../examples/combobox/empty.eg.tsx';
+import emptyCode from '../../../examples/combobox/empty.eg.tsx?raw';
+import FilteringOutput from '../../../examples/combobox/filtering.eg.tsx';
+import filteringCode from '../../../examples/combobox/filtering.eg.tsx?raw';
+import SizesOutput from '../../../examples/combobox/sizes.eg.tsx';
+import sizesCode from '../../../examples/combobox/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/combobox/states.eg.tsx';
+import statesCode from '../../../examples/combobox/states.eg.tsx?raw';
+
+```tsx
+import { Combobox } from '@webf/sprinkles';
+```
+
+A combobox is a text input that filters a list as people type: an author, a
+tag, a parent page. Use it when the list is long enough that typing a few
+letters beats scrolling. For a handful of options, use a
+[Select](/fields/select/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Label', note: 'Names the value; an asterisk marks it required.' },
+    {
+      name: 'Input',
+      note: 'Type to filter; shows the selected label otherwise.',
+    },
+    { name: 'Chevron', note: 'Opens the whole list without typing.' },
+    {
+      name: 'Description or error',
+      note: 'Help under the input; the error replaces it while invalid.',
+    },
+    {
+      name: 'Popover (when open)',
+      note: 'The matching options; a check marks the selected one.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Filtering and value
+
+Options are `{ label, value, disabled? }`, as in Select. Typing keeps the
+options whose label contains the text, ignoring case and accents, so "jose"
+finds "José Álvarez". The value is the option's `value`, or `null`; with
+`name`, that value (not the label) is submitted with a form.
+
+To load options from a server, listen to `onInputValueChange` and pass the
+results as `items`.
+
+<ExampleBlock code={filteringCode}>
+  <FilteringOutput client:load />
+</ExampleBlock>
+
+## No results
+
+When nothing matches, the list says so. `emptyText` replaces the default "No
+results" with something more helpful, like where to get a missing option.
+
+<ExampleBlock code={emptyCode}>
+  <EmptyOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+S, M, L and XL are 24, 32, 40 and 48 px tall, like every other control; the
+options follow the input's size. M is the default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover darkens the outline; keyboard focus draws the focus ring; while the list
+is open, the highlighted option is tinted. Invalid turns the outline negative
+and shows `errorText`. Disabled is greyed out and skipped by the Tab key.
+Read-only shows the value on a muted surface and doesn't open.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Built on Ark UI's combobox: the input has `role="combobox"` with
+  `aria-expanded` and `aria-activedescendant`, and the list `role="listbox"`.
+- Keyboard: typing or Down opens the list; Up and Down move the highlight;
+  Enter picks; Escape closes, then clears what was typed.
+- Focus stays in the input while the highlight moves, so people can keep
+  typing.
+- The chevron opens the list for pointer users and is skipped by the Tab key.
+
+## Do and don't
+
+<DoDont
+  doText='Use a combobox for a long list people search by name.'
+  dontText='Use a combobox for two or three options; a select or radio buttons show them at once.'
+>
+  <DoLong slot='do' client:load />
+  <DontShort slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                                     | Default        |
+| --------------------------------------------- | -------------------------------------------------------- | -------------- |
+| `items`                                       | `{ label: string; value: string; disabled?: boolean }[]` |                |
+| `value`                                       | `string \| null`                                         |                |
+| `defaultValue`                                | `string \| null`                                         |                |
+| `onValueChange`                               | `(value: string \| null) => void`                        |                |
+| `onInputValueChange`                          | `(text: string) => void`                                 |                |
+| `placeholder`                                 | `string`                                                 |                |
+| `emptyText`                                   | `JSX.Element`                                            | `'No results'` |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                              | `'m'`          |
+| `name`                                        | `string`; submits the selected value                     |                |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field/)               |                |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                                | `false`        |
+| `id`                                          | `string`; the input's id                                 |                |
+| `aria-label`                                  | `string`; required without a visible label               |                |

@@ -1,0 +1,194 @@
+---
+title: Table
+description: Styled table parts for rows of data, with sortable headers, density, stripes and selection.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/table/anatomy.eg.tsx';
+import BasicOutput from '../../../examples/table/basic.eg.tsx';
+import basicCode from '../../../examples/table/basic.eg.tsx?raw';
+import DensityOutput from '../../../examples/table/density.eg.tsx';
+import densityCode from '../../../examples/table/density.eg.tsx?raw';
+import DoAlign from '../../../examples/table/do-align.eg.tsx';
+import DoStatus from '../../../examples/table/do-status.eg.tsx';
+import DontAlign from '../../../examples/table/dont-align.eg.tsx';
+import DontStatus from '../../../examples/table/dont-status.eg.tsx';
+import SelectionOutput from '../../../examples/table/selection.eg.tsx';
+import selectionCode from '../../../examples/table/selection.eg.tsx?raw';
+import SortingOutput from '../../../examples/table/sorting.eg.tsx';
+import sortingCode from '../../../examples/table/sorting.eg.tsx?raw';
+import StatesOutput from '../../../examples/table/states.eg.tsx';
+import statesCode from '../../../examples/table/states.eg.tsx?raw';
+import StickyOutput from '../../../examples/table/sticky.eg.tsx';
+import stickyCode from '../../../examples/table/sticky.eg.tsx?raw';
+import StripedOutput from '../../../examples/table/striped.eg.tsx';
+import stripedCode from '../../../examples/table/striped.eg.tsx?raw';
+
+```tsx
+import { TBody, TCell, TH, THead, TRow, Table } from '@webf/sprinkles';
+```
+
+The table parts style a native HTML table: rows of records with the same
+fields, such as pages, posts or media files. They are styling only. Sorting,
+filtering, selection and paging stay in the app (the CMS drives them with
+TanStack Table); the parts show the state they're given.
+
+For a handful of label and value pairs, a list or a [Card](/layout/card/)
+reads better than a table.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Scroll container',
+      note: 'Scrolls sideways when the table is wider than its space.',
+    },
+    {
+      name: 'Header cell (TH)',
+      note: 'Semibold, muted; a sortable one holds a button and a sort icon.',
+    },
+    {
+      name: 'Row (TRow)',
+      note: 'Highlights on hover; a selected row takes the accent tint.',
+    },
+    {
+      name: 'Cell (TCell)',
+      note: 'Padding from the density; numbers align to the end.',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Basic table
+
+Compose `Table`, `THead`, `TBody`, `TRow`, `TH` and `TCell`. Give the table
+a name with `aria-label`, `aria-labelledby` or `caption`. Use `align='end'`
+on both the header and the cells of number and date columns, so digits line
+up.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Sorting
+
+Give a header `sort` (`'ascending'`, `'descending'` or `'none'`) and
+`onSort`. It renders a button with the direction's icon and sets `aria-sort`
+on the sorted column. The app decides what the next direction is.
+
+<ExampleBlock code={sortingCode}>
+  <SortingOutput client:load />
+</ExampleBlock>
+
+## Density
+
+`density='compact'` (32 px rows) fits more on screen for dense admin lists;
+`regular` (44 px) is the default.
+
+<ExampleBlock code={densityCode}>
+  <DensityOutput />
+</ExampleBlock>
+
+## Striped
+
+`striped` shades every other row, which helps the eye follow wide rows.
+
+<ExampleBlock code={stripedCode}>
+  <StripedOutput />
+</ExampleBlock>
+
+## Selection
+
+`selected` on a row tints it with the accent colour. Pair it with a
+checkbox in the row, which is what tells screen readers the row is
+selected.
+
+<ExampleBlock code={selectionCode}>
+  <SelectionOutput client:load />
+</ExampleBlock>
+
+## Sticky header
+
+`stickyHeader` keeps the header row in view while the table scrolls. Give
+the table a height through `class` (`max-h-64`), which applies to its
+scroll container.
+
+<ExampleBlock code={stickyCode}>
+  <StickyOutput />
+</ExampleBlock>
+
+## States
+
+Sorted and sortable headers; default, hovered and selected rows. Sort
+buttons show the focus ring on keyboard focus.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- It's a native `<table>`, so screen readers announce rows, columns and the
+  header of each cell. Header cells get `scope="col"` in `THead` and
+  `scope="row"` in the body.
+- A sortable header holds a real `<button>` (Tab, then Enter or Space) and
+  sets `aria-sort="ascending"` or `"descending"` on the sorted column only.
+- Name every table with `aria-label`, `aria-labelledby` or a `caption`.
+- `selected` sets `aria-selected`, but most screen readers only announce it
+  in grids, so always show selection with a labelled checkbox too.
+- Name icon-only row actions with the row's item: “Delete Admissions 2027”.
+
+## Do and don't
+
+<DoDont
+  doText='Align numbers and dates to the end, so digits line up.'
+  dontText='Align numbers to the start; their magnitudes become hard to compare.'
+>
+  <DoAlign slot='do' />
+  <DontAlign slot='dont' />
+</DoDont>
+
+<DoDont
+  doText='Show a row’s status with a Badge in its own column.'
+  dontText='Colour the whole row; colour alone doesn’t say what’s wrong.'
+>
+  <DoStatus slot='do' />
+  <DontStatus slot='dont' />
+</DoDont>
+
+## Props
+
+### Table
+
+| Prop                            | Type                                      | Default     |
+| ------------------------------- | ----------------------------------------- | ----------- |
+| `density`                       | `'compact' \| 'regular'`                  | `'regular'` |
+| `striped`                       | `boolean`                                 | `false`     |
+| `stickyHeader`                  | `boolean`                                 | `false`     |
+| `caption`                       | `JSX.Element`; a visible caption          |             |
+| `aria-label`, `aria-labelledby` | `string`; names the table                 |             |
+| `class`                         | `string`; applies to the scroll container |             |
+
+### TH
+
+| Prop                 | Type                                         | Default                        |
+| -------------------- | -------------------------------------------- | ------------------------------ |
+| `sort`               | `'ascending' \| 'descending' \| 'none'`      |                                |
+| `onSort`             | `() => void`                                 |                                |
+| `align`              | `'start' \| 'center' \| 'end'`               | `'start'`                      |
+| `scope`              | `'col' \| 'row' \| 'colgroup' \| 'rowgroup'` | `'col'` in THead, else `'row'` |
+| `colSpan`, `rowSpan` | `number`                                     |                                |
+
+### TRow and TCell
+
+| Part    | Props                                              |
+| ------- | -------------------------------------------------- |
+| `TRow`  | `selected`, `onClick`, `class`, `children`         |
+| `TCell` | `align`, `colSpan`, `rowSpan`, `class`, `children` |
+
+`THead` and `TBody` take `class` and `children`.

@@ -1,0 +1,33 @@
+---
+title: CTA Banner
+description: A slim banner with one line and one button.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import BasicOutput from '../../../examples/cta-banner/basic.eg.tsx';
+import basicCode from '../../../examples/cta-banner/basic.eg.tsx?raw';
+
+```tsx
+import { CtaBanner } from '@webf/sprinkles';
+```
+
+A one-line prompt and a button, for the end of a section: “Want the full fee structure?”
+
+## Basic
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- The button is a link (`<a>`) styled as an outline [Button](/actions/button/).
+
+## Props
+
+| Prop       | Type     | Default |
+| ---------- | -------- | ------- |
+| `text`     | `string` |         |
+| `ctaLabel` | `string` |         |
+| `ctaHref`  | `string` |         |

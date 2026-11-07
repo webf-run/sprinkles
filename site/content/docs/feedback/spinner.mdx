@@ -1,0 +1,104 @@
+---
+title: Spinner
+description: Shows that something is loading when its length isn't known.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/spinner/anatomy.eg.tsx';
+import DoLabel from '../../../examples/spinner/do-label.eg.tsx';
+import DontMany from '../../../examples/spinner/dont-many.eg.tsx';
+import InContextOutput from '../../../examples/spinner/in-context.eg.tsx';
+import inContextCode from '../../../examples/spinner/in-context.eg.tsx?raw';
+import SizesOutput from '../../../examples/spinner/sizes.eg.tsx';
+import sizesCode from '../../../examples/spinner/sizes.eg.tsx?raw';
+import ToneOutput from '../../../examples/spinner/tone.eg.tsx';
+import toneCode from '../../../examples/spinner/tone.eg.tsx?raw';
+
+```tsx
+import { Spinner } from '@webf/sprinkles';
+```
+
+A spinner says “working on it” for a wait of unknown length: loading a
+preview, uploading a file. Buttons show one by themselves while
+[pending](/actions/button/#states).
+
+When the content's layout is known (a list, a card), a
+[Skeleton](/feedback/skeleton/) is better: it holds the layout and hints at
+what's coming.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Track', note: 'A faint full circle in the spinner’s colour.' },
+    { name: 'Arc', note: 'A quarter circle that turns.' },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Sizes
+
+S, M, L and XL are 16, 24, 32 and 48 px. M is the default; S fits inside a
+line of text or a control.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput />
+</ExampleBlock>
+
+## Colour
+
+`tone='accent'` (default) uses the accent colour. `tone='current'` follows
+the text colour, for a spinner inside a button or a coloured message. Over
+photos or a dark band, `staticColor='white'` or `'black'` ignores the theme.
+
+<ExampleBlock code={toneCode}>
+  <ToneOutput />
+</ExampleBlock>
+
+## In context
+
+Put the spinner where the content will appear, and swap it out when the
+content arrives.
+
+<ExampleBlock code={inContextCode}>
+  <InContextOutput client:load />
+</ExampleBlock>
+
+## States
+
+The arc turns once a second. With reduced motion it holds still; the arc
+still reads as “in progress”.
+
+## Accessibility
+
+- Rendered as `role="progressbar"` without a value, which screen readers
+  announce as busy or indeterminate progress.
+- `label` names what's loading (“Loading pages”); it defaults to “Loading”.
+  Make it specific when more than one thing can load at once.
+- A spinner that appears after the page has loaded isn't announced by
+  itself. For a long wait, also say so in a polite live region, or set
+  `aria-busy` on the region that's updating.
+
+## Do and don't
+
+<DoDont
+  doText='Use one spinner for one wait, with a label that says what’s loading.'
+  dontText='Put a spinner in every row; use Skeleton rows, or one spinner for the list.'
+>
+  <DoLabel slot='do' />
+  <DontMany slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop          | Type                             | Default     |
+| ------------- | -------------------------------- | ----------- |
+| `size`        | `'s' \| 'm' \| 'l' \| 'xl'`      | `'m'`       |
+| `label`       | `string`; read by screen readers | `'Loading'` |
+| `tone`        | `'accent' \| 'current'`          | `'accent'`  |
+| `staticColor` | `'white' \| 'black'`             |             |
+| `class`       | `string`                         |             |

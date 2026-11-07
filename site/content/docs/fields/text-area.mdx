@@ -1,0 +1,127 @@
+---
+title: TextArea
+description: Several lines of plain text, with its label, help and error.
+sidebar:
+  order: 3
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/text-area/anatomy.eg.tsx';
+import AutoResizeOutput from '../../../examples/text-area/auto-resize.eg.tsx';
+import autoResizeCode from '../../../examples/text-area/auto-resize.eg.tsx?raw';
+import CountOutput from '../../../examples/text-area/count.eg.tsx';
+import countCode from '../../../examples/text-area/count.eg.tsx?raw';
+import DoMultiline from '../../../examples/text-area/do-multiline.eg.tsx';
+import DontSingleLine from '../../../examples/text-area/dont-single-line.eg.tsx';
+import SizesOutput from '../../../examples/text-area/sizes.eg.tsx';
+import sizesCode from '../../../examples/text-area/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/text-area/states.eg.tsx';
+import statesCode from '../../../examples/text-area/states.eg.tsx?raw';
+
+```tsx
+import { TextArea } from '@webf/sprinkles';
+```
+
+A text area takes plain text that runs over more than a line: an excerpt, a
+meta description, alt text, notes for reviewers. For one line, use a
+[TextField](/fields/text-field/). For formatted text (headings, links,
+lists), use the rich text editor instead.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Label', note: 'Names the value; an asterisk marks it required.' },
+    {
+      name: 'Text area',
+      note: 'Three lines tall by default; drag the corner to resize.',
+    },
+    { name: 'Count (optional)', note: 'Characters used out of `maxLength`.' },
+    {
+      name: 'Description or error',
+      note: 'Help under the text; the error replaces it while invalid.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Auto-resize
+
+`rows` sets the starting height (3 by default). With `autoResize`, the text
+area grows with its content instead of scrolling, and the resize handle goes
+away.
+
+<ExampleBlock code={autoResizeCode}>
+  <AutoResizeOutput client:load />
+</ExampleBlock>
+
+## Character count
+
+`maxLength` stops typing at the limit. Add `showCount` to show how much of it
+is used, for text that is cut short elsewhere, like a meta description in
+search results.
+
+<ExampleBlock code={countCode}>
+  <CountOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+Text, padding and corner radius follow the same S, M, L and XL scale as the
+other fields; the height comes from `rows`. M is the default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover darkens the outline; keyboard focus draws the focus ring. Invalid turns
+the outline negative and shows `errorText`. Disabled is greyed out and skipped
+by the Tab key. Read-only sits on a muted surface; it can be focused, selected
+and copied.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- A native `<textarea>`: Enter adds a line, Tab moves to the next field.
+- The label names it, and the description or error describes it; see
+  [Field](/fields/field/).
+- The count is visual only; screen readers already announce `maxLength`
+  through the native attribute.
+
+## Do and don't
+
+<DoDont
+  doText='Use a text area for text that runs over several lines.'
+  dontText='Use a text area for a one-line value; it suggests a longer answer is wanted.'
+>
+  <DoMultiline slot='do' client:load />
+  <DontSingleLine slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                       | Default |
+| --------------------------------------------- | ------------------------------------------ | ------- |
+| `value`                                       | `string`                                   |         |
+| `defaultValue`                                | `string`                                   |         |
+| `onValueChange`                               | `(value: string) => void`                  |         |
+| `rows`                                        | `number`                                   | `3`     |
+| `autoResize`                                  | `boolean`; grows with its content          | `false` |
+| `maxLength`                                   | `number`                                   |         |
+| `showCount`                                   | `boolean`; needs `maxLength`               | `false` |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                | `'m'`   |
+| `placeholder`                                 | `string`                                   |         |
+| `name`                                        | `string`                                   |         |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field/) |         |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                  | `false` |
+| `id`                                          | `string`; the text area's id               |         |
+| `aria-label`                                  | `string`; required without a visible label |         |

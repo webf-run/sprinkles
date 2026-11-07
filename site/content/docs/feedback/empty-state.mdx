@@ -1,0 +1,90 @@
+---
+title: EmptyState
+description: What a list, table or page shows when it has nothing in it.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/empty-state/anatomy.eg.tsx';
+import DoNextStep from '../../../examples/empty-state/do-next-step.eg.tsx';
+import DontNextStep from '../../../examples/empty-state/dont-next-step.eg.tsx';
+import NoResultsOutput from '../../../examples/empty-state/no-results.eg.tsx';
+import noResultsCode from '../../../examples/empty-state/no-results.eg.tsx?raw';
+import SmallOutput from '../../../examples/empty-state/small.eg.tsx';
+import smallCode from '../../../examples/empty-state/small.eg.tsx?raw';
+
+```tsx
+import { EmptyState } from '@webf/sprinkles';
+```
+
+An empty state fills the space where content would be: a site with no pages
+yet, a search with no results, an empty media folder. It says what's empty
+and, where it can, offers the action that fills it.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Icon or illustration (optional)',
+      note: 'An icon in a round chip, or your own illustration.',
+    },
+    { name: 'Heading', note: 'What’s empty: “No pages yet”.' },
+    { name: 'Description (optional)', note: 'Why, or what to do next.' },
+    { name: 'Actions (optional)', note: 'One main button, perhaps a second.' },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## No results
+
+When a search or filter finds nothing, repeat the query and offer a way
+out.
+
+<ExampleBlock code={noResultsCode}>
+  <NoResultsOutput />
+</ExampleBlock>
+
+## Sizes
+
+`size='m'` (default) is for a whole page or a large panel. `size='s'` is
+tighter, for a table body, a card or a sidebar.
+
+<ExampleBlock code={smallCode}>
+  <SmallOutput />
+</ExampleBlock>
+
+## Accessibility
+
+- The heading is an `<h3>` by default; set `headingLevel` so it fits the
+  page's outline.
+- The icon and the illustration are decorative and hidden from screen
+  readers; the heading carries the meaning.
+- When the empty state replaces results after a search, announce the change
+  (for example in a polite live region): “No results for pricing”.
+
+## Do and don't
+
+<DoDont
+  doText='Say what’s empty and give the next step.'
+  dontText='Show “No data” with nothing to do about it.'
+>
+  <DoNextStep slot='do' />
+  <DontNextStep slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop           | Type                             | Default |
+| -------------- | -------------------------------- | ------- |
+| `heading`      | `JSX.Element`; required          |         |
+| `headingLevel` | `2 \| 3 \| 4`                    | `3`     |
+| `description`  | `JSX.Element`                    |         |
+| `icon`         | a lucide-solid icon              |         |
+| `illustration` | `JSX.Element`; replaces the icon |         |
+| `actions`      | `JSX.Element`; Buttons           |         |
+| `size`         | `'s' \| 'm'`                     | `'m'`   |
+| `class`        | `string`                         |         |

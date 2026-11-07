@@ -1,0 +1,90 @@
+---
+title: Skeleton
+description: Placeholder shapes that hold the layout while content loads.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/skeleton/anatomy.eg.tsx';
+import DoShape from '../../../examples/skeleton/do-shape.eg.tsx';
+import DontShape from '../../../examples/skeleton/dont-shape.eg.tsx';
+import ShapesOutput from '../../../examples/skeleton/shapes.eg.tsx';
+import shapesCode from '../../../examples/skeleton/shapes.eg.tsx?raw';
+import TableOutput from '../../../examples/skeleton/table.eg.tsx';
+import tableCode from '../../../examples/skeleton/table.eg.tsx?raw';
+
+```tsx
+import { Skeleton } from '@webf/sprinkles';
+```
+
+Skeletons stand in for content that's on its way: the rows of a page list,
+a media card, a profile. Because they take the content's shape, the layout
+doesn't jump when it arrives, and people can see what's coming.
+
+For a wait that has no layout to hold (saving, a short upload), use a
+[Spinner](/feedback/spinner/).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Circle', note: 'An avatar or an icon.' },
+    { name: 'Text lines', note: 'One bar per line; the last one shorter.' },
+    { name: 'Rectangle', note: 'An image, a chart or a card.' },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Shapes
+
+`shape='text'` (default) draws `lines` bars, spaced like `text-sm`; the last
+of several is shorter, like the end of a paragraph. `circle` is 40 px and
+`rect` is 96 px tall by default. Set any size with `class`.
+
+<ExampleBlock code={shapesCode}>
+  <ShapesOutput />
+</ExampleBlock>
+
+## Loading a list
+
+Swap each skeleton for its content in place, and mark the region
+`aria-busy` while it loads.
+
+<ExampleBlock code={tableCode}>
+  <TableOutput client:load />
+</ExampleBlock>
+
+## States
+
+Skeletons pulse gently (`animate-shimmer`, 1.6 s). With reduced motion they
+hold still.
+
+## Accessibility
+
+- Skeletons are `aria-hidden`: a screen reader hears nothing for each grey
+  bar.
+- Set `aria-busy="true"` on the region that's loading, and remove it when the
+  content is in, so assistive technology waits and then reads the result.
+- For a wait longer than a few seconds, also announce it, for example with a
+  visually hidden “Loading pages” in a polite live region.
+
+## Do and don't
+
+<DoDont
+  doText='Shape the skeleton like the content it replaces: an image, a title, two lines.'
+  dontText='Cover the whole area with one grey block; it says nothing about what’s coming.'
+>
+  <DoShape slot='do' />
+  <DontShape slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop    | Type                           | Default  |
+| ------- | ------------------------------ | -------- |
+| `shape` | `'text' \| 'circle' \| 'rect'` | `'text'` |
+| `lines` | `number`; for `text`           | `1`      |
+| `class` | `string`; sets the size        |          |
