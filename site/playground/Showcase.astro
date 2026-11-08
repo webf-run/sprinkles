@@ -1,0 +1,23 @@
+---
+/**
+ * One component on the kitchen-sink pages: its examples in the slot, under a
+ * header that links to the component's documentation page.
+ */
+interface Props {
+  title: string;
+  href: string;
+}
+
+const { title, href } = Astro.props;
+---
+
+<section class='preview not-content' aria-label={title}>
+  <div class='preview-header'>
+    <h3 class='m-0 text-base'>{title}</h3>
+    <a href={href} class='preview-header-label'>Documentation →</a>
+  </div>
+
+  <div class='preview-body'>
+    <slot />
+  </div>
+</section>

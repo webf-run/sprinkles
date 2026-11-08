@@ -1,14 +1,17 @@
 ---
 import { ArrowRight, Code2, Sparkles } from 'lucide-astro';
-import { RepoLink } from '../../data/Constant';
+import { Links } from '../../data/Constant';
 
-const installCode = `npm create astro-ui@latest`;
+const installCode = `npm install @webf/sprinkles solid-js`;
 
-const astroCode = `---
-import { Button } from "@astro-ui/astro";
----
+const useCode = `
+import { Button } from '@webf/sprinkles';
+import '@webf/sprinkles/style.css';
 
-<Button>Hello World</Button>`;
+export function Hello() {
+  return <Button>Hello World</Button>;
+}
+`;
 ---
 
 <section
@@ -32,7 +35,7 @@ import { Button } from "@astro-ui/astro";
   <div class:list={['flex min-w-0 flex-col justify-center gap-5 border-0']}>
     <!-- Badge -->
     <a
-      href='/docs'
+      href={Links.gettingStarted}
       class:list={[
         'inline-flex w-fit items-center gap-2.5',
         'rounded-full',
@@ -78,15 +81,15 @@ import { Button } from "@astro-ui/astro";
 
     <!-- Description -->
     <p class:list={['max-w-130', 'text-[18px]', 'opacity-75']}>
-      Build modern, accessible and themeable UI components for Astro with
-      production-ready patterns.
+      Accessible, themeable Solid.js components styled with Tailwind CSS. Use
+      them in Astro, SolidStart or any Vite app.
     </p>
 
     <!-- Buttons -->
-    <div class:list={['flex gap-3']}>
+    <div class:list={['flex flex-wrap gap-3']}>
       <!-- Get Started -->
       <a
-        href='/getting-started/installation'
+        href={Links.gettingStarted}
         class:list={[
           'rounded-[10px]',
           'px-4.5 py-3',
@@ -103,7 +106,7 @@ import { Button } from "@astro-ui/astro";
 
       <!-- Components -->
       <a
-        href='/components/link'
+        href={Links.components}
         class:list={[
           'rounded-[10px]',
           'px-4.5 py-3',
@@ -118,9 +121,26 @@ import { Button } from "@astro-ui/astro";
         Components
       </a>
 
+      <!-- Blocks -->
+      <a
+        href={Links.blocks}
+        class:list={[
+          'rounded-[10px]',
+          'px-4.5 py-3',
+          'font-semibold no-underline',
+          'bg-(--sl-color-gray-6)',
+          'text-(--sl-color-text)!',
+          'transition-all duration-200',
+          'hover:-translate-y-0.75',
+          'hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]',
+        ]}
+      >
+        Blocks
+      </a>
+
       <!-- GitHub -->
       <a
-        href={RepoLink}
+        href={Links.repo}
         class:list={[
           'rounded-[10px]',
           'border border-(--sl-color-gray-5)',
@@ -174,7 +194,7 @@ import { Button } from "@astro-ui/astro";
           <h3 class:list={['m-0 text-[18px]']}>Install</h3>
 
           <p class:list={['m-0 text-sm opacity-60']}>
-            Bootstrap your project instantly
+            Add the package to your project
           </p>
         </div>
       </div>
@@ -225,7 +245,9 @@ import { Button } from "@astro-ui/astro";
         <div>
           <h3 class:list={['m-0 text-[18px]']}>Use</h3>
 
-          <p class:list={['m-0 text-sm opacity-60']}>Drop-in components</p>
+          <p class:list={['m-0 text-sm opacity-60']}>
+            Import a component and render it
+          </p>
         </div>
       </div>
 
@@ -243,7 +265,7 @@ import { Button } from "@astro-ui/astro";
             'm-0 w-full min-w-0 overflow-x-auto',
             'whitespace-pre',
             'text-sm text-[#e5e7eb]',
-          ]}>{astroCode}</pre>
+          ]}>{useCode}</pre>
       </div>
     </div>
   </div>

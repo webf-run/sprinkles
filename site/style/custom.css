@@ -50,6 +50,17 @@
   --sl-color-accent-high: #3730a3;
 }
 
+/* Starlight renders the page title in its own panel, with a hairline above
+   the content. The title is hidden (`#_top` below), which leaves an empty band
+   under the header on every page. Drop the panel and the hairline. */
+/* .content-panel:has(> .sl-container > #_top) {
+  display: none;
+} */
+
+.content-panel + .content-panel {
+  border-top: 0;
+}
+
 .sidebar-pane {
   border-right: 1px solid var(--sl-color-gray-5);
   padding-top: 10px;

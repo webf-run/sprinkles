@@ -1,0 +1,187 @@
+---
+title: Components
+description: Every Sprinkles component on one page.
+---
+
+import AlertDialogVariants from '../../examples/alert-dialog/variants.eg.tsx';
+import BadgeFillStyles from '../../examples/badge/fill-styles.eg.tsx';
+import BadgeSemantic from '../../examples/badge/semantic.eg.tsx';
+import ButtonSizes from '../../examples/button/sizes.eg.tsx';
+import ButtonStates from '../../examples/button/states.eg.tsx';
+import ButtonVariants from '../../examples/button/variants.eg.tsx';
+import CardBasic from '../../examples/card/basic.eg.tsx';
+import CardElevated from '../../examples/card/elevated.eg.tsx';
+import CheckboxSizes from '../../examples/checkbox/sizes.eg.tsx';
+import CheckboxStates from '../../examples/checkbox/states.eg.tsx';
+import ComboboxFiltering from '../../examples/combobox/filtering.eg.tsx';
+import DatePickerValue from '../../examples/date-picker/value.eg.tsx';
+import DialogTrigger from '../../examples/dialog/trigger.eg.tsx';
+import DropdownMenuGroups from '../../examples/dropdown-menu/groups.eg.tsx';
+import EmptyStateNoResults from '../../examples/empty-state/no-results.eg.tsx';
+import FieldError from '../../examples/field/error.eg.tsx';
+import FileUploadMultiple from '../../examples/file-upload/multiple.eg.tsx';
+import IconButtonVariants from '../../examples/icon-button/variants.eg.tsx';
+import InlineAlertVariants from '../../examples/inline-alert/variants.eg.tsx';
+import LinkVariants from '../../examples/link/variants.eg.tsx';
+import NumberInputRange from '../../examples/number-input/range.eg.tsx';
+import PopoverPlacement from '../../examples/popover/placement.eg.tsx';
+import SelectMultiple from '../../examples/select/multiple.eg.tsx';
+import SelectSingle from '../../examples/select/single.eg.tsx';
+import SeparatorHorizontal from '../../examples/separator/horizontal.eg.tsx';
+import SkeletonShapes from '../../examples/skeleton/shapes.eg.tsx';
+import SpinnerSizes from '../../examples/spinner/sizes.eg.tsx';
+import SwitchSizes from '../../examples/switch/sizes.eg.tsx';
+import SwitchStates from '../../examples/switch/states.eg.tsx';
+import TableBasic from '../../examples/table/basic.eg.tsx';
+import TabsItems from '../../examples/tabs/items.eg.tsx';
+import TextAreaCount from '../../examples/text-area/count.eg.tsx';
+import TextFieldStates from '../../examples/text-field/states.eg.tsx';
+import TextFieldTypes from '../../examples/text-field/types.eg.tsx';
+import ToastTypes from '../../examples/toast/types.eg.tsx';
+import ToggleLabel from '../../examples/toggle/label.eg.tsx';
+import ToggleSizes from '../../examples/toggle/sizes.eg.tsx';
+import TooltipPlacement from '../../examples/tooltip/placement.eg.tsx';
+import Showcase from '../../playground/Showcase.astro';
+
+# Components
+
+Every component on one page, for a quick look at how they sit together. Each panel links to the full documentation.
+
+## Actions
+
+<Showcase title='Button' href='/actions/button/'>
+  <ButtonVariants />
+  <ButtonSizes />
+  <ButtonStates />
+</Showcase>
+
+<Showcase title='IconButton' href='/actions/icon-button/'>
+  <IconButtonVariants />
+</Showcase>
+
+<Showcase title='Toggle' href='/actions/toggle/'>
+  <ToggleLabel client:visible />
+  <ToggleSizes client:visible />
+</Showcase>
+
+## Navigation
+
+<Showcase title='Link' href='/navigation/link/'>
+  <LinkVariants />
+</Showcase>
+
+## Fields
+
+<Showcase title='TextField' href='/fields/text-field/'>
+  <TextFieldTypes client:visible />
+  <TextFieldStates client:visible />
+</Showcase>
+
+<Showcase title='TextArea' href='/fields/text-area/'>
+  <TextAreaCount client:visible />
+</Showcase>
+
+<Showcase title='NumberInput' href='/fields/number-input/'>
+  <NumberInputRange client:visible />
+</Showcase>
+
+<Showcase title='Select' href='/fields/select/'>
+  <SelectSingle client:visible />
+  <SelectMultiple client:visible />
+</Showcase>
+
+<Showcase title='Combobox' href='/fields/combobox/'>
+  <ComboboxFiltering client:visible />
+</Showcase>
+
+<Showcase title='DatePicker' href='/fields/date-picker/'>
+  <DatePickerValue client:visible />
+</Showcase>
+
+<Showcase title='Checkbox' href='/fields/checkbox/'>
+  <CheckboxSizes client:visible />
+  <CheckboxStates client:visible />
+</Showcase>
+
+<Showcase title='Switch' href='/fields/switch/'>
+  <SwitchSizes client:visible />
+  <SwitchStates client:visible />
+</Showcase>
+
+<Showcase title='FileUpload' href='/fields/file-upload/'>
+  <FileUploadMultiple client:visible />
+</Showcase>
+
+<Showcase title='Field' href='/fields/field/'>
+  <FieldError client:visible />
+</Showcase>
+
+## Overlays
+
+<Showcase title='Dialog' href='/overlays/dialog/'>
+  <DialogTrigger client:visible />
+</Showcase>
+
+<Showcase title='AlertDialog' href='/overlays/alert-dialog/'>
+  <AlertDialogVariants client:visible />
+</Showcase>
+
+<Showcase title='DropdownMenu' href='/overlays/dropdown-menu/'>
+  <DropdownMenuGroups client:visible />
+</Showcase>
+
+<Showcase title='Popover' href='/overlays/popover/'>
+  <PopoverPlacement client:visible />
+</Showcase>
+
+<Showcase title='Tooltip' href='/overlays/tooltip/'>
+  <TooltipPlacement client:visible />
+</Showcase>
+
+## Feedback
+
+<Showcase title='Badge' href='/feedback/badge/'>
+  <BadgeSemantic />
+  <BadgeFillStyles />
+</Showcase>
+
+<Showcase title='InlineAlert' href='/feedback/inline-alert/'>
+  <InlineAlertVariants />
+</Showcase>
+
+<Showcase title='EmptyState' href='/feedback/empty-state/'>
+  <EmptyStateNoResults />
+</Showcase>
+
+<Showcase title='Skeleton' href='/feedback/skeleton/'>
+  <SkeletonShapes />
+</Showcase>
+
+<Showcase title='Spinner' href='/feedback/spinner/'>
+  <SpinnerSizes />
+</Showcase>
+
+<Showcase title='Toast' href='/feedback/toast/'>
+  <ToastTypes client:visible />
+</Showcase>
+
+## Layout
+
+<Showcase title='Card' href='/layout/card/'>
+  <CardBasic />
+  <CardElevated />
+</Showcase>
+
+<Showcase title='Separator' href='/layout/separator/'>
+  <SeparatorHorizontal />
+</Showcase>
+
+<Showcase title='Tabs' href='/layout/tabs/'>
+  <TabsItems client:visible />
+</Showcase>
+
+## Data display
+
+<Showcase title='Table' href='/data-display/table/'>
+  <TableBasic />
+</Showcase>

@@ -5,6 +5,8 @@ import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
+import { Links } from './site/data/Constant';
+
 export default defineConfig({
   srcDir: './site',
   publicDir: './public',
@@ -18,7 +20,7 @@ export default defineConfig({
         {
           icon: 'github',
           label: 'GitHub',
-          href: 'https://github.com/webf-run/sprinkles',
+          href: Links.repo,
         },
       ],
       components: {
@@ -33,6 +35,13 @@ export default defineConfig({
           label: 'Getting Started',
           items: [
             { label: 'Installation', slug: 'getting-started/installation' },
+            { label: 'Astro', slug: 'getting-started/astro' },
+            { label: 'SolidStart', slug: 'getting-started/solid-start' },
+            { label: 'Vite + Solid.js', slug: 'getting-started/vite' },
+            {
+              label: 'Styling and theming',
+              slug: 'getting-started/styling',
+            },
           ],
         },
         {

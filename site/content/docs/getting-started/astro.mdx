@@ -1,0 +1,151 @@
+---
+title: Astro
+description: Use Sprinkles in an Astro project through the Solid.js integration.
+---
+
+Sprinkles components are Solid.js components, so an Astro site renders them
+through the official Solid integration.
+
+## 1. Add the Solid integration
+
+```bash
+npx astro add solid
+```
+
+This installs `@astrojs/solid-js` and `solid-js` and registers the integration
+in `astro.config.ts`. Make sure `tsconfig.json` compiles JSX for Solid:
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
+  }
+}
+```
+
+The integration compiles packages that depend on `solid-js`, so Sprinkles needs
+no extra Vite configuration. If the project also uses React or Preact, set the
+`include` option so each integration only compiles its own files. See the
+[Astro guide](https://docs.astro.build/en/guides/integrations-guide/solid-js/#combining-multiple-jsx-frameworks).
+
+## 2. Install Sprinkles
+
+```bash
+npm install @webf/sprinkles
+```
+
+## 3. Add the styles
+
+Pick one, and import it in your layout.
+
+### Precompiled stylesheet
+
+No Tailwind needed.
+
+```astro title="src/layouts/Layout.astro"
+---
+import '@webf/sprinkles/style.css';
+---
+
+<html lang='en'>
+  <body>
+    <slot />
+  </body>
+</html>
+```
+
+### Tailwind CSS v4
+
+Add Tailwind through its Vite plugin:
+
+```bash
+npm install tailwindcss @tailwindcss/vite
+```
+
+```ts title="astro.config.ts"
+import solid from '@astrojs/solid-js';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  integrations: [solid()],
+  vite: { plugins: [tailwindcss()] },
+});
+```
+
+```css title="src/styles/global.css"
+@import 'tailwindcss';
+@import '@webf/sprinkles/theme.css';
+```
+
+```astro title="src/layouts/Layout.astro"
+---
+import '../styles/global.css';
+---
+```
+
+`theme.css` already tells Tailwind where Sprinkles' classes live, so you don't
+add an `@source` line.
+
+## 4. Use a component
+
+A component that only displays something renders on the server with no
+JavaScript:
+
+```astro title="src/pages/index.astro"
+---
+import { Badge, Button } from '@webf/sprinkles';
+---
+
+<Badge>New</Badge>
+<Button href='/pricing'>See pricing</Button>
+```
+
+A component that responds to the user needs a
+[client directive](https://docs.astro.build/en/reference/directives-reference/#client-directives)
+to hydrate. Tabs, dialogs, menus, fields and toasts are all interactive:
+
+```astro title="src/pages/settings.astro"
+---
+import { Switch } from '@webf/sprinkles';
+---
+
+<Switch label='Email notifications' client:load />
+```
+
+## Good to know
+
+**Props that Astro can't send to the browser.** A hydrated island receives its
+props as data, so functions and JSX can't be passed from an `.astro` file.
+That includes the `icon` prop of a [Button](/actions/button/) (a lucide-solid
+component) and any prop that takes a callback. Write a small Solid component
+and hydrate that instead:
+
+```tsx title="src/components/SaveButton.tsx"
+import { Button } from '@webf/sprinkles';
+import Save from 'lucide-solid/icons/save';
+
+export function SaveButton() {
+  return <Button icon={Save}>Save</Button>;
+}
+```
+
+```astro
+---
+import { SaveButton } from '../components/SaveButton';
+---
+
+<SaveButton client:load />
+```
+
+**Keep islands small.** Astro imports a hydrated component's whole module. If
+you import from the package root, the island ships all of Sprinkles. Import
+from the component's subpath and it ships that component alone:
+
+```tsx
+import { Switch } from '@webf/sprinkles/components/Switch';
+```
+
+**Dark mode.** Components follow the CSS `color-scheme`. See
+[Styling and theming](/getting-started/styling/#light-and-dark-mode).

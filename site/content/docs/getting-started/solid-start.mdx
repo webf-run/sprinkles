@@ -1,0 +1,90 @@
+---
+title: SolidStart
+description: Use Sprinkles in a SolidStart app.
+---
+
+[SolidStart](https://start.solidjs.com) compiles your app with
+`vite-plugin-solid`, which also compiles packages that ship Solid source, so
+Sprinkles works on the server and in the browser with no extra configuration.
+
+## 1. Create a project
+
+Skip this if you already have one.
+
+```bash
+npm create solid@latest
+```
+
+## 2. Install Sprinkles
+
+```bash
+npm install @webf/sprinkles
+```
+
+## 3. Add the styles
+
+Pick one, and import it once from `src/app.tsx`.
+
+### Precompiled stylesheet
+
+No Tailwind needed.
+
+```tsx title="src/app.tsx"
+import '@webf/sprinkles/style.css';
+```
+
+### Tailwind CSS v4
+
+Add Tailwind through its Vite plugin:
+
+```bash
+npm install tailwindcss @tailwindcss/vite
+```
+
+```ts title="app.config.ts"
+import { defineConfig } from '@solidjs/start/config';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  vite: { plugins: [tailwindcss()] },
+});
+```
+
+```css title="src/app.css"
+@import 'tailwindcss';
+@import '@webf/sprinkles/theme.css';
+```
+
+```tsx title="src/app.tsx"
+import './app.css';
+```
+
+`theme.css` already tells Tailwind where Sprinkles' classes live, so you don't
+add an `@source` line.
+
+## 4. Use a component
+
+```tsx title="src/routes/index.tsx"
+import { Button, Card, CardBody } from '@webf/sprinkles';
+
+export default function Home() {
+  return (
+    <Card>
+      <CardBody>
+        <Button>Hello Sprinkles</Button>
+      </CardBody>
+    </Card>
+  );
+}
+```
+
+Components render on the server and hydrate in the browser, so there is no
+client directive to remember.
+
+## Good to know
+
+**SSR safe.** Components don't touch `window` or `document` while rendering, so
+they work in server-rendered routes and with streaming.
+
+**Dark mode.** Components follow the CSS `color-scheme`. See
+[Styling and theming](/getting-started/styling/#light-and-dark-mode).

@@ -1,0 +1,113 @@
+---
+title: Vite + Solid.js
+description: Use Sprinkles in a client-rendered Solid.js app built with Vite.
+sidebar:
+  label: Vite + Solid.js
+---
+
+For a Solid.js app without a meta-framework, Sprinkles works with
+[`vite-plugin-solid`](https://github.com/solidjs/vite-plugin-solid). The plugin
+compiles Sprinkles together with your own code, so there is nothing else to
+configure.
+
+## 1. Create a project
+
+Skip this if you already have one.
+
+```bash
+npm create vite@latest my-app -- --template solid-ts
+cd my-app
+npm install
+```
+
+The template already includes `solid-js` and `vite-plugin-solid`. If you set
+Vite up yourself, add the plugin:
+
+```ts title="vite.config.ts"
+import { defineConfig } from 'vite';
+import solid from 'vite-plugin-solid';
+
+export default defineConfig({
+  plugins: [solid()],
+});
+```
+
+## 2. Install Sprinkles
+
+```bash
+npm install @webf/sprinkles
+```
+
+## 3. Add the styles
+
+Pick one, and import it once from your entry file.
+
+### Precompiled stylesheet
+
+No Tailwind needed.
+
+```tsx title="src/index.tsx"
+import '@webf/sprinkles/style.css';
+```
+
+### Tailwind CSS v4
+
+Add Tailwind through its Vite plugin:
+
+```bash
+npm install tailwindcss @tailwindcss/vite
+```
+
+```ts title="vite.config.ts"
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
+import solid from 'vite-plugin-solid';
+
+export default defineConfig({
+  plugins: [solid(), tailwindcss()],
+});
+```
+
+```css title="src/index.css"
+@import 'tailwindcss';
+@import '@webf/sprinkles/theme.css';
+```
+
+```tsx title="src/index.tsx"
+import './index.css';
+```
+
+`theme.css` already tells Tailwind where Sprinkles' classes live, so you don't
+add an `@source` line.
+
+## 4. Use a component
+
+```tsx title="src/App.tsx"
+import { Button, TextField } from '@webf/sprinkles';
+
+export function App() {
+  return (
+    <form>
+      <TextField label='Email' type='email' />
+      <Button type='submit'>Subscribe</Button>
+    </form>
+  );
+}
+```
+
+## Good to know
+
+**TypeScript.** The package ships its own types. Use the Solid JSX settings
+that the template sets:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
+  }
+}
+```
+
+**Dark mode.** Components follow the CSS `color-scheme`. See
+[Styling and theming](/getting-started/styling/#light-and-dark-mode).

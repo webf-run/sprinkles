@@ -1,0 +1,85 @@
+---
+title: Styling and theming
+description: Load the Sprinkles stylesheet, turn on dark mode and change the design tokens.
+sidebar:
+  label: Styling and theming
+---
+
+Sprinkles components are styled with Tailwind CSS v4 utilities that read
+design tokens (CSS variables). You load those tokens and utilities one of two
+ways. Use one, not both.
+
+## Precompiled stylesheet
+
+```css
+@import '@webf/sprinkles/style.css';
+```
+
+This is `dist/style.css`: the tokens and only the utilities Sprinkles uses,
+already compiled. You need no Tailwind, and nothing resets your page: the
+stylesheet has no Preflight, and components style their own links and lists.
+
+Importing it from JavaScript works too: `import '@webf/sprinkles/style.css'`.
+
+## Tailwind CSS v4
+
+If your app already runs Tailwind, import the tokens and let Tailwind compile
+the classes:
+
+```css
+@import 'tailwindcss';
+@import '@webf/sprinkles/theme.css';
+```
+
+`theme.css` points Tailwind at Sprinkles' components with `@source`, so you
+need no extra `@source` line. It also gives you the tokens as utilities:
+`bg-accent`, `text-foreground`, and so on. Sprinkles needs Tailwind v4;
+v3 isn't supported.
+
+## Light and dark mode
+
+Every component supports both. Light is the default, so a site that does
+nothing stays light. To follow the visitor's system setting, or to force dark,
+set `color-scheme` on `<html>`:
+
+```css
+/* Follow the system setting (Tailwind: class="scheme-light-dark" on <html>) */
+html {
+  color-scheme: light dark;
+}
+
+/* Or always dark (Tailwind: class="scheme-dark") */
+html {
+  color-scheme: dark;
+}
+```
+
+The same on any element makes just that part dark (or light). To switch with a
+toggle, set `color-scheme` from the toggle's state, for example
+`document.documentElement.style.colorScheme = 'dark'`. These docs follow their
+own light/dark toggle in the header.
+
+## Change the design tokens
+
+Colours, type, spacing, radii and shadows are CSS variables on `:root`. They sit
+in a cascade layer, so any plain rule in your own CSS overrides them, with no
+`!important`. Override the value of a token to re-skin every component:
+
+```css
+:root {
+  --color-accent: light-dark(#0f766e, #5eead4);
+  --color-accent-hover: light-dark(#115e59, #99f6e4);
+  --color-accent-down: light-dark(#134e4a, #ccfbf1);
+  --color-accent-foreground: light-dark(#ffffff, #042f2e);
+}
+```
+
+Change values; don't add new names. Put the same rule on any element to
+re-skin just that part of the page. The theme switcher in the header of these
+docs does exactly this to show another site's look.
+
+Colour tokens come in roles (`accent`, `neutral`, `positive`, `negative`, …),
+each with `-hover`, `-down`, `-foreground`, `-subtle` and
+`-subtle-foreground` steps. Every colour is a `light-dark()` pair, so give both
+values to keep dark mode working. The full list and the rules behind it are in
+[`doc/design-tokens.md`](https://github.com/webf-run/sprinkles/blob/main/doc/design-tokens.md).

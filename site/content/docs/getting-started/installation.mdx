@@ -1,166 +1,88 @@
 ---
 title: Installation
-description: Install Sprinkles into your Astro project.
+description: Install Sprinkles in an Astro, SolidStart or Vite + Solid.js project.
 sidebar:
   label: Installation
-tableOfContents: false
 ---
 
 import { Link } from '@webf/sprinkles';
 
-# Installation
-
-Sprinkles is a modern component library for Astro. It provides beautiful, accessible, and customizable UI components that are easy to integrate into your project.
-
----
+Sprinkles is a [Solid.js](https://www.solidjs.com) component library styled
+with Tailwind CSS. It works anywhere Solid works: **Astro**, **SolidStart** or
+a plain **Vite + Solid.js** app. The package is the same in all three; only the
+setup around it differs.
 
 ## Requirements
 
-Before installing Sprinkles, make sure you have:
+- Node.js 20 or later
+- A Solid.js 1.9 project that uses [Vite](https://vite.dev) (Astro and
+  SolidStart both do)
+- npm, pnpm, yarn or bun
 
-- Astro 5+
-- Node.js 20+
-- npm, pnpm, yarn, or bun
+## Install the package
 
----
-
-## Create a New Astro Project
-
-```bash
-npm create astro@latest
-```
-
-or
+Sprinkles needs `solid-js` as a peer dependency. Your project already has it
+if it is a Solid project.
 
 ```bash
-pnpm create astro
-```
-
-Move into your project.
-
-```bash
-cd my-project
-```
-
----
-
-## Install Sprinkles
-
-### npm
-
-```bash
+# npm
 npm install @webf/sprinkles
-```
 
-### pnpm
-
-```bash
+# pnpm
 pnpm add @webf/sprinkles
-```
 
-### yarn
-
-```bash
+# yarn
 yarn add @webf/sprinkles
-```
 
-### bun
-
-```bash
+# bun
 bun add @webf/sprinkles
 ```
 
----
+## Set up your framework
 
-## Import the Styles
+Sprinkles ships its JSX uncompiled, so your app's own Solid setup compiles it.
+That is how one build works for client rendering, server rendering and
+hydration. Pick your framework for the exact steps.
 
-Import the global stylesheet inside your main layout.
+| You are using                         | Read                                        |
+| ------------------------------------- | ------------------------------------------- |
+| Astro                                 | [Astro](/getting-started/astro/)            |
+| SolidStart                            | [SolidStart](/getting-started/solid-start/) |
+| Vite with Solid.js, no meta-framework | [Vite + Solid.js](/getting-started/vite/)   |
 
-```astro
----
-import '@webf/sprinkles/style.css';
----
-```
+## Load the styles
 
----
+Every setup needs one stylesheet, and there are two ways to get it:
 
-## Light and dark mode
+|                 | Precompiled                         | Tailwind CSS v4                              |
+| --------------- | ----------------------------------- | -------------------------------------------- |
+| Import          | `@webf/sprinkles/style.css`         | `@webf/sprinkles/theme.css`                  |
+| Needs Tailwind  | No                                  | Yes, v4                                      |
+| Resets your CSS | No                                  | Only if you import `tailwindcss` (Preflight) |
+| Best for        | Apps without Tailwind, quick starts | Apps that already use Tailwind               |
 
-Every component supports both. Light is the default, so a site that does
-nothing stays light. To follow the visitor's system setting, or to force dark,
-set `color-scheme` on `<html>`:
+[Styling and theming](/getting-started/styling/) explains both, and how to
+switch on dark mode.
 
-```css
-/* Follow the system setting (Tailwind: class="scheme-light-dark" on <html>) */
-html {
-  color-scheme: light dark;
-}
+## Try a component
 
-/* Or always dark (Tailwind: class="scheme-dark") */
-html {
-  color-scheme: dark;
-}
-```
+Once your framework is set up, render a component:
 
-The same class on any element makes just that part dark (or light). These docs
-follow their own light/dark toggle in the header.
-
----
-
-## Use Your First Component
-
-```astro
----
+```tsx
 import { Link } from '@webf/sprinkles';
----
 
-<Link> Hello Sprinkles </Link>
+export function Hello() {
+  return <Link href='/getting-started/styling/'>Hello Sprinkles</Link>;
+}
 ```
 
-Result:
+It renders as:
 
-<Link>Hello Sprinkles</Link>
+<Link href='/getting-started/styling/'>Hello Sprinkles</Link>
 
----
+## Next steps
 
-## Verify Installation
-
-If everything is installed correctly, you should see the button rendered in your application.
-
----
-
-## Folder Structure
-
-```text
-src/
- ├── layouts/
- │    └── Layout.astro
- ├── pages/
- │    └── index.astro
- └── components/
-```
-
----
-
-## Next Steps
-
-Continue with the Button documentation to learn how to customize components.
-
-<div style="margin-top:2rem">
-
-<a
-  href='/docs/components/link'
-  style='
-    display:inline-flex;
-    padding:12px 20px;
-    border-radius:10px;
-    background:#111;
-    color:white;
-    text-decoration:none;
-    font-weight:600;
-  '
->
-  Button Documentation →
-</a>
-
-</div>
+- Browse every component on the [components](/components/) and
+  [blocks](/blocks/) pages.
+- Open a component's page for its anatomy, options, states and props, for
+  example [Button](/actions/button/).

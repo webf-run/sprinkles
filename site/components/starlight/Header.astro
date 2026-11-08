@@ -1,8 +1,25 @@
 ---
 import Search from '@astrojs/starlight/components/Search.astro';
-import { Github, Sun, Moon } from 'lucide-astro';
+import { ChevronDown, Github, Sun, Moon } from 'lucide-astro';
 
-import { RepoLink } from '../../data/Constant';
+import Logo from '../../assets/sprinkles.svg';
+import { Links } from '../../data/Constant';
+
+const trim = (path: string) => path.replace(/\/$/, '') || '/';
+const pathname = trim(Astro.url.pathname);
+const isComponents = pathname === trim(Links.components);
+const isBlocks = pathname === trim(Links.blocks);
+
+const links = [
+  { label: 'Home', href: Links.home, active: pathname === '/' },
+  {
+    label: 'Docs',
+    href: Links.gettingStarted,
+    active: pathname !== '/' && !isComponents && !isBlocks,
+  },
+  { label: 'Components', href: Links.components, active: isComponents },
+  { label: 'Blocks', href: Links.blocks, active: isBlocks },
+];
 ---
 
 <div class:list={['h-full w-full']}>
@@ -23,52 +40,38 @@ import { RepoLink } from '../../data/Constant';
           'transition-opacity duration-200 hover:opacity-85',
         ]}
       >
+        <Logo class:list={['size-6 shrink-0']} aria-hidden='true' />
         <span class:list={['text-(--sl-color-white)']}>Sprinkles</span>
       </a>
     </div>
 
     <!-- Navigation -->
-    <nav class:list={['hidden items-center justify-start gap-1', 'md:flex']}>
-      <a
-        href='/'
-        class:list={[
-          'rounded-lg px-3 py-1.5',
-          'text-sm font-medium no-underline',
-          'text-(--sl-color-text-accent)',
-          'bg-(--sl-color-accent-low)',
-          'transition-colors duration-150',
-        ]}
-      >
-        Home
-      </a>
-
-      <a
-        href='/docs'
-        class:list={[
-          'rounded-lg px-3 py-1.5',
-          'text-sm font-medium no-underline',
-          'text-(--sl-color-gray-3)',
-          'transition-colors duration-150',
-          'hover:bg-(--sl-color-gray-6)',
-          'hover:text-(--sl-color-white)',
-        ]}
-      >
-        Docs
-      </a>
-
-      <a
-        href='/components'
-        class:list={[
-          'rounded-lg px-3 py-1.5',
-          'text-sm font-medium no-underline',
-          'text-(--sl-color-gray-3)',
-          'transition-colors duration-150',
-          'hover:bg-(--sl-color-gray-6)',
-          'hover:text-(--sl-color-white)',
-        ]}
-      >
-        Components
-      </a>
+    <nav
+      aria-label='Main'
+      class:list={['hidden items-center justify-start gap-1', 'md:flex']}
+    >
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            aria-current={link.active ? 'page' : undefined}
+            class:list={[
+              'rounded-lg px-3 py-1.5',
+              'text-sm font-medium no-underline',
+              'transition-colors duration-150',
+              link.active
+                ? 'bg-(--sl-color-accent-low) text-(--sl-color-text-accent)'
+                : [
+                    'text-(--sl-color-gray-3)',
+                    'hover:bg-(--sl-color-gray-6)',
+                    'hover:text-(--sl-color-white)',
+                  ],
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
     </nav>
 
     <!-- Right -->
@@ -80,7 +83,7 @@ import { RepoLink } from '../../data/Constant';
 
       <!-- GitHub -->
       <a
-        href={RepoLink}
+        href={Links.repo}
         target='_blank'
         rel='noopener noreferrer'
         class:list={[
@@ -106,16 +109,26 @@ import { RepoLink } from '../../data/Constant';
         ]}
       >
         <span>Theme</span>
-        <select
-          id='sprinkles-theme'
-          class:list={[
-            'h-9 rounded-lg border border-(--sl-color-gray-5) bg-(--sl-color-bg) px-2',
-            'text-sm text-(--sl-color-white)',
-          ]}
-        >
-          <option value='default'>Sprinkles</option>
-          <option value='studio'>Studio</option>
-        </select>
+        <div class:list={['relative']}>
+          <select
+            id='sprinkles-theme'
+            class:list={[
+              'h-9 appearance-none rounded-lg border border-(--sl-color-gray-5)',
+              'bg-(--sl-color-bg) pr-9 pl-3',
+              'text-sm text-(--sl-color-white)',
+            ]}
+          >
+            <option value='default'>Sprinkles</option>
+            <option value='studio'>Studio</option>
+          </select>
+          <ChevronDown
+            size={16}
+            aria-hidden='true'
+            class:list={[
+              'pointer-events-none absolute top-1/2 right-3 -translate-y-1/2',
+            ]}
+          />
+        </div>
       </label>
 
       <!-- Theme toggle -->
