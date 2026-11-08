@@ -9,6 +9,8 @@ components are built on [Ark UI](https://ark-ui.com).
 npm install --save @webf/sprinkles
 ```
 
+Documentation, with every component and block: <https://sprinkles.webf.run>.
+
 ## Requirements
 
 Components are published as uncompiled Solid JSX (`dist/index.jsx`, under the

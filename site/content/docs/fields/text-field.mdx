@@ -26,9 +26,9 @@ import { TextField } from '@webf/sprinkles';
 ```
 
 A text field takes one line of text: a title, a slug, an email address. For
-more than a line, use a [TextArea](/fields/text-area/); for numbers, a
-[NumberInput](/fields/number-input/); for a value from a list, a
-[Select](/fields/select/) or a [Combobox](/fields/combobox/).
+more than a line, use a [TextArea](/fields/text-area); for numbers, a
+[NumberInput](/fields/number-input); for a value from a list, a
+[Select](/fields/select) or a [Combobox](/fields/combobox).
 
 ## Anatomy
 
@@ -93,7 +93,7 @@ and copied.
 - A native `<input>`, so typing, selection, autofill and spell check work as
   people expect.
 - The label names the input, and the description or error describes it; see
-  [Field](/fields/field/).
+  [Field](/fields/field).
 - The icon is decorative (`aria-hidden`). An input without a visible label,
   such as a search box, needs `aria-label`.
 - The outline is `border-strong`, which reaches 3:1 against the page.
@@ -122,7 +122,7 @@ and copied.
 | `name`                                        | `string`                                                        |          |
 | `autocomplete`                                | `string`                                                        |          |
 | `maxLength`                                   | `number`                                                        |          |
-| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field/)                      |          |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field)                       |          |
 | `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                                       | `false`  |
 | `id`                                          | `string`; the input's id                                        |          |
 | `aria-label`                                  | `string`; required without a visible label                      |          |

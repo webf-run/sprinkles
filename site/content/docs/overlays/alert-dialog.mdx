@@ -27,8 +27,8 @@ two or three buttons, and closes only through them (or Escape, which
 cancels). A click outside does nothing.
 
 Use it sparingly, for actions that are hard to undo or that affect other
-people. For a task with a form, use a [Dialog](/overlays/dialog/); to report
-something that already happened, a [Toast](/feedback/toast/).
+people. For a task with a form, use a [Dialog](/overlays/dialog); to report
+something that already happened, a [Toast](/feedback/toast).
 
 ## Anatomy
 
@@ -74,7 +74,7 @@ Cancel, so a quick Enter doesn't delete anything.
 Return a promise from `onConfirm`: the confirm button shows a spinner, the
 other buttons and Escape are disabled, and the dialog closes when the
 promise resolves. If it rejects, the dialog stays open so the person can
-retry or cancel; report the error yourself (a [Toast](/feedback/toast/)
+retry or cancel; report the error yourself (a [Toast](/feedback/toast)
 works well). For an action you track elsewhere, pass `pending`.
 
 <ExampleBlock code={pendingCode}>

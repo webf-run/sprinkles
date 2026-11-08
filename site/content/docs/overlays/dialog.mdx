@@ -28,8 +28,8 @@ clear end: renaming a page, editing its settings, moving an image. The page
 behind is dimmed and can't be used until the dialog closes.
 
 To confirm or cancel a single action (delete, publish, overwrite), use an
-[AlertDialog](/overlays/alert-dialog/). For a small form or details that
-shouldn't hide the page, use a [Popover](/overlays/popover/).
+[AlertDialog](/overlays/alert-dialog). For a small form or details that
+shouldn't hide the page, use a [Popover](/overlays/popover).
 
 ## Anatomy
 
@@ -62,7 +62,7 @@ shouldn't hide the page, use a [Popover](/overlays/popover/).
 
 `trigger` renders the element that opens the dialog. It receives the props
 Ark needs (ARIA attributes, the click handler): spread them on a
-[Button](/actions/button/). Give `footer` a function to get `close` for the
+[Button](/actions/button). Give `footer` a function to get `close` for the
 Cancel button.
 
 <ExampleBlock code={triggerCode}>

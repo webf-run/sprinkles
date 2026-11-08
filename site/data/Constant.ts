@@ -1,5 +1,3 @@
-export const RepoLink = 'https://github.com/webf-run/sprinkles';
-
 export const Links = {
   repo: 'https://github.com/webf-run/sprinkles',
 

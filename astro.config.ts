@@ -12,6 +12,10 @@ export default defineConfig({
   publicDir: './public',
   outDir: './dist-site',
 
+  // SEO
+  site: 'https://sprinkles.webf.run',
+  trailingSlash: 'never',
+
   integrations: [
     solid(),
     starlight({
