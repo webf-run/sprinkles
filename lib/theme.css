@@ -21,6 +21,13 @@
  *  overriding the values of semantic tokens, never by adding new names.
  *  The same overrides on any element re-skin just that subtree.
  *
+ * LIGHT AND DARK
+ *  Every colour token is `light-dark(<light>, <dark>)`, so it follows the
+ *  CSS `color-scheme` of the element it is used on. Light is the default; an
+ *  app opts in to dark with `color-scheme` on <html> (Tailwind:
+ *  `scheme-light-dark` to follow the system, `scheme-dark` to force it), or
+ *  on any element for a dark subtree. Components need no `dark:` variants.
+ *
  * Every text/background pair in tiers 2 and 3 is checked for WCAG 2.2 AA
  * contrast by `pnpm check:tokens` (scripts/check-tokens.mjs).
  */
@@ -64,27 +71,56 @@
 
   --color-blue-45: #edf2fc;
   --color-blue-80: #dbeafe;
+  --color-blue-201: #adc6ff;
+  --color-blue-226: #a2bfff;
+  --color-blue-295: #86abff;
+  --color-blue-361: #7099f2;
   --color-blue-610: #1d4ed8;
   --color-blue-681: #1e40af;
   --color-blue-729: #1e3a8a;
+  --color-blue-839: #1c2744;
+  --color-blue-896: #0a1a40;
 
   --color-fuchsia-60: #fae8ff;
+  --color-fuchsia-189: #f7b3f7;
+  --color-fuchsia-279: #f08df0;
   --color-fuchsia-594: #a21caf;
+  --color-fuchsia-844: #3a1b3d;
+  --color-fuchsia-913: #2e0830;
 
   --color-green-40: #dcfce7;
   --color-green-45: #ebf5ef;
+  --color-green-164: #8fe2ae;
+  --color-green-192: #7ddca1;
+  --color-green-243: #5fd08a;
+  --color-green-311: #4bbd77;
   --color-green-385: #00ad1a;
   --color-green-530: #15803d;
   --color-green-627: #166534;
   --color-green-693: #14532d;
+  --color-green-826: #16301f;
+  --color-green-881: #05250f;
 
   --color-indigo-82: #e0e7ff;
+  --color-indigo-201: #bcc2ff;
+  --color-indigo-290: #9ea7ff;
   --color-indigo-654: #4338ca;
+  --color-indigo-849: #1f2346;
+  --color-indigo-923: #0f1338;
 
+  --color-neutral-32: #f7f5fa;
+  --color-neutral-39: #f5f3f7;
   --color-neutral-40: #f4f4f5;
+  --color-neutral-72: #ece9f1;
   --color-neutral-85: #e5e7eb;
+  --color-neutral-94: #e6e3ea;
   --color-neutral-150: #d1d5db;
+  --color-neutral-152: #d6d2dd;
+  --color-neutral-167: #d2ced8;
+  --color-neutral-256: #bab5c2;
+  --color-neutral-348: #a29ca9;
   --color-neutral-385: #97929e;
+  --color-neutral-431: #8c8695;
   --color-neutral-445: #8a8390;
   --color-neutral-520: #6b7280;
   --color-neutral-550: #6f6875;
@@ -93,22 +129,36 @@
   --color-neutral-650: #52525b;
   --color-neutral-685: #4d4852;
   --color-neutral-705: #464646;
+  --color-neutral-715: #46414e;
   --color-neutral-720: #444147;
   --color-neutral-760: #3b3740;
+  --color-neutral-784: #36323d;
+  --color-neutral-823: #2d2a32;
+  --color-neutral-859: #26222d;
   --color-neutral-870: #222222;
   --color-neutral-875: #202226;
+  --color-neutral-881: #211e27;
   --color-neutral-890: #211b28;
+  --color-neutral-913: #1a181e;
   --color-neutral-930: #17151b;
 
   --color-orange-30: #fcf6eb;
   --color-orange-40: #fff2dc;
   --color-orange-55: #ffedd5;
+  --color-orange-162: #ffc77d;
+  --color-orange-176: #ffc091;
+  --color-orange-203: #ffb67d;
   --color-orange-215: #ffb35c;
+  --color-orange-253: #ffa25a;
   --color-orange-260: #ffa037;
+  --color-orange-318: #f28d40;
   --color-orange-325: #f28a1f;
   --color-orange-540: #c2410c;
   --color-orange-633: #9a3412;
   --color-orange-701: #7c2d12;
+  --color-orange-816: #3a2a14;
+  --color-orange-832: #3a2513;
+  --color-orange-911: #2d1200;
 
   --color-pink-65: #fce7f3;
   --color-pink-505: #db2777;
@@ -134,33 +184,62 @@
   --color-purple-130: #e7d8f7;
   --color-purple-135: #ddd6fe;
   --color-purple-140: #e3d0f6;
+  --color-purple-178: #dcc1ff;
+  --color-purple-196: #d2bdff;
   --color-purple-230: #cab6e8;
   --color-purple-235: #c9b4e6;
+  --color-purple-257: #c5a8ff;
+  --color-purple-288: #c79aff;
+  --color-purple-321: #b991ff;
+  --color-purple-330: #b48fff;
   --color-purple-385: #a77bff;
+  --color-purple-399: #a07cf0;
   --color-purple-575: #76569a;
   --color-purple-625: #6d28d9;
   --color-purple-685: #51455f;
   --color-purple-690: #5b21b6;
   --color-purple-705: #5d13b7;
+  --color-purple-709: #4e3c6a;
   --color-purple-735: #4e13a6;
+  --color-purple-769: #3b3446;
   --color-purple-775: #48108c;
   --color-purple-785: #3e2a55;
+  --color-purple-788: #3a2c52;
   --color-purple-820: #3d0080;
+  --color-purple-831: #2f2348;
+  --color-purple-841: #2c2438;
+  --color-purple-850: #2d1e44;
   --color-purple-880: #2c0062;
   --color-purple-920: #1f0449;
+  --color-purple-929: #1c0840;
+  --color-purple-931: #200838;
 
   --color-red-36: #fef2f2;
+  --color-red-224: #ffa9a9;
+  --color-red-258: #ff9b9b;
+  --color-red-318: #ff8080;
+  --color-red-385: #f26868;
   --color-red-601: #b91c1c;
   --color-red-668: #991b1b;
   --color-red-719: #7f1d1d;
+  --color-red-850: #3e1b1e;
+  --color-red-912: #360808;
 
   --color-seafoam-48: #ccfbf1;
+  --color-seafoam-157: #83e3d6;
+  --color-seafoam-233: #4fd1bf;
   --color-seafoam-555: #0f766e;
+  --color-seafoam-824: #12302c;
+  --color-seafoam-890: #04221d;
 
   --color-yellow-29: #fef9c3;
+  --color-yellow-119: #f7dc72;
+  --color-yellow-147: #f5d34b;
   --color-yellow-163: #facc15;
   --color-yellow-616: #854d0e;
+  --color-yellow-826: #332a0f;
   --color-yellow-835: #422006;
+  --color-yellow-872: #2a2000;
 
   /* ------------------------------------------------------------------ */
   /* 2. Semantic roles. Each role has:                                  */
@@ -173,52 +252,52 @@
   /* ------------------------------------------------------------------ */
 
   /* Accent: the call to action and the product's identity. */
-  --color-accent: var(--color-purple-705);
-  --color-accent-hover: var(--color-purple-735);
-  --color-accent-down: var(--color-purple-775);
-  --color-accent-foreground: var(--color-white);
-  --color-accent-subtle: var(--color-purple-65);
-  --color-accent-subtle-foreground: var(--color-purple-705);
+  --color-accent: light-dark(var(--color-purple-705), var(--color-purple-330));
+  --color-accent-hover: light-dark(var(--color-purple-735), var(--color-purple-257));
+  --color-accent-down: light-dark(var(--color-purple-775), var(--color-purple-399));
+  --color-accent-foreground: light-dark(var(--color-white), var(--color-purple-929));
+  --color-accent-subtle: light-dark(var(--color-purple-65), var(--color-purple-831));
+  --color-accent-subtle-foreground: light-dark(var(--color-purple-705), var(--color-purple-196));
 
   /* Neutral: emphasis without colour (primary buttons, quiet controls). */
-  --color-neutral: var(--color-neutral-870);
-  --color-neutral-hover: var(--color-neutral-930);
-  --color-neutral-down: var(--color-black);
-  --color-neutral-foreground: var(--color-white);
-  --color-neutral-subtle: var(--color-neutral-40);
-  --color-neutral-subtle-foreground: var(--color-neutral-870);
+  --color-neutral: light-dark(var(--color-neutral-870), var(--color-neutral-94));
+  --color-neutral-hover: light-dark(var(--color-neutral-930), var(--color-neutral-39));
+  --color-neutral-down: light-dark(var(--color-black), var(--color-neutral-167));
+  --color-neutral-foreground: light-dark(var(--color-white), var(--color-neutral-913));
+  --color-neutral-subtle: light-dark(var(--color-neutral-40), var(--color-neutral-823));
+  --color-neutral-subtle-foreground: light-dark(var(--color-neutral-870), var(--color-neutral-94));
 
   /* Informative: help and neutral status. */
-  --color-informative: var(--color-blue-610);
-  --color-informative-hover: var(--color-blue-681);
-  --color-informative-down: var(--color-blue-729);
-  --color-informative-foreground: var(--color-white);
-  --color-informative-subtle: var(--color-blue-80);
-  --color-informative-subtle-foreground: var(--color-blue-610);
+  --color-informative: light-dark(var(--color-blue-610), var(--color-blue-295));
+  --color-informative-hover: light-dark(var(--color-blue-681), var(--color-blue-226));
+  --color-informative-down: light-dark(var(--color-blue-729), var(--color-blue-361));
+  --color-informative-foreground: light-dark(var(--color-white), var(--color-blue-896));
+  --color-informative-subtle: light-dark(var(--color-blue-80), var(--color-blue-839));
+  --color-informative-subtle-foreground: light-dark(var(--color-blue-610), var(--color-blue-201));
 
   /* Positive: success and approval. */
-  --color-positive: var(--color-green-530);
-  --color-positive-hover: var(--color-green-627);
-  --color-positive-down: var(--color-green-693);
-  --color-positive-foreground: var(--color-white);
-  --color-positive-subtle: var(--color-green-40);
-  --color-positive-subtle-foreground: var(--color-green-530);
+  --color-positive: light-dark(var(--color-green-530), var(--color-green-243));
+  --color-positive-hover: light-dark(var(--color-green-627), var(--color-green-192));
+  --color-positive-down: light-dark(var(--color-green-693), var(--color-green-311));
+  --color-positive-foreground: light-dark(var(--color-white), var(--color-green-881));
+  --color-positive-subtle: light-dark(var(--color-green-40), var(--color-green-826));
+  --color-positive-subtle-foreground: light-dark(var(--color-green-530), var(--color-green-164));
 
   /* Notice: caution, things that need attention soon. */
-  --color-notice: var(--color-orange-540);
-  --color-notice-hover: var(--color-orange-633);
-  --color-notice-down: var(--color-orange-701);
-  --color-notice-foreground: var(--color-white);
-  --color-notice-subtle: var(--color-orange-55);
-  --color-notice-subtle-foreground: var(--color-orange-540);
+  --color-notice: light-dark(var(--color-orange-540), var(--color-orange-253));
+  --color-notice-hover: light-dark(var(--color-orange-633), var(--color-orange-203));
+  --color-notice-down: light-dark(var(--color-orange-701), var(--color-orange-318));
+  --color-notice-foreground: light-dark(var(--color-white), var(--color-orange-911));
+  --color-notice-subtle: light-dark(var(--color-orange-55), var(--color-orange-832));
+  --color-notice-subtle-foreground: light-dark(var(--color-orange-540), var(--color-orange-176));
 
   /* Negative: errors and destructive actions. */
-  --color-negative: var(--color-red-601);
-  --color-negative-hover: var(--color-red-668);
-  --color-negative-down: var(--color-red-719);
-  --color-negative-foreground: var(--color-white);
-  --color-negative-subtle: var(--color-red-36);
-  --color-negative-subtle-foreground: var(--color-red-601);
+  --color-negative: light-dark(var(--color-red-601), var(--color-red-318));
+  --color-negative-hover: light-dark(var(--color-red-668), var(--color-red-258));
+  --color-negative-down: light-dark(var(--color-red-719), var(--color-red-385));
+  --color-negative-foreground: light-dark(var(--color-white), var(--color-red-912));
+  --color-negative-subtle: light-dark(var(--color-red-36), var(--color-red-850));
+  --color-negative-subtle-foreground: light-dark(var(--color-red-601), var(--color-red-224));
 
   /* Highlight: a second emphasis colour for marketing calls to action and
      decorative marks, for designs that have one. A fill (with its
@@ -228,71 +307,74 @@
   --color-highlight-hover: var(--color-orange-215);
   --color-highlight-down: var(--color-orange-325);
   --color-highlight-foreground: var(--color-black);
-  --color-highlight-subtle: var(--color-orange-40);
-  --color-highlight-subtle-foreground: var(--color-orange-701);
+  --color-highlight-subtle: light-dark(var(--color-orange-40), var(--color-orange-816));
+  --color-highlight-subtle-foreground: light-dark(var(--color-orange-701), var(--color-orange-162));
 
   /* Surfaces (backgrounds), lightest first. `surface-inverse` is a dark
      band (hero, banner, footer) that takes `foreground-inverse`. */
-  --color-surface: var(--color-white);
-  --color-surface-muted: var(--color-purple-35);
-  --color-surface-tint: var(--color-purple-60);
-  --color-surface-soft: var(--color-purple-65);
-  --color-surface-emphasis: var(--color-purple-140);
+  --color-surface: light-dark(var(--color-white), var(--color-neutral-881));
+  --color-surface-muted: light-dark(var(--color-purple-35), var(--color-neutral-930));
+  --color-surface-tint: light-dark(var(--color-purple-60), var(--color-neutral-859));
+  --color-surface-soft: light-dark(var(--color-purple-65), var(--color-purple-841));
+  --color-surface-emphasis: light-dark(var(--color-purple-140), var(--color-purple-788));
   --color-surface-inverse: var(--color-purple-880);
 
   /* Foreground (text, icons), strongest to weakest. */
-  --color-foreground-strongest: var(--color-neutral-930);
-  --color-foreground-strong: var(--color-neutral-870);
-  --color-foreground: var(--color-neutral-705);
-  --color-foreground-muted: var(--color-neutral-615);
-  --color-foreground-subtle: var(--color-neutral-550);
+  --color-foreground-strongest: light-dark(var(--color-neutral-930), var(--color-neutral-32));
+  --color-foreground-strong: light-dark(var(--color-neutral-870), var(--color-neutral-72));
+  --color-foreground: light-dark(var(--color-neutral-705), var(--color-neutral-152));
+  --color-foreground-muted: light-dark(var(--color-neutral-615), var(--color-neutral-256));
+  --color-foreground-subtle: light-dark(var(--color-neutral-550), var(--color-neutral-348));
   --color-foreground-inverse: var(--color-white);
 
   /* Borders and dividers. `border-strong` outlines form controls, which
      need 3:1 against the surface. */
-  --color-border-strong: var(--color-neutral-520);
-  --color-border: var(--color-neutral-150);
-  --color-border-muted: var(--color-neutral-85);
-  --color-border-subtle: var(--color-purple-95);
-  --color-border-accent: var(--color-purple-130);
+  --color-border-strong: light-dark(var(--color-neutral-520), var(--color-neutral-431));
+  --color-border: light-dark(var(--color-neutral-150), var(--color-neutral-715));
+  --color-border-muted: light-dark(var(--color-neutral-85), var(--color-neutral-784));
+  --color-border-subtle: light-dark(var(--color-purple-95), var(--color-purple-769));
+  --color-border-accent: light-dark(var(--color-purple-130), var(--color-purple-709));
   --color-border-inverse: var(--color-white);
 
   /* Focus: one ring for every control, shown on :focus-visible only
      (`outline-2 outline-offset-2 outline-focus-ring`). */
-  --color-focus-ring: var(--color-purple-625);
+  --color-focus-ring: light-dark(var(--color-purple-625), var(--color-purple-321));
 
   /* Backdrop: dims the page behind a modal dialog or drawer. */
-  --color-backdrop: color-mix(in srgb, var(--color-neutral-930) 48%, transparent);
+  --color-backdrop: light-dark(
+    color-mix(in srgb, var(--color-neutral-930) 48%, transparent),
+    color-mix(in srgb, var(--color-black) 64%, transparent)
+  );
 
   /* ------------------------------------------------------------------ */
   /* 3. Categorical colours: labels that carry no meaning (categories,   */
   /*    tags). Same shape as a role, without hover and down.             */
   /* ------------------------------------------------------------------ */
 
-  --color-seafoam: var(--color-seafoam-555);
-  --color-seafoam-foreground: var(--color-white);
-  --color-seafoam-subtle: var(--color-seafoam-48);
-  --color-seafoam-subtle-foreground: var(--color-seafoam-555);
+  --color-seafoam: light-dark(var(--color-seafoam-555), var(--color-seafoam-233));
+  --color-seafoam-foreground: light-dark(var(--color-white), var(--color-seafoam-890));
+  --color-seafoam-subtle: light-dark(var(--color-seafoam-48), var(--color-seafoam-824));
+  --color-seafoam-subtle-foreground: light-dark(var(--color-seafoam-555), var(--color-seafoam-157));
 
-  --color-indigo: var(--color-indigo-654);
-  --color-indigo-foreground: var(--color-white);
-  --color-indigo-subtle: var(--color-indigo-82);
-  --color-indigo-subtle-foreground: var(--color-indigo-654);
+  --color-indigo: light-dark(var(--color-indigo-654), var(--color-indigo-290));
+  --color-indigo-foreground: light-dark(var(--color-white), var(--color-indigo-923));
+  --color-indigo-subtle: light-dark(var(--color-indigo-82), var(--color-indigo-849));
+  --color-indigo-subtle-foreground: light-dark(var(--color-indigo-654), var(--color-indigo-201));
 
-  --color-purple: var(--color-purple-705);
-  --color-purple-foreground: var(--color-white);
-  --color-purple-subtle: var(--color-purple-55);
-  --color-purple-subtle-foreground: var(--color-purple-735);
+  --color-purple: light-dark(var(--color-purple-705), var(--color-purple-288));
+  --color-purple-foreground: light-dark(var(--color-white), var(--color-purple-931));
+  --color-purple-subtle: light-dark(var(--color-purple-55), var(--color-purple-850));
+  --color-purple-subtle-foreground: light-dark(var(--color-purple-735), var(--color-purple-178));
 
-  --color-fuchsia: var(--color-fuchsia-594);
-  --color-fuchsia-foreground: var(--color-white);
-  --color-fuchsia-subtle: var(--color-fuchsia-60);
-  --color-fuchsia-subtle-foreground: var(--color-fuchsia-594);
+  --color-fuchsia: light-dark(var(--color-fuchsia-594), var(--color-fuchsia-279));
+  --color-fuchsia-foreground: light-dark(var(--color-white), var(--color-fuchsia-913));
+  --color-fuchsia-subtle: light-dark(var(--color-fuchsia-60), var(--color-fuchsia-844));
+  --color-fuchsia-subtle-foreground: light-dark(var(--color-fuchsia-594), var(--color-fuchsia-189));
 
-  --color-yellow: var(--color-yellow-163);
-  --color-yellow-foreground: var(--color-yellow-835);
-  --color-yellow-subtle: var(--color-yellow-29);
-  --color-yellow-subtle-foreground: var(--color-yellow-616);
+  --color-yellow: light-dark(var(--color-yellow-163), var(--color-yellow-147));
+  --color-yellow-foreground: light-dark(var(--color-yellow-835), var(--color-yellow-872));
+  --color-yellow-subtle: light-dark(var(--color-yellow-29), var(--color-yellow-826));
+  --color-yellow-subtle-foreground: light-dark(var(--color-yellow-616), var(--color-yellow-119));
 
   /* ------------------------------------------------------------------ */
   /* 4. Typography                                                      */
@@ -364,8 +446,12 @@
 
   /* Elevation, named by role: `elevated` lifts a card off the page,
      `overlay` floats popovers, menus and dialogs above everything. */
-  --shadow-elevated: 5px 5px 17.3px 0px color-mix(in srgb, var(--color-accent) 10%, transparent);
-  --shadow-overlay: 0 12px 32px -4px color-mix(in srgb, var(--color-neutral-930) 18%, transparent), 0 2px 6px 0 color-mix(in srgb, var(--color-neutral-930) 8%, transparent);
+  /* On dark surfaces a shadow barely shows; it darkens instead of tinting. */
+  --shadow-elevated: 5px 5px 17.3px 0px
+    light-dark(color-mix(in srgb, var(--color-accent) 10%, transparent), color-mix(in srgb, var(--color-black) 40%, transparent));
+  --shadow-overlay:
+    0 12px 32px -4px light-dark(color-mix(in srgb, var(--color-neutral-930) 18%, transparent), color-mix(in srgb, var(--color-black) 56%, transparent)),
+    0 2px 6px 0 light-dark(color-mix(in srgb, var(--color-neutral-930) 8%, transparent), color-mix(in srgb, var(--color-black) 32%, transparent));
 
   /* Motion: two curves; durations use Tailwind's duration-100 (fast),
      duration-200 (standard) and duration-300 (slow). Components animate

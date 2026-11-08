@@ -30,3 +30,20 @@ Without Tailwind, import the precompiled `@webf/sprinkles/style.css`.
 
 Re-skin everything by overriding token values in your own `:root`
 (`--color-accent: …`); see `doc/design-tokens.md`.
+
+## Light and dark
+
+Every component supports both. Light is the default; opt in to dark with
+`color-scheme` on `<html>` (or any element, for a dark subtree):
+
+```css
+/* Follow the system setting (Tailwind: class="scheme-light-dark" on <html>) */
+html {
+  color-scheme: light dark;
+}
+
+/* Or always dark (Tailwind: class="scheme-dark") */
+html {
+  color-scheme: dark;
+}
+```

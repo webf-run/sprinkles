@@ -84,6 +84,29 @@ import '@webf/sprinkles/style.css';
 
 ---
 
+## Light and dark mode
+
+Every component supports both. Light is the default, so a site that does
+nothing stays light. To follow the visitor's system setting, or to force dark,
+set `color-scheme` on `<html>`:
+
+```css
+/* Follow the system setting (Tailwind: class="scheme-light-dark" on <html>) */
+html {
+  color-scheme: light dark;
+}
+
+/* Or always dark (Tailwind: class="scheme-dark") */
+html {
+  color-scheme: dark;
+}
+```
+
+The same class on any element makes just that part dark (or light). These docs
+follow their own light/dark toggle in the header.
+
+---
+
 ## Use Your First Component
 
 ```astro

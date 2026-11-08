@@ -9,7 +9,7 @@ export default function Example() {
           Contact us
         </Button>
       </div>
-      <div class='flex flex-1 flex-wrap gap-3 rounded-2xl bg-highlight-subtle p-6'>
+      <div class='flex flex-1 flex-wrap gap-3 rounded-2xl bg-highlight p-6'>
         <Button staticColor='black'>Explore</Button>
         <Button staticColor='black' fillStyle='outline'>
           Contact us

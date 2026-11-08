@@ -103,6 +103,10 @@ links and lists instead of relying on Preflight:
   prop holding JSX that is read in `when` and in the body is created twice
   and breaks hydration. Resolve it first: `const label = children(() =>
 props.label)`.
+- **Light and dark:** colour tokens are `light-dark(<light>, <dark>)` and
+  follow `color-scheme` (light unless the app opts in). Components never use
+  `dark:` variants; a new colour token needs both values, and
+  `pnpm check:tokens` checks contrast in both schemes.
 - Overlays animate with the `animate-*-in/-out` keyframe tokens under
   `motion-safe:`; Ark waits for an animation, not a transition, before it
   unmounts closing content.

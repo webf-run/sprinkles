@@ -132,8 +132,9 @@ body {
   font-size: var(--sl-text-xs);
 }
 
-/* Previews always show components on the component theme's surface, also
-   when the docs themselves are dark. */
+/* Previews show components on their own surface token. Starlight sets
+   `color-scheme` from the docs' light/dark toggle, and every token is
+   `light-dark()`, so the components switch with the docs. */
 .preview-body {
   display: flex;
   flex-wrap: wrap;

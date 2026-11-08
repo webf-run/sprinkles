@@ -6,53 +6,56 @@
  * The docs header's theme switcher sets `data-sprinkles-theme='studio'` on
  * <html>. `pnpm check:tokens` checks every contrast pair with these values.
  *
+ * Each colour is `light-dark(<light>, <dark>)`, like the base tokens, so the
+ * theme follows the docs' light and dark modes.
+ *
  * Unlayered, so it wins over the tokens in `@layer theme`.
  */
 :root[data-sprinkles-theme='studio'] {
   /* Accent: a deep rose. */
-  --color-accent: #9d174d;
-  --color-accent-hover: #831843;
-  --color-accent-down: #6b1238;
-  --color-accent-foreground: #ffffff;
-  --color-accent-subtle: #fce7f3;
-  --color-accent-subtle-foreground: #9d174d;
+  --color-accent: light-dark(#9d174d, #ff8fbd);
+  --color-accent-hover: light-dark(#831843, #ffa8cc);
+  --color-accent-down: light-dark(#6b1238, #f27aac);
+  --color-accent-foreground: light-dark(#ffffff, #3a0019);
+  --color-accent-subtle: light-dark(#fce7f3, #3d1a2b);
+  --color-accent-subtle-foreground: light-dark(#9d174d, #ffb3d1);
 
   /* Highlight: saffron, for the studio's "Book a class". */
-  --color-highlight: #f59e0b;
-  --color-highlight-hover: #fbbf24;
-  --color-highlight-down: #d97706;
-  --color-highlight-foreground: #1c1917;
-  --color-highlight-subtle: #fef3c7;
-  --color-highlight-subtle-foreground: #78350f;
+  --color-highlight: light-dark(#f59e0b, #f59e0b);
+  --color-highlight-hover: light-dark(#fbbf24, #fbbf24);
+  --color-highlight-down: light-dark(#d97706, #d97706);
+  --color-highlight-foreground: light-dark(#1c1917, #1c1917);
+  --color-highlight-subtle: light-dark(#fef3c7, #3a2a0c);
+  --color-highlight-subtle-foreground: light-dark(#78350f, #fcd34d);
 
   /* Warm neutrals. */
-  --color-neutral: #292524;
-  --color-neutral-hover: #1c1917;
-  --color-neutral-down: #0c0a09;
-  --color-neutral-foreground: #ffffff;
-  --color-neutral-subtle: #f5f5f4;
-  --color-neutral-subtle-foreground: #292524;
+  --color-neutral: light-dark(#292524, #e7e5e4);
+  --color-neutral-hover: light-dark(#1c1917, #f5f5f4);
+  --color-neutral-down: light-dark(#0c0a09, #d6d3d1);
+  --color-neutral-foreground: light-dark(#ffffff, #1c1917);
+  --color-neutral-subtle: light-dark(#f5f5f4, #2c2a28);
+  --color-neutral-subtle-foreground: light-dark(#292524, #e7e5e4);
 
-  --color-surface: #ffffff;
-  --color-surface-muted: #fdf8f4;
-  --color-surface-tint: #fbefe8;
-  --color-surface-soft: #fce7f3;
-  --color-surface-emphasis: #f9d0e3;
-  --color-surface-inverse: #3b0a24;
+  --color-surface: light-dark(#ffffff, #1f1b1a);
+  --color-surface-muted: light-dark(#fdf8f4, #161312);
+  --color-surface-tint: light-dark(#fbefe8, #26201e);
+  --color-surface-soft: light-dark(#fce7f3, #2f1f27);
+  --color-surface-emphasis: light-dark(#f9d0e3, #4a2337);
+  --color-surface-inverse: light-dark(#3b0a24, #3b0a24);
 
-  --color-foreground-strongest: #0c0a09;
-  --color-foreground-strong: #1c1917;
-  --color-foreground: #44403c;
-  --color-foreground-muted: #57534e;
-  --color-foreground-subtle: #6b625c;
+  --color-foreground-strongest: light-dark(#0c0a09, #faf8f6);
+  --color-foreground-strong: light-dark(#1c1917, #f0ece9);
+  --color-foreground: light-dark(#44403c, #d9d3cf);
+  --color-foreground-muted: light-dark(#57534e, #bdb5af);
+  --color-foreground-subtle: light-dark(#6b625c, #a39a94);
 
-  --color-border-strong: #78716c;
-  --color-border: #d6d3d1;
-  --color-border-muted: #e7e5e4;
-  --color-border-subtle: #f3dbe6;
-  --color-border-accent: #f0c2d6;
+  --color-border-strong: light-dark(#78716c, #8f8680);
+  --color-border: light-dark(#d6d3d1, #4a4441);
+  --color-border-muted: light-dark(#e7e5e4, #383331);
+  --color-border-subtle: light-dark(#f3dbe6, #47303c);
+  --color-border-accent: light-dark(#f0c2d6, #5c3048);
 
-  --color-focus-ring: #be185d;
+  --color-focus-ring: light-dark(#be185d, #ff8fbd);
 
   /* Rounder corners: Tailwind's radius scale is a token too. */
   --radius-md: 0.5rem;
@@ -63,6 +66,7 @@
 
   /* Values derived from the accent are resolved where they are declared, so
      they are restated here. */
-  --shadow-elevated: 5px 5px 17.3px 0px color-mix(in srgb, #9d174d 10%, transparent);
+  --shadow-elevated: 5px 5px 17.3px 0px
+    light-dark(color-mix(in srgb, #9d174d 10%, transparent), color-mix(in srgb, black 40%, transparent));
   --background-image-glow: radial-gradient(50% 50% at 50% 50%, #3b0a24 0%, color-mix(in srgb, #3b0a24 70%, black) 100%);
 }

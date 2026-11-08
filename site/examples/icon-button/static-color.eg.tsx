@@ -25,7 +25,7 @@ export default function Example() {
           aria-label='Remove image'
         />
       </div>
-      <div class='flex flex-1 flex-wrap gap-2 rounded-2xl bg-highlight-subtle p-6'>
+      <div class='flex flex-1 flex-wrap gap-2 rounded-2xl bg-highlight p-6'>
         <IconButton
           staticColor='black'
           icon={ImagePlus}

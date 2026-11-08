@@ -81,12 +81,37 @@ apart; use a role when colour means something.
 vocabulary: `variant` picks the tone, `fillStyle` (`bold | subtle | outline`)
 how strongly it shows.
 
+### Light and dark
+
+Every colour token that differs between the schemes is
+`light-dark(<light>, <dark>)`, and both values are palette primitives (the
+dark shades follow the same naming rule). A token follows the CSS
+`color-scheme` of the element it is used on:
+
+- **Light is the default.** A site that sets no `color-scheme` stays light,
+  whatever the visitor's system setting.
+- **An app opts in** on `<html>`: `color-scheme: light dark` (Tailwind
+  `scheme-light-dark`) follows the system, `color-scheme: dark`
+  (`scheme-dark`) forces dark. A toggle sets one or the other. On any element
+  it makes a dark (or light) subtree.
+- **Components need nothing:** no `dark:` variants. Hover and pressed tints
+  are opacity tints of `neutral` or `currentColor`, so they follow too.
+- **Dark design:** the page (`surface-muted`) is darkest and raised surfaces
+  are lighter, since shadows barely show on dark. Role colours are light
+  tones, readable as text on dark surfaces, so their bold fills take a dark
+  `-foreground`. `surface-inverse`, `foreground-inverse` and the `highlight`
+  fills are the same in both schemes.
+- `staticColor` (`white`/`black`) ignores the scheme by design: it is for
+  photos and fixed colours.
+
+A new colour token needs both values.
+
 ### Contrast
 
 `pnpm check:tokens` checks WCAG 2.2 AA for every text and background pair the
 roles define (4.5:1), and 3:1 for control borders and the focus ring, in the
-default theme and in each `--theme` file (the docs' second theme,
-`site/style/themes/studio.css`).
+light and the dark scheme, for the default theme and for each `--theme` file
+(the docs' second theme, `site/style/themes/studio.css`).
 
 ## Controls
 
