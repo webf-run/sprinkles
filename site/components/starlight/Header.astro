@@ -1,6 +1,8 @@
 ---
 import Search from '@astrojs/starlight/components/Search.astro';
 import { Github, Sun, Moon } from 'lucide-astro';
+
+import { RepoLink } from '../../data/Constant';
 ---
 
 <div class:list={['h-full w-full']}>
@@ -78,7 +80,7 @@ import { Github, Sun, Moon } from 'lucide-astro';
 
       <!-- GitHub -->
       <a
-        href='https://github.com/webf-run/sprinkles'
+        href={RepoLink}
         target='_blank'
         rel='noopener noreferrer'
         class:list={[

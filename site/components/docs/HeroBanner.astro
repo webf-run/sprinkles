@@ -1,5 +1,6 @@
 ---
 import { ArrowRight, Code2, Sparkles } from 'lucide-astro';
+import { RepoLink } from '../../data/Constant';
 
 const installCode = `npm create astro-ui@latest`;
 
@@ -119,7 +120,7 @@ import { Button } from "@astro-ui/astro";
 
       <!-- GitHub -->
       <a
-        href='https://github.com'
+        href={RepoLink}
         class:list={[
           'rounded-[10px]',
           'border border-(--sl-color-gray-5)',
