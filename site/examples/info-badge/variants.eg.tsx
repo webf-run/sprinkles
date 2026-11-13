@@ -13,6 +13,13 @@ export default function Example() {
           value='PCI, New Delhi'
         />
       </div>
+      <div class='flex rounded-2xl bg-purple-75 p-6'>
+        <InfoBadge
+          variant='outline'
+          label='Affiliated to'
+          value='KBC NMU, Jalgaon'
+        />
+      </div>
     </div>
   );
 }

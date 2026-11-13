@@ -6,7 +6,11 @@ export { Link } from './components/Link';
 export { Spinner } from './components/Spinner';
 export { TextField } from './components/TextField';
 
-export type { BadgeProps, BadgeVariant } from './components/Badge';
+export type {
+  BadgeLabelTone,
+  BadgeProps,
+  BadgeVariant,
+} from './components/Badge';
 export type {
   ButtonProps,
   ButtonVariant,

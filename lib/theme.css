@@ -123,6 +123,7 @@
   --color-neutral-431: #8c8695;
   --color-neutral-445: #8a8390;
   --color-neutral-520: #6b7280;
+  --color-neutral-535: #6d6d6d;
   --color-neutral-550: #6f6875;
   --color-neutral-605: #625b68;
   --color-neutral-615: #5e5863;
@@ -140,6 +141,7 @@
   --color-neutral-881: #211e27;
   --color-neutral-890: #211b28;
   --color-neutral-913: #1a181e;
+  --color-neutral-925: #e6e6e6;
   --color-neutral-930: #17151b;
 
   --color-orange-30: #fcf6eb;
@@ -318,6 +320,8 @@
   --color-surface-soft: light-dark(var(--color-purple-65), var(--color-purple-841));
   --color-surface-emphasis: light-dark(var(--color-purple-140), var(--color-purple-788));
   --color-surface-inverse: var(--color-purple-880);
+  /* A grey wash for a label that sits on a white surface. */
+  --color-surface-quiet: light-dark(color-mix(in srgb, var(--color-neutral-925) 70%, transparent), color-mix(in srgb, var(--color-neutral-784) 70%, transparent));
 
   /* Foreground (text, icons), strongest to weakest. */
   --color-foreground-strongest: light-dark(var(--color-neutral-930), var(--color-neutral-32));
@@ -326,6 +330,8 @@
   --color-foreground-muted: light-dark(var(--color-neutral-615), var(--color-neutral-256));
   --color-foreground-subtle: light-dark(var(--color-neutral-550), var(--color-neutral-348));
   --color-foreground-inverse: var(--color-white);
+  /* Quiet grey for labels on `surface` or `surface-quiet`. */
+  --color-foreground-quiet: light-dark(var(--color-neutral-535), var(--color-neutral-256));
 
   /* Borders and dividers. `border-strong` outlines form controls, which
      need 3:1 against the surface. */
