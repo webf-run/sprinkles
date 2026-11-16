@@ -8,19 +8,6 @@ import { cn } from '../utils';
 
 export type BadgeVariant = Tone;
 
-/**
- * Colours for a label: grey text on a grey wash (`muted`, for white
- * sections) or on a white pill (`surface`, for tinted or dark sections), or
- * dark grey text on the soft lilac fill (`soft`, for tags and level labels).
- */
-export type BadgeLabelTone = 'muted' | 'surface' | 'soft';
-
-const LabelFills: Record<BadgeLabelTone, string> = {
-  muted: 'bg-surface-quiet text-foreground-quiet',
-  surface: 'bg-surface text-foreground-quiet',
-  soft: 'bg-surface-soft text-foreground',
-};
-
 const StaticFills: Record<StaticColor, Record<FillStyle, string>> = {
   white: {
     bold: 'bg-white text-black',
@@ -58,12 +45,6 @@ const IconSizes: Record<Size, string> = {
 };
 
 export interface BadgeProps {
-  /**
-   * Section-label colours (background and text only). Replaces the colours of
-   * `variant`, `fillStyle` and `staticColor`; size, padding and type stay
-   * as `size` and `class` set them.
-   */
-  labelTone?: BadgeLabelTone;
   /** A semantic role, `highlight`, or a categorical colour. */
   variant?: BadgeVariant;
   fillStyle?: FillStyle;
@@ -89,8 +70,8 @@ export function Badge(props: BadgeProps) {
       : ToneFill[toTone(props.variant)][fill()];
   const classes = () =>
     cn(
-      badge({ size: size(), fillStyle: props.labelTone ? 'subtle' : fill() }),
-      props.labelTone ? LabelFills[props.labelTone] : colour(),
+      badge({ size: size(), fillStyle: fill() }),
+      colour(),
       props.class
     );
 

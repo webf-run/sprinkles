@@ -3,16 +3,12 @@ import { cn } from '../utils';
 const frame = {
   inverse: 'border-border-inverse/50 text-foreground-inverse',
   subtle: 'border-border-subtle bg-surface text-foreground',
-  outline: 'min-h-0 border-[0.5px] border-foreground p-2.5 text-foreground',
+  outline: 'bg-transparent border-strong text-foreground-strong',
 } as const;
 
 export interface InfoBadgeProps {
   label: string;
   value: string;
-  /**
-   * `inverse` for dark bands and photos, `subtle` for light surfaces, and
-   * `outline` for a transparent box with a dark hairline on a tinted band.
-   */
   variant?: keyof typeof frame;
   class?: string;
 }

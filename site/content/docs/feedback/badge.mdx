@@ -96,12 +96,10 @@ theme. The subtle fill turns into frosted glass.
 
 ## Section label
 
-`labelTone` sets only the colours of a label: grey text on a grey wash
-(`muted`) for a white section, on a white pill (`surface`) for a tinted or
-dark one, or dark grey text on the soft lilac fill (`soft`) for tags and level
-labels. It replaces the colours of `variant`,
-`fillStyle` and `staticColor`; the size, padding and type stay as `size` and
-`class` set them.
+Use the existing `variant` and `fillStyle` props for section labels. When a
+label needs to stand out on a tinted surface, use the existing semantic
+`surface` and foreground utility tokens through `class` rather than adding a
+separate colour prop.
 
 <ExampleBlock code={eyebrowCode}>
   <EyebrowOutput />
@@ -112,8 +110,7 @@ labels. It replaces the colours of `variant`,
 - A badge is plain text in a `<span>`; screen readers read its label in
   place. Don't rely on colour alone: the label must say the status.
 - Text and fill pass 4.5:1 in every variant and fill style in the default
-  theme (`pnpm check:tokens`). The `muted` section label is the exception:
-  its grey text on the grey wash is 4.46:1, as in the design.
+  theme (`pnpm check:tokens`).
 - The icon is hidden from screen readers, since the label already says it.
 
 ## Do and don't
@@ -134,5 +131,4 @@ labels. It replaces the colours of `variant`,
 | `fillStyle`   | `'bold' \| 'subtle' \| 'outline'`              | `'subtle'`  |
 | `size`        | `'s' \| 'm' \| 'l' \| 'xl'`                    | `'m'`       |
 | `staticColor` | `'white' \| 'black'`                           |             |
-| `labelTone`   | `'muted' \| 'surface' \| 'soft'`               |             |
 | `icon`        | a lucide-solid icon                            |             |

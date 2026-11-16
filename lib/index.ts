@@ -7,7 +7,6 @@ export { Spinner } from './components/Spinner';
 export { TextField } from './components/TextField';
 
 export type {
-  BadgeLabelTone,
   BadgeProps,
   BadgeVariant,
 } from './components/Badge';
