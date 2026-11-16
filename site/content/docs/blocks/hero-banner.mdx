@@ -1,0 +1,239 @@
+---
+title: HeroBanner
+description: A large photo, informative description and focused calls to action, opening a page.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/hero-banner/anatomy.eg.tsx';
+import BasicOutput from '../../../examples/hero-banner/basic.eg.tsx';
+import basicCode from '../../../examples/hero-banner/basic.eg.tsx?raw';
+import DoItems from '../../../examples/hero-banner/do-items.eg.tsx';
+import DontItems from '../../../examples/hero-banner/dont-items.eg.tsx';
+import FinanceOutput from '../../../examples/hero-banner/finance.eg.tsx';
+import financeCode from '../../../examples/hero-banner/finance.eg.tsx?raw';
+import NonprofitOutput from '../../../examples/hero-banner/nonprofit.eg.tsx';
+import nonprofitCode from '../../../examples/hero-banner/nonprofit.eg.tsx?raw';
+import OverlapOutput from '../../../examples/hero-banner/overlap.eg.tsx';
+import overlapCode from '../../../examples/hero-banner/overlap.eg.tsx?raw';
+import RestaurantOutput from '../../../examples/hero-banner/restaurant.eg.tsx';
+import restaurantCode from '../../../examples/hero-banner/restaurant.eg.tsx?raw';
+import SaasOutput from '../../../examples/hero-banner/saas.eg.tsx';
+import saasCode from '../../../examples/hero-banner/saas.eg.tsx?raw';
+import TravelOutput from '../../../examples/hero-banner/travel.eg.tsx';
+import travelCode from '../../../examples/hero-banner/travel.eg.tsx?raw';
+import TwoActionsOutput from '../../../examples/hero-banner/two-actions.eg.tsx';
+import twoActionsCode from '../../../examples/hero-banner/two-actions.eg.tsx?raw';
+import WellnessOutput from '../../../examples/hero-banner/wellness.eg.tsx';
+import wellnessCode from '../../../examples/hero-banner/wellness.eg.tsx?raw';
+
+```tsx
+import { HeroBanner } from '@webf/sprinkles';
+```
+
+A hero banner opens a page. A photo sets the scene while a clear, informative
+description explains what the visitor will find and why it matters. Each
+example pairs its copy, colour and layout with the needs of its website. For a
+band that closes a page, use
+[CtaSection](/blocks/cta-section).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Banner image',
+      note: 'The photo behind everything, under a dark overlay.',
+    },
+    { name: 'Title', note: 'The page’s heading, in the heading font.' },
+    {
+      name: 'Description (optional)',
+      note: 'A few informative sentences that give visitors useful context.',
+    },
+    {
+      name: 'Image panel (optional)',
+      note: 'A UI panel over the photo in the split layout.',
+    },
+    {
+      name: 'Primary action',
+      note: 'The one button most visitors should press.',
+    },
+    {
+      name: 'Secondary action (optional)',
+      note: 'An outline button for a quieter way forward.',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Overlapping content
+
+Children of `HeroBanner` sit across its bottom edge, half on the photo and
+half on the page. The banner adds bottom padding to make room, so the
+buttons never sit under them. It's meant for a row of
+[StatCards](/cards/stat-card), but anything works.
+
+The example builds the row from existing components: a [Card](/layout/card)
+holding one `StatCard` per entry of a `stats` array. Add or remove an entry
+and the row shares its width equally (`@4xl:grid-flow-col @4xl:auto-cols-fr`),
+with three to five reading best. The banner is an `@container`, so the row
+follows the width it's given, not the window's.
+
+<ExampleBlock code={overlapCode} filename='University'>
+  <OverlapOutput />
+</ExampleBlock>
+
+## Banners for different websites
+
+A banner's mood comes from its photo, `variant`, `align` and `layout`. The
+default `overlay` layout places copy over a colour scrim; `split` gives the
+photo its own column. `mediaContent` places a panel in the right column over
+the photo, which works well for an appointment chooser, account summary or
+interactive menu.
+Add an `eyebrow` for context and shape the description around what visitors
+need to know. Every variant is a semantic colour, so a site that re-skins its
+tokens re-skins its banners too.
+
+| Variant       | Band                 | Buttons                       | Fits                      |
+| ------------- | -------------------- | ----------------------------- | ------------------------- |
+| `inverse`     | Dark, the default    | Orange, and a white outline   | Education, corporate      |
+| `positive`    | Green                | Orange, and a white outline   | Charities, health, nature |
+| `indigo`      | Deep indigo          | White, and a white outline    | Software, technology      |
+| `informative` | Blue                 | White, and a white outline    | Finance, public services  |
+| `neutral`     | Charcoal             | White, and a white outline    | Travel, media, portfolios |
+| `highlight`   | Warm, with dark text | Black, and a black outline    | Food, retail, events      |
+| `light`       | Pale, with dark text | Accent, and an accent outline | Clinics, wellness, family |
+
+### Charity and nonprofit
+
+A `positive` band with centred text. The longer description explains how
+donations are used, while impact numbers overlap the bottom edge.
+
+<ExampleBlock code={nonprofitCode} filename='Nonprofit'>
+  <NonprofitOutput />
+</ExampleBlock>
+
+### Software and technology
+
+An `indigo` band with centred text and a white button. The copy describes the
+team workflow, and a short eyebrow establishes the product context.
+
+<ExampleBlock code={saasCode} filename='SaaS'>
+  <SaasOutput />
+</ExampleBlock>
+
+### Finance and public services
+
+An `informative` blue band in a split layout. The separate image column gives
+the account details and clear pricing room to breathe.
+
+<ExampleBlock code={financeCode} filename='Finance'>
+  <FinanceOutput />
+</ExampleBlock>
+
+### Restaurant and retail
+
+A `highlight` band with dark text and black buttons over a full photo. Its
+menu card uses an accordion so visitors can open each kitchen highlight.
+
+<ExampleBlock code={restaurantCode} filename='Restaurant'>
+  <RestaurantOutput />
+</ExampleBlock>
+
+### Travel and media
+
+A `neutral` band is a charcoal veil, so the photo carries the colour. Its
+split layout suits trip details and destination photography.
+
+<ExampleBlock code={travelCode} filename='Travel'>
+  <TravelOutput />
+</ExampleBlock>
+
+### Clinic and wellness
+
+A `light` band: dark text on a pale background, with the accent colour for
+buttons. The split layout makes clinic information easy to read beside a
+bright, calm photo.
+
+<ExampleBlock code={wellnessCode} filename='Wellness'>
+  <WellnessOutput />
+</ExampleBlock>
+
+## Primary action
+
+`image`, `title` and `primaryAction` are required. Give `description` enough
+detail to explain the offer in roughly three lines or more at desktop widths.
+The photo is decorative, so choose one that supports the page without carrying
+information visitors need to understand the offer.
+
+<ExampleBlock code={basicCode}>
+  <BasicOutput />
+</ExampleBlock>
+
+## Secondary action
+
+Add `secondaryAction` for a second way forward, such as a visit before
+applying. It's an outline button, so the primary action still stands out.
+
+<ExampleBlock code={twoActionsCode}>
+  <TwoActionsOutput />
+</ExampleBlock>
+
+## Descriptive copy
+
+Use the description to replace scan-only checklists with useful context.
+Explain what the organisation offers, how it works and what a visitor can
+expect next. Keep the copy specific to the site: a bank can describe account
+tools and support, while a university can explain teaching and work
+experience. Aim for at least three lines at desktop widths. The deprecated
+`items` prop is accepted for compatibility but is no longer displayed.
+
+## Accessibility
+
+- Renders a `<section>` labelled by its title, so it's a region landmark with
+  a name. The title is an `<h1>` by default; set `headingLevel={2}` on a page
+  that already has one.
+- The photo is decorative (`alt=""`). Say everything that matters in the
+  text, never only in the picture.
+- A coloured overlay sits between the photo and the text in the `overlay`
+  layout. Each variant pairs its band with
+  the matching `-foreground` token, a pair that `pnpm check:tokens` checks at
+  4.5:1. Very bright photos still deserve a check.
+- Buttons are links (`<a>`), 48 px tall, with the focus ring on keyboard
+  focus only. They use static white or black, or the `highlight` and `accent`
+  roles, and the banner fixes its colour scheme to light, so it looks the
+  same in the light and the dark scheme.
+- Overlapping content comes after the banner's `<section>`, outside its
+  labelled region, so it reads as content of its own.
+
+## Do and don't
+
+<DoDont
+  doText='Use specific details that explain the offer and help visitors decide what to do next.'
+  dontText='Rely on vague promises that sound positive but leave visitors unsure what you provide.'
+>
+  <DoItems slot='do' />
+  <DontItems slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop              | Type                                                                                          | Default     |
+| ----------------- | --------------------------------------------------------------------------------------------- | ----------- |
+| `image`           | `string`                                                                                      |             |
+| `eyebrow`         | `string`                                                                                      |             |
+| `title`           | `string`                                                                                      |             |
+| `description`     | `string`                                                                                      |             |
+| `items`           | `string[]` (deprecated; not displayed)                                                        |             |
+| `primaryAction`   | `{ label: string; href: string }`                                                             |             |
+| `secondaryAction` | `{ label: string; href: string }`                                                             |             |
+| `variant`         | `'inverse' \| 'neutral' \| 'positive' \| 'informative' \| 'indigo' \| 'highlight' \| 'light'` | `'inverse'` |
+| `align`           | `'start' \| 'center'`                                                                         | `'start'`   |
+| `layout`          | `'overlay' \| 'split'`                                                                        | `'overlay'` |
+| `headingLevel`    | `1 \| 2`                                                                                      | `1`         |
+| `children`        | content that overlaps the bottom edge                                                         |             |
+| `mediaContent`    | content in the right column over the photo                                                     |             |
+| `class`           | `string`                                                                                      |             |
