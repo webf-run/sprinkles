@@ -66,7 +66,7 @@ const { code, filename, lang = 'tsx' } = Astro.props;
   [data-example-block] .code-highlight {
     overflow-x: auto;
     background: var(--code-bg, #f8fafc);
-    color: var(--code-text, #334155);
+    color: var(--code-text, #1e293b);
   }
 
   [data-example-block] .code-highlight :global(pre.astro-code),
@@ -76,7 +76,7 @@ const { code, filename, lang = 'tsx' } = Astro.props;
     border: 0;
     border-radius: 0;
     background: transparent !important;
-    color: var(--code-text, #334155) !important;
+    color: var(--code-text, #1e293b) !important;
     font-family:
       ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
       'Courier New', monospace;
@@ -90,16 +90,17 @@ const { code, filename, lang = 'tsx' } = Astro.props;
 
   /* Light theme — readable contrast without making the code block harsh. */
   [data-example-block] .code-highlight :global(.astro-code) {
-    --astro-code-color-text: #334155;
-    --astro-code-color-background: #f8fafc;
-    --astro-code-token-constant: #7c3aed;
-    --astro-code-token-string: #047857;
+    --astro-code-foreground: #1e293b;
+    --astro-code-background: transparent;
+    --astro-code-token-constant: #6d28d9;
+    --astro-code-token-string: #0f766e;
     --astro-code-token-comment: #64748b;
-    --astro-code-token-keyword: #be185d;
+    --astro-code-token-keyword: #be123c;
     --astro-code-token-parameter: #b45309;
     --astro-code-token-function: #1d4ed8;
-    --astro-code-token-string-expression: #047857;
-    --astro-code-token-punctuation: #475569;
+    --astro-code-token-string-expression: #0f766e;
+    --astro-code-token-punctuation: #64748b;
+    --astro-code-token-link: #1d4ed8;
   }
 
   /* Dark theme. Astro's dark class is supported by the default Starlight theme. */
@@ -114,8 +115,8 @@ const { code, filename, lang = 'tsx' } = Astro.props;
     [data-example-block]
     .code-highlight
     :global(.astro-code) {
-    --astro-code-color-text: #e2e8f0;
-    --astro-code-color-background: #0f172a;
+    --astro-code-foreground: #e2e8f0;
+    --astro-code-background: transparent;
     --astro-code-token-constant: #c4b5fd;
     --astro-code-token-string: #86efac;
     --astro-code-token-comment: #94a3b8;
@@ -140,8 +141,8 @@ const { code, filename, lang = 'tsx' } = Astro.props;
       [data-example-block]
       .code-highlight
       :global(.astro-code) {
-      --astro-code-color-text: #e2e8f0;
-      --astro-code-color-background: #0f172a;
+      --astro-code-foreground: #e2e8f0;
+      --astro-code-background: transparent;
       --astro-code-token-constant: #c4b5fd;
       --astro-code-token-string: #86efac;
       --astro-code-token-comment: #94a3b8;
