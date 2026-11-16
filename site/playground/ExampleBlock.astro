@@ -46,114 +46,14 @@ const { code, filename, lang = 'tsx' } = Astro.props;
 
   <div class='preview-code' data-panel='code' hidden>
     {
-      /* `lang` is a plain string here (defaults to 'astro', pass 'tsx' for Solid
-         examples) rather than Astro's internal CodeLanguage union, so it's cast
-         at the call site instead of importing that non-public type path. */
+      /* `lang` is a plain string here (defaults to 'tsx'; pass 'astro' for
+         Astro examples) rather than Astro's internal CodeLanguage union, so
+         it's cast at the call site instead of importing that non-public type
+         path. */
     }
-    <div class='code-highlight'>
-      <Code code={code} lang={lang as any} theme='css-variables' />
-    </div>
+    <Code code={code} lang={lang as any} theme='css-variables' />
   </div>
 </div>
-
-<style>
-  [data-example-block] .preview-code {
-    background: var(--code-panel-bg, #f8fafc);
-    border-top: 1px solid var(--code-panel-border, #e2e8f0);
-    color: var(--code-panel-text, #334155);
-  }
-
-  [data-example-block] .code-highlight {
-    overflow-x: auto;
-    background: var(--code-bg, #f8fafc);
-    color: var(--code-text, #1e293b);
-  }
-
-  [data-example-block] .code-highlight :global(pre.astro-code),
-  [data-example-block] .code-highlight :global(pre) {
-    margin: 0;
-    min-width: max-content;
-    border: 0;
-    border-radius: 0;
-    background: transparent !important;
-    color: var(--code-text, #1e293b) !important;
-    font-family:
-      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-      'Courier New', monospace;
-    font-size: 0.875rem;
-    line-height: 1.7;
-  }
-
-  [data-example-block] .code-highlight :global(code) {
-    color: inherit;
-  }
-
-  /* Light theme — readable contrast without making the code block harsh. */
-  [data-example-block] .code-highlight :global(.astro-code) {
-    --astro-code-foreground: #1e293b;
-    --astro-code-background: transparent;
-    --astro-code-token-constant: #6d28d9;
-    --astro-code-token-string: #0f766e;
-    --astro-code-token-comment: #64748b;
-    --astro-code-token-keyword: #be123c;
-    --astro-code-token-parameter: #b45309;
-    --astro-code-token-function: #1d4ed8;
-    --astro-code-token-string-expression: #0f766e;
-    --astro-code-token-punctuation: #64748b;
-    --astro-code-token-link: #1d4ed8;
-  }
-
-  /* Dark theme. Astro's dark class is supported by the default Starlight theme. */
-  :global(html[data-theme='dark']) [data-example-block] .preview-code,
-  :global(html[data-theme='dark']) [data-example-block] .code-highlight {
-    background: #0f172a;
-    color: #e2e8f0;
-    border-color: #334155;
-  }
-
-  :global(html[data-theme='dark'])
-    [data-example-block]
-    .code-highlight
-    :global(.astro-code) {
-    --astro-code-foreground: #e2e8f0;
-    --astro-code-background: transparent;
-    --astro-code-token-constant: #c4b5fd;
-    --astro-code-token-string: #86efac;
-    --astro-code-token-comment: #94a3b8;
-    --astro-code-token-keyword: #f9a8d4;
-    --astro-code-token-parameter: #fdba74;
-    --astro-code-token-function: #93c5fd;
-    --astro-code-token-string-expression: #86efac;
-    --astro-code-token-punctuation: #cbd5e1;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :global(html:not([data-theme='light'])) [data-example-block] .preview-code,
-    :global(html:not([data-theme='light']))
-      [data-example-block]
-      .code-highlight {
-      background: #0f172a;
-      color: #e2e8f0;
-      border-color: #334155;
-    }
-
-    :global(html:not([data-theme='light']))
-      [data-example-block]
-      .code-highlight
-      :global(.astro-code) {
-      --astro-code-foreground: #e2e8f0;
-      --astro-code-background: transparent;
-      --astro-code-token-constant: #c4b5fd;
-      --astro-code-token-string: #86efac;
-      --astro-code-token-comment: #94a3b8;
-      --astro-code-token-keyword: #f9a8d4;
-      --astro-code-token-parameter: #fdba74;
-      --astro-code-token-function: #93c5fd;
-      --astro-code-token-string-expression: #86efac;
-      --astro-code-token-punctuation: #cbd5e1;
-    }
-  }
-</style>
 
 <script>
   function wireExampleBlock(block: HTMLElement) {

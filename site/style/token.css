@@ -10,8 +10,17 @@
   --site-gradient-start: #7c3aed;
   --site-gradient-end: #3b82f6;
 
-  --site-code-surface: #0b0b0b;
-  --site-code-foreground: #e5e7eb;
+  /* Code panel: one pair per syntax role, following `color-scheme`. */
+  --site-code-surface: light-dark(#f8fafc, #0f172a);
+  --site-code-border: light-dark(#e2e8f0, #334155);
+  --site-code-foreground: light-dark(#1e293b, #e2e8f0);
+  --site-code-comment: light-dark(#64748b, #94a3b8);
+  --site-code-punctuation: light-dark(#64748b, #cbd5e1);
+  --site-code-keyword: light-dark(#be123c, #f9a8d4);
+  --site-code-function: light-dark(#1d4ed8, #93c5fd);
+  --site-code-string: light-dark(#0f766e, #86efac);
+  --site-code-constant: light-dark(#6d28d9, #c4b5fd);
+  --site-code-parameter: light-dark(#b45309, #fdba74);
 
   --site-editor-active-line: #f4f4f6;
 
@@ -30,7 +39,15 @@
   --doc-accent-high: var(--sl-color-accent-high);
 
   --doc-code-surface: var(--site-code-surface);
+  --doc-code-border: var(--site-code-border);
   --doc-code-foreground: var(--site-code-foreground);
+  --doc-code-comment: var(--site-code-comment);
+  --doc-code-punctuation: var(--site-code-punctuation);
+  --doc-code-keyword: var(--site-code-keyword);
+  --doc-code-function: var(--site-code-function);
+  --doc-code-string: var(--site-code-string);
+  --doc-code-constant: var(--site-code-constant);
+  --doc-code-parameter: var(--site-code-parameter);
 
   --doc-danger: #dc2626;
   --doc-danger-surface: #fef2f2;
@@ -58,7 +75,15 @@
   --color-doc-accent-high: var(--doc-accent-high);
 
   --color-doc-code-surface: var(--doc-code-surface);
+  --color-doc-code-border: var(--doc-code-border);
   --color-doc-code-foreground: var(--doc-code-foreground);
+  --color-doc-code-comment: var(--doc-code-comment);
+  --color-doc-code-punctuation: var(--doc-code-punctuation);
+  --color-doc-code-keyword: var(--doc-code-keyword);
+  --color-doc-code-function: var(--doc-code-function);
+  --color-doc-code-string: var(--doc-code-string);
+  --color-doc-code-constant: var(--doc-code-constant);
+  --color-doc-code-parameter: var(--doc-code-parameter);
 
   --color-doc-danger: var(--doc-danger);
   --color-doc-danger-surface: var(--doc-danger-surface);
