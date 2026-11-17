@@ -93,14 +93,14 @@ default `overlay` layout places copy over a colour scrim; `split` gives the
 photo its own column. `mediaContent` places a panel in the right column over
 the photo, which works well for an appointment chooser, account summary or
 interactive menu.
-Add an `eyebrow` for context and shape the description around what visitors
-need to know. Every variant is a semantic colour, so a site that re-skins its
-tokens re-skins its banners too.
+Add an `eyebrow`, shown as a `Badge`, for context, and shape the description
+around what visitors need to know. Every variant resolves a colour token, so a
+site that re-skins its tokens re-skins its banners too.
 
 | Variant       | Band                 | Buttons                       | Fits                      |
 | ------------- | -------------------- | ----------------------------- | ------------------------- |
 | `inverse`     | Dark, the default    | Orange, and a white outline   | Education, corporate      |
-| `positive`    | Green                | Orange, and a white outline   | Charities, health, nature |
+| `positive`    | Green                | White, and a white outline    | Charities, health, nature |
 | `indigo`      | Deep indigo          | White, and a white outline    | Software, technology      |
 | `informative` | Blue                 | White, and a white outline    | Finance, public services  |
 | `neutral`     | Charcoal             | White, and a white outline    | Travel, media, portfolios |
@@ -188,8 +188,7 @@ Use the description to replace scan-only checklists with useful context.
 Explain what the organisation offers, how it works and what a visitor can
 expect next. Keep the copy specific to the site: a bank can describe account
 tools and support, while a university can explain teaching and work
-experience. Aim for at least three lines at desktop widths. The deprecated
-`items` prop is accepted for compatibility but is no longer displayed.
+experience. Aim for at least three lines at desktop widths.
 
 ## Accessibility
 
@@ -227,7 +226,6 @@ experience. Aim for at least three lines at desktop widths. The deprecated
 | `eyebrow`         | `string`                                                                                      |             |
 | `title`           | `string`                                                                                      |             |
 | `description`     | `string`                                                                                      |             |
-| `items`           | `string[]` (deprecated; not displayed)                                                        |             |
 | `primaryAction`   | `{ label: string; href: string }`                                                             |             |
 | `secondaryAction` | `{ label: string; href: string }`                                                             |             |
 | `variant`         | `'inverse' \| 'neutral' \| 'positive' \| 'informative' \| 'indigo' \| 'highlight' \| 'light'` | `'inverse'` |
@@ -235,5 +233,5 @@ experience. Aim for at least three lines at desktop widths. The deprecated
 | `layout`          | `'overlay' \| 'split'`                                                                        | `'overlay'` |
 | `headingLevel`    | `1 \| 2`                                                                                      | `1`         |
 | `children`        | content that overlaps the bottom edge                                                         |             |
-| `mediaContent`    | content in the right column over the photo                                                     |             |
+| `mediaContent`    | content in the right column over the photo                                                    |             |
 | `class`           | `string`                                                                                      |             |

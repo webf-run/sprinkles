@@ -2,20 +2,21 @@ import ArrowRight from 'lucide-solid/icons/arrow-right';
 import { type JSX, Show, children, createUniqueId } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
+import { Badge } from '../components/Badge';
 import { Button, type ButtonVariant } from '../components/Button';
 import type { StaticColor } from '../core/control';
 import { cn } from '../utils';
 
 /**
- * The colour of the band over the photo. Each one is a semantic role, so a
- * site that re-skins its tokens re-skins its banners too.
- * - `inverse`: the default dark band (education, corporate).
- * - `neutral`: charcoal, so the photo does the talking (travel, media).
- * - `positive`: green (charities, health, the environment).
- * - `informative`: blue (finance, public services, clinics).
- * - `indigo`: deep indigo (software, technology).
- * - `highlight`: the warm second emphasis colour, with dark text (food, retail, events).
- * - `light`: a pale band with dark text (wellness, family, lifestyle).
+ * The colour of the band over the photo. Each one resolves a colour token, so
+ * a site that re-skins its tokens re-skins its banners too.
+ * - `inverse`: the dark `surface-inverse` band, the default (education, corporate).
+ * - `neutral`: the neutral role, charcoal, so the photo does the talking (travel, media).
+ * - `positive`: the positive role, green (charities, health, the environment).
+ * - `informative`: the informative role, blue (finance, public services, clinics).
+ * - `indigo`: a categorical colour with no meaning of its own (software, technology).
+ * - `highlight`: the design's second emphasis colour, with dark text (food, retail, events).
+ * - `light`: the white `surface`, with dark text (wellness, family, lifestyle).
  */
 export type HeroBannerVariant =
   | 'inverse'
@@ -39,8 +40,10 @@ interface Look {
   scrimStart: string;
   /** The overlay when the text is centred: even, so every line stays readable. */
   scrimCenter: string;
-  /** Title, description and items. */
+  /** Title and description. */
   text: string;
+  /** The eyebrow badge: static white or black on a colour, the accent badge on the white band. */
+  eyebrow: { staticColor?: StaticColor };
   primary: { variant?: ButtonVariant; staticColor?: StaticColor };
   secondary: { variant?: ButtonVariant; staticColor?: StaticColor };
 }
@@ -58,6 +61,7 @@ const Looks: Record<HeroBannerVariant, Look> = {
       'bg-linear-to-t from-surface-inverse/95 via-surface-inverse/85 to-surface-inverse/80 md:bg-linear-to-r md:from-surface-inverse md:via-surface-inverse/85 md:via-40% md:to-transparent md:to-85%',
     scrimCenter: 'bg-surface-inverse/80',
     text: 'text-foreground-inverse',
+    eyebrow: { staticColor: 'white' },
     primary: { variant: 'highlight' },
     secondary: { variant: 'secondary', staticColor: 'white' },
   },
@@ -67,6 +71,7 @@ const Looks: Record<HeroBannerVariant, Look> = {
       'bg-linear-to-t from-neutral/95 via-neutral/80 to-neutral/60 md:bg-linear-to-r md:from-neutral/95 md:via-neutral/80 md:via-50% md:to-neutral/30',
     scrimCenter: 'bg-neutral/70',
     text: 'text-neutral-foreground',
+    eyebrow: { staticColor: 'white' },
     primary: { variant: 'secondary', staticColor: 'white' },
     secondary: { variant: 'secondary', staticColor: 'white' },
   },
@@ -76,7 +81,8 @@ const Looks: Record<HeroBannerVariant, Look> = {
       'bg-linear-to-t from-positive/95 via-positive/85 to-positive/80 md:bg-linear-to-r md:from-positive md:via-positive/85 md:via-40% md:to-transparent md:to-85%',
     scrimCenter: 'bg-positive/85',
     text: 'text-positive-foreground',
-    primary: { variant: 'highlight' },
+    eyebrow: { staticColor: 'white' },
+    primary: { variant: 'secondary', staticColor: 'white' },
     secondary: { variant: 'secondary', staticColor: 'white' },
   },
   informative: {
@@ -85,6 +91,7 @@ const Looks: Record<HeroBannerVariant, Look> = {
       'bg-linear-to-t from-informative/95 via-informative/85 to-informative/80 md:bg-linear-to-r md:from-informative md:via-informative/85 md:via-40% md:to-transparent md:to-85%',
     scrimCenter: 'bg-informative/85',
     text: 'text-informative-foreground',
+    eyebrow: { staticColor: 'white' },
     primary: { variant: 'secondary', staticColor: 'white' },
     secondary: { variant: 'secondary', staticColor: 'white' },
   },
@@ -94,6 +101,7 @@ const Looks: Record<HeroBannerVariant, Look> = {
       'bg-linear-to-t from-indigo/95 via-indigo/85 to-indigo/80 md:bg-linear-to-r md:from-indigo md:via-indigo/85 md:via-40% md:to-transparent md:to-85%',
     scrimCenter: 'bg-indigo/80',
     text: 'text-indigo-foreground',
+    eyebrow: { staticColor: 'white' },
     primary: { variant: 'secondary', staticColor: 'white' },
     secondary: { variant: 'secondary', staticColor: 'white' },
   },
@@ -103,6 +111,7 @@ const Looks: Record<HeroBannerVariant, Look> = {
       'bg-linear-to-t from-highlight/95 via-highlight/90 to-highlight/85 md:bg-linear-to-r md:from-highlight md:via-highlight/90 md:via-40% md:to-transparent md:to-85%',
     scrimCenter: 'bg-highlight/90',
     text: 'text-highlight-foreground',
+    eyebrow: { staticColor: 'black' },
     primary: { variant: 'secondary', staticColor: 'black' },
     secondary: { variant: 'secondary', staticColor: 'black' },
   },
@@ -112,6 +121,7 @@ const Looks: Record<HeroBannerVariant, Look> = {
       'bg-linear-to-t from-surface/95 via-surface/90 to-surface/80 md:bg-linear-to-r md:from-surface md:via-surface/90 md:via-40% md:to-transparent md:to-85%',
     scrimCenter: 'bg-surface/85',
     text: 'text-foreground-strongest',
+    eyebrow: {},
     primary: { variant: 'accent' },
     secondary: { variant: 'accent' },
   },
@@ -129,8 +139,6 @@ export interface HeroBannerProps {
   eyebrow?: string;
   title: string;
   description?: string;
-  /** @deprecated Accepted for compatibility, but no longer displayed. Put the useful details in `description`. */
-  items?: string[];
   primaryAction: HeroBannerAction;
   secondaryAction?: HeroBannerAction;
   /** The colour of the band over the photo. Defaults to `inverse`. */
@@ -196,11 +204,6 @@ export function HeroBanner(props: HeroBannerProps) {
             {mediaContent()}
           </div>
         </Show>
-        <Show when={!split() && mediaContent()}>
-          <div class='relative z-10 mx-auto w-full max-w-7xl min-w-0 px-4 pb-8 sm:px-6 md:col-start-2 md:row-start-1 md:flex md:items-center md:justify-center md:px-8 md:py-8 md:pb-8 lg:px-8'>
-            {mediaContent()}
-          </div>
-        </Show>
         <Show when={!split()}>
           <div
             aria-hidden='true'
@@ -220,14 +223,14 @@ export function HeroBanner(props: HeroBannerProps) {
           )}
         >
           <Show when={props.eyebrow}>
-            <span
-              class={cn(
-                'mb-4 font-sans text-sm font-semibold tracking-widest uppercase',
-                look().text
-              )}
+            <Badge
+              size='l'
+              variant='accent'
+              staticColor={look().eyebrow.staticColor}
+              class='mb-5'
             >
               {props.eyebrow}
-            </span>
+            </Badge>
           </Show>
           <Dynamic
             component={`h${props.headingLevel ?? 1}`}
@@ -281,6 +284,11 @@ export function HeroBanner(props: HeroBannerProps) {
             </Show>
           </div>
         </div>
+        <Show when={!split() && mediaContent()}>
+          <div class='relative z-10 mx-auto w-full max-w-7xl min-w-0 px-4 pb-8 sm:px-6 md:col-start-2 md:row-start-1 md:flex md:items-center md:justify-center md:px-8 md:py-8'>
+            {mediaContent()}
+          </div>
+        </Show>
       </section>
 
       <Show when={overlap()}>
