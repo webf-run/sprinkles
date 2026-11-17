@@ -162,27 +162,30 @@ body {
 .preview-code {
   overflow-x: auto;
   background: var(--doc-code-surface);
-  border-top: 1px solid var(--sl-color-gray-5);
+  border-top: 1px solid var(--doc-code-border);
 
   /* Shiki's "css-variables" theme reads these instead of shipping its own
-     bundled theme, so the code panel always matches the doc-code tokens
-     above regardless of light/dark mode. */
+     bundled theme, so the code panel follows the doc-code tokens and so the
+     docs' light/dark toggle. */
   --astro-code-foreground: var(--doc-code-foreground);
   --astro-code-background: transparent;
-  --astro-code-token-keyword: #c792ea;
-  --astro-code-token-string: #a3e635;
-  --astro-code-token-comment: var(--doc-foreground-muted);
-  --astro-code-token-function: #82aaff;
-  --astro-code-token-constant: #f78c6c;
-  --astro-code-token-parameter: var(--doc-code-foreground);
-  --astro-code-token-string-expression: #a3e635;
-  --astro-code-token-punctuation: var(--doc-foreground-muted);
-  --astro-code-token-link: #82aaff;
+  --astro-code-token-keyword: var(--doc-code-keyword);
+  --astro-code-token-function: var(--doc-code-function);
+  --astro-code-token-string: var(--doc-code-string);
+  --astro-code-token-string-expression: var(--doc-code-string);
+  --astro-code-token-constant: var(--doc-code-constant);
+  --astro-code-token-parameter: var(--doc-code-parameter);
+  --astro-code-token-comment: var(--doc-code-comment);
+  --astro-code-token-punctuation: var(--doc-code-punctuation);
+  --astro-code-token-link: var(--doc-code-function);
 }
 
 .preview-code pre {
+  min-width: max-content;
   margin: 0;
   padding: 20px;
+  border: 0;
+  border-radius: 0;
   font-family: var(--sl-font-mono);
   font-size: var(--sl-text-sm);
   line-height: 1.6;
