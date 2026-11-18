@@ -189,6 +189,9 @@ export type { FooterColumnsProps } from './blocks/FooterColumns';
 export type {
   HeroBannerAction,
   HeroBannerAlign,
+  HeroBannerContentSide,
+  HeroBannerImageFit,
+  HeroBannerImagePosition,
   HeroBannerLayout,
   HeroBannerProps,
   HeroBannerVariant,

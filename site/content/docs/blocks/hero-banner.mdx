@@ -1,6 +1,6 @@
 ---
 title: HeroBanner
-description: A large photo, informative description and focused calls to action, opening a page.
+description: A large photo with a title, an informative description and one or two buttons, opening a page.
 ---
 
 import Anatomy from '../../../playground/Anatomy.astro';
@@ -8,24 +8,32 @@ import DoDont from '../../../playground/DoDont.astro';
 import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
 import AnatomyOutput from '../../../examples/hero-banner/anatomy.eg.tsx';
-import BasicOutput from '../../../examples/hero-banner/basic.eg.tsx';
-import basicCode from '../../../examples/hero-banner/basic.eg.tsx?raw';
+import BakeryOutput from '../../../examples/hero-banner/bakery.eg.tsx';
+import bakeryCode from '../../../examples/hero-banner/bakery.eg.tsx?raw';
+import CoursesOutput from '../../../examples/hero-banner/courses.eg.tsx';
+import coursesCode from '../../../examples/hero-banner/courses.eg.tsx?raw';
 import DoItems from '../../../examples/hero-banner/do-items.eg.tsx';
 import DontItems from '../../../examples/hero-banner/dont-items.eg.tsx';
+import EventOutput from '../../../examples/hero-banner/event.eg.tsx';
+import eventCode from '../../../examples/hero-banner/event.eg.tsx?raw';
 import FinanceOutput from '../../../examples/hero-banner/finance.eg.tsx';
 import financeCode from '../../../examples/hero-banner/finance.eg.tsx?raw';
+import GroceryOutput from '../../../examples/hero-banner/grocery.eg.tsx';
+import groceryCode from '../../../examples/hero-banner/grocery.eg.tsx?raw';
 import NonprofitOutput from '../../../examples/hero-banner/nonprofit.eg.tsx';
 import nonprofitCode from '../../../examples/hero-banner/nonprofit.eg.tsx?raw';
+import OutdoorsOutput from '../../../examples/hero-banner/outdoors.eg.tsx';
+import outdoorsCode from '../../../examples/hero-banner/outdoors.eg.tsx?raw';
 import OverlapOutput from '../../../examples/hero-banner/overlap.eg.tsx';
 import overlapCode from '../../../examples/hero-banner/overlap.eg.tsx?raw';
+import PropertyOutput from '../../../examples/hero-banner/property.eg.tsx';
+import propertyCode from '../../../examples/hero-banner/property.eg.tsx?raw';
 import RestaurantOutput from '../../../examples/hero-banner/restaurant.eg.tsx';
 import restaurantCode from '../../../examples/hero-banner/restaurant.eg.tsx?raw';
 import SaasOutput from '../../../examples/hero-banner/saas.eg.tsx';
 import saasCode from '../../../examples/hero-banner/saas.eg.tsx?raw';
 import TravelOutput from '../../../examples/hero-banner/travel.eg.tsx';
 import travelCode from '../../../examples/hero-banner/travel.eg.tsx?raw';
-import TwoActionsOutput from '../../../examples/hero-banner/two-actions.eg.tsx';
-import twoActionsCode from '../../../examples/hero-banner/two-actions.eg.tsx?raw';
 import WellnessOutput from '../../../examples/hero-banner/wellness.eg.tsx';
 import wellnessCode from '../../../examples/hero-banner/wellness.eg.tsx?raw';
 
@@ -33,10 +41,9 @@ import wellnessCode from '../../../examples/hero-banner/wellness.eg.tsx?raw';
 import { HeroBanner } from '@webf/sprinkles';
 ```
 
-A hero banner opens a page. A photo sets the scene while a clear, informative
-description explains what the visitor will find and why it matters. Each
-example pairs its copy, colour and layout with the needs of its website. For a
-band that closes a page, use
+A hero banner opens a page. A photo and a clear description help visitors
+understand the page and decide what to do next. Everything comes in through
+props, so each page can bring its own photo and words. For a band that closes a page, use
 [CtaSection](/blocks/cta-section).
 
 ## Anatomy
@@ -50,11 +57,7 @@ band that closes a page, use
     { name: 'Title', note: 'The page’s heading, in the heading font.' },
     {
       name: 'Description (optional)',
-      note: 'A few informative sentences that give visitors useful context.',
-    },
-    {
-      name: 'Image panel (optional)',
-      note: 'A UI panel over the photo in the split layout.',
+      note: 'A few informative lines that explain the value of the page.',
     },
     {
       name: 'Primary action',
@@ -88,29 +91,31 @@ follows the width it's given, not the window's.
 
 ## Banners for different websites
 
-A banner's mood comes from its photo, `variant`, `align` and `layout`. The
-default `overlay` layout places copy over a colour scrim; `split` gives the
-photo its own column. `mediaContent` places a panel in the right column over
-the photo, which works well for an appointment chooser, account summary or
-interactive menu.
-Add an `eyebrow`, shown as a `Badge`, for context, and shape the description
-around what visitors need to know. Every variant resolves a colour token, so a
-site that re-skins its tokens re-skins its banners too.
+A banner's mood comes from the photo, the `variant` (the colour of the band),
+the `align` (where the text sits) and the `layout` (how photo and copy share
+space). The buttons follow
+the band, so a call to action always stands out. Every variant is a semantic
+colour, so a site that re-skins its tokens re-skins its banners too, and a
+banner looks the same in the light and the dark scheme.
 
-| Variant       | Band                 | Buttons                       | Fits                      |
-| ------------- | -------------------- | ----------------------------- | ------------------------- |
-| `inverse`     | Dark, the default    | Orange, and a white outline   | Education, corporate      |
-| `positive`    | Green                | White, and a white outline    | Charities, health, nature |
-| `indigo`      | Deep indigo          | White, and a white outline    | Software, technology      |
-| `informative` | Blue                 | White, and a white outline    | Finance, public services  |
-| `neutral`     | Charcoal             | White, and a white outline    | Travel, media, portfolios |
-| `highlight`   | Warm, with dark text | Black, and a black outline    | Food, retail, events      |
-| `light`       | Pale, with dark text | Accent, and an accent outline | Clinics, wellness, family |
+| Variant       | Band                  | Buttons                       | Fits                        |
+| ------------- | --------------------- | ----------------------------- | --------------------------- |
+| `inverse`     | Deep, the default     | White, and a white outline    | Education, corporate        |
+| `positive`    | Green                 | White, and a white outline    | Charities, health, nature   |
+| `indigo`      | Deep indigo           | White, and a white outline    | Software, restaurants, tech |
+| `informative` | Blue                  | White, and a white outline    | Finance, public services    |
+| `neutral`     | Charcoal              | White, and a white outline    | Travel, media, portfolios   |
+| `highlight`   | Cream, with dark text | Amber, and a neutral outline  | Food, retail, events        |
+| `light`       | Pale, with dark text  | Accent, and an accent outline | Clinics, wellness, family   |
+
+Pair any variant with `imageTone='cool'` for a blue wash over the photo. The
+wash keeps every banner on the same calm, cool palette while the variant,
+`align` and `layout` give each site its own composition.
 
 ### Charity and nonprofit
 
-A `positive` band with centred text. The longer description explains how
-donations are used, while impact numbers overlap the bottom edge.
+A `positive` band with centred text. The impact numbers overlap the bottom
+edge, so the numbers are the first thing a supporter sees after the promise.
 
 <ExampleBlock code={nonprofitCode} filename='Nonprofit'>
   <NonprofitOutput />
@@ -118,8 +123,8 @@ donations are used, while impact numbers overlap the bottom edge.
 
 ### Software and technology
 
-An `indigo` band with centred text and a white button. The copy describes the
-team workflow, and a short eyebrow establishes the product context.
+An `indigo` band with centred text, a white button and a short `note` that
+removes doubt about cost and compatibility.
 
 <ExampleBlock code={saasCode} filename='SaaS'>
   <SaasOutput />
@@ -127,8 +132,9 @@ team workflow, and a short eyebrow establishes the product context.
 
 ### Finance and public services
 
-An `informative` blue band in a split layout. The separate image column gives
-the account details and clear pricing room to breathe.
+A full-width, edge-to-edge banner (`fullWidth`). The three service cards are
+passed as `bottomContent`, so they sit over the photo, along the bottom of the
+banner, rather than below it.
 
 <ExampleBlock code={financeCode} filename='Finance'>
   <FinanceOutput />
@@ -136,8 +142,10 @@ the account details and clear pricing room to breathe.
 
 ### Restaurant and retail
 
-A `highlight` band with dark text and black buttons over a full photo. Its
-menu card uses an accordion so visitors can open each kitchen highlight.
+The photo fills the whole banner. With `align='center'`, the `highlight` variant
+puts a soft pool of cream behind the centred copy and leaves the photo clear at
+the edges. It also gives the primary button an amber fill. `bottomContent` adds three short facts along the bottom of
+the photo.
 
 <ExampleBlock code={restaurantCode} filename='Restaurant'>
   <RestaurantOutput />
@@ -145,8 +153,8 @@ menu card uses an accordion so visitors can open each kitchen highlight.
 
 ### Travel and media
 
-A `neutral` band is a charcoal veil, so the photo carries the colour. Its
-split layout suits trip details and destination photography.
+The copy sits on the right (`contentSide='end'`), so the lake stays visible on
+the left. A glass price card in `mediaContent` gives a clear starting price.
 
 <ExampleBlock code={travelCode} filename='Travel'>
   <TravelOutput />
@@ -154,41 +162,114 @@ split layout suits trip details and destination photography.
 
 ### Clinic and wellness
 
-A `light` band: dark text on a pale background, with the accent colour for
-buttons. The split layout makes clinic information easy to read beside a
-bright, calm photo.
+The `framed` layout puts the doctor's photo in its own rounded panel beside the
+copy, in the `positive` variant. One booking card in `mediaContent` floats on the
+photo with the next free slot in large type, and the two reassurances
+(in person or video, no referral needed) as a short checklist underneath.
 
 <ExampleBlock code={wellnessCode} filename='Wellness'>
   <WellnessOutput />
 </ExampleBlock>
 
-## Primary action
+### Bakery and cafe
 
-`image`, `title` and `primaryAction` are required. Give `description` enough
-detail to explain the offer in roughly three lines or more at desktop widths.
-The photo is decorative, so choose one that supports the page without carrying
-information visitors need to understand the offer.
+A `framed` banner with the copy on the right (`contentSide='end'`) and a warm
+`highlight` band. A menu-style list of today's bakes with ready times floats on
+the photo through `mediaContent`.
 
-<ExampleBlock code={basicCode}>
-  <BasicOutput />
+<ExampleBlock code={bakeryCode} filename='Bakery'>
+  <BakeryOutput />
 </ExampleBlock>
 
-## Secondary action
+### Real estate
 
-Add `secondaryAction` for a second way forward, such as a visit before
-applying. It's an outline button, so the primary action still stands out.
+A `split` banner: the copy on the left and the photo on the right, fading into the
+`informative` band. A search card in `mediaContent` sits over the photo, so the
+visitor can start searching without scrolling.
 
-<ExampleBlock code={twoActionsCode}>
-  <TwoActionsOutput />
+<ExampleBlock code={propertyCode} filename='Property'>
+  <PropertyOutput />
 </ExampleBlock>
 
-## Descriptive copy
+### Online learning
 
-Use the description to replace scan-only checklists with useful context.
-Explain what the organisation offers, how it works and what a visitor can
-expect next. Keep the copy specific to the site: a bank can describe account
-tools and support, while a university can explain teaching and work
-experience. Aim for at least three lines at desktop widths.
+A `split` banner with the photo on the left (`contentSide='end'`) and an `indigo`
+band. A small progress card in `mediaContent` shows what the product feels like
+once someone has signed up.
+
+<ExampleBlock code={coursesCode} filename='Courses'>
+  <CoursesOutput />
+</ExampleBlock>
+
+### Conference and events
+
+A centred `indigo` overlay with a countdown in `bottomContent`. The numbers are
+static here; connect them to a real timer on your page.
+
+<ExampleBlock code={eventCode} filename='Event'>
+  <EventOutput />
+</ExampleBlock>
+
+### Outdoor clubs and memberships
+
+The `light` variant keeps the left of the banner pale and lets the lake show on
+the right. A price card in `mediaContent` compares a monthly and an annual plan
+before anyone clicks.
+
+<ExampleBlock code={outdoorsCode} filename='Outdoors'>
+  <OutdoorsOutput />
+</ExampleBlock>
+
+### Grocery and farm boxes
+
+A `split` banner in the `positive` variant with the photo on the left. A numbered
+"how it works" stepper in `mediaContent` sits on a white card over the photo, so
+the steps stay readable on a busy picture.
+
+<ExampleBlock code={groceryCode} filename='Grocery'>
+  <GroceryOutput />
+</ExampleBlock>
+
+## Actions
+
+`image`, `title` and `primaryAction` are required. Add a useful description
+with enough detail to read as a few lines. The photo is the banner's
+background by default, with the text over a readable colour overlay.
+
+`primaryAction` is the one button most visitors should press. Add
+`secondaryAction` for a quieter way forward, such as a visit before applying.
+It's an outline button, so the primary action still stands out. Every example
+on this page uses both.
+
+## Layout
+
+The default `overlay` layout places the copy over the photo. Use
+`layout='split'` when the image should have its own column beside the copy,
+fading into the band. Use `layout='framed'` for a clean, rounded photo panel
+with no fade, which suits busy photos.
+Set `contentSide='end'` in a split layout to put the copy on the right and
+`mediaContent` on the left. Use `imageFit='contain'` when a portrait photo
+should remain fully visible, and `imagePosition` to anchor it within its frame.
+The split layout stacks the image above the text on small screens.
+
+See the [real estate](#real-estate), [online learning](#online-learning) and
+[grocery](#grocery-and-farm-boxes) examples for `split`, and the
+[clinic](#clinic-and-wellness) and [bakery](#bakery-and-cafe) examples for `framed`.
+
+## Image credits
+
+Photos under CC BY ask for attribution. Pass `imageCredit` to print a small
+credit in the banner's corner:
+
+```tsx
+<HeroBanner
+  imageCredit={{ text: 'Photo: Name · CC BY 2.0', href: 'https://…' }}
+  …
+/>
+```
+
+Every photo used in these examples is credited in
+`public/images/cc/ATTRIBUTION.md`.
 
 ## Accessibility
 
@@ -197,8 +278,8 @@ experience. Aim for at least three lines at desktop widths.
   that already has one.
 - The photo is decorative (`alt=""`). Say everything that matters in the
   text, never only in the picture.
-- A coloured overlay sits between the photo and the text in the `overlay`
-  layout. Each variant pairs its band with
+- In the overlay layout, a coloured scrim sits between the photo and the text,
+  so the title and description stay readable. Each variant pairs its band with
   the matching `-foreground` token, a pair that `pnpm check:tokens` checks at
   4.5:1. Very bright photos still deserve a check.
 - Buttons are links (`<a>`), 48 px tall, with the focus ring on keyboard
@@ -211,8 +292,8 @@ experience. Aim for at least three lines at desktop widths.
 ## Do and don't
 
 <DoDont
-  doText='Use specific details that explain the offer and help visitors decide what to do next.'
-  dontText='Rely on vague promises that sound positive but leave visitors unsure what you provide.'
+  doText='Use the description to connect the experience to a clear student outcome.'
+  dontText='Fill the banner with broad claims that could describe any campus.'
 >
   <DoItems slot='do' />
   <DontItems slot='dont' />
@@ -223,15 +304,23 @@ experience. Aim for at least three lines at desktop widths.
 | Prop              | Type                                                                                          | Default     |
 | ----------------- | --------------------------------------------------------------------------------------------- | ----------- |
 | `image`           | `string`                                                                                      |             |
-| `eyebrow`         | `string`                                                                                      |             |
+| `imageFit`        | `'cover' \| 'contain'`                                                                        | `'cover'`   |
+| `imagePosition`   | `'center' \| 'left' \| 'right' \| 'top'`                                                      | `'center'`  |
 | `title`           | `string`                                                                                      |             |
 | `description`     | `string`                                                                                      |             |
 | `primaryAction`   | `{ label: string; href: string }`                                                             |             |
 | `secondaryAction` | `{ label: string; href: string }`                                                             |             |
 | `variant`         | `'inverse' \| 'neutral' \| 'positive' \| 'informative' \| 'indigo' \| 'highlight' \| 'light'` | `'inverse'` |
 | `align`           | `'start' \| 'center'`                                                                         | `'start'`   |
-| `layout`          | `'overlay' \| 'split'`                                                                        | `'overlay'` |
+| `layout`          | `'overlay' \| 'split' \| 'framed'`                                                            | `'overlay'` |
+| `contentSide`     | `'start' \| 'end'`                                                                            | `'start'`   |
+| `eyebrowVariant`  | `BadgeVariant`                                                                                |             |
+| `mediaContent`    | content in the photo column                                                                   |             |
+| `bottomContent`   | content over the photo, along the banner's bottom edge                                        |             |
+| `note`            | `string`, a short line under the buttons                                                      |             |
+| `fullWidth`       | `boolean`, removes rounded corners so the banner runs edge to edge                            | `false`     |
+| `imageTone`       | `'natural' \| 'cool' \| 'warm'`                                                               | `'natural'` |
+| `imageCredit`     | `{ text: string; href?: string }`                                                             |             |
 | `headingLevel`    | `1 \| 2`                                                                                      | `1`         |
 | `children`        | content that overlaps the bottom edge                                                         |             |
-| `mediaContent`    | content in the right column over the photo                                                    |             |
 | `class`           | `string`                                                                                      |             |

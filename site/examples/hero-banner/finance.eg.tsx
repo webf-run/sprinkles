@@ -1,60 +1,79 @@
-import {
-  Badge,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  HeroBanner,
-  InfoBadge,
-} from '@webf/sprinkles';
+import { HeroBanner } from '@webf/sprinkles';
+import CreditCard from 'lucide-solid/icons/credit-card';
+import FileCheck from 'lucide-solid/icons/file-check';
+import HeartHandshake from 'lucide-solid/icons/heart-handshake';
+import { For } from 'solid-js';
 
-function AccountPanel() {
-  return (
-    <Card elevated class='@container w-full max-w-md'>
-      <CardHeader
-        title='Account overview'
-        description='Everyday checking · •••• 2048'
-        headingLevel={2}
-        actions={<Badge variant='positive'>Active</Badge>}
-      />
-      <CardBody>
-        <p class='m-0 text-sm text-foreground-muted'>Sample available balance</p>
-        <p class='m-0 mt-1 text-4xl font-semibold tracking-tight text-foreground-strongest'>$12,480.00</p>
-        <div class='mt-5 grid grid-cols-1 gap-3 @sm:grid-cols-2'>
-          <InfoBadge
-            variant='subtle'
-            label='Savings rate'
-            value='4.2% APY'
-            class='max-w-none'
-          />
-          <InfoBadge
-            variant='subtle'
-            label='Monthly fee'
-            value='$0'
-            class='max-w-none'
-          />
-        </div>
-      </CardBody>
-      <CardFooter>
-        <Badge variant='informative'>Deposits insured up to $250,000</Badge>
-      </CardFooter>
-    </Card>
-  );
-}
+const services = [
+  {
+    icon: CreditCard,
+    title: 'Payments & accounts',
+    text: 'Pay bills, check balances and manage everyday transactions.',
+    href: '#payments',
+  },
+  {
+    icon: FileCheck,
+    title: 'Applications & permits',
+    text: 'Apply online and follow every request from start to finish.',
+    href: '#applications',
+  },
+  {
+    icon: HeartHandshake,
+    title: 'Community support',
+    text: 'Find local programmes, advice and a real person to ask.',
+    href: '#community',
+  },
+];
 
-/** A bank or investment app: an account overview sits over the market graphic. */
+/** A full-width finance and public-services hero. The service cards sit over the photo. */
 export default function Example() {
   return (
     <HeroBanner
-      layout='split'
+      fullWidth
+      class='w-full'
+      layout='overlay'
       variant='informative'
-      eyebrow='Everyday banking, made clear'
-      image='/images/banners/finance.webp'
-      title='Money that works as hard as you do'
-      description='Bring your spending, savings and investing into one secure account with plain language pricing at every step. See your balance, track upcoming bills and move money whenever you need it, with support from a real person when questions come up.'
-      primaryAction={{ label: 'Open an account', href: '#open' }}
-      secondaryAction={{ label: 'Compare rates', href: '#rates' }}
-      mediaContent={<AccountPanel />}
+      image='/images/cc/cool-finance.jpg'
+      imageTone='cool'
+      imagePosition='center'
+      imageCredit={{
+        text: 'Photo: Brian Papantonio · CC BY 2.0',
+        href: 'https://commons.wikimedia.org/wiki/File:Denver_Skyline_at_Blue_Hour.jpg',
+      }}
+      eyebrow='Finance & public services · One secure place'
+      title='Everyday services, made simpler.'
+      description='Take care of payments, applications and local support from one clear starting point. Find the right service, see what happens next and pick up where you left off, on any device.'
+      primaryAction={{ label: 'Access your account', href: '#account' }}
+      secondaryAction={{ label: 'Browse all services', href: '#services' }}
+      note='Secure sign-in · Available 24/7'
+      bottomContent={
+        <nav
+          id='services'
+          aria-label='Popular services'
+          class='grid gap-4 md:grid-cols-3'
+        >
+          <For each={services}>
+            {(service) => (
+              <a
+                href={service.href}
+                class='group flex items-start gap-4 rounded-2xl border border-informative-foreground/25 bg-informative/70 p-5 text-informative-foreground no-underline shadow-lg backdrop-blur-md transition-colors hover:bg-informative/85'
+              >
+                <span class='grid size-11 shrink-0 place-items-center rounded-xl bg-informative-foreground/20'>
+                  <service.icon class='size-5' aria-hidden='true' />
+                </span>
+                <span class='block'>
+                  <span class='block text-lg font-semibold'>
+                    {service.title}
+                  </span>
+                  <span class='mt-1 block text-sm leading-relaxed text-informative-foreground/85'>
+                    {service.text}
+                  </span>
+                </span>
+              </a>
+            )}
+          </For>
+        </nav>
+      }
     />
   );
 }

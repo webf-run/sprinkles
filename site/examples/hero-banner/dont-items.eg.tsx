@@ -3,11 +3,15 @@ import { HeroBanner } from '@webf/sprinkles';
 export default function Example() {
   return (
     <HeroBanner
-      image='/images/northbridge/campus.webp'
-      eyebrow='A promise without the detail'
-      title='A brighter future is waiting'
-      description='Your future can be amazing, exciting and full of possibilities. We believe in helping every student become the very best version of themselves, with an inspiring experience that opens doors and makes dreams come true. Take the first step toward a wonderful new chapter with a community that believes in you.'
-      primaryAction={{ label: 'Apply now', href: '#apply' }}
+      variant='indigo'
+      align='center'
+      image='/images/cc/cool-campus.jpg'
+      imageTone='cool'
+      eyebrow='A clear promise, with a real next step'
+      title='A brighter future begins with a good choice.'
+      description='Explore practical courses, supportive people and opportunities to try new things. Get to know the learning environment, compare your options and find the information you need to take your next step with confidence.'
+      primaryAction={{ label: 'Browse courses', href: '#courses' }}
+      secondaryAction={{ label: 'Talk to an adviser', href: '#advisers' }}
     />
   );
 }

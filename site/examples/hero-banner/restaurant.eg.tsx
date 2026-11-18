@@ -1,66 +1,50 @@
-import { Badge, Button, HeroBanner } from '@webf/sprinkles';
-import MapPin from 'lucide-solid/icons/map-pin';
+import { HeroBanner } from '@webf/sprinkles';
+import Clock from 'lucide-solid/icons/clock';
+import Leaf from 'lucide-solid/icons/leaf';
+import Users from 'lucide-solid/icons/users';
 import { For } from 'solid-js';
 
-const dishes = [
-  {
-    name: 'Sourdough, warm to order',
-    image: '/images/banners/sourdough.jpg',
-    alt: 'Freshly baked sourdough bread',
-  },
-  {
-    name: "Today's seasonal vegetables",
-    image: '/images/banners/seasonal-vegetables.jpg',
-    alt: 'Seasonal vegetables prepared for dinner',
-  },
-  {
-    name: 'Share plates made for lingering',
-    image: '/images/banners/sharing-plates.jpg',
-    alt: 'A selection of sharing plates on the table',
-  },
+const perks = [
+  { icon: Leaf, title: 'Seasonal menu', text: 'Fresh, local produce' },
+  { icon: Clock, title: 'Open daily', text: 'Lunch 12–3 · Dinner 6–10' },
+  { icon: Users, title: 'Groups welcome', text: 'Tables for 2 to 20' },
 ];
 
-/** A warm, full-photo restaurant hero with a transparent dish list. */
+/** A warm restaurant hero: the photo fills the whole banner, with the copy centred over a soft cream wash. */
 export default function Example() {
   return (
     <HeroBanner
+      layout='overlay'
       variant='highlight'
-      eyebrow='Wood-fired kitchen · Seasonal menu'
-      image='/images/banners/garden.webp'
-      title='Fresh from the market. Warm from the fire.'
-      description='Meet us at The Old Market for vegetables from nearby farms, slow-roasted mains and bread pulled warm from the oven. Our seasonal menu is made for easy dinners and long evenings around the table.'
-      primaryAction={{ label: 'Reserve a table', href: '#book' }}
-      secondaryAction={{ label: 'Order online', href: '#order' }}
-      mediaContent={
-        <div class='w-full max-w-md space-y-3'>
-          <Badge staticColor='white' fillStyle='subtle' size='l' icon={MapPin}>
-            The Old Market
-          </Badge>
-          <For each={dishes}>
-            {(dish) => (
-              <article class='scheme-dark flex min-w-0 items-center gap-3 rounded-xl border border-white/24 bg-black/32 p-3 text-foreground-inverse backdrop-blur-sm'>
-                <img
-                  src={dish.image}
-                  alt={dish.alt}
-                  class='size-16 shrink-0 rounded-lg object-cover sm:size-20'
-                />
-                <div class='min-w-0 flex-1'>
-                  <h2 class='m-0 text-base font-semibold text-foreground-inverse'>
-                    {dish.name}
-                  </h2>
-                  <Button
-                    href='#order'
-                    size='s'
-                    variant='highlight'
-                    class='mt-2'
-                  >
-                    Order now
-                  </Button>
-                </div>
-              </article>
+      align='center'
+      image='/images/cc/restaurant.jpg'
+      imagePosition='center'
+      eyebrow='Restaurant & Retail · A place to gather'
+      title='Make every meal a memorable one.'
+      description='Thoughtfully prepared dishes, seasonal ingredients and a welcoming room. Whether it is a quick lunch or a special evening, there is always something delicious waiting for you.'
+      primaryAction={{ label: 'Reserve a table', href: '#reservations' }}
+      secondaryAction={{ label: 'Explore our menu', href: '#menu' }}
+      note='Free to book · Instant confirmation'
+      bottomContent={
+        <ul class='m-0 grid list-none gap-3 p-0 sm:grid-cols-3'>
+          <For each={perks}>
+            {(perk) => (
+              <li class='flex items-center gap-3 rounded-2xl border border-highlight/50 bg-surface/90 p-4 shadow-lg backdrop-blur-md'>
+                <span class='grid size-10 shrink-0 place-items-center rounded-xl bg-highlight text-highlight-foreground'>
+                  <perk.icon class='size-5' aria-hidden='true' />
+                </span>
+                <span>
+                  <span class='block text-sm font-semibold text-foreground-strongest'>
+                    {perk.title}
+                  </span>
+                  <span class='block text-xs text-foreground-muted'>
+                    {perk.text}
+                  </span>
+                </span>
+              </li>
             )}
           </For>
-        </div>
+        </ul>
       }
     />
   );
