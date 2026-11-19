@@ -29,11 +29,15 @@ export default defineConfig({
       ],
       components: {
         Header: './site/components/starlight/Header.astro',
+        Sidebar: './site/components/starlight/Sidebar.astro',
       },
+      routeMiddleware: './site/route-middleware.ts',
 
       customCss: ['./site/style/custom.css'],
       // One group per kind of component, in the order Spectrum lists them.
       // Each group lists its folder, so a new page needs no config change.
+      // site/route-middleware.ts shows only the current section's groups
+      // (Guide, Components or Blocks); site/data/Sections.ts maps groups.
       sidebar: [
         {
           label: 'Getting Started',
