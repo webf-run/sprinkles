@@ -160,6 +160,7 @@ export { NumberedFeatureCard } from './blocks/NumberedFeatureCard';
 export { QuickLinkCard } from './blocks/QuickLinkCard';
 export { StatCard } from './blocks/StatCard';
 export { TestimonialCard } from './blocks/TestimonialCard';
+export { Timeline } from './blocks/Timeline';
 
 // Brand marks Lucide doesn't carry. Every other icon comes from lucide-solid.
 export { Facebook } from './icons/Facebook';
@@ -187,6 +188,13 @@ export type { IconTileProps } from './blocks/IconTile';
 export type { InfoBadgeProps } from './blocks/InfoBadge';
 export type { NumberedFeatureCardProps } from './blocks/NumberedFeatureCard';
 export type { StatCardProps } from './blocks/StatCard';
+export type {
+  TimelineItem,
+  TimelineLayout,
+  TimelineMarker,
+  TimelineProps,
+  TimelineTone,
+} from './blocks/Timeline';
 export type { CtaCardProps } from './blocks/CtaCard';
 export type { CtaSectionProps, CtaSectionSurface } from './blocks/CtaSection';
 export type {
