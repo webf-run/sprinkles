@@ -142,6 +142,7 @@ export type { TooltipPlacement, TooltipProps } from './components/Tooltip';
 export { AnnouncementCard } from './blocks/AnnouncementCard';
 export { AnnouncementListItem } from './blocks/AnnouncementListItem';
 export { BenefitCard } from './blocks/BenefitCard';
+export { BentoGrid } from './blocks/BentoGrid';
 export { Breadcrumb } from './blocks/Breadcrumb';
 export { CtaBanner } from './blocks/CtaBanner';
 export { CtaCard } from './blocks/CtaCard';
@@ -168,6 +169,15 @@ export { Linkedin } from './icons/Linkedin';
 export type { AnnouncementCardProps } from './blocks/AnnouncementCard';
 export type { AnnouncementListItemProps } from './blocks/AnnouncementListItem';
 export type { BenefitCardProps } from './blocks/BenefitCard';
+export type {
+  BentoAction,
+  BentoCard,
+  BentoGridLayout,
+  BentoGridProps,
+  BentoImage,
+  BentoImagePosition,
+  BentoItem,
+} from './blocks/BentoGrid';
 export type { BreadcrumbProps } from './blocks/Breadcrumb';
 export type { CtaBannerProps } from './blocks/CtaBanner';
 export type { DotTagProps } from './blocks/DotTag';
