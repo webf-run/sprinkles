@@ -15,23 +15,16 @@ const highlights = [
   { icon: Award, title: 'Certificates', text: 'Recognised by employers' },
 ];
 
-/**
- * An online-learning hero: a bright photo that shows in full,
- * with the copy on a deep blue wash beside it and a slim row of reasons to join.
- */
+/** An online-learning hero: photo on the left, copy on the right, a row of reasons to join. */
 export default function Example() {
   return (
     <HeroBanner
       layout='overlay'
-      variant='informative'
+      surface='accent'
       scrim='soft'
       contentSide='end'
-      image='/images/cc/cool-learning-workspace.jpg'
+      image='/images/cc/students-reading.jpg'
       imagePosition='left'
-      imageCredit={{
-        text: 'Photo: Shixart1985 · CC BY 2.0 · extended and colour-graded',
-        href: 'https://commons.wikimedia.org/wiki/File:Modern_office_workspace_featuring_a_computer.jpg',
-      }}
       eyebrow='Lumen Academy · Your learning journey starts here'
       title='Build skills today. Shape your tomorrow.'
       description='Discover practical online courses designed by industry professionals. Learn new skills, work on real projects and move forward with confidence.'
@@ -39,8 +32,8 @@ export default function Example() {
       secondaryAction={{ label: 'Try a free lesson', href: '#free-lesson' }}
       note='Flexible learning · Need help choosing? Call +91 98765 43210'
       bottomContent={
-        <ul class='m-0 grid list-none gap-3 p-0 sm:grid-cols-2 lg:grid-cols-4'>
-          <li class='flex items-center gap-3 rounded-2xl bg-highlight p-3 text-highlight-foreground shadow-md'>
+        <ul class='m-0 grid list-none gap-3 p-0 @xl:grid-cols-2 @5xl:grid-cols-4'>
+          <li class='flex items-center gap-3 rounded-2xl bg-highlight p-3 text-highlight-foreground shadow-elevated'>
             <span class='grid size-10 shrink-0 place-items-center rounded-xl bg-highlight-foreground/10'>
               <Tag class='size-5' aria-hidden='true' />
             </span>
@@ -51,7 +44,7 @@ export default function Example() {
           </li>
           <For each={highlights}>
             {(item) => (
-              <li class='flex items-center gap-3 rounded-2xl border border-border-muted bg-surface/95 p-3 shadow-md backdrop-blur-md'>
+              <li class='flex items-center gap-3 rounded-2xl border border-border-muted bg-surface/95 p-3 shadow-elevated backdrop-blur-md'>
                 <span class='grid size-10 shrink-0 place-items-center rounded-xl bg-informative-subtle text-informative-subtle-foreground'>
                   <item.icon class='size-5' aria-hidden='true' />
                 </span>

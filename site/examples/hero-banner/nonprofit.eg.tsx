@@ -15,14 +15,12 @@ const stats = [
 export default function Example() {
   return (
     <HeroBanner
-      class='@container'
-      variant='positive'
+      surface='accent'
       layout='overlay'
       align='center'
       image='/images/cc/cool-forest-lake.jpg'
-      imageTone='cool'
       imageCredit={{
-        text: 'Photo: mirobo · CC0',
+        text: 'Photo: mirobo · CC0 · colour-graded',
         href: 'https://commons.wikimedia.org/wiki/File:View_of_lake_in_forest.jpg',
       }}
       eyebrow='Restoring habitats together'
@@ -34,7 +32,19 @@ export default function Example() {
       <Card elevated>
         <CardBody>
           <ul class='m-0 grid list-none grid-cols-2 gap-4 p-0 @4xl:grid-flow-col @4xl:auto-cols-fr @4xl:grid-cols-none'>
-            <For each={stats}>{(stat) => <li class='flex'><StatCard icon={stat.icon} variant='positive' value={stat.value} label={stat.label} class='max-w-none justify-start border-transparent' /></li>}</For>
+            <For each={stats}>
+              {(stat) => (
+                <li class='flex'>
+                  <StatCard
+                    icon={stat.icon}
+                    variant='positive'
+                    value={stat.value}
+                    label={stat.label}
+                    class='max-w-none justify-start border-transparent'
+                  />
+                </li>
+              )}
+            </For>
           </ul>
         </CardBody>
       </Card>
