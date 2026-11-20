@@ -35,12 +35,12 @@ export default function Example() {
           action: { label: 'Join the club', href: '#join' },
         },
         {
-          src: '/images/cc/cool-restaurant-special.jpg',
-          alt: 'A clay bowl of vegetable salad on a wooden board',
-          title: 'Bowls',
+          src: '/images/cc/students-reading.jpg',
+          alt: 'Members reading and writing in notebooks together at a wooden table',
+          title: 'Swap recipes',
           credit: {
-            text: 'Monstruo Estudio · CC0',
-            href: 'https://commons.wikimedia.org/wiki/File:Vegetable_Salad_(Unsplash).jpg',
+            text: 'Alexis Brown · CC0',
+            href: 'https://commons.wikimedia.org/wiki/File:Students_learning_together_(Unsplash).jpg',
           },
         },
         {
@@ -66,14 +66,14 @@ export default function Example() {
           title: 'Average rating',
         },
         {
-          src: '/images/cc/restaurant-kitchen.jpg',
-          alt: 'A chef preparing vegetables in an open, bright kitchen',
-          title: 'An open kitchen',
-          description: 'Watch every bake from the counter.',
-          action: { label: 'Visit us', href: '#visit' },
+          src: '/images/cc/restaurant.jpg',
+          alt: 'A long table laid with salads and shared plates',
+          title: 'Long-table suppers',
+          description: 'Share what you baked with the whole table.',
+          action: { label: 'Join a supper', href: '#supper' },
           credit: {
-            text: 'Shixart1985 · CC BY 2.0',
-            href: 'https://commons.wikimedia.org/wiki/File:Man_prepares_vegetables_in_a_modern_kitchen.jpg',
+            text: 'Pexels · Pexels License',
+            href: 'https://www.pexels.com/photo/foods-served-on-the-table-8585881/',
           },
         },
       ]}
