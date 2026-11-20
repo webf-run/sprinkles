@@ -32,7 +32,24 @@ export default function Example() {
       primaryAction={{ label: 'Explore programmes', href: '#programmes' }}
       secondaryAction={{ label: 'Plan a campus visit', href: '#visit' }}
     >
-      <Card elevated><CardBody><ul class='m-0 grid list-none grid-cols-2 gap-4 p-0 @xl:grid-cols-3 @4xl:grid-flow-col @4xl:auto-cols-fr @4xl:grid-cols-none'><For each={stats}>{(stat) => <li class='flex'><StatCard icon={stat.icon} value={stat.value} label={stat.label} class='max-w-none justify-start border-transparent' /></li>}</For></ul></CardBody></Card>
+      <Card elevated>
+        <CardBody>
+          <ul class='m-0 grid list-none grid-cols-2 gap-4 p-0 @xl:grid-cols-3 @4xl:grid-flow-col @4xl:auto-cols-fr @4xl:grid-cols-none'>
+            <For each={stats}>
+              {(stat) => (
+                <li class='flex'>
+                  <StatCard
+                    icon={stat.icon}
+                    value={stat.value}
+                    label={stat.label}
+                    class='max-w-none justify-start border-transparent'
+                  />
+                </li>
+              )}
+            </For>
+          </ul>
+        </CardBody>
+      </Card>
     </HeroBanner>
   );
 }
