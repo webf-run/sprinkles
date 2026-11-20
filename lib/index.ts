@@ -151,6 +151,7 @@ export { FaqAccordion } from './blocks/FaqAccordion';
 export { FeatureCard } from './blocks/FeatureCard';
 export { Footer } from './blocks/Footer';
 export { FooterColumns } from './blocks/FooterColumns';
+export { HeroBanner } from './blocks/HeroBanner';
 export { IconTile } from './blocks/IconTile';
 export { InfoBadge } from './blocks/InfoBadge';
 export { Navbar } from './blocks/Navbar';
@@ -185,6 +186,16 @@ export type {
   FooterSurface,
 } from './blocks/Footer';
 export type { FooterColumnsProps } from './blocks/FooterColumns';
+export type {
+  HeroBannerAction,
+  HeroBannerAlign,
+  HeroBannerContentSide,
+  HeroBannerImageFit,
+  HeroBannerImagePosition,
+  HeroBannerLayout,
+  HeroBannerProps,
+  HeroBannerSurface,
+} from './blocks/HeroBanner';
 export type { NavbarProps } from './blocks/Navbar';
 export type { QuickLinkCardProps } from './blocks/QuickLinkCard';
 export type { TestimonialCardProps } from './blocks/TestimonialCard';
