@@ -1,8 +1,11 @@
-# Hero example image credits
+**# Hero example image credits**
 
 This file records the source, creator, license, and edits for photos in
-`public/images/cc/`. The directory name does not mean every image is CC
+
+\`public/images/cc/\`. The directory name does not mean every image is CC
+
 licensed. Check each entry before reuse. Example pages also display a short
+
 credit for the CC BY photos they use.
 
 Every file in this directory is used by a HeroBanner example. Photos were
@@ -21,9 +24,10 @@ colours were not altered unless a derivative row says otherwise.
 | `lake-silhouette.jpg`  | [Hiking along the sea](<https://commons.wikimedia.org/wiki/File:Hiking_along_the_sea_(Unsplash).jpg>), Mathias Herheim                         | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/), as marked on Wikimedia Commons |
 | `event-audience.jpg`   | [Houston audience lifting up hands](<https://commons.wikimedia.org/wiki/File:Houston_audience_lifting_up_hands_(Unsplash).jpg>), Chad Kirchoff | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/), as marked on Wikimedia Commons |
 
-## Edited or resized derivatives
+**## Edited or resized derivatives**
 
 These files retain the source image's license. Changes are listed so the
+
 derivatives are not mistaken for unmodified originals.
 
 | File                     | Based on                                                                                                                                                                                                       | Changes                                                                                  |
@@ -34,13 +38,11 @@ derivatives are not mistaken for unmodified originals.
 | `cool-mountain-lake.jpg` | [Mountain lake and a clear blue sky](<https://commons.wikimedia.org/wiki/File:Mountain_lake_and_a_clear_blue_sky_(54844909972).jpg>), AS Photography / WDnet Studio Creation, CC BY 4.0                        | Cool colour grade; resized and compressed for web.                                       |
 | `clinic-doorway.jpg`     | [Doctor greeting a patient in clinic room two](https://commons.wikimedia.org/wiki/File:Doctor_greeting_a_patient_in_clinic_room_two.jpg), Shixart1985, CC BY 2.0                                               | Cropped from the portrait original to 4:3 and resized to 1,920 px wide; JPEG-compressed. |
 
-## Pexels photos
+**## Replacement Creative Commons photos**
 
-Pexels photos use the [Pexels License](https://www.pexels.com/license/), not a
-Creative Commons license. Pexels says attribution is not required and permits
-modifying its photos. Credit is included here to document the source. The
-restaurant photo's contributor name was not available for verification when
-this entry was added.
+The following Creative Commons images replace the Pexels photos previously
+listed for these filenames. Keep the filenames unchanged so existing example
+imports continue to work.
 
 | File                   | Source and creator                                                                                                                                         | License and changes                                                                                                                   |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |

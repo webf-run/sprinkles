@@ -4,21 +4,20 @@ import { ChevronDown, Github, Sun, Moon } from 'lucide-astro';
 
 import Logo from '../../assets/sprinkles.svg';
 import { Links } from '../../data/Constant';
+import { getSection } from '../../data/Sections';
 
-const trim = (path: string) => path.replace(/\/$/, '') || '/';
-const pathname = trim(Astro.url.pathname);
-const isComponents = pathname === trim(Links.components);
-const isBlocks = pathname === trim(Links.blocks);
+const section = getSection(Astro.url.pathname);
+const isHome = section === undefined;
 
 const links = [
-  { label: 'Home', href: Links.home, active: pathname === '/' },
+  { label: 'Home', href: Links.home, active: isHome },
+  { label: 'Guide', href: Links.gettingStarted, active: section === 'guide' },
   {
-    label: 'Docs',
-    href: Links.gettingStarted,
-    active: pathname !== '/' && !isComponents && !isBlocks,
+    label: 'Components',
+    href: Links.components,
+    active: section === 'components',
   },
-  { label: 'Components', href: Links.components, active: isComponents },
-  { label: 'Blocks', href: Links.blocks, active: isBlocks },
+  { label: 'Blocks', href: Links.blocks, active: section === 'blocks' },
 ];
 ---
 
