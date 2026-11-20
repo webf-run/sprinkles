@@ -25,19 +25,18 @@ const services = [
   },
 ];
 
-/** A full-width finance and public-services hero. The service cards sit over the photo. */
+/** A full-width finance hero with service cards over the photo. */
 export default function Example() {
   return (
     <HeroBanner
       fullWidth
       class='w-full'
       layout='overlay'
-      variant='informative'
+      surface='inverse'
       image='/images/cc/cool-finance.jpg'
-      imageTone='cool'
       imagePosition='center'
       imageCredit={{
-        text: 'Photo: Brian Papantonio · CC BY 2.0',
+        text: 'Photo: Brian Papantonio · CC BY 2.0 · colour-graded',
         href: 'https://commons.wikimedia.org/wiki/File:Denver_Skyline_at_Blue_Hour.jpg',
       }}
       eyebrow='Finance & public services · One secure place'
@@ -50,22 +49,22 @@ export default function Example() {
         <nav
           id='services'
           aria-label='Popular services'
-          class='grid gap-4 md:grid-cols-3'
+          class='grid gap-4 @3xl:grid-cols-3'
         >
           <For each={services}>
             {(service) => (
               <a
                 href={service.href}
-                class='group flex items-start gap-4 rounded-2xl border border-informative-foreground/25 bg-informative/70 p-5 text-informative-foreground no-underline shadow-lg backdrop-blur-md transition-colors hover:bg-informative/85'
+                class='group flex items-start gap-4 rounded-2xl border border-border-inverse bg-surface-inverse/90 p-5 text-foreground-inverse no-underline shadow-elevated motion-safe:transition-colors hover:bg-surface-inverse'
               >
-                <span class='grid size-11 shrink-0 place-items-center rounded-xl bg-informative-foreground/20'>
+                <span class='grid size-11 shrink-0 place-items-center rounded-xl bg-foreground-inverse/20'>
                   <service.icon class='size-5' aria-hidden='true' />
                 </span>
                 <span class='block'>
                   <span class='block text-lg font-semibold'>
                     {service.title}
                   </span>
-                  <span class='mt-1 block text-sm leading-relaxed text-informative-foreground/85'>
+                  <span class='mt-1 block text-sm text-foreground-inverse'>
                     {service.text}
                   </span>
                 </span>

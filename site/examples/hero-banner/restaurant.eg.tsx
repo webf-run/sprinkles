@@ -10,12 +10,12 @@ const perks = [
   { icon: Users, title: 'Groups welcome', text: 'Tables for 2 to 20' },
 ];
 
-/** A warm restaurant hero: the photo fills the whole banner, with the copy centred over a soft cream wash. */
+/** A restaurant hero: centred copy on a muted band, with three facts along the bottom. */
 export default function Example() {
   return (
     <HeroBanner
       layout='overlay'
-      variant='highlight'
+      surface='muted'
       align='center'
       image='/images/cc/restaurant.jpg'
       imagePosition='center'
@@ -26,10 +26,10 @@ export default function Example() {
       secondaryAction={{ label: 'Explore our menu', href: '#menu' }}
       note='Free to book · Instant confirmation'
       bottomContent={
-        <ul class='m-0 grid list-none gap-3 p-0 sm:grid-cols-3'>
+        <ul class='m-0 grid list-none gap-3 p-0 @xl:grid-cols-3'>
           <For each={perks}>
             {(perk) => (
-              <li class='flex items-center gap-3 rounded-2xl border border-highlight/50 bg-surface/90 p-4 shadow-lg backdrop-blur-md'>
+              <li class='flex items-center gap-3 rounded-2xl border border-highlight/50 bg-surface/90 p-4 shadow-elevated backdrop-blur-md'>
                 <span class='grid size-10 shrink-0 place-items-center rounded-xl bg-highlight text-highlight-foreground'>
                   <perk.icon class='size-5' aria-hidden='true' />
                 </span>

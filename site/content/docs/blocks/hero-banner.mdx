@@ -32,6 +32,8 @@ import RestaurantOutput from '../../../examples/hero-banner/restaurant.eg.tsx';
 import restaurantCode from '../../../examples/hero-banner/restaurant.eg.tsx?raw';
 import SaasOutput from '../../../examples/hero-banner/saas.eg.tsx';
 import saasCode from '../../../examples/hero-banner/saas.eg.tsx?raw';
+import SplitOutput from '../../../examples/hero-banner/split.eg.tsx';
+import splitCode from '../../../examples/hero-banner/split.eg.tsx?raw';
 import TravelOutput from '../../../examples/hero-banner/travel.eg.tsx';
 import travelCode from '../../../examples/hero-banner/travel.eg.tsx?raw';
 import WellnessOutput from '../../../examples/hero-banner/wellness.eg.tsx';
@@ -43,8 +45,8 @@ import { HeroBanner } from '@webf/sprinkles';
 
 A hero banner opens a page. A photo and a clear description help visitors
 understand the page and decide what to do next. Everything comes in through
-props, so each page can bring its own photo and words. For a band that closes a page, use
-[CtaSection](/blocks/cta-section).
+props, so each page can bring its own photo and words. For a band that closes a
+page, use [CtaSection](/blocks/cta-section).
 
 ## Anatomy
 
@@ -52,7 +54,7 @@ props, so each page can bring its own photo and words. For a band that closes a 
   parts={[
     {
       name: 'Banner image',
-      note: 'The photo behind everything, under a dark overlay.',
+      note: 'The photo behind the copy, under a scrim in the band’s colour.',
     },
     { name: 'Title', note: 'The page’s heading, in the heading font.' },
     {
@@ -72,18 +74,36 @@ props, so each page can bring its own photo and words. For a band that closes a 
   <AnatomyOutput />
 </Anatomy>
 
+## Surface
+
+`surface` picks the colour laid over the photo behind the copy. It is solid
+under the text and fades out across the photo. It is named as in
+[CtaSection](/blocks/cta-section) and the footer, so a page can use the same
+three bands everywhere.
+
+| Surface             | Band                           | Buttons                       | Use it for                                                 |
+| ------------------- | ------------------------------ | ----------------------------- | ---------------------------------------------------------- |
+| `inverse` (default) | `surface-inverse`, a dark band | White, and a white outline    | Bright or busy photos; formal pages                        |
+| `accent`            | `accent`, the product’s colour | White, and a white outline    | Pages that should feel like the brand                      |
+| `muted`             | `surface-muted`, a pale band   | Accent, and an accent outline | Calm or warm photos; pages that already have a dark footer |
+
+A banner has no colour for each kind of website. Its colours come from your
+tokens: a charity that sets `--color-accent` to its green gets a green `accent`
+banner, and the same banner is rose in a dance studio’s theme. Switch the theme
+in the docs header and every banner on this page follows.
+
 ## Overlapping content
 
 Children of `HeroBanner` sit across its bottom edge, half on the photo and
 half on the page. The banner adds bottom padding to make room, so the
-buttons never sit under them. It's meant for a row of
+buttons never sit under them. It’s meant for a row of
 [StatCards](/cards/stat-card), but anything works.
 
 The example builds the row from existing components: a [Card](/layout/card)
 holding one `StatCard` per entry of a `stats` array. Add or remove an entry
 and the row shares its width equally (`@4xl:grid-flow-col @4xl:auto-cols-fr`),
 with three to five reading best. The banner is an `@container`, so the row
-follows the width it's given, not the window's.
+follows the width the banner is given, not the window’s.
 
 <ExampleBlock code={overlapCode} filename='University'>
   <OverlapOutput />
@@ -91,31 +111,16 @@ follows the width it's given, not the window's.
 
 ## Banners for different websites
 
-A banner's mood comes from the photo, the `variant` (the colour of the band),
-the `align` (where the text sits) and the `layout` (how photo and copy share
-space). The buttons follow
-the band, so a call to action always stands out. Every variant is a semantic
-colour, so a site that re-skins its tokens re-skins its banners too, and a
-banner looks the same in the light and the dark scheme.
-
-| Variant       | Band                  | Buttons                       | Fits                        |
-| ------------- | --------------------- | ----------------------------- | --------------------------- |
-| `inverse`     | Deep, the default     | White, and a white outline    | Education, corporate        |
-| `positive`    | Green                 | White, and a white outline    | Charities, health, nature   |
-| `indigo`      | Deep indigo           | White, and a white outline    | Software, restaurants, tech |
-| `informative` | Blue                  | White, and a white outline    | Finance, public services    |
-| `neutral`     | Charcoal              | White, and a white outline    | Travel, media, portfolios   |
-| `highlight`   | Cream, with dark text | Amber, and a neutral outline  | Food, retail, events        |
-| `light`       | Pale, with dark text  | Accent, and an accent outline | Clinics, wellness, family   |
-
-Pair any variant with `imageTone='cool'` for a blue wash over the photo. The
-wash keeps every banner on the same calm, cool palette while the variant,
-`align` and `layout` give each site its own composition.
+A banner’s mood comes from the photo, the `surface`, the `align` (where the
+text sits) and the `layout` (how photo and copy share space). The buttons
+follow the band, so a call to action always stands out. A banner looks the same
+in the light and the dark scheme.
 
 ### Charity and nonprofit
 
-A `positive` band with centred text. The impact numbers overlap the bottom
-edge, so the numbers are the first thing a supporter sees after the promise.
+An `accent` banner with centred text over a forest photo. The impact
+numbers overlap the bottom edge, so the numbers are the first thing a supporter
+sees after the promise.
 
 <ExampleBlock code={nonprofitCode} filename='Nonprofit'>
   <NonprofitOutput />
@@ -123,8 +128,8 @@ edge, so the numbers are the first thing a supporter sees after the promise.
 
 ### Software and technology
 
-An `indigo` band with centred text, a white button and a short `note` that
-removes doubt about cost and compatibility.
+An `accent` banner with centred text, a photo of a dashboard and a short `note`
+that removes doubt about cost and compatibility.
 
 <ExampleBlock code={saasCode} filename='SaaS'>
   <SaasOutput />
@@ -132,9 +137,9 @@ removes doubt about cost and compatibility.
 
 ### Finance and public services
 
-A full-width, edge-to-edge banner (`fullWidth`). The three service cards are
-passed as `bottomContent`, so they sit over the photo, along the bottom of the
-banner, rather than below it.
+A full-width, edge-to-edge `inverse` banner (`fullWidth`). The three service
+cards are passed as `bottomContent`, so they sit over the photo, along the
+bottom of the banner, each on its own dark panel.
 
 <ExampleBlock code={financeCode} filename='Finance'>
   <FinanceOutput />
@@ -142,10 +147,9 @@ banner, rather than below it.
 
 ### Restaurant and retail
 
-The photo fills the whole banner. With `align='center'`, the `highlight` variant
-puts a soft pool of cream behind the centred copy and leaves the photo clear at
-the edges. It also gives the primary button an amber fill. `bottomContent` adds three short facts along the bottom of
-the photo.
+A `muted` banner with `align='center'`. A soft pool of the band’s colour sits
+behind the centred copy and leaves the photo clear at the edges. `bottomContent`
+adds three short facts along the bottom of the photo.
 
 <ExampleBlock code={restaurantCode} filename='Restaurant'>
   <RestaurantOutput />
@@ -153,8 +157,8 @@ the photo.
 
 ### Travel and media
 
-The copy sits on the right (`contentSide='end'`), so the lake stays visible on
-the left. A glass price card in `mediaContent` gives a clear starting price.
+The copy sits on the right (`contentSide='end'`), and a price card in
+`mediaContent` floats on the photo at the left, over the dark lake.
 
 <ExampleBlock code={travelCode} filename='Travel'>
   <TravelOutput />
@@ -162,10 +166,9 @@ the left. A glass price card in `mediaContent` gives a clear starting price.
 
 ### Clinic and wellness
 
-The `framed` layout puts the doctor's photo in its own rounded panel beside the
-copy, in the `positive` variant. One booking card in `mediaContent` floats on the
-photo with the next free slot in large type, and the two reassurances
-(in person or video, no referral needed) as a short checklist underneath.
+A `framed` banner on a `muted` band, with the copy on the left and a portrait
+photo in its own panel on the right. One card in `mediaContent` floats on the
+photo with three promises of care.
 
 <ExampleBlock code={wellnessCode} filename='Wellness'>
   <WellnessOutput />
@@ -173,9 +176,9 @@ photo with the next free slot in large type, and the two reassurances
 
 ### Bakery and cafe
 
-A `framed` banner with the copy on the right (`contentSide='end'`) and a warm
-`highlight` band. A menu-style list of today's bakes with ready times floats on
-the photo through `mediaContent`.
+A `framed` banner on a `muted` band, with the copy on the right
+(`contentSide='end'`). A menu-style list of today’s bakes with ready times
+floats on the photo through `mediaContent`.
 
 <ExampleBlock code={bakeryCode} filename='Bakery'>
   <BakeryOutput />
@@ -183,9 +186,8 @@ the photo through `mediaContent`.
 
 ### Real estate
 
-A `split` banner: the copy on the left and the photo on the right, fading into the
-`informative` band. A search card in `mediaContent` sits over the photo, so the
-visitor can start searching without scrolling.
+An `accent` banner. A starting price and the property’s highlights sit on the
+photo through `mediaContent`, the highlights on a panel of their own.
 
 <ExampleBlock code={propertyCode} filename='Property'>
   <PropertyOutput />
@@ -193,9 +195,9 @@ visitor can start searching without scrolling.
 
 ### Online learning
 
-A `split` banner with the photo on the left (`contentSide='end'`) and an `indigo`
-band. A small progress card in `mediaContent` shows what the product feels like
-once someone has signed up.
+An `accent` banner with `scrim='soft'`, the copy on the right
+(`contentSide='end'`) and the photo kept clear on the left. A row of reasons to
+join runs along the bottom through `bottomContent`.
 
 <ExampleBlock code={coursesCode} filename='Courses'>
   <CoursesOutput />
@@ -203,7 +205,7 @@ once someone has signed up.
 
 ### Conference and events
 
-A centred `indigo` overlay with a countdown in `bottomContent`. The numbers are
+A centred `inverse` banner with a countdown in `bottomContent`. The numbers are
 static here; connect them to a real timer on your page.
 
 <ExampleBlock code={eventCode} filename='Event'>
@@ -212,9 +214,9 @@ static here; connect them to a real timer on your page.
 
 ### Outdoor clubs and memberships
 
-The `light` variant keeps the left of the banner pale and lets the lake show on
-the right. A price card in `mediaContent` compares a monthly and an annual plan
-before anyone clicks.
+An `accent` banner with `scrim='soft'`, so most of the mountain scene stays
+clear. A membership card in `bottomContent` states the price and what is
+included before anyone clicks.
 
 <ExampleBlock code={outdoorsCode} filename='Outdoors'>
   <OutdoorsOutput />
@@ -222,9 +224,9 @@ before anyone clicks.
 
 ### Grocery and farm boxes
 
-A `split` banner in the `positive` variant with the photo on the left. A numbered
-"how it works" stepper in `mediaContent` sits on a white card over the photo, so
-the steps stay readable on a busy picture.
+A `muted` banner with `scrim='soft'`. The market’s hours, phone number and
+address sit on a panel in `mediaContent`, so they stay readable over a busy
+picture.
 
 <ExampleBlock code={groceryCode} filename='Grocery'>
   <GroceryOutput />
@@ -233,12 +235,12 @@ the steps stay readable on a busy picture.
 ## Actions
 
 `image`, `title` and `primaryAction` are required. Add a useful description
-with enough detail to read as a few lines. The photo is the banner's
-background by default, with the text over a readable colour overlay.
+with enough detail to read as a few lines. The photo is the banner’s
+background by default, with the text over a readable scrim.
 
 `primaryAction` is the one button most visitors should press. Add
 `secondaryAction` for a quieter way forward, such as a visit before applying.
-It's an outline button, so the primary action still stands out. Every example
+It’s an outline button, so the primary action still stands out. Every example
 on this page uses both.
 
 ## Layout
@@ -246,20 +248,25 @@ on this page uses both.
 The default `overlay` layout places the copy over the photo. Use
 `layout='split'` when the image should have its own column beside the copy,
 fading into the band. Use `layout='framed'` for a clean, rounded photo panel
-with no fade, which suits busy photos.
-Set `contentSide='end'` in a split layout to put the copy on the right and
-`mediaContent` on the left. Use `imageFit='contain'` when a portrait photo
-should remain fully visible, and `imagePosition` to anchor it within its frame.
-The split layout stacks the image above the text on small screens.
+with no fade, which suits busy photos. Set `contentSide='end'` to put the copy
+on the right. Use `imageFit='contain'` when a portrait photo should remain fully
+visible, and `imagePosition` to anchor it within its frame.
 
-See the [real estate](#real-estate), [online learning](#online-learning) and
-[grocery](#grocery-and-farm-boxes) examples for `split`, and the
-[clinic](#clinic-and-wellness) and [bakery](#bakery-and-cafe) examples for `framed`.
+The layout follows the width the banner is given, not the window’s. Below
+48rem every layout stacks the photo above the copy, and `mediaContent` stays
+under the copy until the banner is 64rem wide. A banner in a narrow column
+therefore stays readable at any window size.
+
+<ExampleBlock code={splitCode} filename='Split'>
+  <SplitOutput />
+</ExampleBlock>
+
+See the [bakery](#bakery-and-cafe) example for `framed`.
 
 ## Image credits
 
 Photos under CC BY ask for attribution. Pass `imageCredit` to print a small
-credit in the banner's corner:
+credit in the banner’s corner:
 
 ```tsx
 <HeroBanner
@@ -273,23 +280,30 @@ Every photo used in these examples is credited in
 
 ## Accessibility
 
-- Renders a `<section>` labelled by its title, so it's a region landmark with
+- Renders a `<section>` labelled by its title, so it’s a region landmark with
   a name. The title is an `<h1>` by default; set `headingLevel={2}` on a page
   that already has one.
-- The photo is decorative (`alt=""`). Say everything that matters in the
-  text, never only in the picture.
-- In the overlay layout, a coloured scrim sits between the photo and the text,
-  so the title and description stay readable. Each variant pairs its band with
-  the matching `-foreground` token, a pair that `pnpm check:tokens` checks at
-  4.5:1. Very bright photos still deserve a check.
+- The photo is decorative by default (`alt=""`). Say everything that matters in
+  the text, never only in the picture. When the photo itself carries meaning,
+  describe it with `imageAlt`.
+- The copy’s contrast comes from the band, not the photo. The copy sits on a
+  scrim that is at least 90% opaque and fades out only beyond the copy column.
+  In a narrow banner the photo is a strip above the copy, so the copy sits on
+  the plain band. Each surface pairs its band with the matching text token, a pair
+  that `pnpm check:tokens` checks at 4.5:1. A very bright or very dark photo
+  can’t lower it.
+- Content you pass in `mediaContent` or `bottomContent` sits on the photo,
+  outside the scrim. Give it a background of its own, such as a
+  [Card](/layout/card) or a panel at least 90% opaque, rather than putting text
+  straight on the picture.
 - Buttons are links (`<a>`), 48 px tall, with the focus ring on keyboard
-  focus only. They use static white or black, or the `highlight` and `accent`
-  roles, and the banner fixes its colour scheme to light, so it looks the
-  same in the light and the dark scheme.
-- Overlapping content comes after the banner's `<section>`, outside its
+  focus only. They use static white, or the `accent` role on a `muted` band,
+  and the banner fixes its colour scheme to light, so it looks the same in the
+  light and the dark scheme.
+- Overlapping content comes after the banner’s `<section>`, outside its
   labelled region, so it reads as content of its own.
 
-## Do and don't
+## Do and don’t
 
 <DoDont
   doText='Use the description to connect the experience to a clear student outcome.'
@@ -301,26 +315,28 @@ Every photo used in these examples is credited in
 
 ## Props
 
-| Prop              | Type                                                                                          | Default     |
-| ----------------- | --------------------------------------------------------------------------------------------- | ----------- |
-| `image`           | `string`                                                                                      |             |
-| `imageFit`        | `'cover' \| 'contain'`                                                                        | `'cover'`   |
-| `imagePosition`   | `'center' \| 'left' \| 'right' \| 'top'`                                                      | `'center'`  |
-| `title`           | `string`                                                                                      |             |
-| `description`     | `string`                                                                                      |             |
-| `primaryAction`   | `{ label: string; href: string }`                                                             |             |
-| `secondaryAction` | `{ label: string; href: string }`                                                             |             |
-| `variant`         | `'inverse' \| 'neutral' \| 'positive' \| 'informative' \| 'indigo' \| 'highlight' \| 'light'` | `'inverse'` |
-| `align`           | `'start' \| 'center'`                                                                         | `'start'`   |
-| `layout`          | `'overlay' \| 'split' \| 'framed'`                                                            | `'overlay'` |
-| `contentSide`     | `'start' \| 'end'`                                                                            | `'start'`   |
-| `eyebrowVariant`  | `BadgeVariant`                                                                                |             |
-| `mediaContent`    | content in the photo column                                                                   |             |
-| `bottomContent`   | content over the photo, along the banner's bottom edge                                        |             |
-| `note`            | `string`, a short line under the buttons                                                      |             |
-| `fullWidth`       | `boolean`, removes rounded corners so the banner runs edge to edge                            | `false`     |
-| `imageTone`       | `'natural' \| 'cool' \| 'warm'`                                                               | `'natural'` |
-| `imageCredit`     | `{ text: string; href?: string }`                                                             |             |
-| `headingLevel`    | `1 \| 2`                                                                                      | `1`         |
-| `children`        | content that overlaps the bottom edge                                                         |             |
-| `class`           | `string`                                                                                      |             |
+| Prop              | Type                                                           | Default     |
+| ----------------- | -------------------------------------------------------------- | ----------- |
+| `image`           | `string`                                                       |             |
+| `imageAlt`        | `string`, empty when the photo is decoration                   | `''`        |
+| `imageFit`        | `'cover' \| 'contain'`                                         | `'cover'`   |
+| `imagePosition`   | `'center' \| 'left' \| 'right' \| 'top'`                       | `'center'`  |
+| `title`           | `string`                                                       |             |
+| `description`     | `string`                                                       |             |
+| `primaryAction`   | `{ label: string; href: string }`                              |             |
+| `secondaryAction` | `{ label: string; href: string }`                              |             |
+| `surface`         | `'inverse' \| 'accent' \| 'muted'`                             | `'inverse'` |
+| `align`           | `'start' \| 'center'`                                          | `'start'`   |
+| `layout`          | `'overlay' \| 'split' \| 'framed'`                             | `'overlay'` |
+| `contentSide`     | `'start' \| 'end'`                                             | `'start'`   |
+| `scrim`           | `'default' \| 'soft'`                                          | `'default'` |
+| `eyebrow`         | `string`, a short label above the title                        |             |
+| `eyebrowVariant`  | `BadgeVariant`                                                 |             |
+| `mediaContent`    | content in the photo column, under the copy in a narrow banner |             |
+| `bottomContent`   | content over the photo, along the bottom                       |             |
+| `note`            | `string`, a short line under the buttons                       |             |
+| `fullWidth`       | `boolean`, runs edge to edge                                   | `false`     |
+| `imageCredit`     | `{ text: string; href?: string }`                              |             |
+| `headingLevel`    | `1 \| 2`                                                       | `1`         |
+| `children`        | content that overlaps the bottom edge                          |             |
+| `class`           | `string`                                                       |             |
