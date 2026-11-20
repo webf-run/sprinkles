@@ -8,8 +8,8 @@ export default function Example() {
       label='Weekend escapes'
       images={[
         {
-          src: '/images/cc/forest-lake.jpg',
-          alt: 'A calm lake framed by pine forest under a bright blue sky',
+          src: '/images/cc/lake-silhouette.jpg',
+          alt: 'A hiker silhouetted beside a still mountain lake under a bright sun',
           badge: 'Top pick',
           title: 'Lakeside camping',
           description: 'Wake up to still water and birdsong.',
@@ -20,34 +20,34 @@ export default function Example() {
           ],
           action: { label: 'Plan your stay', href: '#plan' },
           credit: {
-            text: 'mirobo · CC0',
+            text: 'Mathias Herheim · CC0',
+            href: 'https://commons.wikimedia.org/wiki/File:Hiking_along_the_sea_(Unsplash).jpg',
+          },
+        },
+        {
+          src: '/images/cc/cool-forest-lake.jpg',
+          alt: 'A forest lake edged with tall pines and reeds under a blue sky with scattered clouds',
+          badge: 'Quiet',
+          title: 'Clear skies, coffee, nobody else',
+          description: 'Mornings you will want to bottle.',
+          credit: {
+            text: 'mirobo · CC0 · colour-graded',
             href: 'https://commons.wikimedia.org/wiki/File:View_of_lake_in_forest.jpg',
           },
         },
         {
-          src: '/images/cc/mountain-lake.jpg',
-          alt: 'A mountain lake with a line of trees and a clear blue sky',
-          badge: 'Quiet',
-          title: 'Mist, coffee, nobody else',
-          description: 'Mornings you will want to bottle.',
+          src: '/images/cc/cool-mountain-lake.jpg',
+          alt: 'A calm blue lake lined with autumn-coloured trees under a clear sky',
+          badge: '120 pitches',
+          title: 'Open sky',
           credit: {
-            text: 'AS Photography · CC BY 4.0',
+            text: 'AS Photography · CC BY 4.0 · colour-graded',
             href: 'https://commons.wikimedia.org/wiki/File:Mountain_lake_and_a_clear_blue_sky_(54844909972).jpg',
           },
         },
         {
-          src: '/images/cc/outdoors-lake-wide.jpg',
-          alt: 'A wide meadow meeting a lake under scattered clouds',
-          badge: '120 pitches',
-          title: 'Open sky',
-          credit: {
-            text: 'mirobo · CC0 · extended',
-            href: 'https://commons.wikimedia.org/wiki/File:View_of_lake_in_forest.jpg',
-          },
-        },
-        {
           src: '/images/cc/modern-home-cool.jpg',
-          alt: 'White single-storey cabins beside the water',
+          alt: 'White single-storey cabins beside the water, reflected in its surface',
           badge: '12 cabins',
           title: 'Stay in a cabin',
           credit: {
