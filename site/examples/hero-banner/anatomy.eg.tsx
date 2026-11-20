@@ -3,10 +3,9 @@ import { HeroBanner } from '@webf/sprinkles';
 export default function Example() {
   return (
     <HeroBanner
-      variant='informative'
+      surface='accent'
       align='center'
       image='/images/cc/cool-forest-lake.jpg'
-      imageTone='cool'
       imageCredit={{ text: 'Photo: mirobo · CC0' }}
       eyebrow='A hero with room to breathe'
       title='Let the image set the scene.'

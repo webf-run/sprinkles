@@ -204,7 +204,7 @@ export type {
   HeroBannerImagePosition,
   HeroBannerLayout,
   HeroBannerProps,
-  HeroBannerVariant,
+  HeroBannerSurface,
 } from './blocks/HeroBanner';
 export type { NavbarProps } from './blocks/Navbar';
 export type { QuickLinkCardProps } from './blocks/QuickLinkCard';

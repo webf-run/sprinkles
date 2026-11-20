@@ -7,12 +7,12 @@ const bakes = [
   { name: 'Cardamom buns', time: '12:00' },
 ];
 
-/** A bakery hero: a framed photo on the left, the copy on the right and a "today's bake" list floating on the photo. */
+/** A bakery hero: framed photo, copy on the right, a list of today's bakes on the photo. */
 export default function Example() {
   return (
     <HeroBanner
       layout='framed'
-      variant='highlight'
+      surface='muted'
       contentSide='end'
       image='/images/cc/sourdough.jpg'
       imageCredit={{
@@ -26,14 +26,14 @@ export default function Example() {
       secondaryAction={{ label: 'See today’s bakes', href: '#today' }}
       note='Order by 6 pm for tomorrow · Collect from 7 am'
       mediaContent={
-        <div class='w-full max-w-xs rounded-2xl border border-white/50 bg-highlight-subtle/75 p-5 shadow-xl backdrop-blur-xl'>
-          <p class='m-0 text-xs font-semibold tracking-widest text-foreground-muted uppercase'>
+        <div class='w-full max-w-xs rounded-2xl border border-border-muted bg-surface/90 p-5 shadow-elevated'>
+          <p class='m-0 text-xs font-semibold tracking-wide-130 text-foreground-muted uppercase'>
             Out of the oven today
           </p>
           <ul class='m-0 mt-3 grid list-none p-0'>
             <For each={bakes}>
               {(bake) => (
-                <li class='flex items-baseline gap-2 border-b border-dashed border-border-muted py-2 last:border-b-0 max-sm:nth-3:hidden'>
+                <li class='flex items-baseline gap-2 border-b border-dashed border-border-muted py-2 last:border-b-0 @max-xl:nth-3:hidden'>
                   <span class='text-sm font-semibold text-foreground-strongest'>
                     {bake.name}
                   </span>

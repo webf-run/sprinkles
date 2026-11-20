@@ -22,19 +22,17 @@ const points = [
   },
 ];
 
-/** A calm clinic hero: teal-graded photo, pale band and a clean list of care promises. */
+/** A calm clinic hero: copy on a pale band, the photo in its own panel with a card of care promises. */
 export default function Example() {
   return (
     <HeroBanner
-      layout='overlay'
-      align='start'
-      variant='light'
-      image='/images/cc/clinic.jpg'
-      imageFit='cover'
-      imagePosition='right'
+      layout='framed'
+      surface='muted'
+      image='/images/cc/clinic-doorway.jpg'
+      imagePosition='top'
       imageCredit={{
-        text: 'Photo: Shixart1985 · CC BY 2.0 · colour-graded',
-        href: 'https://commons.wikimedia.org/wiki/File:Doctor_gives_a_seated_boy_a_glass_of_water_during_a_clinic_visit.jpg',
+        text: 'Photo: Shixart1985 · CC BY 2.0 · cropped',
+        href: 'https://commons.wikimedia.org/wiki/File:Doctor_greeting_a_patient_in_clinic_room_two.jpg',
       }}
       eyebrow='Care that starts with listening'
       eyebrowVariant='positive'
@@ -44,10 +42,10 @@ export default function Example() {
       secondaryAction={{ label: 'Explore our services', href: '#services' }}
       note='Same-week appointments · Video or in person'
       mediaContent={
-        <ul class='m-0 w-full max-w-xs list-none divide-y divide-border-muted overflow-hidden rounded-2xl border border-border-muted bg-surface/95 p-0 shadow-xl backdrop-blur-md'>
+        <ul class='m-0 w-full max-w-xs list-none divide-y divide-border-muted overflow-hidden rounded-2xl border border-border-muted bg-surface/95 p-0 shadow-elevated backdrop-blur-md'>
           <For each={points}>
             {(point) => (
-              <li class='flex items-center gap-4 px-5 py-4'>
+              <li class='flex items-center gap-4 px-5 py-4 @max-xl:nth-3:hidden'>
                 <span class='grid size-10 shrink-0 place-items-center rounded-full bg-positive-subtle text-positive-subtle-foreground'>
                   <point.icon class='size-5' aria-hidden='true' />
                 </span>
