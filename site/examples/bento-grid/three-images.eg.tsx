@@ -25,14 +25,15 @@ export default function Example() {
           },
         },
         {
-          src: '/images/cc/cool-restaurant-special.jpg',
-          alt: 'A clay bowl of colourful vegetable salad on a wooden board',
-          badge: 'Vegan',
-          title: 'Garden bowls',
-          description: 'Seasonal vegetables, ready in five minutes.',
+          src: '/images/cc/restaurant.jpg',
+          alt: 'A table laid with colourful salads and shared plates in a bright dining room',
+          badge: 'Sundays',
+          title: 'Long-table lunches',
+          description:
+            'Shared plates made from whatever the stall had this morning.',
           credit: {
-            text: 'Monstruo Estudio · CC0',
-            href: 'https://commons.wikimedia.org/wiki/File:Vegetable_Salad_(Unsplash).jpg',
+            text: 'Pexels · Pexels License',
+            href: 'https://www.pexels.com/photo/foods-served-on-the-table-8585881/',
           },
         },
         {
