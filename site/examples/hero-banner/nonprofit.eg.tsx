@@ -15,14 +15,12 @@ const stats = [
 export default function Example() {
   return (
     <HeroBanner
-      class='@container'
-      variant='positive'
+      surface='accent'
       layout='overlay'
       align='center'
       image='/images/cc/cool-forest-lake.jpg'
-      imageTone='cool'
       imageCredit={{
-        text: 'Photo: mirobo · CC0',
+        text: 'Photo: mirobo · CC0 · colour-graded',
         href: 'https://commons.wikimedia.org/wiki/File:View_of_lake_in_forest.jpg',
       }}
       eyebrow='Restoring habitats together'

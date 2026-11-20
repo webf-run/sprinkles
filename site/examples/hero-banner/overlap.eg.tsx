@@ -17,11 +17,9 @@ const stats = [
 export default function Example() {
   return (
     <HeroBanner
-      class='@container'
-      variant='inverse'
+      surface='inverse'
       layout='overlay'
       image='/images/cc/cool-campus.jpg'
-      imageTone='cool'
       imageCredit={{
         text: 'Photo: Julian Lupyan · CC0',
         href: 'https://commons.wikimedia.org/wiki/File:Ivy_Covered_Building_in_the_Princeton_University_Campus,_New_Jersey.jpg',
