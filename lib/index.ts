@@ -72,7 +72,7 @@ export type {
 } from './components/Tabs';
 export type { ToggleProps } from './components/Toggle';
 
-// Fields (TextArea, NumberInput, Select, Combobox, Checkbox, Switch, DatePicker, FileUpload).
+// Fields (TextArea, NumberInput, Select, Combobox, Checkbox, Switch, DatePicker, TimeField, FileUpload).
 export { Checkbox } from './components/Checkbox';
 export { Combobox } from './components/Combobox';
 export { DatePicker } from './components/DatePicker';
@@ -81,6 +81,7 @@ export { NumberInput } from './components/NumberInput';
 export { Select } from './components/Select';
 export { Switch } from './components/Switch';
 export { TextArea } from './components/TextArea';
+export { TimeField } from './components/TimeField';
 export type { CheckboxProps } from './components/Checkbox';
 export type { ComboboxProps } from './components/Combobox';
 export type { DatePickerProps } from './components/DatePicker';
@@ -94,6 +95,11 @@ export type {
 } from './components/Select';
 export type { SwitchProps } from './components/Switch';
 export type { TextAreaProps } from './components/TextArea';
+export type {
+  TimeFieldFillStyle,
+  TimeFieldProps,
+  TimeGranularity,
+} from './components/TimeField';
 
 // Overlays and feedback (Dialog, AlertDialog, Popover, DropdownMenu, Tooltip, Toast, Skeleton, EmptyState, InlineAlert).
 export { AlertDialog } from './components/AlertDialog';
@@ -142,6 +148,7 @@ export type { TooltipPlacement, TooltipProps } from './components/Tooltip';
 export { AnnouncementCard } from './blocks/AnnouncementCard';
 export { AnnouncementListItem } from './blocks/AnnouncementListItem';
 export { BenefitCard } from './blocks/BenefitCard';
+export { BentoGrid } from './blocks/BentoGrid';
 export { Breadcrumb } from './blocks/Breadcrumb';
 export { CtaBanner } from './blocks/CtaBanner';
 export { CtaCard } from './blocks/CtaCard';
@@ -159,6 +166,7 @@ export { NumberedFeatureCard } from './blocks/NumberedFeatureCard';
 export { QuickLinkCard } from './blocks/QuickLinkCard';
 export { StatCard } from './blocks/StatCard';
 export { TestimonialCard } from './blocks/TestimonialCard';
+export { Timeline } from './blocks/Timeline';
 
 // Brand marks Lucide doesn't carry. Every other icon comes from lucide-solid.
 export { Facebook } from './icons/Facebook';
@@ -168,6 +176,15 @@ export { Linkedin } from './icons/Linkedin';
 export type { AnnouncementCardProps } from './blocks/AnnouncementCard';
 export type { AnnouncementListItemProps } from './blocks/AnnouncementListItem';
 export type { BenefitCardProps } from './blocks/BenefitCard';
+export type {
+  BentoAction,
+  BentoCard,
+  BentoGridLayout,
+  BentoGridProps,
+  BentoImage,
+  BentoImagePosition,
+  BentoItem,
+} from './blocks/BentoGrid';
 export type { BreadcrumbProps } from './blocks/Breadcrumb';
 export type { CtaBannerProps } from './blocks/CtaBanner';
 export type { DotTagProps } from './blocks/DotTag';
@@ -177,6 +194,13 @@ export type { IconTileProps } from './blocks/IconTile';
 export type { InfoBadgeProps } from './blocks/InfoBadge';
 export type { NumberedFeatureCardProps } from './blocks/NumberedFeatureCard';
 export type { StatCardProps } from './blocks/StatCard';
+export type {
+  TimelineItem,
+  TimelineLayout,
+  TimelineMarker,
+  TimelineProps,
+  TimelineTone,
+} from './blocks/Timeline';
 export type { CtaCardProps } from './blocks/CtaCard';
 export type { CtaSectionProps, CtaSectionSurface } from './blocks/CtaSection';
 export type {

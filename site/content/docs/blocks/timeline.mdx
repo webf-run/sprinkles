@@ -1,0 +1,285 @@
+---
+title: Timeline
+description: A list of dated moments in five layouts and every colour, from a company’s history to the steps of an order.
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/timeline/anatomy.eg.tsx';
+import BakeryOutput from '../../../examples/timeline/bakery.eg.tsx';
+import bakeryCode from '../../../examples/timeline/bakery.eg.tsx?raw';
+import BasicOutput from '../../../examples/timeline/basic.eg.tsx';
+import basicCode from '../../../examples/timeline/basic.eg.tsx?raw';
+import DoItems from '../../../examples/timeline/do-items.eg.tsx';
+import DontItems from '../../../examples/timeline/dont-items.eg.tsx';
+import EventOutput from '../../../examples/timeline/event.eg.tsx';
+import eventCode from '../../../examples/timeline/event.eg.tsx?raw';
+import ImpactOutput from '../../../examples/timeline/impact.eg.tsx';
+import impactCode from '../../../examples/timeline/impact.eg.tsx?raw';
+import InverseOutput from '../../../examples/timeline/inverse.eg.tsx';
+import inverseCode from '../../../examples/timeline/inverse.eg.tsx?raw';
+import LayoutAlternatingOutput from '../../../examples/timeline/layout-alternating.eg.tsx';
+import layoutAlternatingCode from '../../../examples/timeline/layout-alternating.eg.tsx?raw';
+import LayoutCardsOutput from '../../../examples/timeline/layout-cards.eg.tsx';
+import layoutCardsCode from '../../../examples/timeline/layout-cards.eg.tsx?raw';
+import LayoutHorizontalOutput from '../../../examples/timeline/layout-horizontal.eg.tsx';
+import layoutHorizontalCode from '../../../examples/timeline/layout-horizontal.eg.tsx?raw';
+import LayoutSplitOutput from '../../../examples/timeline/layout-split.eg.tsx';
+import layoutSplitCode from '../../../examples/timeline/layout-split.eg.tsx?raw';
+import LearningOutput from '../../../examples/timeline/learning.eg.tsx';
+import learningCode from '../../../examples/timeline/learning.eg.tsx?raw';
+import NumberedOutput from '../../../examples/timeline/numbered.eg.tsx';
+import numberedCode from '../../../examples/timeline/numbered.eg.tsx?raw';
+import PortfolioOutput from '../../../examples/timeline/portfolio.eg.tsx';
+import portfolioCode from '../../../examples/timeline/portfolio.eg.tsx?raw';
+import RoadmapOutput from '../../../examples/timeline/roadmap.eg.tsx';
+import roadmapCode from '../../../examples/timeline/roadmap.eg.tsx?raw';
+import StartupOutput from '../../../examples/timeline/startup.eg.tsx';
+import startupCode from '../../../examples/timeline/startup.eg.tsx?raw';
+import StoryOutput from '../../../examples/timeline/story.eg.tsx';
+import storyCode from '../../../examples/timeline/story.eg.tsx?raw';
+import TonesOutput from '../../../examples/timeline/tones.eg.tsx';
+import tonesCode from '../../../examples/timeline/tones.eg.tsx?raw';
+import TrackingOutput from '../../../examples/timeline/tracking.eg.tsx';
+import trackingCode from '../../../examples/timeline/tracking.eg.tsx?raw';
+
+```tsx
+import { Timeline } from '@webf/sprinkles';
+```
+
+A timeline tells a story in order. Each entry has a short label, such as a year, a time or a week, and a sentence about what happened. Visitors can scan the labels, then read only the moments they care about. Choose a [layout](#layouts) to match the space you have and a [colour](#colours) to match your brand. It is plain markup, so it can be rendered on the server with no hydration.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    {
+      name: 'Rail',
+      note: 'The thin line that joins the entries and shows their order.',
+    },
+    {
+      name: 'Marker',
+      note: 'A dot, or a numbered circle, where each entry begins. It is decorative.',
+    },
+    {
+      name: 'Label',
+      note: 'A year, date, time or step, in the heading font and the timeline’s colour.',
+    },
+    { name: 'Text', note: 'One short sentence about what happened.' },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
+
+## Basic
+
+Pass `items`, each with a `label` and the `text` that goes with it. Entries appear in the order you give them. The `class` prop sets the width, so the timeline fits wherever you place it. With no other props you get the `vertical` layout in the `accent` colour.
+
+<ExampleBlock code={basicCode} filename='Basic'>
+  <BasicOutput />
+</ExampleBlock>
+
+## Layouts
+
+The `layout` prop changes how the entries are arranged. The words stay the same, so each layout below shows the same four moments. Pick the one that fits the room you have.
+
+| Layout        | Looks like                                           | Fits                                        |
+| ------------- | ---------------------------------------------------- | ------------------------------------------- |
+| `vertical`    | A rail on the left, entries stacked beside it        | Narrow columns, about pages, order status   |
+| `split`       | Labels in a column on the left, text beside the rail | Schedules, CVs and changelogs               |
+| `alternating` | A centred rail, entries on both sides                | A company story across a full-width section |
+| `horizontal`  | Entries side by side along a line                    | Roadmaps and a few short steps              |
+| `cards`       | Each entry in its own card                           | Courses, features and seasons               |
+
+`alternating` and `horizontal` need room. They follow the width of the timeline itself, not the window's, so on a narrow container they fall back to the `vertical` layout and nothing is cut off. `cards` shows two columns, then one row when there is room.
+
+### Split
+
+The label gets its own column, so times and dates line up and are easy to scan.
+
+<ExampleBlock code={layoutSplitCode} filename='Split'>
+  <LayoutSplitOutput />
+</ExampleBlock>
+
+### Alternating
+
+Entries take turns on the left and the right of a centred rail. It gives a long story some rhythm.
+
+<ExampleBlock code={layoutAlternatingCode} filename='Alternating'>
+  <LayoutAlternatingOutput />
+</ExampleBlock>
+
+### Horizontal
+
+Entries run along a line. Three to five short entries read best.
+
+<ExampleBlock code={layoutHorizontalCode} filename='Horizontal'>
+  <LayoutHorizontalOutput />
+</ExampleBlock>
+
+### Cards
+
+Each entry sits in a card with a coloured bar. Cards give every moment equal weight.
+
+<ExampleBlock code={layoutCardsCode} filename='Cards'>
+  <LayoutCardsOutput />
+</ExampleBlock>
+
+## Colours
+
+The `tone` prop sets the colour of the labels and markers. It takes any of the library's tones: the roles (`accent`, `neutral`, `informative`, `positive`, `notice`, `negative`), `highlight`, and the categorical colours (`seafoam`, `indigo`, `purple`, `fuchsia`, `yellow`). The default is `accent`. Tones are semantic tokens, so a site that re-skins its tokens re-skins its timelines too, and each one looks right in the light and the dark scheme.
+
+<ExampleBlock code={tonesCode} filename='All tones'>
+  <TonesOutput />
+</ExampleBlock>
+
+| Tone                  | Mood              | Fits                               |
+| --------------------- | ----------------- | ---------------------------------- |
+| `accent`              | Your brand colour | Any site, and the safe default     |
+| `informative`         | Calm blue         | Software, finance, public services |
+| `positive`, `seafoam` | Fresh green       | Charities, health, deliveries      |
+| `notice`, `highlight` | Warm orange       | Food, retail, events               |
+| `indigo`, `purple`    | Deep and creative | Courses, studios, technology       |
+| `fuchsia`             | Bold and playful  | Fashion, youth and entertainment   |
+| `neutral`             | Quiet grey        | CVs, law, editorial sites          |
+
+### Numbered markers
+
+Set `marker='number'` to number the entries. It suits steps that happen in order, such as getting started.
+
+<ExampleBlock code={numberedCode} filename='Numbered'>
+  <NumberedOutput />
+</ExampleBlock>
+
+### On dark backgrounds
+
+Set `tone='inverse'` when the timeline sits on a dark band (`bg-surface-inverse`). The text turns white, the rail turns pale, and the labels and markers use the `highlight` colour, the one tone made for dark bands. The timeline does not draw its own background, so put it on one.
+
+<ExampleBlock code={inverseCode} filename='Dark band'>
+  <InverseOutput />
+</ExampleBlock>
+
+## Timelines for different websites
+
+A timeline fits any site that has something to tell in order. Each example below combines a layout and a colour that suits its kind of website, and every one is yours to copy and change.
+
+| Website                  | What the entries show     | Layout and colour                  |
+| ------------------------ | ------------------------- | ---------------------------------- |
+| Schools and institutions | History and milestones    | `vertical`, `accent`               |
+| Software and startups    | A company journey         | `alternating`, `indigo`            |
+| Product roadmaps         | What is coming            | `horizontal`, `informative`        |
+| Events and conferences   | A day's schedule          | `split`, `highlight`               |
+| Online shops             | The steps of an order     | `vertical`, `positive`             |
+| Online courses           | A learning path           | `cards` with numbers, `purple`     |
+| Portfolios and CVs       | Work and study            | `split`, `neutral`                 |
+| Restaurants and bakeries | A family or founder story | `vertical`, `notice`               |
+| Charities and nonprofits | Impact over the years     | `vertical` with numbers, `seafoam` |
+
+### Software and startups
+
+An `alternating` timeline in `indigo` gives a young company's story some movement. Short sentences and real figures keep it believable.
+
+<ExampleBlock code={startupCode} filename='Startup'>
+  <StartupOutput />
+</ExampleBlock>
+
+### Product roadmaps
+
+Labels do not have to be dates. Words such as `Now` and `Next month` tell visitors what is coming without promising an exact day. The `horizontal` layout shows the whole plan at a glance.
+
+<ExampleBlock code={roadmapCode} filename='Roadmap'>
+  <RoadmapOutput />
+</ExampleBlock>
+
+### Events and conferences
+
+The `split` layout turns times into a schedule that is easy to scan. Add a heading above it to say which day it is.
+
+<ExampleBlock code={eventCode} filename='Event'>
+  <EventOutput />
+</ExampleBlock>
+
+### Online shops and delivery
+
+Place a `positive` timeline inside a [Card](/layout/card) to show where an order is. Short dates as labels keep it easy to read.
+
+<ExampleBlock code={trackingCode} filename='Order tracking'>
+  <TrackingOutput />
+</ExampleBlock>
+
+### Courses and learning paths
+
+Numbered `cards` show learners what the weeks ahead look like. Labels such as `Week 1` and `Weeks 2 and 3` make the path feel clear and manageable.
+
+<ExampleBlock code={learningCode} filename='Learning path'>
+  <LearningOutput />
+</ExampleBlock>
+
+### Portfolios and CVs
+
+A quiet `neutral` timeline in the `split` layout puts year ranges in their own column. Put the most recent role first.
+
+<ExampleBlock code={portfolioCode} filename='Portfolio'>
+  <PortfolioOutput />
+</ExampleBlock>
+
+### Restaurants and bakeries
+
+A warm `notice` colour, a heading and a few friendly sentences tell a family story. This is often what makes a local business feel personal.
+
+<ExampleBlock code={bakeryCode} filename='Bakery'>
+  <BakeryOutput />
+</ExampleBlock>
+
+### Charities and nonprofits
+
+Numbered markers in `seafoam` pair each year with real numbers, so supporters see what their help has done over time.
+
+<ExampleBlock code={impactCode} filename='Nonprofit'>
+  <ImpactOutput />
+</ExampleBlock>
+
+## On an about page
+
+Put a short introduction beside the timeline for an "Our story" section. The example uses a container query (`@container` and `@lg:grid-cols-2`), so the two columns stack on a narrow screen and sit side by side when there is room.
+
+<ExampleBlock code={storyCode} filename='About page'>
+  <StoryOutput />
+</ExampleBlock>
+
+## Writing good entries
+
+- Keep labels short: a year, a time or a few words. They are set in a large size.
+- Write one sentence for each entry, or two at the most.
+- Use the same kind of label throughout: all years, all times or all weeks.
+- Three to six entries read best. For a longer history, show the key moments and link to the full story.
+- Use one colour for each timeline. Let the layout, not a rainbow, carry the variety.
+
+## Accessibility
+
+- It is an ordered list (`<ol>`), so screen readers announce how many entries there are and which one they are on.
+- The markers are decorative and hidden from assistive technology. Everything that matters is in the label and the text.
+- Put the entries in the order you want them read, usually oldest first. A roadmap reads best soonest first. The `alternating` layout keeps the same reading order as the list.
+- The numbers inside markers use the tone's own pair of colours, which `pnpm check:tokens` checks at 4.5:1. Label colours also reach 4.5:1 on the `surface` and `surface-muted` backgrounds, in both schemes. On the tinted `surface-tint`, check the `positive` tone, which is 4.4:1. Dark backgrounds use white text on `surface-inverse`.
+
+## Do and don't
+
+<DoDont
+  doText='Use a short label and a single sentence for each moment.'
+  dontText='Mix long labels, long paragraphs and different date styles in one timeline.'
+>
+  <DoItems slot='do' />
+  <DontItems slot='dont' />
+</DoDont>
+
+## Props
+
+| Prop     | Type                                                                                                                                                                         | Default    |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| `items`  | `{ label: string; text: string }[]`                                                                                                                                          |            |
+| `layout` | `'vertical'`, `'split'`, `'alternating'`, `'horizontal'` or `'cards'`                                                                                                        | `vertical` |
+| `tone`   | `'accent'`, `'neutral'`, `'informative'`, `'positive'`, `'notice'`, `'negative'`, `'highlight'`, `'seafoam'`, `'indigo'`, `'purple'`, `'fuchsia'`, `'yellow'` or `'inverse'` | `accent`   |
+| `marker` | `'dot'` or `'number'`                                                                                                                                                        | `dot`      |
+| `class`  | `string`; sets the width and spacing                                                                                                                                         |            |

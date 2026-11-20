@@ -1,0 +1,159 @@
+---
+title: Bento Grid
+description: Two to six photos in a tidy mosaic, with room for text, check points and buttons.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import ThreeOutput from '../../../examples/bento-grid/three-images.eg.tsx';
+import threeCode from '../../../examples/bento-grid/three-images.eg.tsx?raw';
+import FourOutput from '../../../examples/bento-grid/four-images.eg.tsx';
+import fourCode from '../../../examples/bento-grid/four-images.eg.tsx?raw';
+import FiveOutput from '../../../examples/bento-grid/five-images.eg.tsx';
+import fiveCode from '../../../examples/bento-grid/five-images.eg.tsx?raw';
+import MixedOutput from '../../../examples/bento-grid/mixed-layout.eg.tsx';
+import mixedCode from '../../../examples/bento-grid/mixed-layout.eg.tsx?raw';
+import SixOutput from '../../../examples/bento-grid/six-images.eg.tsx';
+import sixCode from '../../../examples/bento-grid/six-images.eg.tsx?raw';
+
+```tsx
+import { BentoGrid } from '@webf/sprinkles';
+```
+
+A bento grid turns a handful of photos into a mosaic where one photo leads and the rest support it. Give it two to six images and it picks the arrangement, keeps one gap between every tile, crops each photo to fill its tile, and reflows for tablets and phones.
+
+```tsx
+<BentoGrid
+  images={[
+    { src: '/campus.jpg', alt: 'Campus' },
+    { src: '/library.jpg', alt: 'Library' },
+    { src: '/students.jpg', alt: 'Students' },
+  ]}
+/>
+```
+
+Only `src` and `alt` are required. Everything else is optional and appears over the photo.
+
+## Three images
+
+The first photo takes half the grid; the other two share the other half. This one shows every kind of overlay: a badge, a title and description, check points, and a button. Each tile also has a heart that visitors can toggle (`favorites`).
+
+<ExampleBlock code={threeCode}>
+  <ThreeOutput client:load />
+</ExampleBlock>
+
+## Four images
+
+A large lead, a wide second photo, and two small tiles. Small tiles keep to a title and a badge, so the text always fits.
+
+<ExampleBlock code={fourCode}>
+  <FourOutput />
+</ExampleBlock>
+
+## Five images
+
+A large lead, a tall portrait tile, and a panoramic banner that spans the bottom. `position` keeps the subject in frame when a photo is cropped hard.
+
+<ExampleBlock code={fiveCode}>
+  <FiveOutput />
+</ExampleBlock>
+
+## Six images
+
+The busiest arrangement. `layout='end'` mirrors it, which is handy when a grid sits beside text and you want the large photo on the outside.
+
+<ExampleBlock code={sixCode}>
+  <SixOutput client:load />
+</ExampleBlock>
+
+## Mixed layout
+
+Photos, coloured sections and content together. A tile with no `src` is a **card**: a solid or tinted block with a badge, icon, big figure, text and button. Give a card `media` and a photo sits inside it. Each card can take its own `tone`.
+
+<ExampleBlock code={mixedCode}>
+  <MixedOutput />
+</ExampleBlock>
+
+## Tone
+
+Leave `tone` out for the basic look: white badges and buttons that suit any photo. Set it (`'positive'`, `'informative'`, `'highlight'`, `'indigo'`…) and every badge, check mark and button in the grid shares that colour.
+
+## Layouts by number of images
+
+| Images | Arrangement (tablet and desktop)                                          |
+| ------ | ------------------------------------------------------------------------- |
+| 2      | Two equal halves                                                          |
+| 3      | One large (half the grid), two wide                                       |
+| 4      | One large, one wide, two small                                            |
+| 5      | One large, one tall, two small, one panoramic banner                      |
+| 6      | One large, one wide, one tall, three small (one of them wide)             |
+
+The first image is always the largest, so put your best photo first.
+
+## Responsive behaviour
+
+- **Desktop and tablet (`md` and up):** a four-column mosaic with a fixed height, so tiles line up exactly. It is a little taller from `lg`.
+- **Phone:** two columns. The large and wide photos span the full width at 4:3, and the rest are squares, so nothing gets squeezed.
+- On a phone, small tiles show their title and badge; the description, check points and button only appear on tiles with room for them.
+
+## Interaction
+
+- Photos zoom slightly on hover and keyboard focus, and the tile lifts with a soft shadow. Nothing moves for people who prefer reduced motion.
+- With a mouse, the description, check points and button slide up on hover or focus. On touch screens they are always visible, since there is no hover.
+- Pass `favorites` to add a heart to every tile. It is a real toggle button with `aria-pressed`; listen with `onFavoriteChange`.
+
+## Photo credits
+
+Give a photo a `credit` and the grid lists it in one quiet line below, which satisfies licences such as CC BY. Pass `hideCredits` if you credit photos elsewhere.
+
+## Theming
+
+The grid uses semantic tokens only: surfaces and foregrounds from the inverse set, `positive` for check marks, `radius`, `shadow-elevated` and the shared motion curve. A site that overrides those tokens restyles every grid with no extra CSS.
+
+## Accessibility
+
+- `alt` is required on every image. Describe the photo; the title and description are read as the tile's caption.
+- Text over photos sits on a dark gradient for contrast. Keep titles short.
+- The details stay in the page when they are visually hidden, so screen reader users always get them, and keyboard focus reveals them.
+- Pass `label` to name the group, and set `headingLevel` so tile titles fit the page outline.
+
+## Props
+
+### BentoGrid
+
+| Prop               | Type                                     | Default   |
+| ------------------ | ---------------------------------------- | --------- |
+| `images`           | `BentoImage[]` (2–6; extras are ignored) |           |
+| `tone`             | a role, `'highlight'`, or a categorical colour |       |
+| `layout`           | `'start' \| 'end'`                       | `'start'` |
+| `favorites`        | `boolean`                                | `false`   |
+| `onFavoriteChange` | `(image, saved) => void`                 |           |
+| `headingLevel`     | `2 \| 3 \| 4`                            | `3`       |
+| `label`            | `string`                                 |           |
+| `hideCredits`      | `boolean`                                | `false`   |
+| `class`            | `string`                                 |           |
+
+### BentoCard
+
+| Prop                                         | Type                                  | Default                 |
+| -------------------------------------------- | ------------------------------------- | ----------------------- |
+| `title`                                      | `string`                              |                         |
+| `tone`                                       | a role, `'highlight'`, or categorical | the grid's `tone`       |
+| `fillStyle`                                  | `'bold' \| 'subtle'`                  | `'bold'`                |
+| `icon`, `badge`, `stat`, `description`       |                                       |                         |
+| `checklist`, `action`, `media`, `credit`     |                                       |                         |
+
+### BentoImage
+
+| Prop           | Type                                                    | Default    |
+| -------------- | ------------------------------------------------------- | ---------- |
+| `src`          | `string`                                                |            |
+| `alt`          | `string`                                                |            |
+| `title`        | `string`                                                |            |
+| `description`  | `string`                                                |            |
+| `badge`        | `string`                                                |            |
+| `badgeVariant` | a role, `'highlight'`, or a categorical colour          | white glass |
+| `checklist`    | `string[]`                                              |            |
+| `action`       | `{ label, href, variant? }`                             |            |
+| `position`     | `'center' \| 'top' \| 'bottom' \| 'left' \| 'right'`    | `'center'` |
+| `credit`       | `{ text, href? }`                                       |            |

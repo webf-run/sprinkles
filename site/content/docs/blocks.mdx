@@ -6,6 +6,7 @@ description: Every Sprinkles block and card on one page.
 import AnnouncementCardCard from '../../examples/announcement-card/card.eg.tsx';
 import AnnouncementCardList from '../../examples/announcement-card/list.eg.tsx';
 import BenefitCardBasic from '../../examples/benefit-card/basic.eg.tsx';
+import BentoGridThree from '../../examples/bento-grid/three-images.eg.tsx';
 import BreadcrumbBasic from '../../examples/breadcrumb/basic.eg.tsx';
 import CtaBannerBasic from '../../examples/cta-banner/basic.eg.tsx';
 import CtaCardBasic from '../../examples/cta-card/basic.eg.tsx';
@@ -22,6 +23,8 @@ import NumberedFeatureCardDefault from '../../examples/numbered-feature-card/def
 import QuickLinkCardSteps from '../../examples/quick-link-card/steps.eg.tsx';
 import StatCardBasic from '../../examples/stat-card/basic.eg.tsx';
 import TestimonialCardBasic from '../../examples/testimonial-card/basic.eg.tsx';
+import TimeBlocksClinic from '../../examples/time-field/clinic.eg.tsx';
+import TimelineBasic from '../../examples/timeline/basic.eg.tsx';
 import Showcase from '../../playground/Showcase.astro';
 
 # Blocks
@@ -56,12 +59,28 @@ Every marketing block and card on one page. Each panel links to the full documen
   <CtaCardBasic />
 </Showcase>
 
+<Showcase title='BentoGrid' href='/blocks/bento-grid'>
+  <BentoGridThree client:visible />
+</Showcase>
+
+<Showcase title='HeroBanner' href='/blocks/hero-banner'>
+  <HeroBannerBasic />
+</Showcase>
+
 <Showcase title='CtaSection' href='/blocks/cta-section'>
   <CtaSectionBasic />
 </Showcase>
 
 <Showcase title='FAQ Accordion' href='/blocks/faq-accordion'>
   <FaqAccordionBasic />
+</Showcase>
+
+<Showcase title='Timeline' href='/blocks/timeline'>
+  <TimelineBasic />
+</Showcase>
+
+<Showcase title='Time blocks' href='/blocks/time-blocks'>
+  <TimeBlocksClinic client:visible />
 </Showcase>
 
 ## Tags and tiles

@@ -1,0 +1,191 @@
+---
+title: TimeField
+description: Enter a time using individually editable hour, minute and second segments.
+sidebar:
+  order: 10
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import ValueOutput from '../../../examples/time-field/value.eg.tsx';
+import valueCode from '../../../examples/time-field/value.eg.tsx?raw';
+import GranularityOutput from '../../../examples/time-field/granularity.eg.tsx';
+import granularityCode from '../../../examples/time-field/granularity.eg.tsx?raw';
+import HourCycleOutput from '../../../examples/time-field/hour-cycle.eg.tsx';
+import hourCycleCode from '../../../examples/time-field/hour-cycle.eg.tsx?raw';
+import ConstraintsOutput from '../../../examples/time-field/constraints.eg.tsx';
+import constraintsCode from '../../../examples/time-field/constraints.eg.tsx?raw';
+import StatesOutput from '../../../examples/time-field/states.eg.tsx';
+import statesCode from '../../../examples/time-field/states.eg.tsx?raw';
+import AppearanceOutput from '../../../examples/time-field/appearance.eg.tsx';
+import appearanceCode from '../../../examples/time-field/appearance.eg.tsx?raw';
+import FormOutput from '../../../examples/time-field/form.eg.tsx';
+import formCode from '../../../examples/time-field/form.eg.tsx?raw';
+
+```tsx
+import { TimeField } from '@webf/sprinkles';
+```
+
+TimeField lets users enter a time of day through individually editable segments.
+The examples below focus on the component's API and interaction behaviour, not
+page or website designs.
+
+## Basic usage
+
+```tsx
+<TimeField label='Appointment time' />
+```
+
+Always provide a visible `label`, or an accessible name with `aria-label`.
+
+## Value
+
+Use `defaultValue` for an uncontrolled field, or `value` with `onValueChange`
+for a controlled field. Values are 24-hour strings in `HH:mm` or `HH:mm:ss`
+format. An empty field is represented by `null`.
+
+`onValueChange` emits a complete time, or `null` when a segment is cleared.
+
+<ExampleBlock code={valueCode}>
+  <ValueOutput client:load />
+</ExampleBlock>
+
+## Granularity
+
+`granularity` controls the smallest time unit displayed:
+
+- `'hour'` displays only the hour.
+- `'minute'` displays hours and minutes (default).
+- `'second'` displays hours, minutes and seconds.
+
+<ExampleBlock code={granularityCode}>
+  <GranularityOutput client:load />
+</ExampleBlock>
+
+## Hour cycle and locale
+
+`hourCycle` accepts `12` or `24`. If omitted, the component uses the hour
+cycle resolved from its locale. In 12-hour mode, users can edit the AM/PM
+segment. The value emitted by the component remains a 24-hour string.
+
+`locale` accepts a BCP 47 language tag and controls locale-derived hour cycle,
+AM/PM labels, segment names and writing direction. Segment order remains fixed.
+
+<ExampleBlock code={hourCycleCode}>
+  <HourCycleOutput client:load />
+</ExampleBlock>
+
+## Placeholder, range and minute step
+
+`placeholderValue` sets the time used when the user starts editing an empty
+field with the arrow keys. It accepts `HH:mm`.
+
+`min` and `max` accept 24-hour `HH:mm` or `HH:mm:ss` strings. A value outside
+the range marks the field invalid; these props do not prevent typing an
+out-of-range time. Provide `errorText` to explain the validation error.
+
+`minuteStep` controls the minute increment when users press Up or Down. It
+must be a positive integer.
+
+<ExampleBlock code={constraintsCode}>
+  <ConstraintsOutput client:load />
+</ExampleBlock>
+
+## Field states
+
+Use `required`, `disabled`, `readOnly` and `invalid` to communicate the field's
+state. `description` provides supporting text and `errorText` displays the
+validation message.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Appearance props
+
+`size`, `tone`, `fillStyle`, `quiet` and `icon` control the field's visual
+treatment. These are Sprinkles-specific styling props rather than props from
+Adobe React Spectrum v3.
+
+<ExampleBlock code={appearanceCode}>
+  <AppearanceOutput client:load />
+</ExampleBlock>
+
+## HTML form integration
+
+Pass `name` to include the time in a form submission. The hidden form value is
+serialized as `HH:mm:ss`; a value without seconds is submitted with `:00`
+appended.
+
+<ExampleBlock code={formCode}>
+  <FormOutput client:load />
+</ExampleBlock>
+
+The submitted control is a hidden input, so native browser `required`
+validation is not provided by this component. Enforce required-value
+validation in the containing form.
+
+## Keyboard interaction
+
+- Type digits to edit the focused segment. Focus moves to the next segment
+  when the current segment is complete.
+- Use Up and Down to increment or decrement the focused segment.
+- Use Page Up and Page Down for larger increments.
+- Use Home and End to move to the minimum or maximum value of the segment.
+- Use Left and Right to move between segments.
+- Use Backspace or Delete to clear the focused segment.
+- In 12-hour mode, type `a` or `p` to choose AM or PM.
+
+## Accessibility
+
+- Provide a visible `label` or an `aria-label`.
+- Each editable segment is exposed as a spin button with a localized name and
+  current value.
+- `required`, `disabled` and `readOnly` states are exposed to assistive
+  technology.
+- Do not rely on colour alone to communicate invalid state; provide a clear
+  `errorText` explanation.
+
+## Adobe React Spectrum v3 comparison
+
+The Adobe page is a reference for interaction and API coverage, not a promise
+that every Adobe prop exists in this Sprinkles implementation. The following
+Adobe features are not implemented by this component and are therefore not
+shown as working examples:
+
+- `Time` / `CalendarDateTime` / `ZonedDateTime` value objects and time-zone-aware
+  editing. Sprinkles currently accepts plain `HH:mm` or `HH:mm:ss` strings.
+- `hideTimeZone` and `shouldForceLeadingZeros`.
+- Adobe's `minValue` and `maxValue` object props; Sprinkles uses string props
+  named `min` and `max`.
+- Adobe's `isQuiet`, `isDisabled`, `isReadOnly` and `isRequired` aliases;
+  Sprinkles uses `quiet`, `disabled`, `readOnly` and `required`.
+- Adobe's `validate` callback and `validationBehavior` modes. Sprinkles exposes
+  `invalid` and `errorText`; validation logic belongs to the containing form.
+- Adobe's `labelPosition`, `labelAlign`, `necessityIndicator` and
+  `ContextualHelp` composition.
+
+These should only be added to the component API if the team decides they are
+required. The docs intentionally do not demonstrate unsupported props.
+
+## Props
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string \| null` | — |
+| `defaultValue` | `string \| null` | — |
+| `onValueChange` | `(value: string \| null) => void` | — |
+| `granularity` | `'hour' \| 'minute' \| 'second'` | `'minute'` |
+| `hourCycle` | `12 \| 24` | Locale |
+| `locale` | `string` (BCP 47) | Ark locale context |
+| `min`, `max` | `string` (`HH:mm` or `HH:mm:ss`) | — |
+| `minuteStep` | `number` (positive integer) | `1` |
+| `placeholderValue` | `string` (`HH:mm`) | `'00:00'` |
+| `size` | `'s' \| 'm' \| 'l' \| 'xl'` | `'m'` |
+| `tone` | `Tone` | `'accent'` |
+| `fillStyle` | `'outline' \| 'subtle'` | `'outline'` |
+| `quiet`, `icon` | `boolean` | `false` |
+| `name` | `string` | — |
+| `label`, `description`, `errorText` | `JSX.Element` | — |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean` | `false` |
+| `id`, `aria-label`, `class` | `string` | — |
