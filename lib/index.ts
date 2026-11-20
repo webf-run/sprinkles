@@ -142,6 +142,7 @@ export type { TooltipPlacement, TooltipProps } from './components/Tooltip';
 export { AnnouncementCard } from './blocks/AnnouncementCard';
 export { AnnouncementListItem } from './blocks/AnnouncementListItem';
 export { BenefitCard } from './blocks/BenefitCard';
+export { BentoGrid } from './blocks/BentoGrid';
 export { Breadcrumb } from './blocks/Breadcrumb';
 export { CtaBanner } from './blocks/CtaBanner';
 export { CtaCard } from './blocks/CtaCard';
@@ -159,6 +160,7 @@ export { NumberedFeatureCard } from './blocks/NumberedFeatureCard';
 export { QuickLinkCard } from './blocks/QuickLinkCard';
 export { StatCard } from './blocks/StatCard';
 export { TestimonialCard } from './blocks/TestimonialCard';
+export { Timeline } from './blocks/Timeline';
 
 // Brand marks Lucide doesn't carry. Every other icon comes from lucide-solid.
 export { Facebook } from './icons/Facebook';
@@ -168,6 +170,15 @@ export { Linkedin } from './icons/Linkedin';
 export type { AnnouncementCardProps } from './blocks/AnnouncementCard';
 export type { AnnouncementListItemProps } from './blocks/AnnouncementListItem';
 export type { BenefitCardProps } from './blocks/BenefitCard';
+export type {
+  BentoAction,
+  BentoCard,
+  BentoGridLayout,
+  BentoGridProps,
+  BentoImage,
+  BentoImagePosition,
+  BentoItem,
+} from './blocks/BentoGrid';
 export type { BreadcrumbProps } from './blocks/Breadcrumb';
 export type { CtaBannerProps } from './blocks/CtaBanner';
 export type { DotTagProps } from './blocks/DotTag';
@@ -177,6 +188,13 @@ export type { IconTileProps } from './blocks/IconTile';
 export type { InfoBadgeProps } from './blocks/InfoBadge';
 export type { NumberedFeatureCardProps } from './blocks/NumberedFeatureCard';
 export type { StatCardProps } from './blocks/StatCard';
+export type {
+  TimelineItem,
+  TimelineLayout,
+  TimelineMarker,
+  TimelineProps,
+  TimelineTone,
+} from './blocks/Timeline';
 export type { CtaCardProps } from './blocks/CtaCard';
 export type { CtaSectionProps, CtaSectionSurface } from './blocks/CtaSection';
 export type {
