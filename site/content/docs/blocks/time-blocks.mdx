@@ -1,0 +1,193 @@
+---
+title: Time blocks
+description: Booking, scheduling and settings sections built with TimeField, in different colours and layouts.
+---
+
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AlarmOutput from '../../../examples/time-field/alarm.eg.tsx';
+import alarmCode from '../../../examples/time-field/alarm.eg.tsx?raw';
+import CallbackOutput from '../../../examples/time-field/callback.eg.tsx';
+import callbackCode from '../../../examples/time-field/callback.eg.tsx?raw';
+import CarRentalOutput from '../../../examples/time-field/car-rental.eg.tsx';
+import carRentalCode from '../../../examples/time-field/car-rental.eg.tsx?raw';
+import ClinicOutput from '../../../examples/time-field/clinic.eg.tsx';
+import clinicCode from '../../../examples/time-field/clinic.eg.tsx?raw';
+import DeliveryOutput from '../../../examples/time-field/delivery.eg.tsx';
+import deliveryCode from '../../../examples/time-field/delivery.eg.tsx?raw';
+import EventOutput from '../../../examples/time-field/event.eg.tsx';
+import eventCode from '../../../examples/time-field/event.eg.tsx?raw';
+import FlightOutput from '../../../examples/time-field/flight.eg.tsx';
+import flightCode from '../../../examples/time-field/flight.eg.tsx?raw';
+import GymOutput from '../../../examples/time-field/gym.eg.tsx';
+import gymCode from '../../../examples/time-field/gym.eg.tsx?raw';
+import HotelOutput from '../../../examples/time-field/hotel.eg.tsx';
+import hotelCode from '../../../examples/time-field/hotel.eg.tsx?raw';
+import NewsletterOutput from '../../../examples/time-field/newsletter.eg.tsx';
+import newsletterCode from '../../../examples/time-field/newsletter.eg.tsx?raw';
+import OpeningHoursOutput from '../../../examples/time-field/opening-hours.eg.tsx';
+import openingHoursCode from '../../../examples/time-field/opening-hours.eg.tsx?raw';
+import QuietHoursOutput from '../../../examples/time-field/quiet-hours.eg.tsx';
+import quietHoursCode from '../../../examples/time-field/quiet-hours.eg.tsx?raw';
+import RemindersOutput from '../../../examples/time-field/reminders.eg.tsx';
+import remindersCode from '../../../examples/time-field/reminders.eg.tsx?raw';
+import RestaurantOutput from '../../../examples/time-field/restaurant.eg.tsx';
+import restaurantCode from '../../../examples/time-field/restaurant.eg.tsx?raw';
+import SalonOutput from '../../../examples/time-field/salon.eg.tsx';
+import salonCode from '../../../examples/time-field/salon.eg.tsx?raw';
+import SchedulePostOutput from '../../../examples/time-field/schedule-post.eg.tsx';
+import schedulePostCode from '../../../examples/time-field/schedule-post.eg.tsx?raw';
+import ShiftRotaOutput from '../../../examples/time-field/shift-rota.eg.tsx';
+import shiftRotaCode from '../../../examples/time-field/shift-rota.eg.tsx?raw';
+import WebinarOutput from '../../../examples/time-field/webinar.eg.tsx';
+import webinarCode from '../../../examples/time-field/webinar.eg.tsx?raw';
+
+Ready-made sections that use [TimeField](/fields/time-field) for the time of
+day: booking cards, search strips, admin tables and settings panels. Each one
+changes the colour (`tone`), the fill (`outline`, `subtle` or `quiet`), the
+size and the layout around the field, so you can start from the one closest to
+your site. For every prop, see the [TimeField reference](/fields/time-field).
+
+## Clinic booking
+
+A health or beauty site: 15-minute slots inside opening hours, in a tinted `informative` field.
+
+<ExampleBlock code={clinicCode}>
+  <ClinicOutput client:load />
+</ExampleBlock>
+
+## Restaurant reservation
+
+Date, time and party size on one row, with half-hour slots and a `notice` tint.
+
+<ExampleBlock code={restaurantCode}>
+  <RestaurantOutput client:load />
+</ExampleBlock>
+
+## Salon or spa
+
+Popular slots as chips, plus the field for any other time, on a `fuchsia` card.
+
+<ExampleBlock code={salonCode}>
+  <SalonOutput client:load />
+</ExampleBlock>
+
+## Hotel check-in and check-out
+
+Arrival and departure as two halves of one card, each with its own tone and limit.
+
+<ExampleBlock code={hotelCode}>
+  <HotelOutput client:load />
+</ExampleBlock>
+
+## Car rental
+
+Pick-up and drop-off as two rows of date and time.
+
+<ExampleBlock code={carRentalCode}>
+  <CarRentalOutput client:load />
+</ExampleBlock>
+
+## Flight search
+
+A wide indigo strip: a route, “depart after”, “arrive before” and a search button.
+
+<ExampleBlock code={flightCode}>
+  <FlightOutput client:load />
+</ExampleBlock>
+
+## Delivery window
+
+Two linked fields in `positive` green; the end can’t come before the start.
+
+<ExampleBlock code={deliveryCode}>
+  <DeliveryOutput client:load />
+</ExampleBlock>
+
+## Webinar sign-up
+
+A split layout: the pitch on a `seafoam` panel, the form beside it.
+
+<ExampleBlock code={webinarCode}>
+  <WebinarOutput client:load />
+</ExampleBlock>
+
+## Event schedule
+
+Start and end in 24-hour time with 5-minute steps, on a `fuchsia` card that shows the length.
+
+<ExampleBlock code={eventCode}>
+  <EventOutput client:load />
+</ExampleBlock>
+
+## Gym timetable
+
+A list of classes with a level badge and a quiet start-time field.
+
+<ExampleBlock code={gymCode}>
+  <GymOutput client:load />
+</ExampleBlock>
+
+## Opening hours
+
+One quiet row per day, with a “Closed” switch that disables the row.
+
+<ExampleBlock code={openingHoursCode}>
+  <OpeningHoursOutput client:load />
+</ExampleBlock>
+
+## Staff rota
+
+A dense table of small fields that works out the hours worked.
+
+<ExampleBlock code={shiftRotaCode}>
+  <ShiftRotaOutput client:load />
+</ExampleBlock>
+
+## Quiet hours setting
+
+A settings card whose fields appear when the switch is on.
+
+<ExampleBlock code={quietHoursCode}>
+  <QuietHoursOutput client:load />
+</ExampleBlock>
+
+## Medicine reminders
+
+A list of times a day that people add and remove, in `yellow`.
+
+<ExampleBlock code={remindersCode}>
+  <RemindersOutput client:load />
+</ExampleBlock>
+
+## Scheduled post
+
+A CMS card that pairs a DatePicker with a `purple` time field.
+
+<ExampleBlock code={schedulePostCode}>
+  <SchedulePostOutput client:load />
+</ExampleBlock>
+
+## Newsletter send time
+
+A dark card with the `highlight` tone and one-click suggested times.
+
+<ExampleBlock code={newsletterCode}>
+  <NewsletterOutput client:load />
+</ExampleBlock>
+
+## Call-back request
+
+A marketing band: the field sits on a dark `surface-inverse`.
+
+<ExampleBlock code={callbackCode}>
+  <CallbackOutput client:load />
+</ExampleBlock>
+
+## Alarm or timer
+
+Extra large, with seconds, centred in an `indigo` card.
+
+<ExampleBlock code={alarmCode}>
+  <AlarmOutput client:load />
+</ExampleBlock>
