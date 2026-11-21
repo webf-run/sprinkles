@@ -1,12 +1,12 @@
 import { BentoGrid } from '@webf/sprinkles';
 
-/** Blue tone, all photos, with a panoramic banner along the bottom. */
+/** Indigo, all photos, with a panoramic banner along the bottom. */
 export default function Example() {
   return (
     <BentoGrid
-      tone='indigo'
+      variant='indigo'
       label='Campus life'
-      images={[
+      items={[
         {
           src: '/images/cc/cool-campus.jpg',
           alt: 'Ivy-covered stone campus buildings',
@@ -25,21 +25,10 @@ export default function Example() {
           },
         },
         {
-          src: '/images/cc/students-reading.jpg',
-          alt: 'Students reading and taking notes together at a wooden picnic table',
-          badge: 'Open daily',
-          title: 'Study spaces',
-          credit: {
-            text: 'Alexis Brown · CC0',
-            href: 'https://commons.wikimedia.org/wiki/File:Students_learning_together_(Unsplash).jpg',
-          },
-        },
-        {
           src: '/images/cc/clinic-doorway.jpg',
           alt: 'A doctor in a white coat and stethoscope greeting someone in a clinic corridor',
           badge: 'Free',
           title: 'Health centre',
-          description: 'Friendly check-ups, no appointment needed.',
           credit: {
             text: 'Shixart1985 · CC BY 2.0 · cropped',
             href: 'https://commons.wikimedia.org/wiki/File:Doctor_greeting_a_patient_in_clinic_room_two.jpg',
@@ -48,10 +37,22 @@ export default function Example() {
         {
           src: '/images/cc/code-laptop.jpg',
           alt: 'A laptop screen filled with lines of code',
+          badge: 'Open late',
           title: 'Computer labs',
+          description: 'Software for every course, with help on hand.',
           credit: {
             text: 'Marc Mueller · CC0',
             href: 'https://commons.wikimedia.org/wiki/File:Macro_laptop_coding_(Unsplash).jpg',
+          },
+        },
+        {
+          src: '/images/cc/students-reading.jpg',
+          alt: 'Students reading and taking notes together at a wooden picnic table',
+          badge: 'Open daily',
+          title: 'Study spaces',
+          credit: {
+            text: 'Alexis Brown · CC0',
+            href: 'https://commons.wikimedia.org/wiki/File:Students_learning_together_(Unsplash).jpg',
           },
         },
         {

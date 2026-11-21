@@ -1,7 +1,7 @@
 import { Button, Tooltip } from '@webf/sprinkles';
 import Eye from 'lucide-solid/icons/eye';
-import History from 'lucide-solid/icons/history';
 import Redo2 from 'lucide-solid/icons/redo-2';
+import RotateCcwClock from 'lucide-solid/icons/rotate-ccw-clock';
 import Undo2 from 'lucide-solid/icons/undo-2';
 import type { Component } from 'solid-js';
 
@@ -13,7 +13,7 @@ const Tools: {
   { label: 'Undo', shortcut: '⌘Z', icon: Undo2 },
   { label: 'Redo', shortcut: '⇧⌘Z', icon: Redo2 },
   { label: 'Preview', icon: Eye },
-  { label: 'Revision history', icon: History },
+  { label: 'Revision history', icon: RotateCcwClock },
 ];
 
 export default function Example() {
