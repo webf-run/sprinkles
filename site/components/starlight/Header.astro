@@ -4,21 +4,15 @@ import { ChevronDown, Github, Sun, Moon } from 'lucide-astro';
 
 import Logo from '../../assets/sprinkles.svg';
 import { Links } from '../../data/Constant';
-import { getSection } from '../../data/Sections';
 
-const section = getSection(Astro.url.pathname);
-const isHome = section === undefined;
+// Sections come from the sidebar topics in astro.config.ts.
+const { topics } = Astro.locals.starlightSidebarTopics;
 
-const links = [
-  { label: 'Home', href: Links.home, active: isHome },
-  { label: 'Guide', href: Links.gettingStarted, active: section === 'guide' },
-  {
-    label: 'Components',
-    href: Links.components,
-    active: section === 'components',
-  },
-  { label: 'Blocks', href: Links.blocks, active: section === 'blocks' },
-];
+const links = topics.map((topic) => ({
+  label: topic.label,
+  href: topic.link,
+  active: topic.isCurrent,
+}));
 ---
 
 <div class:list={['h-full w-full']}>
