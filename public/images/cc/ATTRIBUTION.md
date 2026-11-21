@@ -5,9 +5,10 @@ This file records the source, creator, license, and edits for photos in
 licensed. Check each entry before reuse. Example pages also display a short
 credit for the CC BY photos they use.
 
-Every file in this directory is used by a HeroBanner example. Photos were
-resized (at most 1,920 px wide) and JPEG-compressed for web delivery; their
-colours were not altered unless a derivative row says otherwise.
+Every file in this directory is used by a HeroBanner example, and the
+BentoGrid examples reuse some of them. Photos were resized (at most 1,920 px
+wide) and JPEG-compressed for web delivery; their colours were not altered
+unless a derivative row says otherwise.
 
 ## Source photographs
 

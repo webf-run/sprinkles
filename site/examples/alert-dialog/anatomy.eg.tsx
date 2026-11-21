@@ -1,12 +1,12 @@
 import { AlertDialog, Button } from '@webf/sprinkles';
-import Trash2 from 'lucide-solid/icons/trash-2';
+import Trash from 'lucide-solid/icons/trash';
 
 export default function Example() {
   return (
     <AlertDialog
       variant='destructive'
       trigger={(props) => (
-        <Button {...props} variant='negative' fillStyle='outline' icon={Trash2}>
+        <Button {...props} variant='negative' fillStyle='outline' icon={Trash}>
           Delete image
         </Button>
       )}

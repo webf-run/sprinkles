@@ -1,5 +1,5 @@
 import { Field as ArkField } from '@ark-ui/solid/field';
-import CircleAlert from 'lucide-solid/icons/circle-alert';
+import CircleExclamationPoint from 'lucide-solid/icons/circle-exclamation-point';
 import { type JSX, Show, children } from 'solid-js';
 
 import { ErrorText, HelperText, LabelText } from '../core/field';
@@ -70,7 +70,7 @@ export function Field(props: FieldProps) {
         <ArkField.ErrorText class={ErrorText}>
           {/* A line-high box, so the icon stays on the first line when the text wraps. */}
           <span aria-hidden='true' class='flex h-4 shrink-0 items-center'>
-            <CircleAlert class='size-3' />
+            <CircleExclamationPoint class='size-3' />
           </span>
           <span>{errorText()}</span>
         </ArkField.ErrorText>
