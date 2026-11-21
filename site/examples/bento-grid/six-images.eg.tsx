@@ -1,14 +1,14 @@
 import { BentoGrid } from '@webf/sprinkles';
 
-/** Amber tone, all photos, mirrored with `layout='end'`. */
+/** Amber (`notice`), all photos, with the lead tile on the end side. */
 export default function Example() {
   return (
     <BentoGrid
-      tone='notice'
-      layout='end'
+      variant='notice'
+      leadSide='end'
       favorites
       label='A day of good food'
-      images={[
+      items={[
         {
           src: '/images/cc/restaurant.jpg',
           alt: 'A table laid with colourful salads and shared plates in a bright dining room',
