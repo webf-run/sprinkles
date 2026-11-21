@@ -3,7 +3,7 @@ import ChevronDown from 'lucide-solid/icons/chevron-down';
 import Copy from 'lucide-solid/icons/copy';
 import Eye from 'lucide-solid/icons/eye';
 import FolderInput from 'lucide-solid/icons/folder-input';
-import Trash2 from 'lucide-solid/icons/trash-2';
+import Trash from 'lucide-solid/icons/trash';
 
 export default function Example() {
   return (
@@ -29,7 +29,7 @@ export default function Example() {
           ],
         },
         { type: 'separator' },
-        { value: 'delete', label: 'Delete', icon: Trash2, negative: true },
+        { value: 'delete', label: 'Delete', icon: Trash, negative: true },
       ]}
     />
   );

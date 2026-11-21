@@ -4,7 +4,7 @@ import Copy from 'lucide-solid/icons/copy';
 import Ellipsis from 'lucide-solid/icons/ellipsis';
 import ExternalLink from 'lucide-solid/icons/external-link';
 import Pencil from 'lucide-solid/icons/pencil';
-import Trash2 from 'lucide-solid/icons/trash-2';
+import Trash from 'lucide-solid/icons/trash';
 import { createSignal } from 'solid-js';
 
 export default function Example() {
@@ -34,7 +34,7 @@ export default function Example() {
           { value: 'open', label: 'Open on website', icon: ExternalLink },
           { type: 'separator' },
           { value: 'archive', label: 'Archive', icon: Archive },
-          { value: 'delete', label: 'Delete', icon: Trash2, negative: true },
+          { value: 'delete', label: 'Delete', icon: Trash, negative: true },
         ]}
       />
       <span class='text-sm text-foreground-muted'>Chose: {last()}</span>

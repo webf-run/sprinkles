@@ -1,42 +1,84 @@
 ---
 title: Bento Grid
-description: Two to six photos in a tidy mosaic, with room for text, check points and buttons.
+description: Two to six photos or cards in a mosaic led by one large tile, with room for text, check points and buttons.
+# The examples need the room: the mosaic starts when the grid is 42rem (672 px) wide.
+tableOfContents: false
 ---
 
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
 import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
-import ThreeOutput from '../../../examples/bento-grid/three-images.eg.tsx';
-import threeCode from '../../../examples/bento-grid/three-images.eg.tsx?raw';
-import FourOutput from '../../../examples/bento-grid/four-images.eg.tsx';
-import fourCode from '../../../examples/bento-grid/four-images.eg.tsx?raw';
+import AnatomyOutput from '../../../examples/bento-grid/anatomy.eg.tsx';
+import DoItems from '../../../examples/bento-grid/do-items.eg.tsx';
+import DontItems from '../../../examples/bento-grid/dont-items.eg.tsx';
 import FiveOutput from '../../../examples/bento-grid/five-images.eg.tsx';
 import fiveCode from '../../../examples/bento-grid/five-images.eg.tsx?raw';
+import FourOutput from '../../../examples/bento-grid/four-images.eg.tsx';
+import fourCode from '../../../examples/bento-grid/four-images.eg.tsx?raw';
 import MixedOutput from '../../../examples/bento-grid/mixed-layout.eg.tsx';
 import mixedCode from '../../../examples/bento-grid/mixed-layout.eg.tsx?raw';
 import SixOutput from '../../../examples/bento-grid/six-images.eg.tsx';
 import sixCode from '../../../examples/bento-grid/six-images.eg.tsx?raw';
+import ThreeOutput from '../../../examples/bento-grid/three-images.eg.tsx';
+import threeCode from '../../../examples/bento-grid/three-images.eg.tsx?raw';
 
 ```tsx
 import { BentoGrid } from '@webf/sprinkles';
 ```
 
-A bento grid turns a handful of photos into a mosaic where one photo leads and the rest support it. Give it two to six images and it picks the arrangement, keeps one gap between every tile, crops each photo to fill its tile, and reflows for tablets and phones.
+A bento grid turns a handful of photos into a mosaic where one photo leads and
+the rest support it. Give it two to six items and it picks the arrangement,
+keeps one gap between every tile, crops each photo to fill its tile, and
+reflows to two columns when it is narrow.
 
 ```tsx
 <BentoGrid
-  images={[
-    { src: '/campus.jpg', alt: 'Campus' },
-    { src: '/library.jpg', alt: 'Library' },
-    { src: '/students.jpg', alt: 'Students' },
+  items={[
+    { src: '/campus.jpg', alt: 'Ivy-covered campus buildings' },
+    { src: '/library.jpg', alt: 'Students reading in the library' },
+    { src: '/lab.jpg', alt: 'A laptop screen full of code' },
   ]}
 />
 ```
 
-Only `src` and `alt` are required. Everything else is optional and appears over the photo.
+Only `src` and `alt` are required. Everything else is optional.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Lead tile', note: 'The first item, and always the largest.' },
+    { name: 'Badge (optional)', note: 'A category, a price or a status.' },
+    {
+      name: 'Heart (optional)',
+      note: 'A toggle on every photo, when favorites are on.',
+    },
+    { name: 'Title', note: 'The tile’s heading, in the heading font.' },
+    {
+      name: 'Description and check points (optional)',
+      note: 'Shown on tiles with room for them.',
+    },
+    { name: 'Button (optional)', note: 'Shown on every tile that has one.' },
+    {
+      name: 'Supporting tiles',
+      note: 'More photos, or cards with no photo.',
+    },
+    {
+      name: 'Photo credits (optional)',
+      note: 'One quiet line under the grid.',
+    },
+  ]}
+>
+  <AnatomyOutput />
+</Anatomy>
 
 ## Three images
 
-The first photo takes half the grid; the other two share the other half. This one shows every kind of overlay: a badge, a title and description, check points, and a button. Each tile also has a heart that visitors can toggle (`favorites`).
+The first photo takes half the grid; the other two share the other half. This
+one shows every kind of overlay: a badge, a title and description, check
+points and a button. Each photo also has a heart that visitors can toggle
+(`favorites`).
 
 <ExampleBlock code={threeCode}>
   <ThreeOutput client:load />
@@ -44,7 +86,8 @@ The first photo takes half the grid; the other two share the other half. This on
 
 ## Four images
 
-A large lead, a wide second photo, and two small tiles. Small tiles keep to a title and a badge, so the text always fits.
+A large lead, a wide second photo and two small tiles. Small tiles show a
+title, a badge and a button, so give them short titles.
 
 <ExampleBlock code={fourCode}>
   <FourOutput />
@@ -52,7 +95,9 @@ A large lead, a wide second photo, and two small tiles. Small tiles keep to a ti
 
 ## Five images
 
-A large lead, a tall portrait tile, and a panoramic banner that spans the bottom. `position` keeps the subject in frame when a photo is cropped hard.
+A large lead, a tall tile and a panoramic banner along the bottom. `position`
+keeps the subject in frame when a photo is cropped hard. A landscape photo
+whose subject is off-centre suits a small tile better than the tall one.
 
 <ExampleBlock code={fiveCode}>
   <FiveOutput />
@@ -60,7 +105,9 @@ A large lead, a tall portrait tile, and a panoramic banner that spans the bottom
 
 ## Six images
 
-The busiest arrangement. `layout='end'` mirrors it, which is handy when a grid sits beside text and you want the large photo on the outside.
+The busiest arrangement. `leadSide='end'` puts the large tile on the end
+side, which is handy when the grid sits beside text and you want the large
+photo on the outside.
 
 <ExampleBlock code={sixCode}>
   <SixOutput client:load />
@@ -68,92 +115,136 @@ The busiest arrangement. `layout='end'` mirrors it, which is handy when a grid s
 
 ## Mixed layout
 
-Photos, coloured sections and content together. A tile with no `src` is a **card**: a solid or tinted block with a badge, icon, big figure, text and button. Give a card `media` and a photo sits inside it. Each card can take its own `tone`.
+Photos and cards together. An item with no `src` is a **card**: a solid
+(`bold`) or tinted (`subtle`) tile with a badge, an icon, a big figure, text
+and a button. Cards look like the other marketing cards (FeatureCard,
+StatCard) with the same `variant` and `fillStyle`. Give a card `media` and a
+photo sits inside it.
 
 <ExampleBlock code={mixedCode}>
   <MixedOutput />
 </ExampleBlock>
 
-## Tone
+## Variant
 
-Leave `tone` out for the basic look: white badges and buttons that suit any photo. Set it (`'positive'`, `'informative'`, `'highlight'`, `'indigo'`…) and every badge, check mark and button in the grid shares that colour.
+Leave `variant` out for the basic look: white badges and check marks that suit
+any photo. Set it (`'positive'`, `'informative'`, `'highlight'`, `'indigo'`…)
+and every photo badge and check mark shares that colour, and cards without a
+`variant` of their own take it. Buttons on photos stay white; give an action
+a `variant` for a coloured one.
 
-## Layouts by number of images
+## Layouts by number of items
 
-| Images | Arrangement (tablet and desktop)                                          |
-| ------ | ------------------------------------------------------------------------- |
-| 2      | Two equal halves                                                          |
-| 3      | One large (half the grid), two wide                                       |
-| 4      | One large, one wide, two small                                            |
-| 5      | One large, one tall, two small, one panoramic banner                      |
-| 6      | One large, one wide, one tall, three small (one of them wide)             |
+| Items | Arrangement (mosaic)                                          |
+| ----- | ------------------------------------------------------------- |
+| 2     | Two equal halves                                              |
+| 3     | One large (half the grid), two wide                           |
+| 4     | One large, one wide, two small                                |
+| 5     | One large, one tall, two small, one panoramic banner          |
+| 6     | One large, one wide, one tall, three small (one of them wide) |
 
-The first image is always the largest, so put your best photo first.
+The first item is always the largest, so put your best photo first.
 
 ## Responsive behaviour
 
-- **Desktop and tablet (`md` and up):** a four-column mosaic with a fixed height, so tiles line up exactly. It is a little taller from `lg`.
-- **Phone:** two columns. The large and wide photos span the full width at 4:3, and the rest are squares, so nothing gets squeezed.
-- On a phone, small tiles show their title and badge; the description, check points and button only appear on tiles with room for them.
+The layout follows the grid’s own width, not the window’s, so a grid in a
+narrow column gets the two-column layout.
+
+- **42rem (672 px) wide and up:** a four-column mosaic with a fixed height,
+  so tiles line up exactly. It is a little taller from 56rem (896 px).
+- **Narrower:** two columns. The large and wide tiles span the full width at
+  4:3, and the rest are squares, so nothing gets squeezed.
+- Small tiles never show their description and check points, and neither do
+  tiles that are square in the two-column layout. Screen readers still read
+  them. The button always shows, at the smaller size on those tiles.
+- A card’s `media` photo shows only where the card has room for it.
 
 ## Interaction
 
-- Photos zoom slightly on hover and keyboard focus, and the tile lifts with a soft shadow. Nothing moves for people who prefer reduced motion.
-- With a mouse, the description, check points and button slide up on hover or focus. On touch screens they are always visible, since there is no hover.
-- Pass `favorites` to add a heart to every tile. It is a real toggle button with `aria-pressed`; listen with `onFavoriteChange`.
+- Everything on a tile shows at once; nothing waits for a hover.
+- Pass `favorites` to add a heart to every photo. It is a toggle button with
+  `aria-pressed`: listen with `onFavoriteChange`, and set `defaultSaved` on
+  photos the visitor saved before.
 
 ## Photo credits
 
-Give a photo a `credit` and the grid lists it in one quiet line below, which satisfies licences such as CC BY. Pass `hideCredits` if you credit photos elsewhere.
+Give a photo a `credit` and the grid lists it in one quiet line below, which
+satisfies licences such as CC BY. Pass `hideCredits` if you credit photos
+elsewhere.
 
 ## Theming
 
-The grid uses semantic tokens only: surfaces and foregrounds from the inverse set, `positive` for check marks, `radius`, `shadow-elevated` and the shared motion curve. A site that overrides those tokens restyles every grid with no extra CSS.
+- Photo tiles use static white and black, like a control’s `staticColor`: a
+  dark scrim under the text, white text, and white badges, check marks and
+  buttons unless the grid has a `variant`. They look the same in a dark page,
+  like the photo does.
+- Cards use the same surfaces as the other marketing cards, so they follow the
+  page’s colour scheme and a site’s token overrides.
+- Titles use the heading font (`--font-heading`); radii, spacing and the focus
+  ring come from the theme.
 
 ## Accessibility
 
-- `alt` is required on every image. Describe the photo; the title and description are read as the tile's caption.
-- Text over photos sits on a dark gradient for contrast. Keep titles short.
-- The details stay in the page when they are visually hidden, so screen reader users always get them, and keyboard focus reveals them.
-- Pass `label` to name the group, and set `headingLevel` so tile titles fit the page outline.
+- `alt` is required on every photo. Describe the photo; the title and
+  description are read as the tile’s caption.
+- Text over a photo sits on a scrim at least 56% black, so white text keeps a
+  contrast of 4.5:1 even on a white photo. Badges are solid, not see-through.
+- A description or check points hidden for lack of room stay in the page for
+  screen readers.
+- The heart is a 40 px button named “Save” and the photo’s title, with
+  `aria-pressed` for its state.
+- Pass `label` to name the group, and set `headingLevel` so tile titles fit
+  the page outline.
+
+## Do and don’t
+
+<DoDont
+  doText='Keep the titles on small tiles to a word or two, so the photo still shows.'
+  dontText='Write long titles for small tiles: they cover the photo and crowd the tile.'
+>
+  <DoItems slot='do' />
+  <DontItems slot='dont' />
+</DoDont>
 
 ## Props
 
 ### BentoGrid
 
-| Prop               | Type                                     | Default   |
-| ------------------ | ---------------------------------------- | --------- |
-| `images`           | `BentoImage[]` (2–6; extras are ignored) |           |
-| `tone`             | a role, `'highlight'`, or a categorical colour |       |
-| `layout`           | `'start' \| 'end'`                       | `'start'` |
-| `favorites`        | `boolean`                                | `false`   |
-| `onFavoriteChange` | `(image, saved) => void`                 |           |
-| `headingLevel`     | `2 \| 3 \| 4`                            | `3`       |
-| `label`            | `string`                                 |           |
-| `hideCredits`      | `boolean`                                | `false`   |
-| `class`            | `string`                                 |           |
-
-### BentoCard
-
-| Prop                                         | Type                                  | Default                 |
-| -------------------------------------------- | ------------------------------------- | ----------------------- |
-| `title`                                      | `string`                              |                         |
-| `tone`                                       | a role, `'highlight'`, or categorical | the grid's `tone`       |
-| `fillStyle`                                  | `'bold' \| 'subtle'`                  | `'bold'`                |
-| `icon`, `badge`, `stat`, `description`       |                                       |                         |
-| `checklist`, `action`, `media`, `credit`     |                                       |                         |
+| Prop               | Type                                                    | Default   |
+| ------------------ | ------------------------------------------------------- | --------- |
+| `items`            | `BentoItem[]` (2–6 photos or cards; extras are ignored) |           |
+| `variant`          | a role, `'highlight'`, or a categorical colour          | white     |
+| `leadSide`         | `'start' \| 'end'`                                      | `'start'` |
+| `favorites`        | `boolean`                                               | `false`   |
+| `onFavoriteChange` | `(image, saved) => void`                                |           |
+| `headingLevel`     | `2 \| 3 \| 4`                                           | `3`       |
+| `label`            | `string`                                                |           |
+| `hideCredits`      | `boolean`                                               | `false`   |
+| `class`            | `string`                                                |           |
 
 ### BentoImage
 
-| Prop           | Type                                                    | Default    |
-| -------------- | ------------------------------------------------------- | ---------- |
-| `src`          | `string`                                                |            |
-| `alt`          | `string`                                                |            |
-| `title`        | `string`                                                |            |
-| `description`  | `string`                                                |            |
-| `badge`        | `string`                                                |            |
-| `badgeVariant` | a role, `'highlight'`, or a categorical colour          | white glass |
-| `checklist`    | `string[]`                                              |            |
-| `action`       | `{ label, href, variant? }`                             |            |
-| `position`     | `'center' \| 'top' \| 'bottom' \| 'left' \| 'right'`    | `'center'` |
-| `credit`       | `{ text, href? }`                                       |            |
+| Prop           | Type                                                 | Default                     |
+| -------------- | ---------------------------------------------------- | --------------------------- |
+| `src`          | `string`                                             |                             |
+| `alt`          | `string`                                             |                             |
+| `title`        | `string`                                             |                             |
+| `description`  | `string`                                             |                             |
+| `badge`        | `string`                                             |                             |
+| `badgeVariant` | a role, `'highlight'`, or a categorical colour       | the grid’s `variant`, white |
+| `checklist`    | `string[]`                                           |                             |
+| `action`       | `{ label, href, variant? }`                          | white button                |
+| `position`     | `'center' \| 'top' \| 'bottom' \| 'left' \| 'right'` | `'center'`                  |
+| `defaultSaved` | `boolean`, the heart’s starting state                | `false`                     |
+| `credit`       | `{ text, href? }`                                    |                             |
+
+### BentoCard
+
+| Prop                                   | Type                                  | Default                          |
+| -------------------------------------- | ------------------------------------- | -------------------------------- |
+| `title`                                | `string`                              |                                  |
+| `variant`                              | a role, `'highlight'`, or categorical | the grid’s `variant`, `accent`   |
+| `fillStyle`                            | `'bold' \| 'subtle'`                  | `'bold'`                         |
+| `action`                               | `{ label, href, variant? }`           | `secondary`, `primary` on subtle |
+| `icon`, `badge`, `stat`, `description` |                                       |                                  |
+| `checklist`, `media`, `credit`         |                                       |                                  |

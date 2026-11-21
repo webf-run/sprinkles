@@ -1,8 +1,8 @@
 import { Separator, Toggle } from '@webf/sprinkles';
-import AlignCenter from 'lucide-solid/icons/align-center';
-import AlignLeft from 'lucide-solid/icons/align-left';
-import Bold from 'lucide-solid/icons/bold';
 import Italic from 'lucide-solid/icons/italic';
+import LetterB from 'lucide-solid/icons/letter-b';
+import TextAlignCenter from 'lucide-solid/icons/text-align-center';
+import TextAlignStart from 'lucide-solid/icons/text-align-start';
 import Underline from 'lucide-solid/icons/underline';
 
 export default function Example() {
@@ -12,12 +12,17 @@ export default function Example() {
       role='toolbar'
       aria-label='Text formatting'
     >
-      <Toggle quiet icon={Bold} aria-label='Bold' defaultPressed />
+      <Toggle quiet icon={LetterB} aria-label='Bold' defaultPressed />
       <Toggle quiet icon={Italic} aria-label='Italic' />
       <Toggle quiet icon={Underline} aria-label='Underline' />
       <Separator orientation='vertical' class='mx-1 my-2' />
-      <Toggle quiet icon={AlignLeft} aria-label='Align left' defaultPressed />
-      <Toggle quiet icon={AlignCenter} aria-label='Align centre' />
+      <Toggle
+        quiet
+        icon={TextAlignStart}
+        aria-label='Align left'
+        defaultPressed
+      />
+      <Toggle quiet icon={TextAlignCenter} aria-label='Align centre' />
     </div>
   );
 }

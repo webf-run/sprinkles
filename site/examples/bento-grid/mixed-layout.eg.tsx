@@ -2,14 +2,15 @@ import { BentoGrid } from '@webf/sprinkles';
 import Star from 'lucide-solid/icons/star';
 
 /**
- * Photos, coloured sections and content together: a call-to-action card, a
- * card with a photo set into it, and a stat card, each in its own colour. The grid has no `tone`, so photo badges and buttons stay basic white.
+ * Photos and cards together: a call-to-action card, a card with a photo set
+ * into it, and a stat card, each in its own colour. The grid has no
+ * `variant`, so photo badges stay white.
  */
 export default function Example() {
   return (
     <BentoGrid
       label='The baking club'
-      images={[
+      items={[
         {
           src: '/images/cc/sourdough.jpg',
           alt: 'A scored sourdough loaf on a cooling rack',
@@ -28,7 +29,7 @@ export default function Example() {
           },
         },
         {
-          tone: 'informative',
+          variant: 'informative',
           badge: 'Workshop',
           title: 'Join the Saturday baking club',
           description: 'Bake, taste and swap recipes with neighbours.',
@@ -44,7 +45,7 @@ export default function Example() {
           },
         },
         {
-          tone: 'highlight',
+          variant: 'highlight',
           fillStyle: 'subtle',
           badge: 'Local',
           title: 'Fresh from the market',
@@ -60,7 +61,7 @@ export default function Example() {
           },
         },
         {
-          tone: 'seafoam',
+          variant: 'seafoam',
           icon: Star,
           stat: '4.9',
           title: 'Average rating',

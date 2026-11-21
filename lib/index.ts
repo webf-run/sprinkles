@@ -172,7 +172,7 @@ export type { BenefitCardProps } from './blocks/BenefitCard';
 export type {
   BentoAction,
   BentoCard,
-  BentoGridLayout,
+  BentoGridLeadSide,
   BentoGridProps,
   BentoImage,
   BentoImagePosition,

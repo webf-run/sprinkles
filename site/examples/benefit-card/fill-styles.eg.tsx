@@ -1,5 +1,5 @@
 import { BenefitCard } from '@webf/sprinkles';
-import Building2 from 'lucide-solid/icons/building-2';
+import BuildingComplex from 'lucide-solid/icons/building-complex';
 import GraduationCap from 'lucide-solid/icons/graduation-cap';
 import HeartHandshake from 'lucide-solid/icons/heart-handshake';
 
@@ -12,7 +12,7 @@ export default function Example() {
         bullets={['Updated every year', 'Hands-on labs']}
       />
       <BenefitCard
-        icon={Building2}
+        icon={BuildingComplex}
         title='Campus'
         variant='highlight'
         fillStyle='subtle'

@@ -3,7 +3,7 @@ import ChevronDown from 'lucide-solid/icons/chevron-down';
 import Clock from 'lucide-solid/icons/clock';
 import Eye from 'lucide-solid/icons/eye';
 import Send from 'lucide-solid/icons/send';
-import Trash2 from 'lucide-solid/icons/trash-2';
+import Trash from 'lucide-solid/icons/trash';
 
 export default function Example() {
   return (
@@ -22,7 +22,7 @@ export default function Example() {
         {
           value: 'discard',
           label: 'Discard draft',
-          icon: Trash2,
+          icon: Trash,
           negative: true,
         },
       ]}

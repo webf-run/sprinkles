@@ -1,5 +1,5 @@
 import { Badge, Button, Dialog } from '@webf/sprinkles';
-import History from 'lucide-solid/icons/history';
+import RotateCcwClock from 'lucide-solid/icons/rotate-ccw-clock';
 
 const Revisions = Array.from({ length: 24 }, (_, index) => ({
   id: 24 - index,
@@ -12,7 +12,7 @@ export default function Example() {
   return (
     <Dialog
       trigger={(props) => (
-        <Button {...props} variant='secondary' icon={History}>
+        <Button {...props} variant='secondary' icon={RotateCcwClock}>
           Revision history
         </Button>
       )}
