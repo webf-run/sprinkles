@@ -1,6 +1,6 @@
 import { Toggle } from '@webf/sprinkles';
-import Bold from 'lucide-solid/icons/bold';
 import Italic from 'lucide-solid/icons/italic';
+import LetterB from 'lucide-solid/icons/letter-b';
 
 export default function Example() {
   return (
@@ -9,7 +9,7 @@ export default function Example() {
       role='toolbar'
       aria-label='Text formatting'
     >
-      <Toggle icon={Bold} aria-label='Bold' defaultPressed />
+      <Toggle icon={LetterB} aria-label='Bold' defaultPressed />
       <Toggle icon={Italic} aria-label='Italic' />
     </div>
   );

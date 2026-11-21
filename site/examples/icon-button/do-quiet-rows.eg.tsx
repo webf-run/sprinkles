@@ -1,6 +1,6 @@
 import { IconButton } from '@webf/sprinkles';
 import Pencil from 'lucide-solid/icons/pencil';
-import Trash2 from 'lucide-solid/icons/trash-2';
+import Trash from 'lucide-solid/icons/trash';
 
 export default function Example() {
   return (
@@ -18,7 +18,7 @@ export default function Example() {
             quiet
             size='s'
             variant='negative'
-            icon={Trash2}
+            icon={Trash}
             aria-label={`Delete ${title}`}
           />
         </li>
