@@ -5,21 +5,14 @@ import { ChevronDown, Github, Sun, Moon } from 'lucide-astro';
 import Logo from '../../assets/sprinkles.svg';
 import { Links } from '../../data/Constant';
 
-const trim = (path: string) => path.replace(/\/$/, '') || '/';
-const pathname = trim(Astro.url.pathname);
-const isComponents = pathname === trim(Links.components);
-const isBlocks = pathname === trim(Links.blocks);
+// Sections come from the sidebar topics in astro.config.ts.
+const { topics } = Astro.locals.starlightSidebarTopics;
 
-const links = [
-  { label: 'Home', href: Links.home, active: pathname === '/' },
-  {
-    label: 'Docs',
-    href: Links.gettingStarted,
-    active: pathname !== '/' && !isComponents && !isBlocks,
-  },
-  { label: 'Components', href: Links.components, active: isComponents },
-  { label: 'Blocks', href: Links.blocks, active: isBlocks },
-];
+const links = topics.map((topic) => ({
+  label: topic.label,
+  href: topic.link,
+  active: topic.isCurrent,
+}));
 ---
 
 <div class:list={['h-full w-full']}>

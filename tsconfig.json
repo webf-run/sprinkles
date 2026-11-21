@@ -11,7 +11,7 @@
     ".astro/types.d.ts",
     "site/**/*",
     "lib/**/*",
-    "astro.config.mjs",
+    "astro.config.ts",
     "public",
     "scripts/**/*"
   ]

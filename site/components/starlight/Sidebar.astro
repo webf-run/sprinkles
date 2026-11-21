@@ -1,0 +1,37 @@
+---
+import Default from '@astrojs/starlight/components/Sidebar.astro';
+
+// Replaces the plugin's own topic list: the header shows the topics instead.
+const { topics } = Astro.locals.starlightSidebarTopics;
+---
+
+{/* Phones hide the header nav, so offer the same sections here. */}
+<nav
+  aria-label='Sections'
+  class:list={['mb-4 flex flex-wrap gap-1', 'md:hidden']}
+>
+  {
+    topics.map((topic) => (
+      <a
+        href={topic.link}
+        aria-current={topic.isCurrent ? 'page' : undefined}
+        class:list={[
+          'rounded-lg px-3 py-1.5',
+          'text-sm font-medium no-underline',
+          'transition-colors duration-150',
+          topic.isCurrent
+            ? 'bg-(--sl-color-accent-low) text-(--sl-color-text-accent)'
+            : [
+                'text-(--sl-color-gray-3)',
+                'hover:bg-(--sl-color-gray-6)',
+                'hover:text-(--sl-color-white)',
+              ],
+        ]}
+      >
+        {topic.label}
+      </a>
+    ))
+  }
+</nav>
+
+<Default {...Astro.props}><slot /></Default>

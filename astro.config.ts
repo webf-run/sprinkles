@@ -4,6 +4,7 @@ import solid from '@astrojs/solid-js';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
+import starlightSidebarTopics from 'starlight-sidebar-topics';
 
 import { Links } from './site/data/Constant';
 
@@ -29,49 +30,87 @@ export default defineConfig({
       ],
       components: {
         Header: './site/components/starlight/Header.astro',
+        Sidebar: './site/components/starlight/Sidebar.astro',
       },
 
       customCss: ['./site/style/custom.css'],
-      // One group per kind of component, in the order Spectrum lists them.
-      // Each group lists its folder, so a new page needs no config change.
-      sidebar: [
-        {
-          label: 'Getting Started',
-          items: [
-            { label: 'Installation', slug: 'getting-started/installation' },
-            { label: 'Astro', slug: 'getting-started/astro' },
-            { label: 'SolidStart', slug: 'getting-started/solid-start' },
-            { label: 'Vite + Solid.js', slug: 'getting-started/vite' },
-            {
-              label: 'Styling and theming',
-              slug: 'getting-started/styling',
-            },
-          ],
-        },
-        {
-          label: 'Actions',
-          items: [{ autogenerate: { directory: 'actions' } }],
-        },
-        {
-          label: 'Navigation',
-          items: [{ autogenerate: { directory: 'navigation' } }],
-        },
-        { label: 'Fields', items: [{ autogenerate: { directory: 'fields' } }] },
-        {
-          label: 'Overlays',
-          items: [{ autogenerate: { directory: 'overlays' } }],
-        },
-        {
-          label: 'Feedback',
-          items: [{ autogenerate: { directory: 'feedback' } }],
-        },
-        { label: 'Layout', items: [{ autogenerate: { directory: 'layout' } }] },
-        {
-          label: 'Data display',
-          items: [{ autogenerate: { directory: 'data-display' } }],
-        },
-        { label: 'Blocks', items: [{ autogenerate: { directory: 'blocks' } }] },
-        { label: 'Cards', items: [{ autogenerate: { directory: 'cards' } }] },
+      plugins: [
+        // Each topic is a header section with its own sidebar. A topic's
+        // `link` page gets that sidebar even when it isn't listed in it.
+        starlightSidebarTopics([
+          {
+            label: 'Guide',
+            link: Links.gettingStarted,
+            items: [
+              {
+                label: 'Getting Started',
+                items: [
+                  {
+                    label: 'Installation',
+                    slug: 'getting-started/installation',
+                  },
+                  { label: 'Astro', slug: 'getting-started/astro' },
+                  { label: 'SolidStart', slug: 'getting-started/solid-start' },
+                  { label: 'Vite + Solid.js', slug: 'getting-started/vite' },
+                  {
+                    label: 'Styling and theming',
+                    slug: 'getting-started/styling',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            label: 'Components',
+            link: Links.components,
+            // One group per kind of component, in the order Spectrum lists
+            // them. Each lists its folder, so a new page needs no change here.
+            items: [
+              {
+                label: 'Actions',
+                items: [{ autogenerate: { directory: 'actions' } }],
+              },
+              {
+                label: 'Navigation',
+                items: [{ autogenerate: { directory: 'navigation' } }],
+              },
+              {
+                label: 'Fields',
+                items: [{ autogenerate: { directory: 'fields' } }],
+              },
+              {
+                label: 'Overlays',
+                items: [{ autogenerate: { directory: 'overlays' } }],
+              },
+              {
+                label: 'Feedback',
+                items: [{ autogenerate: { directory: 'feedback' } }],
+              },
+              {
+                label: 'Layout',
+                items: [{ autogenerate: { directory: 'layout' } }],
+              },
+              {
+                label: 'Data display',
+                items: [{ autogenerate: { directory: 'data-display' } }],
+              },
+            ],
+          },
+          {
+            label: 'Blocks',
+            link: Links.blocks,
+            items: [
+              {
+                label: 'Blocks',
+                items: [{ autogenerate: { directory: 'blocks' } }],
+              },
+              {
+                label: 'Cards',
+                items: [{ autogenerate: { directory: 'cards' } }],
+              },
+            ],
+          },
+        ]),
       ],
     }),
   ],
