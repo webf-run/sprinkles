@@ -1,0 +1,44 @@
+---
+title: CSS reset
+description: Sprinkles components bring their own resets, so they work with or without Preflight.
+---
+
+## CSS reset
+
+Every browser applies its own default styles to elements, which can lead to inconsistencies across different browsers and platforms.
+Typically browsers give buttons, inputs, headings and lists their own fonts, margins and borders.
+Most Tailwind-based apps or libraries remove them with **Preflight**, which is Tailwind's reset.
+Sprinkles doesn't count on it; each component resets what it uses, so it looks the same with Preflight, without it,
+or next to another reset.
+
+### How component libraries handle it
+
+There are three ways to handle CSS resets in component libraries:
+
+| No  | Approach                        | Examples                              | Trade-off                                        |
+| --- | ------------------------------- | ------------------------------------- | ------------------------------------------------ |
+| 1   | Require a global reset          | Bootstrap, shadcn/ui, daisyUI, Chakra | Simple for the library; changes the whole page   |
+| 2   | **Components reset themselves** | **MUI, Ant Design, Spectrum CSS**     | **More work in the library; fits into any page** |
+| 3   | Scope or isolate the reset      | Scoped preflight, Shadow DOM          | Overlays render outside the scope, on `<body>`   |
+
+Sprinkles takes the second approach. It goes into other people's sites, some
+without Tailwind, so `style.css` never resets your page.
+
+## Rules for components
+
+- **Native buttons and inputs:** `ControlReset`, which is
+  `box-border m-0 font-inherit`. It inherits the font family only, so set a
+  text size too.
+- **Padding or a border with a set width or height:** `box-border`.
+- **Headings, paragraphs, lists and figures:** `m-0`. Lists also need
+  `list-none p-0`.
+- **Links:** `no-underline`, plus `text-inherit` when the link sets no colour.
+- **A dashed or dotted border on one side:** `border-0 border-b border-dashed`.
+  `border-dashed` styles all four sides, and only a reset zeroes the other
+  three.
+
+### Contributor's guide
+
+This documentation is built with Starlight. Starlight resets every element on this site.
+Previews undo that, so a component shows here as it would in an app without a reset, and a missing
+reset is visible in the docs.

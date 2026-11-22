@@ -27,9 +27,9 @@ export default function Example() {
       note='Free delivery on orders over $40'
 
       mediaContent={
-        <div class='w-full max-w-sm rounded-2xl bg-surface-inverse/90 p-6 shadow-elevated @5xl:ml-auto'>
+        <div class='box-border w-full max-w-sm rounded-2xl bg-surface-inverse/90 p-6 shadow-elevated @5xl:ml-auto'>
           <div class='mb-7 flex items-center gap-3'>
-            <span class='grid size-12 shrink-0 place-items-center rounded-full border border-border-inverse/50 bg-surface-inverse/50 text-foreground-inverse'>
+            <span class='box-border grid size-12 shrink-0 place-items-center rounded-full border border-border-inverse/50 bg-surface-inverse/50 text-foreground-inverse'>
               <Sprout class='size-6' aria-hidden='true' />
             </span>
 

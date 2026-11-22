@@ -69,7 +69,8 @@ export const FooterSurfaces: Record<
 };
 
 /** The page-width container every footer row sits in. */
-export const FooterContainer = 'mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8';
+export const FooterContainer =
+  'mx-auto box-border w-full max-w-7xl px-4 sm:px-6 lg:px-8';
 
 interface FooterBrandProps {
   surface: FooterSurface;

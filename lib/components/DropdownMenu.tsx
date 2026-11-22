@@ -62,7 +62,7 @@ export interface DropdownMenuProps {
 
 /** Highlighted by pointer or arrow keys, darker while pressed. */
 const Item = [
-  'flex min-h-8 cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-sm outline-none select-none',
+  'box-border flex min-h-8 cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-sm outline-none select-none',
   'data-disabled:cursor-not-allowed data-disabled:text-foreground-subtle',
   Transition,
 ].join(' ');

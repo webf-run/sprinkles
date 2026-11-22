@@ -29,7 +29,7 @@ type IconComponent = Component<{
  */
 const toggle = cva(
   [
-    'relative m-0 box-border inline-flex shrink-0 cursor-pointer items-center justify-center border-2 border-transparent font-semibold whitespace-nowrap select-none',
+    'relative m-0 box-border inline-flex shrink-0 cursor-pointer items-center justify-center border-2 border-transparent font-inherit font-semibold whitespace-nowrap select-none',
     FocusRing,
     Transition,
     Disabled,

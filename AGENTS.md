@@ -78,8 +78,10 @@ This follows Starlight's Tailwind recipe (`@astrojs/starlight-tailwind`):
   `--font-mono`, which Starlight reads.
 - Starlight's styles are layered, so plain unlayered rules override them. You
   don't need `!important` or Astro's hashed class names (`.astro-xxxx`).
-- Component previews get no extra reset, so they show components as an app
-  without Preflight would see them.
+- Starlight and its Tailwind preset reset every element (border-box sizing,
+  no margins or borders, inherited form fonts). A rule in `@layer components`
+  undoes that wherever components render, overlays included, so the docs show
+  components as an app without Preflight would see them.
 
 ### Components don't rely on Preflight
 

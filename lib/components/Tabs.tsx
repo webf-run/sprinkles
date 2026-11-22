@@ -35,7 +35,7 @@ const TabsStyleContext = /* @__PURE__ */ createContext<TabsStyle>({
 });
 
 /** The divider the tabs sit on; selected tabs draw over it. */
-const list = cva('m-0 flex p-0', {
+const list = cva('m-0 box-border flex p-0', {
   variants: {
     orientation: {
       horizontal: 'flex-row items-stretch border-b border-border-muted',
@@ -58,7 +58,7 @@ const list = cva('m-0 flex p-0', {
  */
 const trigger = cva(
   [
-    'relative m-0 box-border inline-flex shrink-0 cursor-pointer items-center rounded-md border-0 bg-transparent p-0 font-medium whitespace-nowrap',
+    'relative m-0 box-border inline-flex shrink-0 cursor-pointer items-center rounded-md border-0 bg-transparent p-0 font-inherit font-medium whitespace-nowrap',
     'text-foreground-muted hover:text-foreground-strongest selected:text-foreground-strongest',
     // The line is a 2 px border on a zero-height `::after`, so it stays on the scale.
     'after:absolute after:rounded-full after:border-transparent hover:after:border-border selected:after:border-foreground-strong selected:hover:after:border-foreground-strong',

@@ -149,7 +149,7 @@ export function Navbar(props: NavbarProps) {
       )}
       style={props.style}
     >
-      <div class='mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 @xl:px-6 @4xl:h-20 @5xl:px-8'>
+      <div class='mx-auto box-border flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 @xl:px-6 @4xl:h-20 @5xl:px-8'>
         <a
           href={props.logoHref ?? '/'}
           class={cn(

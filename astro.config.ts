@@ -58,6 +58,10 @@ export default defineConfig({
                   },
                 ],
               },
+              {
+                label: 'Advanced',
+                items: [{ autogenerate: { directory: 'advanced' } }],
+              },
             ],
           },
           {

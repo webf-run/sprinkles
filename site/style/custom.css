@@ -169,6 +169,26 @@ body {
   container-type: inline-size;
 }
 
+/* Starlight and its Tailwind preset reset sizing, margins, borders and form
+   fonts on every element. Undo that wherever components render (previews,
+   anatomy, do/don't, and the overlays Ark mounts on <body>), so the docs show
+   them as an app without Preflight would. In `components`, so a component's
+   own utilities still win. */
+@layer components {
+  :where(
+      .preview-body,
+      .anatomy-preview,
+      .do-dont-preview,
+      body > div:has(> [data-scope])
+    )
+    :where(*, *::before, *::after) {
+    box-sizing: revert;
+    margin: revert;
+    border: revert;
+    font: revert;
+  }
+}
+
 .preview-code {
   overflow-x: auto;
   background: var(--doc-code-surface);

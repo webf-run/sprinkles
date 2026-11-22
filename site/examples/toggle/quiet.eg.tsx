@@ -8,7 +8,7 @@ import Underline from 'lucide-solid/icons/underline';
 export default function Example() {
   return (
     <div
-      class='flex h-10 items-center gap-1 rounded-xl border border-border-muted bg-surface px-1'
+      class='box-border flex h-10 items-center gap-1 rounded-xl border border-border-muted bg-surface px-1'
       role='toolbar'
       aria-label='Text formatting'
     >

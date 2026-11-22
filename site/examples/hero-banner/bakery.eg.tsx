@@ -26,19 +26,19 @@ export default function Example() {
       secondaryAction={{ label: 'See today’s bakes', href: '#today' }}
       note='Order by 6 pm for tomorrow · Collect from 7 am'
       mediaContent={
-        <div class='w-full max-w-xs rounded-2xl border border-border-muted bg-surface/90 p-5 shadow-elevated'>
+        <div class='box-border w-full max-w-xs rounded-2xl border border-border-muted bg-surface/90 p-5 shadow-elevated'>
           <p class='m-0 text-xs font-semibold tracking-wide-130 text-foreground-muted uppercase'>
             Out of the oven today
           </p>
           <ul class='m-0 mt-3 grid list-none p-0'>
             <For each={bakes}>
               {(bake) => (
-                <li class='flex items-baseline gap-2 border-b border-dashed border-border-muted py-2 last:border-b-0 @max-xl:nth-3:hidden'>
+                <li class='flex items-baseline gap-2 border-0 border-b border-dashed border-border-muted py-2 last:border-b-0 @max-xl:nth-3:hidden'>
                   <span class='text-sm font-semibold text-foreground-strongest'>
                     {bake.name}
                   </span>
                   <span
-                    class='min-w-4 flex-1 border-b border-dotted border-border'
+                    class='min-w-4 flex-1 border-0 border-b border-dotted border-border'
                     aria-hidden='true'
                   />
                   <span class='text-sm text-foreground-muted tabular-nums'>

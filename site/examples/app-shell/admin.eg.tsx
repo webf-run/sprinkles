@@ -60,7 +60,7 @@ const StatusVariant = {
 
 export default function Example() {
   return (
-    <div class='h-120 w-full overflow-hidden rounded-2xl border border-border-muted'>
+    <div class='box-border h-120 w-full overflow-hidden rounded-2xl border border-border-muted'>
       <AppShell
         class='h-full'
         brand={
@@ -82,7 +82,7 @@ export default function Example() {
           <button
             type='button'
             aria-label='Account: Meera Iyer'
-            class='m-0 flex size-8 cursor-pointer items-center justify-center rounded-full border-0 bg-accent-subtle p-0 text-xs font-semibold text-accent-subtle-foreground outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring'
+            class='m-0 flex size-8 cursor-pointer items-center justify-center rounded-full border-0 bg-accent-subtle p-0 font-inherit text-xs font-semibold text-accent-subtle-foreground outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring'
           >
             MI
           </button>

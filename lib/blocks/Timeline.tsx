@@ -162,7 +162,7 @@ export function Timeline(props: TimelineProps) {
     switch (layout()) {
       case 'alternating':
         return cn(
-          'relative pb-8 last:pb-0 @lg:w-1/2',
+          'relative box-border pb-8 last:pb-0 @lg:w-1/2',
           numbered() ? 'pl-10' : 'pl-6',
           index % 2 === 0
             ? cn(
@@ -229,7 +229,7 @@ export function Timeline(props: TimelineProps) {
               >
                 <p
                   class={cn(
-                    'm-0 w-20 shrink-0 pr-4 text-right font-heading text-fluid-xl @sm:w-36 @sm:pr-6',
+                    'm-0 box-border w-20 shrink-0 pr-4 text-right font-heading text-fluid-xl @sm:w-36 @sm:pr-6',
                     label()
                   )}
                 >
@@ -237,7 +237,7 @@ export function Timeline(props: TimelineProps) {
                 </p>
                 <div
                   class={cn(
-                    'relative min-w-0 flex-1 border-l-2 pb-7 group-last:pb-0',
+                    'relative box-border min-w-0 flex-1 border-l-2 pb-7 group-last:pb-0',
                     numbered() ? 'pl-10' : 'pl-6',
                     Rail
                   )}

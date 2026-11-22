@@ -351,7 +351,7 @@ export function HeroBanner(props: HeroBannerProps) {
 
           <div
             class={cn(
-              'relative z-10 flex w-full max-w-7xl flex-col px-6 pt-72 @xl:px-10 @3xl:pt-20 @5xl:px-14',
+              'relative z-10 box-border flex w-full max-w-7xl flex-col px-6 pt-72 @xl:px-10 @3xl:pt-20 @5xl:px-14',
               split()
                 ? cn(
                     '@3xl:row-start-1 @3xl:justify-center @3xl:pt-16',
@@ -415,7 +415,7 @@ export function HeroBanner(props: HeroBannerProps) {
           <Show when={bottomContent()}>
             <div
               class={cn(
-                'relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 @xl:px-10 @5xl:px-14',
+                'relative z-10 mx-auto box-border w-full max-w-7xl px-6 pb-12 @xl:px-10 @5xl:px-14',
                 split() && '@3xl:col-span-2 @3xl:row-start-2'
               )}
             >
@@ -433,7 +433,7 @@ export function HeroBanner(props: HeroBannerProps) {
       </Show>
 
       <Show when={overlap()}>
-        <div class='relative z-10 mx-auto -mt-16 w-full max-w-7xl px-4 @xl:px-6 @3xl:-mt-20 @5xl:px-8'>
+        <div class='relative z-10 mx-auto -mt-16 box-border w-full max-w-7xl px-4 @xl:px-6 @3xl:-mt-20 @5xl:px-8'>
           {overlap()}
         </div>
       </Show>

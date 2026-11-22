@@ -20,7 +20,7 @@ export function InfoBadge(props: InfoBadgeProps) {
   return (
     <div
       class={cn(
-        'flex min-h-20 w-full max-w-64 flex-col justify-center gap-1 rounded-xl border p-3',
+        'box-border flex min-h-20 w-full max-w-64 flex-col justify-center gap-1 rounded-xl border p-3',
         'text-fluid-md leading-120 tracking-normal md:text-fluid-lg md:leading-120 2xl:tracking-tight-30',
         frame[variant()],
         props.class
