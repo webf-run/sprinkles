@@ -8,7 +8,7 @@ export default function Example() {
       </h3>
       <Timeline
         layout='split'
-        tone='highlight'
+        variant='highlight'
         items={[
           {
             label: '9:00',

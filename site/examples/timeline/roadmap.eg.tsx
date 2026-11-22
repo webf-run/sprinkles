@@ -8,7 +8,7 @@ export default function Example() {
       </h3>
       <Timeline
         layout='horizontal'
-        tone='informative'
+        variant='informative'
         items={[
           {
             label: 'Now',

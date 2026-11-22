@@ -11,7 +11,7 @@ export default function Example() {
           Arriving Thursday, 15 October
         </p>
         <Timeline
-          tone='positive'
+          variant='positive'
           items={[
             {
               label: 'Mon 12 Oct',

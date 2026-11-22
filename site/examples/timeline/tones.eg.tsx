@@ -1,8 +1,8 @@
 import { Timeline } from '@webf/sprinkles';
-import type { TimelineTone } from '@webf/sprinkles';
+import type { TimelineVariant } from '@webf/sprinkles';
 import { For } from 'solid-js';
 
-const tones: TimelineTone[] = [
+const tones: TimelineVariant[] = [
   'accent',
   'informative',
   'positive',
@@ -27,7 +27,7 @@ export default function Example() {
               {tone}
             </p>
             <Timeline
-              tone={tone}
+              variant={tone}
               items={[
                 { label: '2022', text: 'The idea' },
                 { label: '2024', text: 'The launch' },

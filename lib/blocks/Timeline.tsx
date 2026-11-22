@@ -1,5 +1,6 @@
 import { For, Show } from 'solid-js';
 
+import { cardSurface } from '../core/card';
 import { type Tone, ToneFill } from '../core/tone';
 import { cn } from '../utils';
 
@@ -26,14 +27,14 @@ export type TimelineLayout =
 export type TimelineMarker = 'dot' | 'number';
 
 /** Any of the library's tones, or `inverse` for a dark background. */
-export type TimelineTone = Tone | 'inverse';
+export type TimelineVariant = Tone | 'inverse';
 
 export interface TimelineProps {
   items: TimelineItem[];
   /** How the entries are arranged. Defaults to `vertical`. */
   layout?: TimelineLayout;
   /** The colour of the labels and markers. Defaults to `accent`. */
-  tone?: TimelineTone;
+  variant?: TimelineVariant;
   /** What marks each entry. Defaults to `dot`. */
   marker?: TimelineMarker;
   /** Sets the width and spacing of the whole timeline. */
@@ -66,14 +67,13 @@ const Rail = 'border-current/30';
 const RailBar = 'before:border-current/30';
 const RailBarWide = '@lg:before:border-current/30';
 
-/** The parts that don't depend on the tone: text, the marker's cut-out and card colours. */
+/** Colours on a light page and on a dark band; `undefined` falls back to the tone's. */
 const Looks = {
   default: {
     label: undefined,
     railText: undefined,
-    text: 'text-foreground-strongest',
-    cut: 'border-surface ring-surface',
-    card: 'border-border-muted bg-surface',
+    text: 'text-foreground-strong',
+    card: undefined,
   },
   // On `surface-inverse`: white text and the `highlight` colour, the one
   // tone designed for a dark band.
@@ -81,7 +81,6 @@ const Looks = {
     label: 'text-highlight',
     railText: 'text-foreground-inverse',
     text: 'text-foreground-inverse',
-    cut: 'border-surface-inverse ring-surface-inverse',
     card: 'border-border-inverse/20 bg-foreground-inverse/10',
   },
 } as const;
@@ -94,9 +93,10 @@ const Looks = {
 export function Timeline(props: TimelineProps) {
   const layout = () => props.layout ?? 'vertical';
   const numbered = () => props.marker === 'number';
-  const look = () => (props.tone === 'inverse' ? Looks.inverse : Looks.default);
+  const look = () =>
+    props.variant === 'inverse' ? Looks.inverse : Looks.default;
   const tone = (): Tone =>
-    props.tone === 'inverse' ? 'highlight' : (props.tone ?? 'accent');
+    props.variant === 'inverse' ? 'highlight' : (props.variant ?? 'accent');
   const label = () => look().label ?? LabelText[tone()];
   const railText = () => look().railText ?? LabelText[tone()];
 
@@ -179,7 +179,10 @@ export function Timeline(props: TimelineProps) {
       case 'split':
         return 'group flex';
       case 'cards':
-        return cn('flex flex-col gap-3 rounded-2xl border p-6', look().card);
+        return cn(
+          'flex flex-col gap-3 rounded-2xl border p-6',
+          look().card ?? cardSurface(tone(), 'outline')
+        );
       default:
         return cn('relative pb-7 last:pb-0', numbered() ? 'pl-10' : 'pl-6');
     }
@@ -190,11 +193,10 @@ export function Timeline(props: TimelineProps) {
       aria-hidden='true'
       class={cn(
         numbered()
-          ? 'grid size-7 place-items-center rounded-full text-fluid-xs font-semibold ring-4'
+          ? 'grid size-7 place-items-center rounded-full text-fluid-xs font-semibold'
           : layout() === 'cards'
             ? 'h-1 w-10 rounded-full'
-            : 'size-3 rounded-full border-2',
-        look().cut,
+            : 'size-3 rounded-full',
         ToneFill[tone()].bold,
         markerPlace(p.index)
       )}

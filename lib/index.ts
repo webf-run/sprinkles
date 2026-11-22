@@ -193,7 +193,7 @@ export type {
   TimelineLayout,
   TimelineMarker,
   TimelineProps,
-  TimelineTone,
+  TimelineVariant,
 } from './blocks/Timeline';
 export type { CtaCardProps } from './blocks/CtaCard';
 export type { CtaSectionProps, CtaSectionSurface } from './blocks/CtaSection';

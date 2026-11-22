@@ -5,7 +5,7 @@ export default function Example() {
     <Timeline
       class='w-full'
       layout='alternating'
-      tone='indigo'
+      variant='indigo'
       items={[
         {
           label: '2021',

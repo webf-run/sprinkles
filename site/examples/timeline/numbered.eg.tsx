@@ -5,7 +5,7 @@ export default function Example() {
     <Timeline
       class='w-full max-w-md'
       marker='number'
-      tone='informative'
+      variant='informative'
       items={[
         {
           label: 'Create your account',
