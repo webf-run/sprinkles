@@ -13,7 +13,7 @@ import {
   Table,
 } from '@webf/sprinkles';
 import Bell from 'lucide-solid/icons/bell';
-import CircleHelp from 'lucide-solid/icons/circle-help';
+import CircleQuestionMark from 'lucide-solid/icons/circle-question-mark';
 import Ellipsis from 'lucide-solid/icons/ellipsis';
 import FileText from 'lucide-solid/icons/file-text';
 import Image from 'lucide-solid/icons/image';
@@ -109,7 +109,7 @@ export default function Example() {
         }
         sidebarFooter={
           <AppShellNavGroup>
-            <AppShellNavItem href='#help' icon={CircleHelp}>
+            <AppShellNavItem href='#help' icon={CircleQuestionMark}>
               Help
             </AppShellNavItem>
           </AppShellNavGroup>

@@ -1,5 +1,5 @@
 import { Button } from '@webf/sprinkles';
-import Trash2 from 'lucide-solid/icons/trash-2';
+import Trash from 'lucide-solid/icons/trash';
 import { createSignal } from 'solid-js';
 
 import { toaster } from './toaster';
@@ -22,7 +22,7 @@ export default function Example() {
       <Button
         variant='negative'
         fillStyle='outline'
-        icon={Trash2}
+        icon={Trash}
         disabled={inTrash()}
         onClick={moveToTrash}
       >

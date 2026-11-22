@@ -6,10 +6,10 @@ import {
   type ToastOptions,
   createToaster as createArkToaster,
 } from '@ark-ui/solid/toast';
-import CircleAlert from 'lucide-solid/icons/circle-alert';
 import CircleCheck from 'lucide-solid/icons/circle-check';
+import CircleExclamationPoint from 'lucide-solid/icons/circle-exclamation-point';
 import Info from 'lucide-solid/icons/info';
-import TriangleAlert from 'lucide-solid/icons/triangle-alert';
+import TriangleExclamationPoint from 'lucide-solid/icons/triangle-exclamation-point';
 import X from 'lucide-solid/icons/x';
 import { type Accessor, type Component, Match, Show, Switch } from 'solid-js';
 import { Dynamic, Portal } from 'solid-js/web';
@@ -54,8 +54,8 @@ const IconByType: Record<
 > = {
   info: Info,
   success: CircleCheck,
-  warning: TriangleAlert,
-  error: CircleAlert,
+  warning: TriangleExclamationPoint,
+  error: CircleExclamationPoint,
 };
 
 /** Toasts take the colour of the bold fill, so buttons inside follow `currentColor`. */

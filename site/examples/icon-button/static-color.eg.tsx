@@ -1,7 +1,7 @@
 import { IconButton } from '@webf/sprinkles';
 import Expand from 'lucide-solid/icons/expand';
 import ImagePlus from 'lucide-solid/icons/image-plus';
-import Trash2 from 'lucide-solid/icons/trash-2';
+import Trash from 'lucide-solid/icons/trash';
 
 export default function Example() {
   return (
@@ -21,7 +21,7 @@ export default function Example() {
         <IconButton
           staticColor='white'
           quiet
-          icon={Trash2}
+          icon={Trash}
           aria-label='Remove image'
         />
       </div>
@@ -40,7 +40,7 @@ export default function Example() {
         <IconButton
           staticColor='black'
           quiet
-          icon={Trash2}
+          icon={Trash}
           aria-label='Remove image'
         />
       </div>

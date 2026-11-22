@@ -2,7 +2,7 @@ import { IconButton, Separator } from '@webf/sprinkles';
 import Copy from 'lucide-solid/icons/copy';
 import ExternalLink from 'lucide-solid/icons/external-link';
 import Pencil from 'lucide-solid/icons/pencil';
-import Trash2 from 'lucide-solid/icons/trash-2';
+import Trash from 'lucide-solid/icons/trash';
 
 export default function Example() {
   return (
@@ -18,7 +18,7 @@ export default function Example() {
       <IconButton
         quiet
         variant='negative'
-        icon={Trash2}
+        icon={Trash}
         aria-label='Delete page'
       />
     </div>
