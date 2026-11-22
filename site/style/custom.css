@@ -13,10 +13,10 @@
 @import '@fontsource-variable/jetbrains-mono';
 
 @import '../../lib/theme.css';
-@import './token.css';
 
 /* A second site's token values, for the header's theme switcher. Unlayered,
    so it overrides the base tokens. */
+
 @import './themes/studio.css';
 
 /* Starlight reads its UI and code fonts from these. */
@@ -50,13 +50,23 @@
   --sl-color-accent-high: #3730a3;
 }
 
-/* Starlight renders the page title in its own panel, with a hairline above
-   the content. The title is hidden (`#_top` below), which leaves an empty band
-   under the header on every page. Drop the panel and the hairline. */
-/* .content-panel:has(> .sl-container > #_top) {
-  display: none;
-} */
+/* The code panel under each preview: one pair per syntax role, following
+   `color-scheme`. */
+:root {
+  --doc-code-surface: light-dark(#f8fafc, #0f172a);
+  --doc-code-border: light-dark(#e2e8f0, #334155);
+  --doc-code-foreground: light-dark(#1e293b, #e2e8f0);
+  --doc-code-comment: light-dark(#64748b, #94a3b8);
+  --doc-code-punctuation: light-dark(#64748b, #cbd5e1);
+  --doc-code-keyword: light-dark(#be123c, #f9a8d4);
+  --doc-code-function: light-dark(#1d4ed8, #93c5fd);
+  --doc-code-string: light-dark(#0f766e, #86efac);
+  --doc-code-constant: light-dark(#6d28d9, #c4b5fd);
+  --doc-code-parameter: light-dark(#b45309, #fdba74);
+}
 
+/* Starlight puts the page title in its own panel, with a hairline above the
+   content. The title is hidden (`#_top` below), so drop the hairline. */
 .content-panel + .content-panel {
   border-top: 0;
 }
@@ -125,7 +135,7 @@ body {
 }
 
 .preview-header-label {
-  color: var(--doc-foreground-muted);
+  color: var(--sl-color-gray-3);
   font-family: var(--sl-font-mono);
   font-size: var(--sl-text-xs);
   font-weight: 500;
@@ -165,8 +175,8 @@ body {
   border-top: 1px solid var(--doc-code-border);
 
   /* Shiki's "css-variables" theme reads these instead of shipping its own
-     bundled theme, so the code panel follows the doc-code tokens and so the
-     docs' light/dark toggle. */
+     bundled theme, so the code panel follows the `--doc-code-*` colours
+     above and so the docs' light/dark toggle. */
   --astro-code-foreground: var(--doc-code-foreground);
   --astro-code-background: transparent;
   --astro-code-token-keyword: var(--doc-code-keyword);
