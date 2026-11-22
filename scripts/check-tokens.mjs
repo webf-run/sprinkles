@@ -205,6 +205,11 @@ function pairs() {
     if (role !== 'highlight') list.push([role, 'surface-muted', 4.5]);
   list.push(['foreground', 'surface-emphasis', 4.5]);
 
+  // Tone colours as text on the page: Timeline labels and outline badges.
+  for (const tone of [...ROLES, ...CATEGORICAL])
+    for (const surface of ['surface', 'surface-muted'])
+      list.push([`${tone}-subtle-foreground`, surface, 4.5]);
+
   list.push(['foreground-inverse', 'surface-inverse', 4.5]);
   list.push(['border-strong', 'surface', 3]);
   list.push(['focus-ring', 'surface', 3]);
