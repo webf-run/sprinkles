@@ -1,0 +1,163 @@
+---
+title: SearchField
+description: A text field for searching, with a button to clear it.
+sidebar:
+  order: 3
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/search-field/anatomy.eg.tsx';
+import DoLabel from '../../../examples/search-field/do-label.eg.tsx';
+import DontLabel from '../../../examples/search-field/dont-label.eg.tsx';
+import FormsOutput from '../../../examples/search-field/forms.eg.tsx';
+import formsCode from '../../../examples/search-field/forms.eg.tsx?raw';
+import SizesOutput from '../../../examples/search-field/sizes.eg.tsx';
+import sizesCode from '../../../examples/search-field/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/search-field/states.eg.tsx';
+import statesCode from '../../../examples/search-field/states.eg.tsx?raw';
+import ValueOutput from '../../../examples/search-field/value.eg.tsx';
+import valueCode from '../../../examples/search-field/value.eg.tsx?raw';
+
+```tsx
+import { SearchField } from '@webf/sprinkles';
+```
+
+A search field lets people type a search query and clear it again. It has a
+magnifier at the start and, once there is text, a button to clear it. For other
+single-line text, use a [TextField](/fields/text-field); to pick one value from
+a list of matches, a [Combobox](/fields/combobox).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Label', note: 'Names the field; an asterisk marks it required.' },
+    {
+      name: 'Search icon',
+      note: 'A magnifier at the start. It is decorative.',
+    },
+    { name: 'Input', note: 'The query, or the placeholder while empty.' },
+    {
+      name: 'Clear button',
+      note: 'Appears when there is text; empties the field and refocuses it.',
+    },
+    {
+      name: 'Description or error',
+      note: 'Help under the input; the error replaces it while invalid.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Value
+
+Use `value` to control the text, or `defaultValue` to set a starting value and
+let the field keep it. `onValueChange` receives the new text each time it
+changes. `onSubmit` receives the text when the user presses Enter, so you can
+search on submit instead of on every keystroke.
+
+<ExampleBlock code={valueCode}>
+  <ValueOutput client:load />
+</ExampleBlock>
+
+## Clearing
+
+The clear button and the Escape key both empty the field. `onValueChange` is
+called with an empty string, then `onClear` is called, and focus moves back to
+the input. Escape does nothing while the field is empty, so it still closes a
+dialog or popover the field sits in. A disabled or read-only field has no clear
+button.
+
+The button is named "Clear search" for screen readers. Use `clearLabel` to
+translate it.
+
+## Forms
+
+Use `name` to submit the text with a form. Pressing Enter inside a `<form>`
+submits the form as well as calling `onSubmit`. Set `required`, `minLength`,
+`maxLength` or `pattern` to validate with the browser, or set `invalid` and
+`errorText` to show your own client or server-side error.
+
+<ExampleBlock code={formsCode}>
+  <FormsOutput client:load />
+</ExampleBlock>
+
+## Types
+
+`type` is `search` by default, which gives phones a search keyboard. Set it to
+`text`, `url`, `tel`, `email` or `password` when the query has a known format.
+`enterKeyHint` sets the label or icon on a phone's Enter key and is `search` by
+default. `inputMode` picks the keyboard without changing the input's type.
+
+## Sizes
+
+S, M, L and XL are 24, 32, 40 and 48 px tall, the same scale as buttons and
+other fields, so a search field and a button side by side line up. M is the
+default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover darkens the outline; keyboard focus draws the focus ring. Invalid turns
+the outline negative and shows `errorText`. Disabled is greyed out and skipped
+by the Tab key. Read-only sits on a muted surface; it can be focused, selected
+and copied.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- A native `<input>`, so typing, selection and spell check work as people
+  expect. `enterKeyHint`, `inputMode` and `spellCheck` pass through to it.
+- The label names the input, and the description or error describes it; see
+  [Field](/fields/field). A search box often has no room for a visible label;
+  give it `aria-label` instead.
+- The search icon is decorative (`aria-hidden`).
+- The clear button has an accessible name and stays out of the Tab order.
+  Keyboard users clear with Escape, so there is no extra stop between the field
+  and the next control.
+- The outline is `border-strong`, which reaches 3:1 against the page.
+
+## Do and don't
+
+<DoDont
+  doText='Give a search box with no visible label an aria-label.'
+  dontText='Leave it with only a placeholder; the placeholder disappears as soon as someone types.'
+>
+  <DoLabel slot='do' client:load />
+  <DontLabel slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                                                                  | Default          |
+| --------------------------------------------- | ------------------------------------------------------------------------------------- | ---------------- |
+| `value`                                       | `string`                                                                              |                  |
+| `defaultValue`                                | `string`                                                                              |                  |
+| `onValueChange`                               | `(value: string) => void`                                                             |                  |
+| `onSubmit`                                    | `(value: string) => void`; called on Enter                                            |                  |
+| `onClear`                                     | `() => void`; called after the field is cleared                                       |                  |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                                                           | `'m'`            |
+| `type`                                        | `'search' \| 'text' \| 'url' \| 'tel' \| 'email' \| 'password'`                       | `'search'`       |
+| `placeholder`                                 | `string`                                                                              |                  |
+| `name`                                        | `string`                                                                              |                  |
+| `autocomplete`                                | `string`                                                                              |                  |
+| `minLength`, `maxLength`                      | `number`                                                                              |                  |
+| `pattern`                                     | `string`; a regular expression the whole text must match                              |                  |
+| `enterKeyHint`                                | `'enter' \| 'done' \| 'go' \| 'next' \| 'previous' \| 'search' \| 'send'`             | `'search'`       |
+| `inputMode`                                   | `'none' \| 'text' \| 'tel' \| 'url' \| 'email' \| 'numeric' \| 'decimal' \| 'search'` |                  |
+| `spellCheck`                                  | `boolean`                                                                             |                  |
+| `clearLabel`                                  | `string`; names the clear button                                                      | `'Clear search'` |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field)                                             |                  |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                                                             | `false`          |
+| `id`                                          | `string`; the input's id                                                              |                  |
+| `aria-label`                                  | `string`; required without a visible label                                            |                  |
