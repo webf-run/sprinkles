@@ -129,7 +129,7 @@ Each entry sits in a card with a coloured bar. Cards give every moment equal wei
 
 ## Colours
 
-The `tone` prop sets the colour of the labels and markers. It takes any of the library's tones: the roles (`accent`, `neutral`, `informative`, `positive`, `notice`, `negative`), `highlight`, and the categorical colours (`seafoam`, `indigo`, `purple`, `fuchsia`, `yellow`). The default is `accent`. Tones are semantic tokens, so a site that re-skins its tokens re-skins its timelines too, and each one looks right in the light and the dark scheme.
+The `variant` prop sets the colour of the labels and markers. It takes any of the library's tones: the roles (`accent`, `neutral`, `informative`, `positive`, `notice`, `negative`), `highlight`, and the categorical colours (`seafoam`, `indigo`, `purple`, `fuchsia`, `yellow`). The default is `accent`. Tones are semantic tokens, so a site that re-skins its tokens re-skins its timelines too, and each one looks right in the light and the dark scheme.
 
 <ExampleBlock code={tonesCode} filename='All tones'>
   <TonesOutput />
@@ -155,7 +155,7 @@ Set `marker='number'` to number the entries. It suits steps that happen in order
 
 ### On dark backgrounds
 
-Set `tone='inverse'` when the timeline sits on a dark band (`bg-surface-inverse`). The text turns white, the rail turns pale, and the labels and markers use the `highlight` colour, the one tone made for dark bands. The timeline does not draw its own background, so put it on one.
+Set `variant='inverse'` when the timeline sits on a dark band (`bg-surface-inverse`). The text turns white, the rail turns pale, and the labels and markers use the `highlight` colour, the one tone made for dark bands. The timeline does not draw its own background, so put it on one.
 
 <ExampleBlock code={inverseCode} filename='Dark band'>
   <InverseOutput />
@@ -262,7 +262,7 @@ Put a short introduction beside the timeline for an "Our story" section. The exa
 - It is an ordered list (`<ol>`), so screen readers announce how many entries there are and which one they are on.
 - The markers are decorative and hidden from assistive technology. Everything that matters is in the label and the text.
 - Put the entries in the order you want them read, usually oldest first. A roadmap reads best soonest first. The `alternating` layout keeps the same reading order as the list.
-- The numbers inside markers use the tone's own pair of colours, which `pnpm check:tokens` checks at 4.5:1. Label colours also reach 4.5:1 on the `surface` and `surface-muted` backgrounds, in both schemes. On the tinted `surface-tint`, check the `positive` tone, which is 4.4:1. Dark backgrounds use white text on `surface-inverse`.
+- The numbers inside markers use the tone's own pair of colours, which `pnpm check:tokens` checks at 4.5:1. Label colours also reach 4.5:1 on the `surface` and `surface-muted` backgrounds, in both schemes, and `pnpm check:tokens` checks them too. On the tinted `surface-tint`, check the `positive` tone, which is 4.4:1. Dark backgrounds use white text on `surface-inverse`.
 
 ## Do and don't
 
@@ -276,10 +276,10 @@ Put a short introduction beside the timeline for an "Our story" section. The exa
 
 ## Props
 
-| Prop     | Type                                                                                                                                                                         | Default    |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| `items`  | `{ label: string; text: string }[]`                                                                                                                                          |            |
-| `layout` | `'vertical'`, `'split'`, `'alternating'`, `'horizontal'` or `'cards'`                                                                                                        | `vertical` |
-| `tone`   | `'accent'`, `'neutral'`, `'informative'`, `'positive'`, `'notice'`, `'negative'`, `'highlight'`, `'seafoam'`, `'indigo'`, `'purple'`, `'fuchsia'`, `'yellow'` or `'inverse'` | `accent`   |
-| `marker` | `'dot'` or `'number'`                                                                                                                                                        | `dot`      |
-| `class`  | `string`; sets the width and spacing                                                                                                                                         |            |
+| Prop      | Type                                                                                                                                                                         | Default    |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| `items`   | `{ label: string; text: string }[]`                                                                                                                                          |            |
+| `layout`  | `'vertical'`, `'split'`, `'alternating'`, `'horizontal'` or `'cards'`                                                                                                        | `vertical` |
+| `variant` | `'accent'`, `'neutral'`, `'informative'`, `'positive'`, `'notice'`, `'negative'`, `'highlight'`, `'seafoam'`, `'indigo'`, `'purple'`, `'fuchsia'`, `'yellow'` or `'inverse'` | `accent`   |
+| `marker`  | `'dot'` or `'number'`                                                                                                                                                        | `dot`      |
+| `class`   | `string`; sets the width and spacing                                                                                                                                         |            |

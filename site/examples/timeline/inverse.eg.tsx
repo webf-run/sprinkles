@@ -8,7 +8,7 @@ export default function Example() {
       </h3>
       <Timeline
         layout='cards'
-        tone='inverse'
+        variant='inverse'
         items={[
           {
             label: 'Spring',

@@ -5,7 +5,7 @@ export default function Example() {
     <Timeline
       class='w-full max-w-xl'
       layout='split'
-      tone='neutral'
+      variant='neutral'
       items={[
         {
           label: '2023 – now',

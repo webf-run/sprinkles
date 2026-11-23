@@ -1,6 +1,6 @@
 import { StatCard } from '@webf/sprinkles';
 import Briefcase from 'lucide-solid/icons/briefcase';
-import Building2 from 'lucide-solid/icons/building-2';
+import BuildingComplex from 'lucide-solid/icons/building-complex';
 import Users from 'lucide-solid/icons/users';
 
 export default function Example() {
@@ -14,7 +14,7 @@ export default function Example() {
         variant='positive'
       />
       <StatCard
-        icon={Building2}
+        icon={BuildingComplex}
         value='45'
         label='Recruiters'
         variant='informative'

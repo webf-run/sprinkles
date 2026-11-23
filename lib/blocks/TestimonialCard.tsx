@@ -8,7 +8,7 @@ import type { FillStyle } from '../core/control';
 import { type Tone, toTone } from '../core/tone';
 import { cn } from '../utils';
 
-const card = cva('m-0 flex w-full flex-col rounded-2xl border', {
+const card = cva('m-0 box-border flex w-full flex-col rounded-2xl border', {
   variants: {
     size: {
       s: 'gap-3 p-5',

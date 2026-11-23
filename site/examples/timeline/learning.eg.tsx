@@ -6,7 +6,7 @@ export default function Example() {
       class='w-full'
       layout='cards'
       marker='number'
-      tone='purple'
+      variant='purple'
       items={[
         {
           label: 'Week 1',

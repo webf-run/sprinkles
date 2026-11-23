@@ -1,7 +1,7 @@
-import CircleAlert from 'lucide-solid/icons/circle-alert';
 import CircleCheck from 'lucide-solid/icons/circle-check';
+import CircleExclamationPoint from 'lucide-solid/icons/circle-exclamation-point';
 import Info from 'lucide-solid/icons/info';
-import TriangleAlert from 'lucide-solid/icons/triangle-alert';
+import TriangleExclamationPoint from 'lucide-solid/icons/triangle-exclamation-point';
 import { type Component, type JSX, Show } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
@@ -69,8 +69,8 @@ const Icons: Record<
   neutral: undefined,
   informative: Info,
   positive: CircleCheck,
-  notice: TriangleAlert,
-  negative: CircleAlert,
+  notice: TriangleExclamationPoint,
+  negative: CircleExclamationPoint,
 };
 
 /**

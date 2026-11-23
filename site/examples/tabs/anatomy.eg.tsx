@@ -1,6 +1,6 @@
 import { Tabs } from '@webf/sprinkles';
 import FileText from 'lucide-solid/icons/file-text';
-import History from 'lucide-solid/icons/history';
+import RotateCcwClock from 'lucide-solid/icons/rotate-ccw-clock';
 import Search from 'lucide-solid/icons/search';
 
 export default function Example() {
@@ -25,7 +25,7 @@ export default function Example() {
         {
           value: 'history',
           label: 'History',
-          icon: History,
+          icon: RotateCcwClock,
           content: 'Every published version.',
         },
       ]}

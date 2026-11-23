@@ -41,7 +41,6 @@ lib/
   style.css    entry for the precompiled dist/style.css
 site/style/
   custom.css   the docs site's stylesheet (Starlight + Tailwind)
-  token.css    tokens used only by the docs site
 ```
 
 ### `lib/theme.css`: design tokens
@@ -75,12 +74,14 @@ This follows Starlight's Tailwind recipe (`@astrojs/starlight-tailwind`):
   Tailwind classes win over Starlight's styles.
 - No Preflight globally, because it would strip Starlight's content styles
   such as list bullets and link styling.
-- Imports `lib/theme.css` and `site/style/token.css`, and sets the site fonts
-  through `--font-sans` / `--font-mono`, which Starlight reads.
+- Imports `lib/theme.css`, and sets the site fonts through `--font-sans` /
+  `--font-mono`, which Starlight reads.
 - Starlight's styles are layered, so plain unlayered rules override them. You
   don't need `!important` or Astro's hashed class names (`.astro-xxxx`).
-- Component previews get no extra reset, so they show components as an app
-  without Preflight would see them.
+- Starlight and its Tailwind preset reset every element (border-box sizing,
+  no margins or borders, inherited form fonts). A rule in `@layer components`
+  undoes that wherever components render, overlays included, so the docs show
+  components as an app without Preflight would see them.
 
 ### Components don't rely on Preflight
 

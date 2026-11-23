@@ -42,7 +42,7 @@ export default function Example() {
       secondaryAction={{ label: 'Explore our services', href: '#services' }}
       note='Same-week appointments · Video or in person'
       mediaContent={
-        <ul class='m-0 w-full max-w-xs list-none divide-y divide-border-muted overflow-hidden rounded-2xl border border-border-muted bg-surface/95 p-0 shadow-elevated backdrop-blur-md'>
+        <ul class='m-0 box-border w-full max-w-xs list-none divide-y divide-border-muted overflow-hidden rounded-2xl border border-border-muted bg-surface/95 p-0 shadow-elevated backdrop-blur-md'>
           <For each={points}>
             {(point) => (
               <li class='flex items-center gap-4 px-5 py-4 @max-xl:nth-3:hidden'>

@@ -12,7 +12,7 @@ import Settings from 'lucide-solid/icons/settings';
 
 export default function Example() {
   return (
-    <div class='h-96 w-full max-w-sm overflow-hidden rounded-2xl border border-border-muted'>
+    <div class='box-border h-96 w-full max-w-sm overflow-hidden rounded-2xl border border-border-muted'>
       <AppShell
         class='h-full'
         brand='webf CMS'

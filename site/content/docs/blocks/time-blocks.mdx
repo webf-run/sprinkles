@@ -1,193 +1,148 @@
 ---
 title: Time blocks
-description: Booking, scheduling and settings sections built with TimeField, in different colours and layouts.
+description: Ready-made sections that use TimeField for the time of day, built from the existing TimeField examples.
 ---
 
+import { TimeField } from '@webf/sprinkles';
+
+import DoDont from '../../../playground/DoDont.astro';
 import ExampleBlock from '../../../playground/ExampleBlock.astro';
 
-import AlarmOutput from '../../../examples/time-field/alarm.eg.tsx';
-import alarmCode from '../../../examples/time-field/alarm.eg.tsx?raw';
-import CallbackOutput from '../../../examples/time-field/callback.eg.tsx';
-import callbackCode from '../../../examples/time-field/callback.eg.tsx?raw';
-import CarRentalOutput from '../../../examples/time-field/car-rental.eg.tsx';
-import carRentalCode from '../../../examples/time-field/car-rental.eg.tsx?raw';
-import ClinicOutput from '../../../examples/time-field/clinic.eg.tsx';
-import clinicCode from '../../../examples/time-field/clinic.eg.tsx?raw';
-import DeliveryOutput from '../../../examples/time-field/delivery.eg.tsx';
-import deliveryCode from '../../../examples/time-field/delivery.eg.tsx?raw';
-import EventOutput from '../../../examples/time-field/event.eg.tsx';
-import eventCode from '../../../examples/time-field/event.eg.tsx?raw';
-import FlightOutput from '../../../examples/time-field/flight.eg.tsx';
-import flightCode from '../../../examples/time-field/flight.eg.tsx?raw';
-import GymOutput from '../../../examples/time-field/gym.eg.tsx';
-import gymCode from '../../../examples/time-field/gym.eg.tsx?raw';
-import HotelOutput from '../../../examples/time-field/hotel.eg.tsx';
-import hotelCode from '../../../examples/time-field/hotel.eg.tsx?raw';
-import NewsletterOutput from '../../../examples/time-field/newsletter.eg.tsx';
-import newsletterCode from '../../../examples/time-field/newsletter.eg.tsx?raw';
-import OpeningHoursOutput from '../../../examples/time-field/opening-hours.eg.tsx';
-import openingHoursCode from '../../../examples/time-field/opening-hours.eg.tsx?raw';
-import QuietHoursOutput from '../../../examples/time-field/quiet-hours.eg.tsx';
-import quietHoursCode from '../../../examples/time-field/quiet-hours.eg.tsx?raw';
-import RemindersOutput from '../../../examples/time-field/reminders.eg.tsx';
-import remindersCode from '../../../examples/time-field/reminders.eg.tsx?raw';
-import RestaurantOutput from '../../../examples/time-field/restaurant.eg.tsx';
-import restaurantCode from '../../../examples/time-field/restaurant.eg.tsx?raw';
-import SalonOutput from '../../../examples/time-field/salon.eg.tsx';
-import salonCode from '../../../examples/time-field/salon.eg.tsx?raw';
-import SchedulePostOutput from '../../../examples/time-field/schedule-post.eg.tsx';
-import schedulePostCode from '../../../examples/time-field/schedule-post.eg.tsx?raw';
-import ShiftRotaOutput from '../../../examples/time-field/shift-rota.eg.tsx';
-import shiftRotaCode from '../../../examples/time-field/shift-rota.eg.tsx?raw';
-import WebinarOutput from '../../../examples/time-field/webinar.eg.tsx';
-import webinarCode from '../../../examples/time-field/webinar.eg.tsx?raw';
+import AppearanceOutput from '../../../examples/time-field/appearance.eg.tsx';
+import appearanceCode from '../../../examples/time-field/appearance.eg.tsx?raw';
+import ConstraintsOutput from '../../../examples/time-field/constraints.eg.tsx';
+import constraintsCode from '../../../examples/time-field/constraints.eg.tsx?raw';
+import FormOutput from '../../../examples/time-field/form.eg.tsx';
+import formCode from '../../../examples/time-field/form.eg.tsx?raw';
+import GranularityOutput from '../../../examples/time-field/granularity.eg.tsx';
+import granularityCode from '../../../examples/time-field/granularity.eg.tsx?raw';
+import HourCycleOutput from '../../../examples/time-field/hour-cycle.eg.tsx';
+import hourCycleCode from '../../../examples/time-field/hour-cycle.eg.tsx?raw';
+import StatesOutput from '../../../examples/time-field/states.eg.tsx';
+import statesCode from '../../../examples/time-field/states.eg.tsx?raw';
+import ValueOutput from '../../../examples/time-field/value.eg.tsx';
+import valueCode from '../../../examples/time-field/value.eg.tsx?raw';
 
 Ready-made sections that use [TimeField](/fields/time-field) for the time of
-day: booking cards, search strips, admin tables and settings panels. Each one
-changes the colour (`tone`), the fill (`outline`, `subtle` or `quiet`), the
-size and the layout around the field, so you can start from the one closest to
-your site. For every prop, see the [TimeField reference](/fields/time-field).
+day. Each one starts from a common use, such as booking an appointment or
+submitting a form, so you can copy the closest one into your site. For every
+prop, see the [TimeField reference](/fields/time-field).
 
-## Clinic booking
+## Appointment booking
 
-A health or beauty site: 15-minute slots inside opening hours, in a tinted `informative` field.
+Limit the choice to opening hours with `min` and `max`, and offer 15-minute
+slots with `minuteStep`.
 
-<ExampleBlock code={clinicCode}>
-  <ClinicOutput client:load />
+<ExampleBlock code={constraintsCode}>
+  <ConstraintsOutput client:load />
 </ExampleBlock>
 
-## Restaurant reservation
+## Meeting form
 
-Date, time and party size on one row, with half-hour slots and a `notice` tint.
+A plain form field. Give it a `name` and the time is submitted with the form.
 
-<ExampleBlock code={restaurantCode}>
-  <RestaurantOutput client:load />
+<ExampleBlock code={formCode}>
+  <FormOutput client:load />
 </ExampleBlock>
 
-## Salon or spa
+## Appearance
 
-Popular slots as chips, plus the field for any other time, on a `fuchsia` card.
+The default field, a quiet underline field, and a tinted field with an icon.
 
-<ExampleBlock code={salonCode}>
-  <SalonOutput client:load />
+<ExampleBlock code={appearanceCode}>
+  <AppearanceOutput client:load />
 </ExampleBlock>
 
-## Hotel check-in and check-out
+## 12-hour and 24-hour time
 
-Arrival and departure as two halves of one card, each with its own tone and limit.
+Show AM and PM, show 24-hour time, or follow a locale such as `en-GB`.
 
-<ExampleBlock code={hotelCode}>
-  <HotelOutput client:load />
+<ExampleBlock code={hourCycleCode}>
+  <HourCycleOutput client:load />
 </ExampleBlock>
 
-## Car rental
+## Hours, minutes and seconds
 
-Pick-up and drop-off as two rows of date and time.
+Choose the smallest unit people can enter, from hour only up to seconds.
 
-<ExampleBlock code={carRentalCode}>
-  <CarRentalOutput client:load />
+<ExampleBlock code={granularityCode}>
+  <GranularityOutput client:load />
 </ExampleBlock>
 
-## Flight search
+## Controlled value
 
-A wide indigo strip: a route, “depart after”, “arrive before” and a search button.
+Keep the time in your own state and show it elsewhere on the page.
 
-<ExampleBlock code={flightCode}>
-  <FlightOutput client:load />
+<ExampleBlock code={valueCode}>
+  <ValueOutput client:load />
 </ExampleBlock>
 
-## Delivery window
+## Field states
 
-Two linked fields in `positive` green; the end can’t come before the start.
+Required, read-only, disabled and invalid fields, for settings and review screens.
 
-<ExampleBlock code={deliveryCode}>
-  <DeliveryOutput client:load />
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
 </ExampleBlock>
 
-## Webinar sign-up
+## Writing good entries
 
-A split layout: the pitch on a `seafoam` panel, the form beside it.
+- Name what the time is for: “Pick-up time” or “Appointment time”, not just “Time”.
+- Put the rules in `description`, in plain words: “Open 9:00 AM to 5:00 PM.” People see them before they choose.
+- Make `errorText` say what to do next: “Choose a time between 9:00 AM and 5:00 PM.”
+- Use the 12-hour clock for customers and the 24-hour clock for rotas and timetables. Use one style across a page.
+- Show only the units people need. Use `granularity='hour'` for whole hours and add seconds only for alarms and timers.
+- Use `minuteStep` to match your slots, such as 15 for appointments, so the arrow keys only land on times you accept.
 
-<ExampleBlock code={webinarCode}>
-  <WebinarOutput client:load />
-</ExampleBlock>
+## Accessibility
 
-## Event schedule
+- Give every field a visible `label`. Use `aria-label` only where a label truly can't fit, such as a field inside a table row.
+- Each segment (hour, minute, AM/PM) is a spin button with a localized name and its current value, so screen readers announce it and the arrow keys change it.
+- `required`, `disabled` and `readOnly` are exposed to assistive technology.
+- Don't rely on colour alone to show an invalid time. Always add `errorText` that explains the problem.
+- When two fields depend on each other, such as a start and an end time, say the rule in `description` so it is read with the field.
 
-Start and end in 24-hour time with 5-minute steps, on a `fuchsia` card that shows the length.
+## Do and don't
 
-<ExampleBlock code={eventCode}>
-  <EventOutput client:load />
-</ExampleBlock>
+<DoDont
+  doText='Use a specific label and say the allowed hours in the description.'
+  dontText='Use a vague label with no hint about which times are accepted.'
+>
+  <div slot='do' class='grid w-full max-w-xs'>
+    <TimeField
+      client:load
+      label='Pick-up time'
+      description='Pick-ups are from 9:00 AM to 5:00 PM.'
+      min='09:00'
+      max='17:00'
+      defaultValue='10:00'
+    />
+  </div>
+  <div slot='dont' class='grid w-full max-w-xs'>
+    <TimeField client:load label='Time' defaultValue='10:00' />
+  </div>
+</DoDont>
 
-## Gym timetable
+## Props
 
-A list of classes with a level badge and a quiet start-time field.
+These blocks are built from [TimeField](/fields/time-field), so they take its props.
 
-<ExampleBlock code={gymCode}>
-  <GymOutput client:load />
-</ExampleBlock>
-
-## Opening hours
-
-One quiet row per day, with a “Closed” switch that disables the row.
-
-<ExampleBlock code={openingHoursCode}>
-  <OpeningHoursOutput client:load />
-</ExampleBlock>
-
-## Staff rota
-
-A dense table of small fields that works out the hours worked.
-
-<ExampleBlock code={shiftRotaCode}>
-  <ShiftRotaOutput client:load />
-</ExampleBlock>
-
-## Quiet hours setting
-
-A settings card whose fields appear when the switch is on.
-
-<ExampleBlock code={quietHoursCode}>
-  <QuietHoursOutput client:load />
-</ExampleBlock>
-
-## Medicine reminders
-
-A list of times a day that people add and remove, in `yellow`.
-
-<ExampleBlock code={remindersCode}>
-  <RemindersOutput client:load />
-</ExampleBlock>
-
-## Scheduled post
-
-A CMS card that pairs a DatePicker with a `purple` time field.
-
-<ExampleBlock code={schedulePostCode}>
-  <SchedulePostOutput client:load />
-</ExampleBlock>
-
-## Newsletter send time
-
-A dark card with the `highlight` tone and one-click suggested times.
-
-<ExampleBlock code={newsletterCode}>
-  <NewsletterOutput client:load />
-</ExampleBlock>
-
-## Call-back request
-
-A marketing band: the field sits on a dark `surface-inverse`.
-
-<ExampleBlock code={callbackCode}>
-  <CallbackOutput client:load />
-</ExampleBlock>
-
-## Alarm or timer
-
-Extra large, with seconds, centred in an `indigo` card.
-
-<ExampleBlock code={alarmCode}>
-  <AlarmOutput client:load />
-</ExampleBlock>
+| Prop                                          | Type                              | Default            |
+| --------------------------------------------- | --------------------------------- | ------------------ |
+| `value`                                       | `string \| null`                  | —                  |
+| `defaultValue`                                | `string \| null`                  | —                  |
+| `onValueChange`                               | `(value: string \| null) => void` | —                  |
+| `granularity`                                 | `'hour' \| 'minute' \| 'second'`  | `'minute'`         |
+| `hourCycle`                                   | `12 \| 24`                        | Locale             |
+| `locale`                                      | `string` (BCP 47)                 | Ark locale context |
+| `min`, `max`                                  | `string` (`HH:mm` or `HH:mm:ss`)  | —                  |
+| `minuteStep`                                  | `number` (positive integer)       | `1`                |
+| `placeholderValue`                            | `string` (`HH:mm`)                | `'00:00'`          |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`       | `'m'`              |
+| `tone`                                        | `Tone`                            | `'accent'`         |
+| `fillStyle`                                   | `'outline' \| 'subtle'`           | `'outline'`        |
+| `quiet`, `icon`                               | `boolean`                         | `false`            |
+| `name`                                        | `string`                          | —                  |
+| `label`, `description`, `errorText`           | `JSX.Element`                     | —                  |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                         | `false`            |
+| `id`, `aria-label`, `class`                   | `string`                          | —                  |

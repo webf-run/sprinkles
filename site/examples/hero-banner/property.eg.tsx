@@ -24,7 +24,7 @@ export default function Example() {
 
       mediaContent={
         <div class='flex w-full max-w-lg flex-col items-center justify-center gap-6 @xl:flex-row'>
-          <div class='grid size-44 shrink-0 place-items-center rounded-full border-4 border-highlight/40 bg-highlight shadow-elevated @xl:size-48'>
+          <div class='box-border grid size-44 shrink-0 place-items-center rounded-full border-4 border-highlight/40 bg-highlight shadow-elevated @xl:size-48'>
             <div class='text-center'>
               <p class='m-0 text-xs font-semibold tracking-wide-130 text-highlight-foreground uppercase'>
                 Starting from
@@ -40,7 +40,7 @@ export default function Example() {
             </div>
           </div>
 
-          <div class='w-full min-w-0 flex-1 rounded-2xl bg-surface-inverse/90 p-5 shadow-elevated'>
+          <div class='box-border w-full min-w-0 flex-1 rounded-2xl bg-surface-inverse/90 p-5 shadow-elevated'>
             <p class='m-0 mb-4 text-base font-semibold text-foreground-inverse'>
               Property highlights
             </p>

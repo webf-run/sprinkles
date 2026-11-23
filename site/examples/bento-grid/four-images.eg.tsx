@@ -1,12 +1,12 @@
 import { BentoGrid } from '@webf/sprinkles';
 
-/** Green tone, all photos. Every badge, check mark and button shares the tone. */
+/** Seafoam, all photos: every badge and check mark shares the grid's `variant`. */
 export default function Example() {
   return (
     <BentoGrid
-      tone='seafoam'
+      variant='seafoam'
       label='Weekend escapes'
-      images={[
+      items={[
         {
           src: '/images/cc/lake-silhouette.jpg',
           alt: 'A hiker silhouetted beside a still mountain lake under a bright sun',

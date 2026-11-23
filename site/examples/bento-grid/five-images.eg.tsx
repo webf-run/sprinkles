@@ -1,12 +1,12 @@
 import { BentoGrid } from '@webf/sprinkles';
 
-/** Blue tone, all photos, with a panoramic banner along the bottom. */
+/** Indigo, all photos, with a panoramic banner along the bottom. */
 export default function Example() {
   return (
     <BentoGrid
-      tone='indigo'
+      variant='indigo'
       label='Campus life'
-      images={[
+      items={[
         {
           src: '/images/cc/cool-campus.jpg',
           alt: 'Ivy-covered stone campus buildings',

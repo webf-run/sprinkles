@@ -33,7 +33,7 @@ export function QuickLinkCard(props: QuickLinkCardProps) {
   return (
     <article
       class={cn(
-        'group relative flex w-full flex-col items-start gap-6 rounded-2xl border p-6',
+        'group relative box-border flex w-full flex-col items-start gap-6 rounded-2xl border p-6',
         cardSurface(tone(), fill()),
         CardLift,
         'active:translate-y-0 active:shadow-none',

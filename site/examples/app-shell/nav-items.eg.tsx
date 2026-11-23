@@ -8,7 +8,7 @@ export default function Example() {
   return (
     <nav
       aria-label='Nav item states'
-      class='w-64 rounded-2xl border border-border-muted bg-surface p-3'
+      class='box-border w-64 rounded-2xl border border-border-muted bg-surface p-3'
     >
       <AppShellNavGroup label='Content'>
         <AppShellNavItem href='#pages' icon={FileText} current>

@@ -7,7 +7,7 @@ export default function Example() {
         Baking since 1987
       </h3>
       <Timeline
-        tone='notice'
+        variant='notice'
         items={[
           {
             label: '1987',

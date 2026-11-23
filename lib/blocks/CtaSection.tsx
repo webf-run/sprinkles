@@ -55,7 +55,7 @@ export function CtaSection(props: CtaSectionProps) {
       aria-labelledby={titleId}
       class={cn('w-full', colours().root, props.class)}
     >
-      <div class='mx-auto flex w-full max-w-4xl flex-col items-center px-4 py-16 text-center sm:px-6 md:py-24'>
+      <div class='mx-auto box-border flex w-full max-w-4xl flex-col items-center px-4 py-16 text-center sm:px-6 md:py-24'>
         <Show when={props.eyebrow}>
           <Badge
             size='l'

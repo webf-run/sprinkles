@@ -21,7 +21,7 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
       fallback={
         <div
           class={cn(
-            'flex w-full flex-col gap-3 rounded-2xl border border-accent bg-surface p-6 shadow-elevated',
+            'box-border flex w-full flex-col gap-3 rounded-2xl border border-accent bg-surface p-6 shadow-elevated',
             'md:p-8 xl:px-12 xl:py-14',
             props.class
           )}
@@ -54,7 +54,7 @@ export function NumberedFeatureCard(props: NumberedFeatureCardProps) {
     >
       <div
         class={cn(
-          'flex w-full items-center gap-3 rounded-xl border border-border-subtle bg-surface',
+          'box-border flex w-full items-center gap-3 rounded-xl border border-border-subtle bg-surface',
           'px-4 py-3 md:px-6 md:py-4 2xl:px-8',
           props.class
         )}

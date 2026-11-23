@@ -6,8 +6,8 @@ import { Dynamic } from 'solid-js/web';
 
 import { Badge, type BadgeVariant } from '../components/Badge';
 import { Button, type ButtonVariant } from '../components/Button';
-import { CardLift } from '../core/card';
-import { FocusRing, type FillStyle, Transition } from '../core/control';
+import { cardIcon, cardSurface } from '../core/card';
+import { type FillStyle, FocusRing, Transition } from '../core/control';
 import { type Tone, ToneFill } from '../core/tone';
 import type { IconComponent } from '../types';
 import { cn } from '../utils';
@@ -15,13 +15,13 @@ import { cn } from '../utils';
 /** Where the photo is anchored inside its tile, so the subject stays in frame as the tile changes shape. */
 export type BentoImagePosition = 'center' | 'top' | 'bottom' | 'left' | 'right';
 
-/** `start` puts the largest photo on the leading side; `end` mirrors the arrangement. */
-export type BentoGridLayout = 'start' | 'end';
+/** Which side the largest tile sits on. */
+export type BentoGridLeadSide = 'start' | 'end';
 
 export interface BentoAction {
   label: string;
   href: string;
-  /** Defaults to a white button, which reads on any photo. */
+  /** Defaults to white on a photo, `secondary` on a bold card and `primary` on a subtle one. */
   variant?: ButtonVariant;
 }
 
@@ -29,31 +29,33 @@ export interface BentoImage {
   src: string;
   /** Describes the photo for screen readers. Required. */
   alt: string;
-  /** A short heading shown over the photo. */
   title?: string;
-  /** One or two lines shown with the title. */
+  /** One or two lines under the title. */
   description?: string;
   /** A small label in the top corner: a category, a price, a status. */
   badge?: string;
+  /** The badge's colour. Defaults to the grid's `variant`, then white. */
   badgeVariant?: BadgeVariant;
-  /** Short “check points” listed over the photo. Best on the larger tiles. */
+  /** Short check points under the description. */
   checklist?: string[];
-  /** A button over the photo. Best on the larger tiles. */
+  /** A button under the text. */
   action?: BentoAction;
   /** Where the photo is anchored. Defaults to `center`. */
   position?: BentoImagePosition;
-  /** Shown under the grid, so licences that ask for attribution are met. */
+  /** Starts the heart as saved, e.g. from the visitor's stored favourites. */
+  defaultSaved?: boolean;
+  /** Listed under the grid, so licences that ask for attribution are met. */
   credit?: { text: string; href?: string };
 }
 
 /**
- * A solid tile with no photo: a headline figure, a call to action, a short
- * list. It sits in the mosaic like a photo does, so a grid can mix both.
+ * A tile with no photo: a headline figure, a call to action, a short list.
+ * It sits in the mosaic like a photo does, so a grid can mix both.
  */
 export interface BentoCard {
-  /** The tile's colour. Defaults to the grid's `tone`, then `accent`. */
-  tone?: Tone;
-  /** `bold` is a solid tile; `subtle` is a tinted one. Defaults to `bold`. */
+  /** The card's colour. Defaults to the grid's `variant`, then `accent`. */
+  variant?: Tone;
+  /** `bold` is a solid card; `subtle` is a tinted one. Defaults to `bold`. */
   fillStyle?: Extract<FillStyle, 'bold' | 'subtle'>;
   icon?: IconComponent;
   badge?: string;
@@ -63,7 +65,7 @@ export interface BentoCard {
   description?: string;
   checklist?: string[];
   action?: BentoAction;
-  /** A photo set into the card, filling the space above the text. Shown where there is room. */
+  /** A photo set into the card, above the text. Shown where there is room. */
   media?: { src: string; alt: string; position?: BentoImagePosition };
   /** Credit for the `media` photo, listed under the grid. */
   credit?: { text: string; href?: string };
@@ -73,15 +75,15 @@ export type BentoItem = BentoImage | BentoCard;
 
 export interface BentoGridProps {
   /** Two to six photos or cards, arranged for you; extras beyond six are ignored. */
-  images: BentoItem[];
+  items: BentoItem[];
   /**
-   * The colour of the badges, check marks and buttons. Leave it out for the
-   * basic look: white glass badges and white buttons that suit any photo.
+   * The colour of the photo badges and check marks, and the cards' default
+   * colour. Leave it out for white badges and check marks, which suit any photo.
    */
-  tone?: Tone;
-  /** Mirrors the arrangement. Defaults to `start`. */
-  layout?: BentoGridLayout;
-  /** Adds a heart on every tile that visitors can toggle. */
+  variant?: Tone;
+  /** Defaults to `start`. */
+  leadSide?: BentoGridLeadSide;
+  /** Adds a heart to every photo that visitors can toggle. */
   favorites?: boolean;
   /** Called when a visitor saves or unsaves a photo. */
   onFavoriteChange?: (image: BentoImage, saved: boolean) => void;
@@ -95,9 +97,10 @@ export interface BentoGridProps {
 }
 
 /*
- * Each tile is [column, row, columnSpan, rowSpan, wide] on a 4-column grid
- * (md and up). `wide` tiles span the full width on a phone, where the grid is
- * two columns. Everything else is one cell.
+ * Each tile is [column, row, columnSpan, rowSpan, wide] on a 4-column mosaic.
+ * Narrower than 42rem the grid has two columns: `wide` tiles span both, the
+ * rest are square. Breakpoints are container queries, so the layout follows
+ * the grid's width, not the window's.
  */
 type Slot = readonly [number, number, number, number, boolean];
 
@@ -140,24 +143,29 @@ const Rows: Record<number, 2 | 3> = { 1: 2, 2: 2, 3: 2, 4: 2, 5: 3, 6: 3 };
 // Whole class names, so Tailwind can find them.
 const ColStart = [
   '',
-  'md:col-start-1',
-  'md:col-start-2',
-  'md:col-start-3',
-  'md:col-start-4',
+  '@2xl:col-start-1',
+  '@2xl:col-start-2',
+  '@2xl:col-start-3',
+  '@2xl:col-start-4',
 ];
-const RowStart = ['', 'md:row-start-1', 'md:row-start-2', 'md:row-start-3'];
+const RowStart = [
+  '',
+  '@2xl:row-start-1',
+  '@2xl:row-start-2',
+  '@2xl:row-start-3',
+];
 const ColSpan = [
   '',
-  'md:col-span-1',
-  'md:col-span-2',
-  'md:col-span-3',
-  'md:col-span-4',
+  '@2xl:col-span-1',
+  '@2xl:col-span-2',
+  '@2xl:col-span-3',
+  '@2xl:col-span-4',
 ];
-const RowSpan = ['', 'md:row-span-1', 'md:row-span-2'];
+const RowSpan = ['', '@2xl:row-span-1', '@2xl:row-span-2'];
 
 const GridRows = {
-  2: 'md:grid-rows-2 md:h-112 lg:h-136',
-  3: 'md:grid-rows-3 md:h-144 lg:h-176',
+  2: '@2xl:grid-rows-2 @2xl:h-112 @4xl:h-136',
+  3: '@2xl:grid-rows-3 @2xl:h-144 @4xl:h-176',
 } as const;
 
 const Positions: Record<BentoImagePosition, string> = {
@@ -173,7 +181,7 @@ function place([col, row, colSpan, rowSpan, wide]: Slot, mirror: boolean) {
 
   return cn(
     wide ? 'col-span-2 aspect-4/3' : 'aspect-square',
-    'md:aspect-auto',
+    '@2xl:aspect-auto',
     ColStart[start],
     RowStart[row],
     ColSpan[colSpan],
@@ -181,80 +189,72 @@ function place([col, row, colSpan, rowSpan, wide]: Slot, mirror: boolean) {
   );
 }
 
-/** Which tiles have room for the description, check points and button at each size. */
-function detailsVisibility([, , colSpan, rowSpan, wide]: Slot) {
+/**
+ * Room for the description, check points and a card's photo: `full` at every
+ * width, `mosaic` only in the 4-column mosaic, `none` never.
+ */
+type Room = 'full' | 'mosaic' | 'none';
+
+function roomOf([, , colSpan, rowSpan, wide]: Slot): Room {
   const roomy = colSpan * rowSpan >= 2;
 
-  if (wide && roomy) return '';
-  if (roomy) return 'max-md:hidden';
-  return 'hidden';
+  if (wide && roomy) return 'full';
+  return roomy ? 'mosaic' : 'none';
 }
 
-const ActionBase = cn(
-  'box-border inline-flex h-8 cursor-pointer items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold whitespace-nowrap no-underline',
-  'motion-safe:transition motion-safe:duration-100 motion-safe:ease-standard hover:opacity-90',
-  FocusRing
+/** Text a tile has no room for stays in the page for screen readers. */
+const DetailsVisibility: Record<Room, string> = {
+  full: '',
+  mosaic: '@max-2xl:sr-only',
+  none: 'sr-only',
+};
+
+const MediaVisibility: Record<Room, string> = {
+  full: '',
+  mosaic: '@max-2xl:hidden',
+  none: 'hidden',
+};
+
+/** The button always shows; tiles without room get the smaller size. */
+const ActionSize: Record<Room, 's' | 'm'> = {
+  full: 'm',
+  mosaic: 's',
+  none: 's',
+};
+
+const Title =
+  'm-0 font-heading text-lg leading-snug font-semibold text-balance @2xl:text-xl';
+
+/**
+ * Text over a photo sits on at least 56% black, so white text keeps 4.5:1
+ * even on a white photo. The scrim grows with the caption and fades out
+ * above it.
+ */
+const Scrim = cn(
+  'bg-linear-to-t from-black/72 to-black/56',
+  'before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-12 before:bg-linear-to-t before:from-black/56 before:to-transparent'
 );
-
-interface ActionLinkProps {
-  action: BentoAction;
-  /** The grid's tone; without one, the action is a white Button. */
-  tone?: Tone;
-  /** Overrides the tone's colours, e.g. on a solid card. */
-  look?: string;
-  iconEnd: IconComponent;
-}
-
-/** The button over a tile: white by default, in the grid's tone when it has one. */
-function ActionLink(props: ActionLinkProps) {
-  return (
-    <Show
-      when={props.tone || props.look}
-      fallback={
-        <Button
-          href={props.action.href}
-          size='m'
-          variant={props.action.variant ?? 'secondary'}
-          staticColor={props.action.variant ? undefined : 'white'}
-          iconEnd={props.iconEnd}
-        >
-          {props.action.label}
-        </Button>
-      }
-    >
-      <a
-        href={props.action.href}
-        class={cn(
-          ActionBase,
-          props.look ?? (props.tone ? ToneFill[props.tone].bold : undefined)
-        )}
-      >
-        {props.action.label}
-        <Dynamic component={props.iconEnd} aria-hidden='true' class='size-4' />
-      </a>
-    </Show>
-  );
-}
 
 interface CardTileProps {
   card: BentoCard;
   slot: Slot;
   mirror: boolean;
-  tone?: Tone;
+  variant?: Tone;
   headingLevel: number;
 }
 
+/** A solid or tinted card, styled like the other marketing cards. */
 function CardTile(props: CardTileProps) {
-  const tone = (): Tone => props.card.tone ?? props.tone ?? 'accent';
+  const tone = (): Tone => props.card.variant ?? props.variant ?? 'accent';
   const fill = () => props.card.fillStyle ?? 'bold';
   const bold = () => fill() === 'bold';
+  const room = () => roomOf(props.slot);
 
   return (
     <div
       class={cn(
-        'group relative isolate m-0 flex min-h-0 scheme-light flex-col gap-3 overflow-hidden rounded-2xl p-4 md:p-5',
-        ToneFill[tone()][fill()],
-        CardLift,
+        'relative isolate m-0 box-border flex min-h-0 flex-col gap-3 overflow-hidden rounded-2xl p-4 @2xl:p-5',
+        cardSurface(tone(), fill()),
         place(props.slot, props.mirror)
       )}
     >
@@ -264,7 +264,10 @@ function CardTile(props: CardTileProps) {
             {(icon) => (
               <span
                 aria-hidden='true'
-                class='flex size-10 shrink-0 items-center justify-center rounded-xl bg-current/16'
+                class={cn(
+                  'flex size-10 shrink-0 items-center justify-center rounded-xl',
+                  cardIcon(tone(), fill())
+                )}
               >
                 <Dynamic component={icon()} class='size-5' />
               </span>
@@ -274,9 +277,8 @@ function CardTile(props: CardTileProps) {
             <Badge
               size='l'
               class='ml-auto'
+              variant={tone()}
               fillStyle={bold() ? 'subtle' : 'bold'}
-              variant={bold() ? undefined : tone()}
-              staticColor={bold() ? 'white' : undefined}
             >
               {props.card.badge}
             </Badge>
@@ -289,7 +291,7 @@ function CardTile(props: CardTileProps) {
           <div
             class={cn(
               'relative min-h-0 flex-1 overflow-hidden rounded-xl',
-              detailsVisibility(props.slot)
+              MediaVisibility[room()]
             )}
           >
             <img
@@ -299,36 +301,28 @@ function CardTile(props: CardTileProps) {
               decoding='async'
               class={cn(
                 'absolute inset-0 size-full object-cover',
-                Positions[media().position ?? 'center'],
-                'motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-standard group-hover:scale-105'
+                Positions[media().position ?? 'center']
               )}
             />
           </div>
         )}
       </Show>
 
-      <div class='mt-auto flex flex-col gap-2'>
-        <Show when={props.card.stat}>
-          <p class='m-0 text-fluid-3xl leading-none font-semibold tracking-tight'>
-            {props.card.stat}
-          </p>
-        </Show>
+      <div class='mt-auto flex flex-col gap-3'>
+        <div class='flex flex-col gap-2'>
+          <Show when={props.card.stat}>
+            <p class='m-0 text-fluid-3xl leading-none font-semibold tracking-tight'>
+              {props.card.stat}
+            </p>
+          </Show>
 
-        <Dynamic
-          component={`h${props.headingLevel}`}
-          class='m-0 text-lg leading-snug font-semibold text-balance md:text-xl'
-        >
-          {props.card.title}
-        </Dynamic>
+          <Dynamic component={`h${props.headingLevel}`} class={Title}>
+            {props.card.title}
+          </Dynamic>
+        </div>
 
-        <Show
-          when={
-            props.card.description ||
-            props.card.checklist?.length ||
-            props.card.action
-          }
-        >
-          <div class={cn('flex flex-col gap-3', detailsVisibility(props.slot))}>
+        <Show when={props.card.description || props.card.checklist?.length}>
+          <div class={cn('flex flex-col gap-3', DetailsVisibility[room()])}>
             <Show when={props.card.description}>
               <p class='m-0 text-sm leading-normal text-pretty'>
                 {props.card.description}
@@ -342,7 +336,10 @@ function CardTile(props: CardTileProps) {
                     <li class='flex items-center gap-2'>
                       <span
                         aria-hidden='true'
-                        class='flex size-5 shrink-0 items-center justify-center rounded-full bg-current/16'
+                        class={cn(
+                          'flex size-5 shrink-0 items-center justify-center rounded-full',
+                          cardIcon(tone(), fill())
+                        )}
                       >
                         <Check class='size-3' />
                       </span>
@@ -352,23 +349,22 @@ function CardTile(props: CardTileProps) {
                 </For>
               </ul>
             </Show>
-
-            <Show when={props.card.action}>
-              {(action) => (
-                <div>
-                  <ActionLink
-                    action={action()}
-                    look={
-                      bold()
-                        ? 'bg-surface text-foreground-strongest'
-                        : ToneFill[tone()].bold
-                    }
-                    iconEnd={ArrowUpRight}
-                  />
-                </div>
-              )}
-            </Show>
           </div>
+        </Show>
+
+        <Show when={props.card.action}>
+          {(action) => (
+            <div>
+              <Button
+                href={action().href}
+                size={ActionSize[room()]}
+                variant={action().variant ?? (bold() ? 'secondary' : 'primary')}
+                iconEnd={ArrowUpRight}
+              >
+                {action().label}
+              </Button>
+            </div>
+          )}
         </Show>
       </div>
     </div>
@@ -379,27 +375,30 @@ function isCard(item: BentoItem): item is BentoCard {
   return !('src' in item);
 }
 
-interface TileProps {
+interface PhotoTileProps {
   image: BentoImage;
   slot: Slot;
   mirror: boolean;
+  /** The first tile, usually on screen when the page opens: not lazy-loaded. */
+  lead: boolean;
   favorites?: boolean;
-  tone?: Tone;
+  variant?: Tone;
   headingLevel: number;
   onFavoriteChange?: (image: BentoImage, saved: boolean) => void;
 }
 
-function PhotoTile(props: TileProps) {
-  const [saved, setSaved] = createSignal(false);
-  const hasText = () => Boolean(props.image.title || props.image.description);
+/*
+ * `scheme-light` keeps a photo tile the same in a dark page: its colours are
+ * static white and black, like a photo's.
+ */
+function PhotoTile(props: PhotoTileProps) {
+  const [saved, setSaved] = createSignal(props.image.defaultSaved ?? false);
+  const room = () => roomOf(props.slot);
   const hasDetails = () =>
-    Boolean(
-      props.image.description ||
-      props.image.checklist?.length ||
-      props.image.action
-    );
-
-  const badgeTone = () => props.image.badgeVariant ?? props.tone;
+    Boolean(props.image.description || props.image.checklist?.length);
+  const hasCaption = () =>
+    Boolean(props.image.title || hasDetails() || props.image.action);
+  const badgeTone = () => props.image.badgeVariant ?? props.variant;
 
   const toggle = () => {
     const next = !saved();
@@ -410,36 +409,26 @@ function PhotoTile(props: TileProps) {
   return (
     <figure
       class={cn(
-        'group relative isolate m-0 min-h-0 scheme-light overflow-hidden rounded-2xl bg-black',
-        'motion-safe:transition-shadow motion-safe:duration-200 motion-safe:ease-standard hover:shadow-elevated',
+        'relative isolate m-0 min-h-0 scheme-light overflow-hidden rounded-2xl bg-black',
         place(props.slot, props.mirror)
       )}
     >
       <img
         src={props.image.src}
         alt={props.image.alt}
-        loading='lazy'
+        loading={props.lead ? undefined : 'lazy'}
         decoding='async'
         class={cn(
           'absolute inset-0 size-full object-cover',
-          Positions[props.image.position ?? 'center'],
-          'motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-standard',
-          'group-hover:scale-105 group-focus-within:scale-105'
+          Positions[props.image.position ?? 'center']
         )}
       />
 
-      <Show when={hasText() || props.image.checklist || props.image.action}>
-        <div
-          aria-hidden='true'
-          class='pointer-events-none absolute inset-0 bg-linear-to-t from-black/75 via-black/15 to-transparent'
-        />
-      </Show>
-
       <Show when={props.image.badge}>
-        <div class='absolute top-3 left-3 z-10 md:top-4 md:left-4'>
+        <div class='absolute top-3 left-3 z-20 @2xl:top-4 @2xl:left-4'>
           <Badge
             size='l'
-            fillStyle={badgeTone() ? 'bold' : 'subtle'}
+            fillStyle='bold'
             variant={badgeTone()}
             staticColor={badgeTone() ? undefined : 'white'}
           >
@@ -455,7 +444,7 @@ function PhotoTile(props: TileProps) {
           aria-label={`Save ${props.image.title ?? props.image.alt}`}
           onClick={toggle}
           class={cn(
-            'absolute top-3 right-3 z-10 box-border inline-flex size-10 cursor-pointer items-center justify-center rounded-full border-0 bg-black/40 p-0 text-white backdrop-blur-sm hover:bg-black/60 md:top-4 md:right-4',
+            'absolute top-3 right-3 z-20 m-0 box-border inline-flex size-10 cursor-pointer items-center justify-center rounded-full border-0 bg-black/56 p-0 text-white backdrop-blur-sm hover:bg-black/72 active:bg-black/80 @2xl:top-4 @2xl:right-4',
             FocusRing,
             Transition
           )}
@@ -464,34 +453,27 @@ function PhotoTile(props: TileProps) {
             aria-hidden='true'
             class={cn(
               'size-5 motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-emphasized',
-              saved() && 'scale-110 fill-current text-negative'
+              saved() && 'scale-110 fill-current'
             )}
           />
         </button>
       </Show>
 
-      <Show when={hasText() || hasDetails()}>
-        <figcaption class='absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 p-4 text-white md:p-5'>
+      <Show when={hasCaption()}>
+        <figcaption
+          class={cn(
+            'absolute inset-x-0 bottom-0 z-10 flex flex-col gap-3 p-4 text-white @2xl:p-5',
+            Scrim
+          )}
+        >
           <Show when={props.image.title}>
-            <Dynamic
-              component={`h${props.headingLevel}`}
-              class='m-0 text-lg leading-snug font-semibold text-balance md:text-xl'
-            >
+            <Dynamic component={`h${props.headingLevel}`} class={Title}>
               {props.image.title}
             </Dynamic>
           </Show>
 
           <Show when={hasDetails()}>
-            <div
-              class={cn(
-                'flex flex-col gap-3 overflow-hidden py-1',
-                // Fine pointers see a clean photo and reveal the details on
-                // hover or focus; touch screens always show them.
-                'pointer-fine:max-h-0 pointer-fine:opacity-0 motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-standard',
-                'pointer-fine:group-hover:max-h-64 pointer-fine:group-hover:opacity-100 pointer-fine:group-focus-within:max-h-64 pointer-fine:group-focus-within:opacity-100',
-                detailsVisibility(props.slot)
-              )}
-            >
+            <div class={cn('flex flex-col gap-3', DetailsVisibility[room()])}>
               <Show when={props.image.description}>
                 <p class='m-0 text-sm leading-normal text-pretty'>
                   {props.image.description}
@@ -507,8 +489,8 @@ function PhotoTile(props: TileProps) {
                           aria-hidden='true'
                           class={cn(
                             'flex size-5 shrink-0 items-center justify-center rounded-full',
-                            props.tone
-                              ? ToneFill[props.tone].bold
+                            props.variant
+                              ? ToneFill[props.variant].bold
                               : 'bg-white text-black'
                           )}
                         >
@@ -520,19 +502,23 @@ function PhotoTile(props: TileProps) {
                   </For>
                 </ul>
               </Show>
-
-              <Show when={props.image.action}>
-                {(action) => (
-                  <div>
-                    <ActionLink
-                      action={action()}
-                      tone={props.tone}
-                      iconEnd={ArrowUpRight}
-                    />
-                  </div>
-                )}
-              </Show>
             </div>
+          </Show>
+
+          <Show when={props.image.action}>
+            {(action) => (
+              <div>
+                <Button
+                  href={action().href}
+                  size={ActionSize[room()]}
+                  variant={action().variant ?? 'secondary'}
+                  staticColor={action().variant ? undefined : 'white'}
+                  iconEnd={ArrowUpRight}
+                >
+                  {action().label}
+                </Button>
+              </div>
+            )}
           </Show>
         </figcaption>
       </Show>
@@ -541,54 +527,51 @@ function PhotoTile(props: TileProps) {
 }
 
 /**
- * A bento grid: two to six photos, or solid cards mixed in with them, in a mosaic where one photo is larger than
- * the rest. The arrangement is chosen from the number of images, keeps one gap
- * between every tile, and reflows from a 4-column mosaic (tablet and desktop)
- * to a 2-column stack on phones. Photos can carry a title, a badge, check
- * points and a button, and fine pointers reveal the details on hover.
+ * Two to six photos, or cards mixed in with them, in a mosaic led by one
+ * large tile. The arrangement follows the number of items and reflows from a
+ * 4-column mosaic to two columns when the grid is narrower than 42rem.
  */
 export function BentoGrid(props: BentoGridProps) {
-  const images = () => props.images.slice(0, 6);
-  const count = () => Math.max(images().length, 1);
+  const items = () => props.items.slice(0, 6);
+  const count = () => Math.max(items().length, 1);
   const slots = () => Slots[count()];
-  const mirror = () => props.layout === 'end';
-  const credits = () => images().filter((item) => item.credit);
+  const mirror = () => props.leadSide === 'end';
+  const level = () => props.headingLevel ?? 3;
+  const credits = () => items().filter((item) => item.credit);
 
   return (
-    <div class={cn('w-full', props.class)}>
+    <div class={cn('@container w-full', props.class)}>
       <div
         role={props.label ? 'group' : undefined}
         aria-label={props.label}
         class={cn(
-          'grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4',
+          'grid grid-cols-2 gap-3 @2xl:grid-cols-4 @2xl:gap-4',
           GridRows[Rows[count()]]
         )}
       >
-        <For each={images()}>
-          {(item, index) => {
-            const slot = () => slots()[index()];
-            const level = () => props.headingLevel ?? 3;
-
-            return isCard(item) ? (
+        <For each={items()}>
+          {(item, index) =>
+            isCard(item) ? (
               <CardTile
                 card={item}
-                slot={slot()}
+                slot={slots()[index()]}
                 mirror={mirror()}
-                tone={props.tone}
+                variant={props.variant}
                 headingLevel={level()}
               />
             ) : (
               <PhotoTile
                 image={item}
-                slot={slot()}
+                slot={slots()[index()]}
                 mirror={mirror()}
+                lead={index() === 0}
                 favorites={props.favorites}
-                tone={props.tone}
+                variant={props.variant}
                 headingLevel={level()}
                 onFavoriteChange={props.onFavoriteChange}
               />
-            );
-          }}
+            )
+          }
         </For>
       </div>
 
@@ -596,16 +579,16 @@ export function BentoGrid(props: BentoGridProps) {
         <p class='m-0 mt-3 text-xs leading-normal text-foreground-muted'>
           Photos:{' '}
           <For each={credits()}>
-            {(image, index) => (
+            {(item, index) => (
               <>
                 <Show when={index() > 0}>{' · '}</Show>
-                <Show when={image.credit?.href} fallback={image.credit?.text}>
+                <Show when={item.credit?.href} fallback={item.credit?.text}>
                   <a
-                    href={image.credit?.href}
+                    href={item.credit?.href}
                     rel='noopener noreferrer'
-                    class='text-inherit underline-offset-2 hover:underline'
+                    class='text-inherit underline decoration-current/40 underline-offset-2 hover:decoration-current'
                   >
-                    {image.credit?.text}
+                    {item.credit?.text}
                   </a>
                 </Show>
               </>

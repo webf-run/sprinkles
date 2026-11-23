@@ -13,7 +13,7 @@ import {
   Table,
 } from '@webf/sprinkles';
 import Bell from 'lucide-solid/icons/bell';
-import CircleHelp from 'lucide-solid/icons/circle-help';
+import CircleQuestionMark from 'lucide-solid/icons/circle-question-mark';
 import Ellipsis from 'lucide-solid/icons/ellipsis';
 import FileText from 'lucide-solid/icons/file-text';
 import Image from 'lucide-solid/icons/image';
@@ -60,7 +60,7 @@ const StatusVariant = {
 
 export default function Example() {
   return (
-    <div class='h-120 w-full overflow-hidden rounded-2xl border border-border-muted'>
+    <div class='box-border h-120 w-full overflow-hidden rounded-2xl border border-border-muted'>
       <AppShell
         class='h-full'
         brand={
@@ -82,7 +82,7 @@ export default function Example() {
           <button
             type='button'
             aria-label='Account: Meera Iyer'
-            class='m-0 flex size-8 cursor-pointer items-center justify-center rounded-full border-0 bg-accent-subtle p-0 text-xs font-semibold text-accent-subtle-foreground outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring'
+            class='m-0 flex size-8 cursor-pointer items-center justify-center rounded-full border-0 bg-accent-subtle p-0 font-inherit text-xs font-semibold text-accent-subtle-foreground outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring'
           >
             MI
           </button>
@@ -109,7 +109,7 @@ export default function Example() {
         }
         sidebarFooter={
           <AppShellNavGroup>
-            <AppShellNavItem href='#help' icon={CircleHelp}>
+            <AppShellNavItem href='#help' icon={CircleQuestionMark}>
               Help
             </AppShellNavItem>
           </AppShellNavGroup>

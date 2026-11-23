@@ -25,7 +25,7 @@ export function CtaCard(props: CtaCardProps) {
   return (
     <section
       class={cn(
-        'flex w-full flex-col items-start rounded-3xl bg-surface-muted p-6 sm:p-8',
+        'box-border flex w-full flex-col items-start rounded-3xl bg-surface-muted p-6 sm:p-8',
         props.class
       )}
     >

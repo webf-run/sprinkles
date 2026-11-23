@@ -1,7 +1,7 @@
 import { Button } from '@webf/sprinkles';
 import ArrowRight from 'lucide-solid/icons/arrow-right';
 import Download from 'lucide-solid/icons/download';
-import Trash2 from 'lucide-solid/icons/trash-2';
+import Trash from 'lucide-solid/icons/trash';
 
 export default function Example() {
   return (
@@ -13,7 +13,7 @@ export default function Example() {
       <Button
         variant='negative'
         fillStyle='outline'
-        icon={Trash2}
+        icon={Trash}
         aria-label='Delete page'
       />
     </>

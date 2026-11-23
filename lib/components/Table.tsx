@@ -96,7 +96,12 @@ export function Table(props: TableProps) {
 
   return (
     <TableStyleContext.Provider value={style}>
-      <div class={cn('relative w-full min-w-0 overflow-auto', local.class)}>
+      <div
+        class={cn(
+          'relative box-border w-full min-w-0 overflow-auto',
+          local.class
+        )}
+      >
         <table
           {...rest}
           class='m-0 w-full border-separate border-spacing-0 text-sm text-foreground'
@@ -208,7 +213,7 @@ export interface THProps {
 }
 
 const SortButton = [
-  'm-0 inline-flex cursor-pointer items-center gap-1 rounded-sm border-0 bg-transparent p-0 font-semibold text-inherit',
+  'm-0 inline-flex cursor-pointer items-center gap-1 rounded-sm border-0 bg-transparent p-0 font-inherit text-sm font-semibold text-inherit',
   'hover:text-foreground-strongest',
   FocusRing,
   Transition,

@@ -1,23 +1,25 @@
 ---
 import Default from '@astrojs/starlight/components/Sidebar.astro';
 
-import { getSection, sections } from '../../data/Sections';
-
-const current = getSection(Astro.url.pathname);
+// Replaces the plugin's own topic list: the header shows the topics instead.
+const { topics } = Astro.locals.starlightSidebarTopics;
 ---
 
 {/* Phones hide the header nav, so offer the same sections here. */}
-<nav aria-label='Sections' class:list={['mb-4 flex flex-wrap gap-1', 'md:hidden']}>
+<nav
+  aria-label='Sections'
+  class:list={['mb-4 flex flex-wrap gap-1', 'md:hidden']}
+>
   {
-    sections.map((section) => (
+    topics.map((topic) => (
       <a
-        href={section.href}
-        aria-current={section.id === current ? 'page' : undefined}
+        href={topic.link}
+        aria-current={topic.isCurrent ? 'page' : undefined}
         class:list={[
           'rounded-lg px-3 py-1.5',
           'text-sm font-medium no-underline',
           'transition-colors duration-150',
-          section.id === current
+          topic.isCurrent
             ? 'bg-(--sl-color-accent-low) text-(--sl-color-text-accent)'
             : [
                 'text-(--sl-color-gray-3)',
@@ -26,7 +28,7 @@ const current = getSection(Astro.url.pathname);
               ],
         ]}
       >
-        {section.label}
+        {topic.label}
       </a>
     ))
   }

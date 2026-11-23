@@ -1,12 +1,12 @@
 import { BentoGrid } from '@webf/sprinkles';
 
-/** The basic look: no tone, so badges and buttons are white and sit quietly on any photo. */
+/** The basic look: no `variant`, so badges, check marks and buttons are white and suit any photo. */
 export default function Example() {
   return (
     <BentoGrid
       label='From our market table'
       favorites
-      images={[
+      items={[
         {
           src: '/images/cc/sourdough.jpg',
           alt: 'A round sourdough loaf with a spiral scoring pattern, cooling on a wire rack',

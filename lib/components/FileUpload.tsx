@@ -1,6 +1,6 @@
 import { useFieldContext } from '@ark-ui/solid/field';
 import { FileUpload as ArkFileUpload } from '@ark-ui/solid/file-upload';
-import CircleAlert from 'lucide-solid/icons/circle-alert';
+import CircleExclamationPoint from 'lucide-solid/icons/circle-exclamation-point';
 import FileText from 'lucide-solid/icons/file-text';
 import Upload from 'lucide-solid/icons/upload';
 import X from 'lucide-solid/icons/x';
@@ -240,7 +240,10 @@ function FileUploadBody(props: FileUploadProps) {
                           'bg-negative-subtle text-negative'
                         )}
                       >
-                        <CircleAlert class='size-5' aria-hidden='true' />
+                        <CircleExclamationPoint
+                          class='size-5'
+                          aria-hidden='true'
+                        />
                       </span>
                       <span class='flex min-w-0 flex-1 flex-col'>
                         <ArkFileUpload.ItemName class='truncate text-sm font-medium text-foreground-strong' />

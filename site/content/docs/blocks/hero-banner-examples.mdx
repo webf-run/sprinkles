@@ -1,0 +1,218 @@
+---
+title: HeroBanner Examples
+description: Explore HeroBanner layouts, colour treatments and real-world website examples.
+template: splash
+sidebar:
+  hidden: true
+---
+
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import BakeryOutput from '../../../examples/hero-banner/bakery.eg.tsx';
+import bakeryCode from '../../../examples/hero-banner/bakery.eg.tsx?raw';
+import CoursesOutput from '../../../examples/hero-banner/courses.eg.tsx';
+import coursesCode from '../../../examples/hero-banner/courses.eg.tsx?raw';
+import DoItems from '../../../examples/hero-banner/do-items.eg.tsx';
+import DontItems from '../../../examples/hero-banner/dont-items.eg.tsx';
+import EventOutput from '../../../examples/hero-banner/event.eg.tsx';
+import eventCode from '../../../examples/hero-banner/event.eg.tsx?raw';
+import FinanceOutput from '../../../examples/hero-banner/finance.eg.tsx';
+import financeCode from '../../../examples/hero-banner/finance.eg.tsx?raw';
+import GroceryOutput from '../../../examples/hero-banner/grocery.eg.tsx';
+import groceryCode from '../../../examples/hero-banner/grocery.eg.tsx?raw';
+import NonprofitOutput from '../../../examples/hero-banner/nonprofit.eg.tsx';
+import nonprofitCode from '../../../examples/hero-banner/nonprofit.eg.tsx?raw';
+import OutdoorsOutput from '../../../examples/hero-banner/outdoors.eg.tsx';
+import outdoorsCode from '../../../examples/hero-banner/outdoors.eg.tsx?raw';
+import OverlapOutput from '../../../examples/hero-banner/overlap.eg.tsx';
+import overlapCode from '../../../examples/hero-banner/overlap.eg.tsx?raw';
+import PropertyOutput from '../../../examples/hero-banner/property.eg.tsx';
+import propertyCode from '../../../examples/hero-banner/property.eg.tsx?raw';
+import RestaurantOutput from '../../../examples/hero-banner/restaurant.eg.tsx';
+import restaurantCode from '../../../examples/hero-banner/restaurant.eg.tsx?raw';
+import SaasOutput from '../../../examples/hero-banner/saas.eg.tsx';
+import saasCode from '../../../examples/hero-banner/saas.eg.tsx?raw';
+import TravelOutput from '../../../examples/hero-banner/travel.eg.tsx';
+import travelCode from '../../../examples/hero-banner/travel.eg.tsx?raw';
+import WellnessOutput from '../../../examples/hero-banner/wellness.eg.tsx';
+import wellnessCode from '../../../examples/hero-banner/wellness.eg.tsx?raw';
+
+[Back to HeroBanner overview](/blocks/hero-banner).
+
+HeroBanner can adapt to different brands and industries through its image,
+colour variant, alignment and layout. These examples show how the same
+component can support different content needs without repeating one visual
+composition.
+
+## Education and community
+
+### University with overlapping statistics
+
+A university banner can introduce the institution and bring key facts forward.
+The statistics overlap the bottom edge, creating a clear connection between
+the headline and supporting information.
+
+<ExampleBlock code={overlapCode} filename='University'>
+  <OverlapOutput />
+</ExampleBlock>
+
+### Charity and nonprofit
+
+A `positive` band and centred message put the organisation's impact first.
+The impact figures overlap the bottom edge, giving supporters useful context
+without competing with the main call to action.
+
+<ExampleBlock code={nonprofitCode} filename='Nonprofit'>
+  <NonprofitOutput />
+</ExampleBlock>
+
+### Online learning
+
+A `split` banner puts the photo on the left and the copy on the right
+(`contentSide='end'`). An `indigo` band and progress card suggest the
+experience learners can expect after signing up.
+
+<ExampleBlock code={coursesCode} filename='Courses'>
+  <CoursesOutput />
+</ExampleBlock>
+
+## Business, finance and technology
+
+### Software and technology
+
+An `indigo` overlay with centred copy suits a product-led page. A short
+`note` below the buttons answers common questions about cost and compatibility.
+
+<ExampleBlock code={saasCode} filename='SaaS'>
+  <SaasOutput />
+</ExampleBlock>
+
+### Finance and public services
+
+A full-width banner (`fullWidth`) uses `bottomContent` to place three service
+cards along the lower edge of the photo. This keeps useful entry points close
+to the main message.
+
+<ExampleBlock code={financeCode} filename='Finance'>
+  <FinanceOutput />
+</ExampleBlock>
+
+### Real estate
+
+A `split` banner places the copy on the left and the photo on the right,
+fading into the `informative` band. A search card in `mediaContent` gives
+visitors a direct starting point.
+
+<ExampleBlock code={propertyCode} filename='Property'>
+  <PropertyOutput />
+</ExampleBlock>
+
+## Food, retail and hospitality
+
+### Restaurant and retail
+
+The photo fills the banner. With `align='center'`, the `highlight` variant
+creates a soft cream area behind the copy while leaving the photo visible
+around the edges. `bottomContent` adds three short facts along the bottom.
+
+<ExampleBlock code={restaurantCode} filename='Restaurant'>
+  <RestaurantOutput />
+</ExampleBlock>
+
+### Bakery and cafe
+
+A `framed` banner places the copy on the right (`contentSide='end'`) with a
+warm `highlight` band. A menu-style list of today's bakes and their ready
+times floats over the photo through `mediaContent`.
+
+<ExampleBlock code={bakeryCode} filename='Bakery'>
+  <BakeryOutput />
+</ExampleBlock>
+
+### Grocery and farm boxes
+
+A `split` banner in the `positive` variant places the photo on the left.
+A numbered “how it works” stepper in `mediaContent` sits on a white card over
+the photo, keeping the steps readable.
+
+<ExampleBlock code={groceryCode} filename='Grocery'>
+  <GroceryOutput />
+</ExampleBlock>
+
+## Travel, wellness and events
+
+### Travel and media
+
+The copy sits on the right (`contentSide='end'`), leaving the lake visible
+on the left. A glass price card in `mediaContent` gives visitors a clear
+starting price.
+
+<ExampleBlock code={travelCode} filename='Travel'>
+  <TravelOutput />
+</ExampleBlock>
+
+### Clinic and wellness
+
+The `framed` layout puts the doctor's photo in its own rounded panel beside
+the copy, using the `positive` variant. A booking card in `mediaContent`
+highlights the next available slot and supporting appointment details.
+
+<ExampleBlock code={wellnessCode} filename='Wellness'>
+  <WellnessOutput />
+</ExampleBlock>
+
+### Outdoor clubs and memberships
+
+The `light` variant keeps the left side of the banner pale and lets the lake
+show on the right. A price card in `mediaContent` compares monthly and annual
+plans.
+
+<ExampleBlock code={outdoorsCode} filename='Outdoors'>
+  <OutdoorsOutput />
+</ExampleBlock>
+
+### Conference and events
+
+A centred `indigo` overlay gives the event its own visual identity. The
+countdown in `bottomContent` adds a focal point beneath the main message.
+The example numbers are static; connect them to a real timer on your page.
+
+<ExampleBlock code={eventCode} filename='Event'>
+  <EventOutput />
+</ExampleBlock>
+
+## Do and don't
+
+Use a specific promise and a useful next step. Avoid broad claims that could
+describe any organisation.
+
+<DoDont
+  doText='Use the description to connect the experience to a clear student outcome.'
+  dontText='Fill the banner with broad claims that could describe any campus.'
+>
+  <DoItems slot='do' />
+  <DontItems slot='dont' />
+</DoDont>
+
+## Choosing a variant
+
+The variant controls the colour of the band and the treatment of its actions.
+Choose a semantic role that supports the message and the site's visual identity.
+
+| Variant       | Band                 | Button treatment              | Common use cases             |
+| ------------- | -------------------- | ----------------------------- | ---------------------------- |
+| `inverse`     | Deep, the default    | White with a white outline    | Education, corporate         |
+| `positive`    | Green                | White with a white outline    | Charity, health, nature      |
+| `indigo`      | Deep indigo          | White with a white outline    | Software, technology         |
+| `purple`      | Purple               | White with a white outline    | Creative, editorial, culture |
+| `informative` | Blue                 | White with a white outline    | Finance, public services     |
+| `neutral`     | Charcoal             | White with a white outline    | Travel, media, portfolios    |
+| `highlight`   | Cream with dark text | Amber with a neutral outline  | Food, retail, events         |
+| `light`       | Pale with dark text  | Accent with an accent outline | Clinics, wellness, family    |
+
+Pair any variant with `imageTone='cool'` for a cooler wash over the photo.
+Use `imageTone='natural'` to keep the original image treatment, or
+`imageTone='warm'` for a warmer appearance, or `imageTone='purple'` for a richer purple wash.
+
+[Read the HeroBanner overview for anatomy, props and accessibility](/blocks/hero-banner).

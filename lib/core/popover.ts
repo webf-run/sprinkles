@@ -28,7 +28,7 @@ export const ListBox =
 
 /** An option: highlighted by pointer or arrow keys, pressed while held. */
 export const ListItem = [
-  'relative flex cursor-pointer items-center gap-2 rounded-md text-foreground-strong outline-none select-none',
+  'relative box-border flex cursor-pointer items-center gap-2 rounded-md text-foreground-strong outline-none select-none',
   'data-highlighted:bg-neutral-subtle data-highlighted:active:bg-neutral/12',
   'data-disabled:cursor-not-allowed data-disabled:text-foreground-subtle',
   Transition,

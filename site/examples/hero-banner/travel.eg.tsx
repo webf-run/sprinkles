@@ -17,7 +17,7 @@ export default function Example() {
       secondaryAction={{ label: 'Plan your trip', href: '#how-it-works' }}
       note='Free cancellation on most getaways'
       mediaContent={
-        <div class='flex w-full max-w-xs flex-col items-start gap-4 rounded-2xl border border-border-inverse bg-surface-inverse/90 p-6 text-foreground-inverse shadow-elevated'>
+        <div class='box-border flex w-full max-w-xs flex-col items-start gap-4 rounded-2xl border border-border-inverse bg-surface-inverse/90 p-6 text-foreground-inverse shadow-elevated'>
           <Badge staticColor='white' fillStyle='subtle' size='l' icon={Compass}>
             Weekend escapes
           </Badge>

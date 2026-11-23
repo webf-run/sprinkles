@@ -12,7 +12,7 @@ export default function Example() {
 
   return (
     <div class='flex w-full flex-col items-start gap-4'>
-      <div class='flex h-24 w-full max-w-md items-center justify-center rounded-2xl border border-border-muted'>
+      <div class='box-border flex h-24 w-full max-w-md items-center justify-center rounded-2xl border border-border-muted'>
         <Show
           when={!loading()}
           fallback={<Spinner label='Loading revision preview' />}
