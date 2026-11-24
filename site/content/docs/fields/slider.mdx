@@ -1,0 +1,207 @@
+---
+title: Slider
+description: Pick one number between two fixed bounds with a thumb.
+sidebar:
+  order: 4.4
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/slider/anatomy.eg.tsx';
+import DoBounds from '../../../examples/slider/do-bounds.eg.tsx';
+import DontBounds from '../../../examples/slider/dont-bounds.eg.tsx';
+import FillOffsetOutput from '../../../examples/slider/fill-offset.eg.tsx';
+import fillOffsetCode from '../../../examples/slider/fill-offset.eg.tsx?raw';
+import FormatOutput from '../../../examples/slider/format.eg.tsx';
+import formatCode from '../../../examples/slider/format.eg.tsx?raw';
+import FormsOutput from '../../../examples/slider/forms.eg.tsx';
+import formsCode from '../../../examples/slider/forms.eg.tsx?raw';
+import LabelPositionOutput from '../../../examples/slider/label-position.eg.tsx';
+import labelPositionCode from '../../../examples/slider/label-position.eg.tsx?raw';
+import ScaleOutput from '../../../examples/slider/scale.eg.tsx';
+import scaleCode from '../../../examples/slider/scale.eg.tsx?raw';
+import SizesOutput from '../../../examples/slider/sizes.eg.tsx';
+import sizesCode from '../../../examples/slider/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/slider/states.eg.tsx';
+import statesCode from '../../../examples/slider/states.eg.tsx?raw';
+import StylesOutput from '../../../examples/slider/styles.eg.tsx';
+import stylesCode from '../../../examples/slider/styles.eg.tsx?raw';
+import ValueOutput from '../../../examples/slider/value.eg.tsx';
+import valueCode from '../../../examples/slider/value.eg.tsx?raw';
+
+```tsx
+import { Slider } from '@webf/sprinkles';
+```
+
+A slider lets people pick a number quickly by dragging a thumb along a track:
+volume, brightness, a quantity. Use it when the lower and upper bounds never
+change. To pick a range with two thumbs, use a RangeSlider. When the bounds are
+open ended, or people need an exact number, use a
+[NumberInput](/fields/number-input).
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Label', note: 'Names the slider.' },
+    {
+      name: 'Value',
+      note: 'The current value, formatted. Hide it with `hideValue`.',
+    },
+    { name: 'Track', note: 'The full scale, from the minimum to the maximum.' },
+    { name: 'Fill', note: 'The part of the track up to the thumb.' },
+    { name: 'Thumb', note: 'The handle people drag.' },
+    {
+      name: 'Description or error',
+      note: 'Help under the slider; the error replaces it while invalid.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Value
+
+Use `value` to control the number, or `defaultValue` to set a starting value
+and let the slider keep it. Without either, the thumb starts at the minimum.
+`onChange` is called continuously while the thumb is dragged or moved with the
+keyboard, and `onChangeEnd` once the thumb is released, so you can save or
+search only when the user has settled.
+
+<ExampleBlock code={valueCode}>
+  <ValueOutput client:load />
+</ExampleBlock>
+
+### Value scale
+
+Values run from 0 to 100 by default. Use `minValue`, `maxValue` and `step` to
+set the allowed values. Steps count from the minimum: with `minValue={2}` and
+`step={3}`, the allowed values are 2, 5, 8, 11 and so on.
+
+<ExampleBlock code={scaleCode}>
+  <ScaleOutput client:load />
+</ExampleBlock>
+
+### Fill offset
+
+The fill normally runs from the minimum to the thumb. Set `fillOffset` to start
+it somewhere else. That suits a scale that runs both ways, like a balance from
+-50 to 50, where the fill should grow out from 0 in either direction. The offset
+is only the start of the fill; it doesn't change the value.
+
+<ExampleBlock code={fillOffsetCode}>
+  <FillOffsetOutput client:load />
+</ExampleBlock>
+
+## Formatting
+
+`formatOptions` takes the same options as `Intl.NumberFormat`, so the value can
+be a number, percentage, currency or unit. Screen readers announce the same
+format. Numbers use the `en-US` locale unless you set `locale`; a fixed default
+keeps the page identical on the server and in the browser.
+
+<ExampleBlock code={formatCode}>
+  <FormatOutput client:load />
+</ExampleBlock>
+
+## Label position
+
+The label sits above the track by default, with the value at the far end of the
+same line. Set `labelPosition='side'` to put the label before the track and the
+value after it, for a compact row.
+
+<ExampleBlock code={labelPositionCode}>
+  <LabelPositionOutput client:load />
+</ExampleBlock>
+
+## Track and thumb styles
+
+- `trackStyle`: `thin` (default) or `thick`. A thick track is easier to see and
+  to hit.
+- `thumbStyle`: `default` is a round handle; `precise` is a narrow bar, which
+  shows exactly where the value sits.
+- `emphasized` fills the track with the accent colour instead of neutral.
+
+<ExampleBlock code={stylesCode}>
+  <StylesOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+S, M, L and XL scale the label, the value, the track and the thumb, and match
+the size scale of buttons and other fields. M is the default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover and dragging darken the thumb; keyboard focus draws the focus ring.
+Invalid colours the fill and thumb negative and shows `errorText` in place of the description. Disabled is greyed out and can't be
+focused. Read-only keeps its value in a muted colour; people can focus it but
+not change it.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Forms
+
+Use `name` to submit the value with a form. The thumb has a hidden input, so a
+plain `<form>` posts it without any script.
+
+<ExampleBlock code={formsCode}>
+  <FormsOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- The thumb is a `role='slider'` with `aria-valuenow`, the minimum and the
+  maximum. A screen reader announces the formatted value, such as "$400".
+- The description or error is linked to the thumb with `aria-describedby`, and an error is announced when it appears.
+- The label names the thumb. Give a slider with no visible label an
+  `aria-label`.
+- Keyboard: Tab moves to the thumb. Arrow keys change the value by one step,
+  Page Up and Page Down by a larger step, and Home and End jump to the limits.
+- Dragging works with a mouse, a finger or a stylus.
+- The fill and thumb use `neutral`, which reaches 3:1 against the page.
+
+## Do and don't
+
+<DoDont
+  doText='Use it when the bounds are fixed and a rough value is enough.'
+  dontText='Use it for a huge or open-ended scale; a thumb can’t pick a precise number from a million.'
+>
+  <DoBounds slot='do' client:load />
+  <DontBounds slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                              | Type                                     | Default     |
+| --------------------------------- | ---------------------------------------- | ----------- |
+| `value`                           | `number`                                 |             |
+| `defaultValue`                    | `number`                                 | `minValue`  |
+| `onChange`                        | `(value: number) => void`; while moving  |             |
+| `onChangeEnd`                     | `(value: number) => void`; after release |             |
+| `minValue`, `maxValue`            | `number`                                 | `0`, `100`  |
+| `step`                            | `number`                                 | `1`         |
+| `fillOffset`                      | `number`; where the fill starts          | `minValue`  |
+| `label`                           | `JSX.Element`                            |             |
+| `description`                     | `JSX.Element`; help under the slider     |             |
+| `errorText`                       | `JSX.Element`; shown while `invalid`     |             |
+| `labelPosition`                   | `'top' \| 'side'`                        | `'top'`     |
+| `formatOptions`                   | `Intl.NumberFormatOptions`               |             |
+| `locale`                          | `string`                                 | `'en-US'`   |
+| `hideValue`                       | `boolean`                                | `false`     |
+| `size`                            | `'s' \| 'm' \| 'l' \| 'xl'`              | `'m'`       |
+| `trackStyle`                      | `'thin' \| 'thick'`                      | `'thin'`    |
+| `thumbStyle`                      | `'default' \| 'precise'`                 | `'default'` |
+| `emphasized`                      | `boolean`                                | `false`     |
+| `disabled`, `readOnly`, `invalid` | `boolean`                                | `false`     |
+| `name`                            | `string`; the form field name            |             |
+| `aria-label`                      | `string`; required without a `label`     |             |
+| `id`, `class`                     | `string`                                 |             |
