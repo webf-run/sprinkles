@@ -3,6 +3,7 @@ export { Badge } from './components/Badge';
 export { Button } from './components/Button';
 export { Field } from './components/Field';
 export { Link } from './components/Link';
+export { Slider } from './components/Slider';
 export { Spinner } from './components/Spinner';
 export { TextField } from './components/TextField';
 
@@ -15,6 +16,7 @@ export type {
 export type { FieldOptions, FieldProps } from './components/Field';
 export type { LinkProps } from './components/Link';
 export type { SpinnerProps } from './components/Spinner';
+export type { SliderProps } from './components/Slider';
 export type { TextFieldProps } from './components/TextField';
 export type {
   Categorical,
