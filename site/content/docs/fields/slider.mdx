@@ -131,7 +131,7 @@ value after it, for a compact row.
 ## Sizes
 
 S, M, L and XL scale the label, the value, the track and the thumb, and match
-the size scale of buttons and other fields. M is the default.
+the size scale of buttons and other fields. M is the default. The slider is as tall as those controls (24, 32, 40 and 48 px), so it lines up with a button or field beside it.
 
 <ExampleBlock code={sizesCode}>
   <SizesOutput client:load />
@@ -167,7 +167,8 @@ plain `<form>` posts it without any script.
 - Keyboard: Tab moves to the thumb. Arrow keys change the value by one step,
   Page Up and Page Down by a larger step, and Home and End jump to the limits.
 - Dragging works with a mouse, a finger or a stylus.
-- The fill and thumb use `neutral`, which reaches 3:1 against the page.
+- The fill and thumb use `neutral` and the unfilled track uses `border-strong`, the
+  same as other form-control outlines. Both reach 3:1 against the page.
 
 ## Do and don't
 

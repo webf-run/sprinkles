@@ -9,17 +9,15 @@ import {
   createUniqueId,
 } from 'solid-js';
 
-import { ControlText, FocusRing, type Size, Transition } from '../core/control';
+import {
+  ControlHeight,
+  ControlText,
+  FocusRing,
+  type Size,
+  Transition,
+} from '../core/control';
 import { ErrorText, HelperText, LabelText } from '../core/field';
 import { cn } from '../utils';
-
-/** Space reserved for the thumb, so the track and thumb stay a constant height. */
-const ControlSize: Record<Size, string> = {
-  s: 'h-4',
-  m: 'h-5',
-  l: 'h-6',
-  xl: 'h-7',
-};
 
 const TrackThin: Record<Size, string> = {
   s: 'h-1',
@@ -35,12 +33,12 @@ const TrackThick: Record<Size, string> = {
   xl: 'h-5',
 };
 
-/** A round thumb. */
+/** A round thumb. `box-border` keeps `size-4` 16 px with its 2 px border when the app has no Preflight. */
 const ThumbDefault: Record<Size, string> = {
-  s: 'size-3 rounded-full border-2',
-  m: 'size-4 rounded-full border-2',
-  l: 'size-5 rounded-full border-2',
-  xl: 'size-6 rounded-full border-2',
+  s: 'box-border size-3 rounded-full border-2',
+  m: 'box-border size-4 rounded-full border-2',
+  l: 'box-border size-5 rounded-full border-2',
+  xl: 'box-border size-6 rounded-full border-2',
 };
 
 /** A narrow bar, for picking a value exactly. */
@@ -52,6 +50,8 @@ const ThumbPrecise: Record<Size, string> = {
 };
 
 interface Tone {
+  /** The unfilled track. */
+  track: string;
   /** The filled part of the track. */
   range: string;
   /** The round thumb's outline. */
@@ -68,6 +68,7 @@ function tone(state: {
 }): Tone {
   if (state.disabled) {
     return {
+      track: 'bg-neutral-subtle',
       range: 'bg-border',
       border: 'border-border',
       fill: 'bg-border',
@@ -75,6 +76,7 @@ function tone(state: {
   }
   if (state.readOnly) {
     return {
+      track: 'bg-border-strong',
       range: 'bg-foreground-muted',
       border: 'border-foreground-muted',
       fill: 'bg-foreground-muted',
@@ -82,25 +84,28 @@ function tone(state: {
   }
   if (state.invalid) {
     return {
+      track: 'bg-border-strong',
       range: 'bg-negative',
       border:
-        'border-negative hover:border-negative-hover data-[dragging]:border-negative-down',
-      fill: 'bg-negative hover:bg-negative-hover data-[dragging]:bg-negative-down',
+        'border-negative hover:border-negative-hover data-dragging:border-negative-down',
+      fill: 'bg-negative hover:bg-negative-hover data-dragging:bg-negative-down',
     };
   }
   if (state.emphasized) {
     return {
+      track: 'bg-border-strong',
       range: 'bg-accent',
       border:
-        'border-accent hover:border-accent-hover data-[dragging]:border-accent-down',
-      fill: 'bg-accent hover:bg-accent-hover data-[dragging]:bg-accent-down',
+        'border-accent hover:border-accent-hover data-dragging:border-accent-down',
+      fill: 'bg-accent hover:bg-accent-hover data-dragging:bg-accent-down',
     };
   }
   return {
+    track: 'bg-border-strong',
     range: 'bg-neutral',
     border:
-      'border-neutral hover:border-neutral-hover data-[dragging]:border-neutral-down',
-    fill: 'bg-neutral hover:bg-neutral-hover data-[dragging]:bg-neutral-down',
+      'border-neutral hover:border-neutral-hover data-dragging:border-neutral-down',
+    fill: 'bg-neutral hover:bg-neutral-hover data-dragging:bg-neutral-down',
   };
 }
 
@@ -249,7 +254,7 @@ export function Slider(props: SliderProps) {
             <Show when={!props.hideValue && !side()}>
               <ArkSlider.ValueText
                 class={cn(
-                  'tabular-nums text-foreground-muted',
+                  'tabular-nums text-foreground-muted data-disabled:text-foreground-subtle',
                   ControlText[size()]
                 )}
               >
@@ -262,13 +267,14 @@ export function Slider(props: SliderProps) {
         <ArkSlider.Control
           class={cn(
             'relative flex w-full items-center',
-            ControlSize[size()],
+            ControlHeight[size()],
             side() && 'flex-1'
           )}
         >
           <ArkSlider.Track
             class={cn(
-              'relative flex-1 overflow-hidden rounded-full bg-border',
+              'relative flex-1 overflow-hidden rounded-full',
+              colours().track,
               props.trackStyle === 'thick'
                 ? TrackThick[size()]
                 : TrackThin[size()]
@@ -294,13 +300,13 @@ export function Slider(props: SliderProps) {
             index={0}
             aria-describedby={describedBy()}
             class={cn(
-              'z-1 outline-none',
+              'z-1',
               precise()
                 ? [ThumbPrecise[size()], colours().fill]
                 : ['bg-surface', ThumbDefault[size()], colours().border],
               props.disabled
                 ? 'cursor-not-allowed'
-                : 'cursor-grab data-[dragging]:cursor-grabbing',
+                : 'cursor-grab data-dragging:cursor-grabbing',
               FocusRing,
               Transition
             )}
@@ -312,7 +318,7 @@ export function Slider(props: SliderProps) {
         <Show when={!props.hideValue && label() && side()}>
           <ArkSlider.ValueText
             class={cn(
-              'shrink-0 tabular-nums text-foreground-muted',
+              'shrink-0 tabular-nums text-foreground-muted data-disabled:text-foreground-subtle',
               ControlText[size()]
             )}
           >
