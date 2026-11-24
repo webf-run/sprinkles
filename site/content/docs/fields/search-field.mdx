@@ -2,7 +2,7 @@
 title: SearchField
 description: A text field for searching, with a button to clear it.
 sidebar:
-  order: 3
+  order: 2.5
 ---
 
 import Anatomy from '../../../playground/Anatomy.astro';
@@ -73,7 +73,8 @@ dialog or popover the field sits in. A disabled or read-only field has no clear
 button.
 
 The button is named "Clear search" for screen readers. Use `clearLabel` to
-translate it.
+translate it. It is as wide as the field is tall and follows the field's
+rounded end, like the stepper buttons of a [NumberInput](/fields/number-input).
 
 ## Forms
 

@@ -3,7 +3,13 @@ import Search from 'lucide-solid/icons/search';
 import X from 'lucide-solid/icons/x';
 import { Show, createSignal, splitProps } from 'solid-js';
 
-import { FocusRing, type Size, Transition } from '../core/control';
+import {
+  ControlReset,
+  FocusRing,
+  IconSize,
+  type Size,
+  Transition,
+} from '../core/control';
 import {
   InputBase,
   InputIconPadding,
@@ -11,22 +17,19 @@ import {
   InputSize,
 } from '../core/field';
 import { cn } from '../utils';
+import { InputTrailingPadding, TrailingButtonSize } from './Combobox';
 import { Field, type FieldOptions } from './Field';
 
-/** Room on the right for the clear button, at each size. */
-const ClearPadding: Record<Size, string> = {
-  s: 'pr-6',
-  m: 'pr-8',
-  l: 'pr-10',
-  xl: 'pr-12',
-};
-
-/** The clear button: square, inside the input's right edge, at each size. */
-const ClearButton: Record<Size, string> = {
-  s: 'right-0.5 size-5 rounded-md [&_svg]:size-3',
-  m: 'right-1 size-6 rounded-md [&_svg]:size-3.5',
-  l: 'right-1 size-8 rounded-lg [&_svg]:size-4',
-  xl: 'right-1.5 size-9 rounded-lg [&_svg]:size-5',
+/**
+ * The clear button follows the input's rounded end. Its width and the room
+ * it takes (`TrailingButtonSize`, `InputTrailingPadding`) are the scale
+ * Combobox and DatePicker use for their trailing buttons.
+ */
+const ClearEnd: Record<Size, string> = {
+  s: 'rounded-r-md',
+  m: 'rounded-r-lg',
+  l: 'rounded-r-lg',
+  xl: 'rounded-r-xl',
 };
 
 export interface SearchFieldProps extends FieldOptions {
@@ -112,7 +115,7 @@ export function SearchField(props: SearchFieldProps) {
         <Search
           aria-hidden='true'
           class={cn(
-            'pointer-events-none absolute text-foreground-muted',
+            'pointer-events-none absolute text-foreground-muted in-data-disabled:text-foreground-subtle',
             InputIconPosition[size()]
           )}
         />
@@ -145,7 +148,7 @@ export function SearchField(props: SearchFieldProps) {
             InputBase,
             InputSize[size()],
             InputIconPadding[size()],
-            ClearPadding[size()],
+            InputTrailingPadding[size()],
             // The browser's own clear button would sit beside ours.
             '[&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden'
           )}
@@ -157,15 +160,17 @@ export function SearchField(props: SearchFieldProps) {
             tabindex='-1'
             aria-label={input.clearLabel ?? 'Clear search'}
             class={cn(
-              'absolute inline-flex cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-foreground-muted',
-              'hover:bg-neutral-subtle hover:text-foreground-strong active:bg-neutral-subtle',
+              'absolute inset-y-px right-px flex items-center justify-center border-0 bg-transparent p-0',
+              ControlReset,
+              'cursor-pointer text-foreground-muted hover:bg-neutral-subtle hover:text-foreground-strong active:bg-neutral/12',
               FocusRing,
               Transition,
-              ClearButton[size()]
+              TrailingButtonSize[size()],
+              ClearEnd[size()]
             )}
             onClick={clear}
           >
-            <X aria-hidden='true' />
+            <X class={IconSize[size()]} aria-hidden='true' />
           </button>
         </Show>
       </div>
