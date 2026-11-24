@@ -50,6 +50,10 @@ use two [NumberInputs](/fields/number-input) instead.
     { name: 'Track', note: 'The full scale, from the minimum to the maximum.' },
     { name: 'Range', note: 'The part of the track between the two thumbs.' },
     { name: 'Thumbs', note: 'The two handles: the start and the end.' },
+    {
+      name: 'Description or error',
+      note: 'Help under the slider; the error replaces it while invalid.',
+    },
   ]}
 >
   <AnatomyOutput client:load />
@@ -114,7 +118,7 @@ the value after it, for a compact row.
 ## Sizes
 
 S, M, L and XL scale the label, the value, the track and the thumbs, and match
-the size scale of buttons and other fields. M is the default.
+the size scale of buttons and other fields. M is the default. The slider is as tall as those controls (24, 32, 40 and 48 px), so it lines up with a button or field beside it.
 
 <ExampleBlock code={sizesCode}>
   <SizesOutput client:load />
@@ -123,7 +127,7 @@ the size scale of buttons and other fields. M is the default.
 ## States
 
 Hover and dragging darken the thumb; keyboard focus draws the focus ring.
-Invalid colours the range and thumbs negative. Disabled is greyed out and can't
+Invalid colours the range and thumbs negative and shows `errorText` in place of the description. Disabled is greyed out and can't
 be focused. Read-only keeps its value in a muted colour; people can focus it but
 not change it.
 
@@ -149,10 +153,12 @@ has a hidden input, so a plain `<form>` posts both without any script.
   translation.
 - Keyboard: Tab moves to a thumb. Arrow keys change the value by one step, Page
   Up and Page Down by a larger step, and Home and End jump to the limits.
+- The description or error is linked to the thumbs with `aria-describedby`, and an error is announced when it appears.
 - Give a slider with no visible label an `aria-label`; the thumb names are added
   to it.
 - Dragging works with a mouse, a finger or a stylus.
-- The range and thumbs use `neutral`, which reaches 3:1 against the page.
+- The range and thumbs use `neutral` and the unfilled track uses `border-strong`, the
+  same as other form-control outlines. Both reach 3:1 against the page.
 
 ## Do and don't
 
@@ -175,7 +181,9 @@ has a hidden input, so a plain `<form>` posts both without any script.
 | `minValue`, `maxValue`            | `number`                             | `0`, `100`       |
 | `step`                            | `number`                             | `1`              |
 | `minStepsBetweenThumbs`           | `number`                             | `0`              |
-| `label`                           | `string`                             |                  |
+| `label`                           | `JSX.Element`                        |                  |
+| `description`                     | `JSX.Element`; help under the slider |                  |
+| `errorText`                       | `JSX.Element`; shown while `invalid` |                  |
 | `labelPosition`                   | `'top' \| 'side'`                    | `'top'`          |
 | `formatOptions`                   | `Intl.NumberFormatOptions`           |                  |
 | `locale`                          | `string`                             | `'en-US'`        |

@@ -7,7 +7,8 @@ export default function Example() {
       <RangeSlider
         label='Invalid'
         invalid
-        defaultValue={{ start: 30, end: 60 }}
+        errorText='Pick a range under 50.'
+        defaultValue={{ start: 30, end: 90 }}
       />
       <RangeSlider
         label='Disabled'

@@ -1,17 +1,23 @@
 import { Slider as ArkSlider } from '@ark-ui/solid/slider';
-import { Show, createMemo, createSignal, splitProps } from 'solid-js';
+import CircleExclamationPoint from 'lucide-solid/icons/circle-exclamation-point';
+import {
+  type JSX,
+  Show,
+  children,
+  createMemo,
+  createSignal,
+  createUniqueId,
+} from 'solid-js';
 
-import { ControlText, FocusRing, type Size, Transition } from '../core/control';
-import { LabelText } from '../core/field';
+import {
+  ControlHeight,
+  ControlText,
+  FocusRing,
+  type Size,
+  Transition,
+} from '../core/control';
+import { ErrorText, HelperText, LabelText } from '../core/field';
 import { cn } from '../utils';
-
-/** Space reserved for the thumb, so the track and thumb stay a constant height. */
-const ControlSize: Record<Size, string> = {
-  s: 'h-4',
-  m: 'h-5',
-  l: 'h-6',
-  xl: 'h-7',
-};
 
 const TrackThin: Record<Size, string> = {
   s: 'h-1',
@@ -49,6 +55,8 @@ export interface RangeSliderValue {
 }
 
 interface Tone {
+  /** The unfilled track. */
+  track: string;
   /** The filled part of the track. */
   range: string;
   /** The round thumb's outline. */
@@ -65,6 +73,7 @@ function tone(state: {
 }): Tone {
   if (state.disabled) {
     return {
+      track: 'bg-neutral-subtle',
       range: 'bg-border',
       border: 'border-border',
       fill: 'bg-border',
@@ -72,6 +81,7 @@ function tone(state: {
   }
   if (state.readOnly) {
     return {
+      track: 'bg-border-strong',
       range: 'bg-foreground-muted',
       border: 'border-foreground-muted',
       fill: 'bg-foreground-muted',
@@ -79,6 +89,7 @@ function tone(state: {
   }
   if (state.invalid) {
     return {
+      track: 'bg-border-strong',
       range: 'bg-negative',
       border:
         'border-negative hover:border-negative-hover data-[dragging]:border-negative-down',
@@ -87,6 +98,7 @@ function tone(state: {
   }
   if (state.emphasized) {
     return {
+      track: 'bg-border-strong',
       range: 'bg-accent',
       border:
         'border-accent hover:border-accent-hover data-[dragging]:border-accent-down',
@@ -94,6 +106,7 @@ function tone(state: {
     };
   }
   return {
+    track: 'bg-border-strong',
     range: 'bg-neutral',
     border:
       'border-neutral hover:border-neutral-hover data-[dragging]:border-neutral-down',
@@ -119,8 +132,12 @@ export interface RangeSliderProps {
   step?: number;
   /** The least the two thumbs must stay apart, in steps. Defaults to 0. */
   minStepsBetweenThumbs?: number;
-  /** Visible label. Every slider needs one; use `aria-label` only where it truly can't fit. */
-  label?: string;
+  /** Visible label. Every slider needs one; use `aria-label` only where a visible label truly can't fit. */
+  label?: JSX.Element;
+  /** Help shown under the slider; replaced by `errorText` while invalid. */
+  description?: JSX.Element;
+  /** Shown under the slider while `invalid`. */
+  errorText?: JSX.Element;
   /** Put the label above the track (default) or beside it. */
   labelPosition?: 'top' | 'side';
   /** How the value is shown, e.g. `{ style: 'currency', currency: 'USD' }`. */
@@ -154,7 +171,17 @@ export interface RangeSliderProps {
  * open ended, use two NumberInputs.
  */
 export function RangeSlider(props: RangeSliderProps) {
-  const [local] = splitProps(props, ['class']);
+  // JSX passed in these props is read once: reading it twice would create it
+  // twice on the server and break hydration.
+  const label = children(() => props.label);
+  const description = children(() => props.description);
+  const errorText = children(() => props.errorText);
+  const helpId = createUniqueId();
+  const showDescription = () => Boolean(description()) && !props.invalid;
+  const showError = () => Boolean(errorText()) && Boolean(props.invalid);
+  const describedBy = () =>
+    showDescription() || showError() ? helpId : undefined;
+
   const size = () => props.size ?? 'm';
   const min = () => props.minValue ?? 0;
   const max = () => props.maxValue ?? 100;
@@ -222,83 +249,97 @@ export function RangeSlider(props: RangeSliderProps) {
       onValueChangeEnd={(details) => {
         props.onChangeEnd?.(toValue(details.value));
       }}
-      class={cn(
-        'w-full',
-        side() ? 'flex items-center gap-3' : 'grid gap-1',
-        local.class
-      )}
+      class={cn('grid w-full gap-1', props.class)}
     >
-      <Show when={props.label}>
-        <div
-          class={cn(
-            'flex items-baseline justify-between gap-2',
-            side() && 'shrink-0 justify-start'
-          )}
-        >
-          <ArkSlider.Label class={cn(LabelText, ControlText[size()])}>
-            {props.label}
-          </ArkSlider.Label>
-          <Show when={!props.hideValue && !side()}>
-            <ArkSlider.ValueText
-              class={cn(
-                'tabular-nums text-foreground-muted',
-                ControlText[size()]
-              )}
-            >
-              {valueText()}
-            </ArkSlider.ValueText>
-          </Show>
-        </div>
-      </Show>
-
-      <ArkSlider.Control
-        class={cn(
-          'relative flex w-full items-center',
-          ControlSize[size()],
-          side() && 'flex-1'
-        )}
-      >
-        <ArkSlider.Track
-          class={cn(
-            'flex-1 overflow-hidden rounded-full bg-border',
-            props.trackStyle === 'thick'
-              ? TrackThick[size()]
-              : TrackThin[size()]
-          )}
-        >
-          <ArkSlider.Range class={cn('h-full', colours().range)} />
-        </ArkSlider.Track>
-        {([0, 1] as const).map((index) => (
-          <ArkSlider.Thumb
-            index={index}
+      <div class={side() ? 'flex items-center gap-3' : 'grid gap-1'}>
+        <Show when={label()}>
+          <div
             class={cn(
-              'z-1 outline-none',
-              precise()
-                ? [ThumbPrecise[size()], colours().fill]
-                : ['bg-surface', ThumbDefault[size()], colours().border],
-              props.disabled
-                ? 'cursor-not-allowed'
-                : 'cursor-grab data-[dragging]:cursor-grabbing',
-              FocusRing,
-              Transition
+              'flex items-baseline justify-between gap-2',
+              side() && 'shrink-0 justify-start'
             )}
           >
-            <ArkSlider.HiddenInput
-              name={index === 0 ? props.startName : props.endName}
-            />
-          </ArkSlider.Thumb>
-        ))}
-      </ArkSlider.Control>
+            <ArkSlider.Label class={cn(LabelText, ControlText[size()])}>
+              {label()}
+            </ArkSlider.Label>
+            <Show when={!props.hideValue && !side()}>
+              <ArkSlider.ValueText
+                class={cn(
+                  'tabular-nums text-foreground-muted',
+                  ControlText[size()]
+                )}
+              >
+                {valueText()}
+              </ArkSlider.ValueText>
+            </Show>
+          </div>
+        </Show>
 
-      <Show when={!props.hideValue && props.label && side()}>
-        <ArkSlider.ValueText
+        <ArkSlider.Control
           class={cn(
-            'shrink-0 tabular-nums text-foreground-muted',
-            ControlText[size()]
+            'relative flex w-full items-center',
+            ControlHeight[size()],
+            side() && 'flex-1'
           )}
         >
-          {valueText()}
-        </ArkSlider.ValueText>
+          <ArkSlider.Track
+            class={cn(
+              'flex-1 overflow-hidden rounded-full',
+              colours().track,
+              props.trackStyle === 'thick'
+                ? TrackThick[size()]
+                : TrackThin[size()]
+            )}
+          >
+            <ArkSlider.Range class={cn('h-full', colours().range)} />
+          </ArkSlider.Track>
+          {([0, 1] as const).map((index) => (
+            <ArkSlider.Thumb
+              index={index}
+              aria-describedby={describedBy()}
+              class={cn(
+                'z-1 outline-none',
+                precise()
+                  ? [ThumbPrecise[size()], colours().fill]
+                  : ['bg-surface', ThumbDefault[size()], colours().border],
+                props.disabled
+                  ? 'cursor-not-allowed'
+                  : 'cursor-grab data-[dragging]:cursor-grabbing',
+                FocusRing,
+                Transition
+              )}
+            >
+              <ArkSlider.HiddenInput
+                name={index === 0 ? props.startName : props.endName}
+              />
+            </ArkSlider.Thumb>
+          ))}
+        </ArkSlider.Control>
+
+        <Show when={!props.hideValue && label() && side()}>
+          <ArkSlider.ValueText
+            class={cn(
+              'shrink-0 tabular-nums text-foreground-muted',
+              ControlText[size()]
+            )}
+          >
+            {valueText()}
+          </ArkSlider.ValueText>
+        </Show>
+      </div>
+      <Show when={showDescription()}>
+        <p id={helpId} class={HelperText}>
+          {description()}
+        </p>
+      </Show>
+      <Show when={showError()}>
+        <p id={helpId} aria-live='polite' class={ErrorText}>
+          {/* A line-high box, so the icon stays on the first line when the text wraps. */}
+          <span aria-hidden='true' class='flex h-4 shrink-0 items-center'>
+            <CircleExclamationPoint class='size-3' />
+          </span>
+          <span>{errorText()}</span>
+        </p>
       </Show>
     </ArkSlider.Root>
   );

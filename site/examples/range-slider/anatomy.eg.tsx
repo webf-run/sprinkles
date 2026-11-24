@@ -5,6 +5,7 @@ export default function Example() {
     <RangeSlider
       class='max-w-sm'
       label='Price range'
+      description='Per night.'
       defaultValue={{ start: 30, end: 60 }}
     />
   );
