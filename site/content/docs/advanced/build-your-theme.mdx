@@ -1,0 +1,627 @@
+---
+title: Build your theme
+description: Create, configure and switch a design theme for Sprinkles by overriding design tokens, with light and dark mode and a contrast check.
+sidebar:
+  label: Build your  theme
+---
+
+import { Badge, Button, Card, CardBody, TextField } from '@webf/sprinkles';
+
+## Introduction to theming
+
+A Sprinkles theme is a small CSS file that changes the **values** of design
+tokens: colours, fonts, corner radius and shadows. You don't change any
+component code, install a plugin or add a config file. Every component reads
+the same tokens, so one file re-skins the whole library.
+
+Here is the same piece of UI with the default theme and with a custom brand
+theme. Only token values differ, yet the badge, card, input field and both
+buttons all change, because they read the same tokens.
+
+<div
+  class='not-content'
+  style='display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; margin: 1.5rem 0 0.5rem;'
+>
+  <figure style='margin: 0;'>
+    <div style='--color-accent: light-dark(var(--color-purple-705), var(--color-purple-330)); --color-accent-hover: light-dark(var(--color-purple-735), var(--color-purple-257)); --color-accent-down: light-dark(var(--color-purple-775), var(--color-purple-399)); --color-accent-foreground: light-dark(var(--color-white), var(--color-purple-929)); --color-accent-subtle: light-dark(var(--color-purple-65), var(--color-purple-831)); --color-accent-subtle-foreground: light-dark(var(--color-purple-705), var(--color-purple-196)); display: grid; gap: 0.75rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-surface); color: var(--color-foreground);'>
+      <div style='display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;'>
+        <span style='font-weight: 600; color: var(--color-foreground-strongest);'>
+          University Portal
+        </span>
+        <Badge variant='accent' fillStyle='subtle' size='s'>
+          Default
+        </Badge>
+      </div>
+      <p style='margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--color-foreground-strongest);'>
+        Welcome back!
+      </p>
+      <Card>
+        <CardBody>
+          <div style='display: grid; gap: 0.5rem;'>
+            <div style='display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;'>
+              <span style='font-weight: 600; color: var(--color-foreground-strongest);'>
+                Intro to Biology
+              </span>
+              <Badge variant='accent' fillStyle='bold' size='s'>
+                Enrolled
+              </Badge>
+            </div>
+            <span style='color: var(--color-foreground-muted);'>
+              Next class: Monday, 10:00 AM
+            </span>
+          </div>
+        </CardBody>
+      </Card>
+      <TextField
+        id='preview-default'
+        label='Search courses'
+        placeholder='e.g. Chemistry'
+      />
+      <div style='display: flex; flex-wrap: wrap; gap: 0.5rem;'>
+        <Button variant='accent'>Explore courses</Button>
+        <Button variant='secondary'>View schedule</Button>
+      </div>
+    </div>
+    <figcaption style='margin-top: 0.5rem; font-size: 0.875rem; color: var(--color-foreground-muted);'>
+      Default theme
+    </figcaption>
+  </figure>
+  <figure style='margin: 0;'>
+    <div style='--color-accent: light-dark(#0f766e, #5eead4); --color-accent-hover: light-dark(#115e59, #99f6e4); --color-accent-down: light-dark(#134e4a, #2dd4bf); --color-accent-foreground: light-dark(#ffffff, #042f2e); --color-accent-subtle: light-dark(#ccfbf1, #12302c); --color-accent-subtle-foreground: light-dark(#0f766e, #83e3d6); --color-neutral: light-dark(#3f5f5b, #b5d3cf); --color-neutral-hover: light-dark(#2f4a47, #d3e6e3); --color-neutral-down: light-dark(#243a38, #98bcb7); --color-neutral-foreground: light-dark(#ffffff, #0f1f1e); --color-neutral-subtle: light-dark(#e3efed, #1b302e); --color-neutral-subtle-foreground: light-dark(#2f4a47, #c3dcd8); --color-surface: light-dark(#f4fbfa, #0f1f1e); --color-border: light-dark(#8fd8cd, #2a5c56); --color-border-muted: light-dark(#b7e5de, #1f3d3a); --color-border-strong: light-dark(#5f8f89, #5f9a93); --color-focus-ring: light-dark(#0f766e, #5eead4); --radius-lg: 1rem; display: grid; gap: 0.75rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-surface); color: var(--color-foreground);'>
+      <div style='display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;'>
+        <span style='font-weight: 600; color: var(--color-foreground-strongest);'>
+          University Portal
+        </span>
+        <Badge variant='accent' fillStyle='subtle' size='s'>
+          Custom
+        </Badge>
+      </div>
+      <p style='margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--color-foreground-strongest);'>
+        Welcome back!
+      </p>
+      <Card>
+        <CardBody>
+          <div style='display: grid; gap: 0.5rem;'>
+            <div style='display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;'>
+              <span style='font-weight: 600; color: var(--color-foreground-strongest);'>
+                Intro to Biology
+              </span>
+              <Badge variant='accent' fillStyle='bold' size='s'>
+                Enrolled
+              </Badge>
+            </div>
+            <span style='color: var(--color-foreground-muted);'>
+              Next class: Monday, 10:00 AM
+            </span>
+          </div>
+        </CardBody>
+      </Card>
+      <TextField
+        id='preview-custom'
+        label='Search courses'
+        placeholder='e.g. Chemistry'
+      />
+      <div style='display: flex; flex-wrap: wrap; gap: 0.5rem;'>
+        <Button variant='accent'>Explore courses</Button>
+        <Button variant='secondary'>View schedule</Button>
+      </div>
+    </div>
+    <figcaption style='margin-top: 0.5rem; font-size: 0.875rem; color: var(--color-foreground-muted);'>
+      Custom brand theme
+    </figcaption>
+  </figure>
+</div>
+
+<p style='margin: 0 0 1.5rem; font-size: 0.875rem; color: var(--color-foreground-muted);'>
+  Illustrative comparison of the same UI with different tokens. The accent
+  tokens restyle the badges, the primary button and the input's focus ring. The
+  neutral tokens restyle the secondary button. The surface and border tokens
+  restyle the card and the input field.
+</p>
+
+This guide takes you from an empty file to a finished theme with light and dark
+mode, then shows how to scope it, switch between themes and check that it is
+readable. For the basics of loading the stylesheet, see
+[Styling and theming](/getting-started/styling).
+
+## How theming works
+
+- Sprinkles defines its tokens as CSS variables on `:root`, such as
+  `--color-accent` and `--color-surface`.
+- The tokens sit in a cascade layer (`theme`). Any plain rule in your own CSS
+  beats them, so you never need `!important`.
+- You theme by **overriding the value of an existing token**. Don't add new
+  token names, and don't rename them. Components only know the names Sprinkles
+  ships.
+- Put the same overrides on any element and they re-skin only that part of the
+  page.
+- Most colour tokens use `light-dark()` pairs, allowing a theme to define both
+  light and dark values in one place. Some tokens can use a shared value across
+  both schemes.
+
+## Quick start
+
+### 1. Create the theme file
+
+Make a CSS file such as `src/styles/theme.css` and override the accent colour.
+The accent is the call to action and your product's identity, so it is the
+colour most themes start with.
+
+```css title="src/styles/theme.css"
+:root {
+  --color-accent: light-dark(#0f766e, #5eead4);
+  --color-accent-hover: light-dark(#115e59, #99f6e4);
+  --color-accent-down: light-dark(#134e4a, #2dd4bf);
+  --color-accent-foreground: light-dark(#ffffff, #042f2e);
+  --color-accent-subtle: light-dark(#ccfbf1, #12302c);
+  --color-accent-subtle-foreground: light-dark(#0f766e, #83e3d6);
+}
+```
+
+### 2. Import it after Sprinkles
+
+Load your file **after** the Sprinkles CSS, so your values come last. Pick one
+of the two ways to load Sprinkles. Don't use both.
+
+With the precompiled stylesheet (`@webf/sprinkles/style.css`, the tokens plus
+the utilities Sprinkles uses, no Tailwind needed):
+
+```css title="src/styles/global.css"
+@import '@webf/sprinkles/style.css';
+@import './theme.css';
+```
+
+With Tailwind CSS v4 (`@webf/sprinkles/theme.css`, the tokens as Tailwind
+source):
+
+```css title="src/styles/global.css"
+@import 'tailwindcss';
+@import '@webf/sprinkles/theme.css';
+@import './theme.css';
+```
+
+Both files are exported by the published package (`style.css` and `theme.css`
+in its `exports` map, both served from `dist`). Import `global.css` once, in
+your app's entry file or root layout.
+
+### 3. Where the files go
+
+```text
+my-project/
+├── src/
+│   ├── styles/
+│   │   ├── global.css   ← imports Sprinkles first, then your theme
+│   │   └── theme.css    ← your token overrides
+│   ├── components/
+│   └── pages/
+└── package.json
+```
+
+`global.css` imports Sprinkles first and your theme afterwards. That order is
+what lets your values win. For Astro, SolidStart or Vite setup details, see
+[Installation](/getting-started/installation).
+
+### 4. Check the result
+
+Buttons, links, focus rings, selected states and every component that uses the
+accent now follow your colours. Nothing else changed.
+
+## Theme creation workflow
+
+The [Quick start](#quick-start) gets one colour working. For a full theme, work
+through these steps:
+
+1. [Plan](#plan-your-theme) which tokens to change.
+2. Override them in your own file ([Customizing colours](#customizing-colours)).
+3. Give every colour a light and a dark value ([Light and dark mode](#light-and-dark-mode)).
+4. Apply it to the whole site or to one section ([Applying themes to specific sections](#applying-themes-to-specific-sections)).
+5. [Check contrast](#accessibility-and-contrast-checking) in both schemes.
+
+## Plan your theme
+
+You rarely need to override every token. Work in this order and stop when the
+site looks like yours.
+
+| Order | What to change                     | Tokens                                                                                             |
+| ----- | ---------------------------------- | -------------------------------------------------------------------------------------------------- |
+| 1     | Brand colour                       | `accent` and its five steps                                                                        |
+| 2     | Page and card backgrounds          | `surface`, `surface-muted`, `surface-tint`, `surface-soft`, `surface-emphasis`, `surface-inverse`  |
+| 3     | Text colours                       | `foreground-strongest`, `foreground-strong`, `foreground`, `foreground-muted`, `foreground-subtle` |
+| 4     | Borders and the focus ring         | `border-strong`, `border`, `border-muted`, `border-subtle`, `border-accent`, `focus-ring`          |
+| 5     | Primary buttons and quiet controls | `neutral` and its steps                                                                            |
+| 6     | A second emphasis colour           | `highlight` and its steps                                                                          |
+| 7     | Corners, shadows and fonts         | `--radius-*`, `--shadow-*`, `--font-heading`                                                       |
+
+Leave `informative`, `positive`, `notice` and `negative` alone unless your
+brand needs them. People expect blue, green, orange and red to mean help,
+success, caution and error.
+
+## Customizing colours
+
+### Every role has the same steps
+
+A role is a colour with a meaning. Each one is made of the same six tokens, and
+you override all six so that hover, pressed and quiet states stay consistent.
+
+| Step                               | Use                                    |
+| ---------------------------------- | -------------------------------------- |
+| `--color-<role>`                   | Bold fill; text and icons on a surface |
+| `--color-<role>-hover`             | The bold fill, hovered                 |
+| `--color-<role>-down`              | The bold fill, pressed                 |
+| `--color-<role>-foreground`        | Text and icons on the bold fill        |
+| `--color-<role>-subtle`            | Quiet fill                             |
+| `--color-<role>-subtle-foreground` | Text and icons on the quiet fill       |
+
+The roles are `accent`, `neutral`, `informative`, `positive`, `notice`,
+`negative` and `highlight`. The categorical colours (`seafoam`, `indigo`,
+`purple`, `fuchsia` and `yellow`) have the same steps without `-hover` and
+`-down`. They label things without giving them a meaning, such as tags.
+
+### Surfaces, text and borders
+
+Surfaces run from the lightest (`surface`) to a dark band (`surface-inverse`).
+Text runs from `foreground-strongest` to `foreground-subtle`. Change them as a
+family so the steps still read in order.
+
+Form controls use `border-strong`, which needs at least 3:1 contrast against
+the surface, so don't make it too pale. `focus-ring` is the one ring used by
+every control.
+
+### The highlight colour
+
+`highlight` is a second emphasis colour for marketing calls to action and
+decorative marks. Use it as a fill with its foreground, or as text on
+`surface-inverse`, but never as text on a light surface. If your design has
+only one brand colour, leave it as it is.
+
+## Typography
+
+Sprinkles has one font token that you will normally change:
+
+```css
+:root {
+  --font-heading: 'Fraunces', Georgia, serif;
+}
+```
+
+Sprinkles also declares `--font-ui` (`Inter, sans-serif` by default). You don't
+need to customize it: no Sprinkles component reads it. It exists as a
+ready-made UI font for your own code. In a Tailwind project it becomes the
+`font-ui` utility, and anywhere else you can use `font-family: var(--font-ui)`.
+Override it only if you use it that way. To change the font of the Sprinkles
+components themselves, set the font on `body` or `html`, as described below.
+
+Block headings (hero, call to action, timeline, footer and others) use
+`--font-heading`. Other components don't set a font family of their own, so
+they follow your page's font. Set your body font on `body` or `html` as you
+would on any site.
+
+Sprinkles doesn't load fonts for you. Load yours with `@font-face`, a font
+service or a package such as Fontsource, and use a sensible fallback stack.
+
+The size scale (`--text-fluid-xs` to `--text-fluid-5xl`) is fluid between
+375 px and 1440 px wide screens. Each step carries its own line height and
+letter spacing. Most themes leave it as it is.
+
+## Shape and shadows
+
+### Corner radius
+
+Controls use `rounded-md` (small), `rounded-lg` (medium) and `rounded-xl`
+(large and extra large). Surfaces use `rounded-2xl`. These come from
+Tailwind's radius scale, so a theme changes them by overriding that scale:
+
+```css
+:root {
+  /* Rounder */
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+```
+
+For sharper corners, use smaller values, down to `0` for square corners.
+
+### Shadows
+
+`--shadow-elevated` lifts a card off the page. `--shadow-overlay` floats
+menus, popovers and dialogs above everything.
+
+Two values are **derived from other tokens where they are declared**:
+`--shadow-elevated` mixes in the accent colour, and `--background-image-glow`
+is built from `surface-inverse`. CSS resolves those once, so changing the
+accent doesn't update them. Restate both in your theme with your own colours:
+
+```css
+:root {
+  --shadow-elevated: 5px 5px 17.3px 0px
+    light-dark(
+      color-mix(in srgb, #0f766e 10%, transparent),
+      color-mix(in srgb, black 40%, transparent)
+    );
+  --background-image-glow: radial-gradient(
+    50% 50% at 50% 50%,
+    #042f2e 0%,
+    color-mix(in srgb, #042f2e 70%, black) 100%
+  );
+}
+```
+
+## Light and dark mode
+
+### Write both values
+
+Write each colour as `light-dark(<light>, <dark>)`:
+
+```css
+--color-accent: light-dark(#0f766e, #5eead4);
+```
+
+A token follows the `color-scheme` of the element it is used on. Light is the
+default, so a site that sets nothing stays light, whatever the visitor's system
+setting.
+
+Keep these habits when you choose the dark values:
+
+- **Hover and pressed move the same way in each scheme.** In light mode,
+  hover and pressed get darker. In dark mode, hover gets lighter and pressed
+  a little darker.
+- **Role colours are light tones in dark mode**, so they read as text on a dark
+  surface. Their bold fills then need a _dark_ `-foreground`, for example
+  `#042f2e` on `#5eead4`.
+- **The page is darkest in dark mode** (`surface-muted`) and raised surfaces
+  are lighter, because shadows barely show on dark.
+- `surface-inverse` (the dark band for a hero or footer), `foreground-inverse`
+  and the `highlight` fills are the same in both schemes. A plain colour is
+  enough for those.
+
+### Choose light, dark or system
+
+Your theme only supplies the two sets of colours. The `color-scheme` property
+on `<html>` decides which set is used. To follow the visitor's system setting:
+
+```css title="src/styles/global.css"
+@import '@webf/sprinkles/style.css';
+@import './theme.css';
+
+:root {
+  color-scheme: light dark;
+}
+```
+
+With Tailwind you can set the same thing with classes on `<html>`:
+`scheme-light-dark` follows the system, and `scheme-dark` forces dark.
+
+To let people choose between light, dark and system, set `color-scheme` from
+their choice and remember it:
+
+```js
+const KEY = 'color-scheme';
+
+function savedChoice() {
+  try {
+    return localStorage.getItem(KEY) ?? 'system';
+  } catch {
+    return 'system';
+  }
+}
+
+// choice: 'light' | 'dark' | 'system'
+function applyScheme(choice) {
+  document.documentElement.style.colorScheme =
+    choice === 'system' ? 'light dark' : choice;
+}
+
+function setScheme(choice) {
+  try {
+    localStorage.setItem(KEY, choice);
+  } catch {
+    // Storage can be blocked; the choice still applies for this visit.
+  }
+  applyScheme(choice);
+}
+
+applyScheme(savedChoice());
+```
+
+Run the last line in a small inline script in `<head>`, before the page paints,
+so a returning visitor doesn't see a flash of the wrong scheme. To keep light as
+the default for first-time visitors, return `'light'` instead of `'system'`.
+
+The same property on any element makes only that part dark or light. These docs
+use this approach for their own light and dark toggle.
+
+## Complete theme example
+
+This is a full theme called Ocean: a teal accent, cool surfaces, rounder
+corners and matching derived values. It overrides values only, adds no new
+names and works in both colour schemes.
+
+```css title="ocean.css"
+:root {
+  /* Accent: a deep teal. */
+  --color-accent: light-dark(#0f766e, #5eead4);
+  --color-accent-hover: light-dark(#115e59, #99f6e4);
+  --color-accent-down: light-dark(#134e4a, #2dd4bf);
+  --color-accent-foreground: light-dark(#ffffff, #042f2e);
+  --color-accent-subtle: light-dark(#ccfbf1, #12302c);
+  --color-accent-subtle-foreground: light-dark(#0f766e, #83e3d6);
+
+  /* Surfaces: cool whites, and deep sea greens in dark mode. */
+  --color-surface: light-dark(#ffffff, #0f1f1e);
+  --color-surface-muted: light-dark(#f4fbfa, #081412);
+  --color-surface-tint: light-dark(#e6f6f4, #14292a);
+  --color-surface-soft: light-dark(#ccfbf1, #12302c);
+  --color-surface-emphasis: light-dark(#99f6e4, #1a4540);
+  --color-surface-inverse: #042f2e;
+
+  /* Borders and focus. */
+  --color-border-subtle: light-dark(#d5ede9, #1f3d3a);
+  --color-border-accent: light-dark(#8fd8cd, #2a5c56);
+  --color-focus-ring: light-dark(#0f766e, #5eead4);
+
+  /* Rounder corners. */
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Values derived from the accent and the dark band, restated. */
+  --shadow-elevated: 5px 5px 17.3px 0px
+    light-dark(
+      color-mix(in srgb, #0f766e 10%, transparent),
+      color-mix(in srgb, black 40%, transparent)
+    );
+  --background-image-glow: radial-gradient(
+    50% 50% at 50% 50%,
+    #042f2e 0%,
+    color-mix(in srgb, #042f2e 70%, black) 100%
+  );
+}
+```
+
+The Sprinkles repository ships a second complete example, the "Studio" theme at
+`site/style/themes/studio.css`. It is the one the theme switcher in the header
+of these docs applies.
+
+## Applying themes to specific sections
+
+Because tokens are ordinary CSS variables, you can scope a theme to any
+element. Give the same overrides to a class instead of `:root`:
+
+```css
+.ocean {
+  --color-accent: light-dark(#0f766e, #5eead4);
+  --color-accent-hover: light-dark(#115e59, #99f6e4);
+  --color-accent-down: light-dark(#134e4a, #2dd4bf);
+  --color-accent-foreground: light-dark(#ffffff, #042f2e);
+  --color-accent-subtle: light-dark(#ccfbf1, #12302c);
+  --color-accent-subtle-foreground: light-dark(#0f766e, #83e3d6);
+}
+```
+
+```html
+<section class="ocean">
+  <!-- Sprinkles components in here use the Ocean accent. -->
+</section>
+```
+
+Use this for a landing page with its own look, a partner area or a preview of a
+theme before you apply it to the whole site. The comparison at the top of this
+page works the same way: each card sets its tokens on its own wrapper.
+
+## Switching between multiple themes
+
+To offer more than one theme, scope each to an attribute on `<html>` and change
+the attribute:
+
+```css
+/* The default theme is just Sprinkles' own tokens. */
+
+:root[data-theme='ocean'] {
+  --color-accent: light-dark(#0f766e, #5eead4);
+  /* …the rest of the Ocean tokens */
+}
+
+:root[data-theme='studio'] {
+  --color-accent: light-dark(#9d174d, #ff8fbd);
+  /* …the rest of the Studio tokens */
+}
+```
+
+```js
+// Apply a theme.
+document.documentElement.dataset.theme = 'ocean';
+
+// Go back to the default.
+delete document.documentElement.dataset.theme;
+```
+
+`data-theme` and `color-scheme` do different jobs, and they are independent:
+
+- **`data-theme` controls which brand palette is applied** (Ocean, Studio or the
+  default).
+- **`color-scheme` controls whether the light or the dark value of each
+  `light-dark()` pair is used** within that palette.
+
+So each theme must define both halves of every colour. Any theme can then be
+shown in light or dark, for example `data-theme='ocean'` with
+`color-scheme: dark`. Remember the visitor's choice of each in `localStorage`
+(see [Choose light, dark or system](#choose-light-dark-or-system) for the
+scheme), and set both on `<html>` before your page paints so it doesn't flash.
+
+## Accessibility and contrast checking
+
+Two ratios matter for a theme:
+
+- **4.5:1** for text on its background (WCAG 2.2 AA). That covers each
+  `-foreground` on its fill, each role colour on `surface`, and each
+  `-subtle-foreground` on its `-subtle` fill.
+- **3:1** for control borders (`border-strong`) and the focus ring.
+
+Check them in **both** schemes, since a pair that passes in light mode can fail
+in dark. Also look at the hover, pressed, focus and disabled states, and tab
+through the page to confirm the focus ring is visible on every surface.
+
+### The `check:tokens` script
+
+Sprinkles has a script that checks every text and background pair for the base
+theme and for each theme file you pass with `--theme`. It runs as
+`pnpm check:tokens` inside the Sprinkles repository.
+
+`pnpm check:tokens` is a command for people working on the Sprinkles
+repository. It is defined in the repository's `package.json`, and the script
+lives in `scripts/`, which is not part of the published package (only `dist`
+is). You can't run it after installing the package from npm.
+
+To use the same checker for your own theme, copy `scripts/check-tokens.mjs` from
+the [Sprinkles repository](https://github.com/webf-run/sprinkles) into your
+project and point it at the published tokens and your theme file. The script
+reads files directly from disk, so it needs the real path
+(`node_modules/@webf/sprinkles/dist/theme.css`), not the `@webf/sprinkles/theme.css`
+import specifier. In the repository the same tokens live at `lib/theme.css`:
+
+```bash
+node check-tokens.mjs node_modules/@webf/sprinkles/dist/theme.css \
+  --theme src/styles/theme.css
+```
+
+It prints the pairs that fail, for example:
+
+```text
+theme.css (light): accent-foreground on accent is 1.48:1, needs 4.5:1
+```
+
+Or skip the script and check the pairs above with any contrast checker.
+
+## Troubleshooting
+
+| Problem                                                           | Cause and fix                                                                                                                                                              |
+| ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nothing changes                                                   | Your theme loads before Sprinkles, or it sits in a layer that comes earlier than `theme`. Import it after the Sprinkles CSS and keep it unlayered. Don't add `!important`. |
+| A token I added has no effect                                     | Components only read the token names Sprinkles ships. Override an existing semantic token (such as `--color-accent`) instead of adding one such as `--color-brand`.        |
+| My override of `--color-purple-705` does nothing, or breaks later | Palette primitives are internal and can change between releases. Override the semantic tokens.                                                                             |
+| Hover, pressed or quiet states keep the old colour                | You changed only `--color-accent`. Override all six steps of the role.                                                                                                     |
+| The page is light even though I set dark values                   | Set `color-scheme` on `<html>`, for example `light dark` to follow the system. Light is the default.                                                                       |
+| A colour is missing in one scheme                                 | A `light-dark()` value needs both halves. Check the value that scheme uses.                                                                                                |
+| Cards still have a purple shadow                                  | `--shadow-elevated` mixes in the accent where it is declared. Restate it with your colour.                                                                                 |
+| Dark bands still use the old colour                               | Override `--color-surface-inverse`, and restate `--background-image-glow`, which is derived from it.                                                                       |
+| Text or borders are hard to see in one scheme                     | Run a contrast check on the failing pair in that scheme: 4.5:1 for text, 3:1 for borders and the focus ring (see [Accessibility](#accessibility-and-contrast-checking)).   |
+| Only one section should change                                    | Put the overrides on a class or element instead of `:root`.                                                                                                                |
+
+## Complete design token reference
+
+| Category            | Tokens                                                                                                                   |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Roles               | `accent`, `neutral`, `informative`, `positive`, `notice`, `negative`, `highlight`, each with six steps                   |
+| Categorical colours | `seafoam`, `indigo`, `purple`, `fuchsia`, `yellow`, each with `-foreground`, `-subtle`, `-subtle-foreground`             |
+| Surfaces            | `surface`, `surface-muted`, `surface-tint`, `surface-soft`, `surface-emphasis`, `surface-inverse`                        |
+| Text                | `foreground-strongest`, `foreground-strong`, `foreground`, `foreground-muted`, `foreground-subtle`, `foreground-inverse` |
+| Borders             | `border-strong`, `border`, `border-muted`, `border-subtle`, `border-accent`, `border-inverse`                            |
+| Focus and backdrop  | `focus-ring`, `backdrop`                                                                                                 |
+| Type                | `--font-heading`, `--font-ui` (optional, not used by components), `--text-fluid-*`, `--leading-*`, `--tracking-*`        |
+| Shape and depth     | Tailwind's `--radius-*` scale, `--shadow-elevated`, `--shadow-overlay`                                                   |
+| Motion and layout   | `--ease-standard`, `--ease-emphasized`, `--animate-*`, `--container-*`                                                   |
+
+The full list, and the rules behind it, are in
+[`doc/design-tokens.md`](https://github.com/webf-run/sprinkles/blob/main/doc/design-tokens.md).
