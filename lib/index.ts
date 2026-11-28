@@ -15,8 +15,8 @@ export type {
 } from './components/Button';
 export type { FieldOptions, FieldProps } from './components/Field';
 export type { LinkProps } from './components/Link';
-export type { SpinnerProps } from './components/Spinner';
 export type { SearchFieldProps } from './components/SearchField';
+export type { SpinnerProps } from './components/Spinner';
 export type { TextFieldProps } from './components/TextField';
 export type {
   Categorical,

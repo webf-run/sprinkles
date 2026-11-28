@@ -2,7 +2,7 @@
 title: SearchField
 description: A text field for searching, with a button to clear it.
 sidebar:
-  order: 2.5
+  order: 3
 ---
 
 import Anatomy from '../../../playground/Anatomy.astro';
@@ -58,7 +58,8 @@ a list of matches, a [Combobox](/fields/combobox).
 Use `value` to control the text, or `defaultValue` to set a starting value and
 let the field keep it. `onValueChange` receives the new text each time it
 changes. `onSubmit` receives the text when the user presses Enter, so you can
-search on submit instead of on every keystroke.
+search on submit instead of on every keystroke. Enter that confirms a word
+typed with an input method, as in Japanese or Chinese, doesn't submit.
 
 <ExampleBlock code={valueCode}>
   <ValueOutput client:load />
@@ -67,8 +68,8 @@ search on submit instead of on every keystroke.
 ## Clearing
 
 The clear button and the Escape key both empty the field. `onValueChange` is
-called with an empty string, then `onClear` is called, and focus moves back to
-the input. Escape does nothing while the field is empty, so it still closes a
+called with an empty string, then `onClear` is called, and the input keeps
+focus: clicking the button never blurs it. Escape does nothing while the field is empty, so it still closes a
 dialog or popover the field sits in. A disabled or read-only field has no clear
 button.
 
@@ -90,7 +91,7 @@ submits the form as well as calling `onSubmit`. Set `required`, `minLength`,
 ## Types
 
 `type` is `search` by default, which gives phones a search keyboard. Set it to
-`text`, `url`, `tel`, `email` or `password` when the query has a known format.
+`url` when people type a web address, or `text` for a plain text input.
 `enterKeyHint` sets the label or icon on a phone's Enter key and is `search` by
 default. `inputMode` picks the keyboard without changing the input's type.
 
@@ -148,7 +149,7 @@ and copied.
 | `onSubmit`                                    | `(value: string) => void`; called on Enter                                            |                  |
 | `onClear`                                     | `() => void`; called after the field is cleared                                       |                  |
 | `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                                                           | `'m'`            |
-| `type`                                        | `'search' \| 'text' \| 'url' \| 'tel' \| 'email' \| 'password'`                       | `'search'`       |
+| `type`                                        | `'search' \| 'text' \| 'url'`                                                         | `'search'`       |
 | `placeholder`                                 | `string`                                                                              |                  |
 | `name`                                        | `string`                                                                              |                  |
 | `autocomplete`                                | `string`                                                                              |                  |

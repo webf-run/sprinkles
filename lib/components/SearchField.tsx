@@ -15,22 +15,12 @@ import {
   InputIconPadding,
   InputIconPosition,
   InputSize,
+  InputTrailingPadding,
+  TrailingButtonEnd,
+  TrailingButtonSize,
 } from '../core/field';
 import { cn } from '../utils';
-import { InputTrailingPadding, TrailingButtonSize } from './Combobox';
 import { Field, type FieldOptions } from './Field';
-
-/**
- * The clear button follows the input's rounded end. Its width and the room
- * it takes (`TrailingButtonSize`, `InputTrailingPadding`) are the scale
- * Combobox and DatePicker use for their trailing buttons.
- */
-const ClearEnd: Record<Size, string> = {
-  s: 'rounded-r-md',
-  m: 'rounded-r-lg',
-  l: 'rounded-r-lg',
-  xl: 'rounded-r-xl',
-};
 
 export interface SearchFieldProps extends FieldOptions {
   size?: Size;
@@ -45,7 +35,7 @@ export interface SearchFieldProps extends FieldOptions {
   /** Called when the user clears the field with the clear button or Escape. */
   onClear?: () => void;
   name?: string;
-  type?: 'search' | 'text' | 'url' | 'tel' | 'email' | 'password';
+  type?: 'search' | 'text' | 'url';
   placeholder?: string;
   autocomplete?: string;
   maxLength?: number;
@@ -135,7 +125,10 @@ export function SearchField(props: SearchFieldProps) {
           aria-label={input['aria-label']}
           onInput={(event) => change(event.currentTarget.value)}
           onKeyDown={(event) => {
-            if (event.key === 'Enter') {
+            // Enter that confirms an IME word is not a search. Safari ends
+            // the composition first, so there only keyCode 229 shows it.
+            const composing = event.isComposing || event.keyCode === 229;
+            if (event.key === 'Enter' && !composing) {
               input.onSubmit?.(text());
             } else if (event.key === 'Escape' && editable() && text() !== '') {
               // Keep Escape from also closing a dialog this field sits in.
@@ -149,6 +142,8 @@ export function SearchField(props: SearchFieldProps) {
             InputSize[size()],
             InputIconPadding[size()],
             InputTrailingPadding[size()],
+            // Without Preflight, Safari draws a native search box.
+            'appearance-none',
             // The browser's own clear button would sit beside ours.
             '[&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden'
           )}
@@ -166,8 +161,10 @@ export function SearchField(props: SearchFieldProps) {
               FocusRing,
               Transition,
               TrailingButtonSize[size()],
-              ClearEnd[size()]
+              TrailingButtonEnd[size()]
             )}
+            // Keeps focus in the input, so clearing never blurs it.
+            onMouseDown={(event) => event.preventDefault()}
             onClick={clear}
           >
             <X class={IconSize[size()]} aria-hidden='true' />
