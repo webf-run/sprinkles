@@ -1,4 +1,4 @@
-import { FocusRing, type Size, Transition } from './control';
+import { FocusRing, FocusWithinRing, type Size, Transition } from './control';
 
 /**
  * The look every text-like input shares: TextField, TextArea, NumberInput,
@@ -13,6 +13,17 @@ export const InputBase = [
   'disabled:cursor-not-allowed disabled:border-border disabled:bg-neutral-subtle disabled:text-foreground-subtle',
   'read-only:border-border read-only:bg-surface-muted',
   FocusRing,
+  Transition,
+].join(' ');
+
+/** InputBase for a control made of several elements (TimeField): states come from `data-*` attributes. */
+export const InputGroupBase = [
+  'box-border m-0 w-full min-w-0 border border-border-strong bg-surface font-inherit text-foreground-strong',
+  'hover:border-foreground-muted',
+  'data-invalid:border-negative',
+  'data-disabled:cursor-not-allowed data-disabled:border-border data-disabled:bg-neutral-subtle data-disabled:text-foreground-subtle',
+  'data-readonly:border-border data-readonly:bg-surface-muted',
+  FocusWithinRing,
   Transition,
 ].join(' ');
 

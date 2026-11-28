@@ -1,0 +1,181 @@
+---
+title: TimeField
+description: A time of day, typed one segment at a time, as ISO text.
+sidebar:
+  order: 10
+---
+
+import Anatomy from '../../../playground/Anatomy.astro';
+import DoDont from '../../../playground/DoDont.astro';
+import ExampleBlock from '../../../playground/ExampleBlock.astro';
+
+import AnatomyOutput from '../../../examples/time-field/anatomy.eg.tsx';
+import DoLabel from '../../../examples/time-field/do-label.eg.tsx';
+import DontLabel from '../../../examples/time-field/dont-label.eg.tsx';
+import FormOutput from '../../../examples/time-field/form.eg.tsx';
+import formCode from '../../../examples/time-field/form.eg.tsx?raw';
+import GranularityOutput from '../../../examples/time-field/granularity.eg.tsx';
+import granularityCode from '../../../examples/time-field/granularity.eg.tsx?raw';
+import HourCycleOutput from '../../../examples/time-field/hour-cycle.eg.tsx';
+import hourCycleCode from '../../../examples/time-field/hour-cycle.eg.tsx?raw';
+import RangeOutput from '../../../examples/time-field/range.eg.tsx';
+import rangeCode from '../../../examples/time-field/range.eg.tsx?raw';
+import SizesOutput from '../../../examples/time-field/sizes.eg.tsx';
+import sizesCode from '../../../examples/time-field/sizes.eg.tsx?raw';
+import StatesOutput from '../../../examples/time-field/states.eg.tsx';
+import statesCode from '../../../examples/time-field/states.eg.tsx?raw';
+import ValueOutput from '../../../examples/time-field/value.eg.tsx';
+import valueCode from '../../../examples/time-field/value.eg.tsx?raw';
+
+```tsx
+import { TimeField } from '@webf/sprinkles';
+```
+
+A time field takes one time of day: an appointment, a pick-up slot, the start
+of a shift. People type the digits or use the arrow keys, one segment at a
+time. The value goes in and out as ISO text (`HH:mm`), the way a form or the
+CMS stores times.
+
+## Anatomy
+
+<Anatomy
+  parts={[
+    { name: 'Label', note: 'Says what the time is for.' },
+    {
+      name: 'Segments',
+      note: 'Hour and minute, plus seconds when asked for. Each one is edited on its own.',
+    },
+    { name: 'AM/PM', note: 'Only on a 12-hour clock.' },
+    {
+      name: 'Description or error',
+      note: 'Help under the field; the error replaces it while invalid.',
+    },
+  ]}
+>
+  <AnatomyOutput client:load />
+</Anatomy>
+
+## Value
+
+`value`, `defaultValue` and `onValueChange` use 24-hour ISO times, `'14:30'`
+or `'14:30:15'`, or `null` for no time. `onValueChange` hands back a complete
+time, or `null` as soon as a segment is cleared. The clock people see (12 or
+24 hours) never changes the value.
+
+<ExampleBlock code={valueCode}>
+  <ValueOutput client:load />
+</ExampleBlock>
+
+## Granularity
+
+`granularity` sets the smallest unit: `'hour'`, `'minute'` (the default) or
+`'second'`. Show only what people need: whole hours for opening times, seconds
+only for timers.
+
+<ExampleBlock code={granularityCode}>
+  <GranularityOutput client:load />
+</ExampleBlock>
+
+## 12- and 24-hour clock
+
+`hourCycle` is `12` or `24`. Without it, the field follows `locale`: en-US
+shows a 12-hour clock, en-GB a 24-hour one. The locale also sets the AM and PM
+labels, where they go (after the time in English, before it in Korean: 오전
+2:30), and the segment names screen readers hear. Times read left to right in
+every locale, as they are written in right-to-left languages too. Use one
+clock across a page.
+
+<ExampleBlock code={hourCycleCode}>
+  <HourCycleOutput client:load />
+</ExampleBlock>
+
+## Range and step
+
+`min` and `max` mark a time outside the range invalid. They don't stop it being
+typed, so give `errorText` that says which times are accepted. When `min` is
+later than `max`, the range runs past midnight: `min='22:00'` and
+`max='06:00'` accept a night shift. A malformed `min` or `max` is ignored.
+
+`minuteStep` sets what the arrow keys add to the minutes; match it to your
+slots, such as 15 for appointments. `placeholderValue` is where the arrow keys
+start in an empty field.
+
+<ExampleBlock code={rangeCode}>
+  <RangeOutput client:load />
+</ExampleBlock>
+
+## Forms
+
+With `name`, the time is submitted with the form as `HH:mm:ss`, with `:00`
+added when seconds aren't shown. Enter in the field submits the form. The
+submitted input is hidden, so the browser doesn't check `required`; check it
+when the form is submitted.
+
+<ExampleBlock code={formCode}>
+  <FormOutput client:load />
+</ExampleBlock>
+
+## Sizes
+
+The field follows the same S, M, L and XL scale as the other fields (24 to
+48 px tall). M is the default.
+
+<ExampleBlock code={sizesCode}>
+  <SizesOutput client:load />
+</ExampleBlock>
+
+## States
+
+Hover darkens the outline. Keyboard focus draws the focus ring around the field
+and fills the focused segment in accent. An empty segment shows two dashes.
+Invalid turns the outline negative and shows `errorText`. Read-only segments
+can be focused but not changed; disabled ones can't be focused.
+
+<ExampleBlock code={statesCode}>
+  <StatesOutput client:load />
+</ExampleBlock>
+
+## Accessibility
+
+- Each segment is a spin button named in the locale's language ("Hour",
+  "Minute", "AM/PM") with its current value. The field's label names the group
+  around them.
+- Every segment is described by the description or error text, and says when
+  it is invalid, disabled or read-only. The hour segment says when a time is
+  required.
+- Keyboard: type digits, and focus moves on once a segment is full. Up and Down
+  step the segment; Page Up and Page Down take bigger steps; Home and End go to
+  its first and last value. Left and Right move between segments. Backspace or
+  Delete clears one. In the AM/PM segment, type A or P, and focus moves on.
+- On phones, the hour and minute segments open the number keyboard.
+
+## Do and don't
+
+<DoDont
+  doText='Say what the time is for, and which times are accepted.'
+  dontText='Label it “Time” and leave people to guess.'
+>
+  <DoLabel slot='do' client:load />
+  <DontLabel slot='dont' client:load />
+</DoDont>
+
+## Props
+
+| Prop                                          | Type                                       | Default      |
+| --------------------------------------------- | ------------------------------------------ | ------------ |
+| `value`                                       | `string \| null`; `HH:mm` or `HH:mm:ss`    |              |
+| `defaultValue`                                | `string \| null`; `HH:mm` or `HH:mm:ss`    |              |
+| `onValueChange`                               | `(value: string \| null) => void`          |              |
+| `granularity`                                 | `'hour' \| 'minute' \| 'second'`           | `'minute'`   |
+| `hourCycle`                                   | `12 \| 24`                                 | the locale's |
+| `min`                                         | `string`; `HH:mm` or `HH:mm:ss`            |              |
+| `max`                                         | `string`; `HH:mm` or `HH:mm:ss`            |              |
+| `minuteStep`                                  | `number`; a positive whole number          | `1`          |
+| `placeholderValue`                            | `string`; `HH:mm`                          | `'00:00'`    |
+| `locale`                                      | `string`; BCP 47 tag                       | `'en-US'`    |
+| `size`                                        | `'s' \| 'm' \| 'l' \| 'xl'`                | `'m'`        |
+| `name`                                        | `string`; submits the time as `HH:mm:ss`   |              |
+| `label`, `description`, `errorText`           | `JSX.Element`; see [Field](/fields/field)  |              |
+| `required`, `invalid`, `disabled`, `readOnly` | `boolean`                                  | `false`      |
+| `id`                                          | `string`; the field's id                   |              |
+| `aria-label`                                  | `string`; required without a visible label |              |
