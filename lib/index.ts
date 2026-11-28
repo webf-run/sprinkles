@@ -72,7 +72,7 @@ export type {
 } from './components/Tabs';
 export type { ToggleProps } from './components/Toggle';
 
-// Fields (TextArea, NumberInput, Select, Combobox, Checkbox, Switch, DatePicker, FileUpload).
+// Fields (TextArea, NumberInput, Select, Combobox, Checkbox, Switch, DatePicker, TimeField, FileUpload).
 export { Checkbox } from './components/Checkbox';
 export { Combobox } from './components/Combobox';
 export { DatePicker } from './components/DatePicker';
@@ -81,6 +81,7 @@ export { NumberInput } from './components/NumberInput';
 export { Select } from './components/Select';
 export { Switch } from './components/Switch';
 export { TextArea } from './components/TextArea';
+export { TimeField } from './components/TimeField';
 export type { CheckboxProps } from './components/Checkbox';
 export type { ComboboxProps } from './components/Combobox';
 export type { DatePickerProps } from './components/DatePicker';
@@ -94,6 +95,7 @@ export type {
 } from './components/Select';
 export type { SwitchProps } from './components/Switch';
 export type { TextAreaProps } from './components/TextArea';
+export type { TimeFieldProps, TimeGranularity } from './components/TimeField';
 
 // Overlays and feedback (Dialog, AlertDialog, Popover, DropdownMenu, Tooltip, Toast, Skeleton, EmptyState, InlineAlert).
 export { AlertDialog } from './components/AlertDialog';
