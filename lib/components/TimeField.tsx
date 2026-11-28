@@ -1,6 +1,5 @@
 import { useFieldContext } from '@ark-ui/solid/field';
 import { useLocaleContext } from '@ark-ui/solid/locale';
-import Clock from 'lucide-solid/icons/clock';
 import {
   For,
   Show,
@@ -13,23 +12,13 @@ import {
   splitProps,
 } from 'solid-js';
 
-import {
-  ControlReset,
-  FocusWithinRing,
-  IconSize,
-  type Size,
-  Transition,
-} from '../core/control';
-import { InputSize } from '../core/field';
-import { type Tone, ToneFill } from '../core/tone';
+import type { Size } from '../core/control';
+import { InputGroupBase, InputSize } from '../core/field';
 import { cn } from '../utils';
 import { Field, type FieldOptions } from './Field';
 
 /** The smallest unit shown: `'hour'` shows only hours, `'second'` adds seconds. */
 export type TimeGranularity = 'hour' | 'minute' | 'second';
-
-/** `outline` is a white field with a border; `subtle` is tinted in the tone. */
-export type TimeFieldFillStyle = 'outline' | 'subtle';
 
 type Kind = 'hour' | 'minute' | 'second' | 'period';
 type Period = 'am' | 'pm';
@@ -43,42 +32,6 @@ interface Parts {
 }
 
 const Empty: Parts = { hour: null, minute: null, second: null, period: null };
-
-/*
- * Class names are spelled out in full so Tailwind finds them when it scans
- * the library. The focused segment is filled in the tone.
- */
-const SegmentFocus: Record<Tone, string> = {
-  accent: 'focus:bg-accent focus:text-accent-foreground',
-  neutral: 'focus:bg-neutral focus:text-neutral-foreground',
-  informative: 'focus:bg-informative focus:text-informative-foreground',
-  positive: 'focus:bg-positive focus:text-positive-foreground',
-  notice: 'focus:bg-notice focus:text-notice-foreground',
-  negative: 'focus:bg-negative focus:text-negative-foreground',
-  highlight: 'focus:bg-highlight focus:text-highlight-foreground',
-  seafoam: 'focus:bg-seafoam focus:text-seafoam-foreground',
-  indigo: 'focus:bg-indigo focus:text-indigo-foreground',
-  purple: 'focus:bg-purple focus:text-purple-foreground',
-  fuchsia: 'focus:bg-fuchsia focus:text-fuchsia-foreground',
-  yellow: 'focus:bg-yellow focus:text-yellow-foreground',
-};
-
-/** The clock icon's colour in an outlined field. */
-const IconTone: Record<Tone, string> = {
-  accent: 'text-accent-subtle-foreground',
-  neutral: 'text-foreground-muted',
-  informative: 'text-informative-subtle-foreground',
-  positive: 'text-positive-subtle-foreground',
-  notice: 'text-notice-subtle-foreground',
-  negative: 'text-negative-subtle-foreground',
-  // `highlight` is never text on a light surface, so its icon stays neutral.
-  highlight: 'text-foreground-muted',
-  seafoam: 'text-seafoam-subtle-foreground',
-  indigo: 'text-indigo-subtle-foreground',
-  purple: 'text-purple-subtle-foreground',
-  fuchsia: 'text-fuchsia-subtle-foreground',
-  yellow: 'text-yellow-subtle-foreground',
-};
 
 /** Room around the segments; each segment adds its own 4 px. */
 const FieldPadding: Record<Size, string> = {
@@ -121,7 +74,10 @@ const SegmentName: Record<Kind, string> = {
 function segmentName(kind: Kind, locale: string): string {
   try {
     const field = kind === 'period' ? 'dayPeriod' : kind;
-    return new Intl.DisplayNames(locale, { type: 'dateTimeField' }).of(field) ?? SegmentName[kind];
+    return (
+      new Intl.DisplayNames(locale, { type: 'dateTimeField' }).of(field) ??
+      SegmentName[kind]
+    );
   } catch {
     return SegmentName[kind];
   }
@@ -138,24 +94,17 @@ export interface TimeFieldProps extends FieldOptions {
   granularity?: TimeGranularity;
   /** 12 shows AM and PM, 24 does not. Defaults to the locale's. */
   hourCycle?: 12 | 24;
-  /** Earliest valid time, `HH:mm`. An earlier time marks the field invalid. */
+  /** Earliest valid time, `HH:mm` or `HH:mm:ss`. An earlier time marks the field invalid. */
   min?: string;
-  /** Latest valid time, `HH:mm`. A later time marks the field invalid. */
+  /** Latest valid time, `HH:mm` or `HH:mm:ss`. Earlier than `min`, the range runs past midnight. */
   max?: string;
-  /** What the arrow keys do to the minutes: 15 steps 9:00, 9:15, 9:30. Defaults to 1. */
+  /** What the arrow keys add to the minutes: 15 steps 9:00, 9:15, 9:30. Defaults to 1. */
   minuteStep?: number;
   /** Where the arrow keys start in an empty field, `HH:mm`. Defaults to midnight. */
   placeholderValue?: string;
-  /** Colours the focused segment, the clock icon and a `subtle` fill. */
-  tone?: Tone;
-  fillStyle?: TimeFieldFillStyle;
-  /** Only an underline, no box. */
-  quiet?: boolean;
-  /** Shows a clock icon before the time. */
-  icon?: boolean;
   /** Submits the time, as `HH:mm:ss`, with a plain form. */
   name?: string;
-  /** BCP 47 locale for the hour cycle and the AM and PM labels. Defaults to Ark's locale (en-US). */
+  /** BCP 47 locale for the hour cycle, the AM and PM labels and the segment names. Defaults to Ark's locale (en-US). */
   locale?: string;
   /** Required when there is no visible `label`. */
   'aria-label'?: string;
@@ -179,9 +128,6 @@ const toSeconds = (iso: string | null | undefined) => {
   const time = parseTime(iso);
   return time ? time.hour * 3600 + time.minute * 60 + time.second : null;
 };
-
-const isValidMinuteStep = (step: number | undefined) =>
-  step === undefined || (Number.isInteger(step) && step > 0);
 
 function toParts(
   iso: string | null | undefined,
@@ -228,19 +174,6 @@ function localeCycle(locale: string): 12 | 24 {
   }
 }
 
-
-/** Resolve the writing direction for the requested locale when supported. */
-function localeDirection(locale: string): 'ltr' | 'rtl' {
-  try {
-    const info = new Intl.Locale(locale) as Intl.Locale & {
-      textInfo?: { direction?: 'ltr' | 'rtl' };
-    };
-    return info.textInfo?.direction === 'rtl' ? 'rtl' : 'ltr';
-  } catch {
-    return 'ltr';
-  }
-}
-
 /** "AM" and "PM" as the locale writes them. */
 function periodLabels(locale: string): Record<Period, string> {
   try {
@@ -255,6 +188,22 @@ function periodLabels(locale: string): Record<Period, string> {
     return { am: label(0) ?? 'AM', pm: label(12) ?? 'PM' };
   } catch {
     return { am: 'AM', pm: 'PM' };
+  }
+}
+
+/** Whether the locale writes AM and PM before the hour: 오전 9:30. */
+function periodFirst(locale: string): boolean {
+  try {
+    const types = new Intl.DateTimeFormat(locale, {
+      hour: 'numeric',
+      hour12: true,
+    })
+      .formatToParts(new Date(2000, 0, 1, 9))
+      .map((part) => part.type);
+    const period = types.indexOf('dayPeriod');
+    return period !== -1 && period < types.indexOf('hour');
+  } catch {
+    return false;
   }
 }
 
@@ -290,16 +239,22 @@ function createTimeState(props: TimeFieldProps, cycle: () => 12 | 24) {
   const seed = () =>
     toParts(props.placeholderValue ?? '00:00', cycle(), 'second');
 
-  const update = (patch: Partial<Parts>) => {
-    const next = { ...parts(), ...patch };
+  const minuteStep = () => {
+    const step = props.minuteStep;
+    return step !== undefined && Number.isInteger(step) && step > 0 ? step : 1;
+  };
+
+  /** Shows `next`, and reports the value if it changed. */
+  const commit = (next: Parts) => {
     setParts(next);
     const result = toValue(next, cycle(), granularity());
-    if (result !== last) {
-      last = result;
-      lastEmittedValue = result;
-      props.onValueChange?.(result);
-    }
+    if (result === last) return;
+    last = result;
+    lastEmittedValue = result;
+    props.onValueChange?.(result);
   };
+
+  const update = (patch: Partial<Parts>) => commit({ ...parts(), ...patch });
 
   // A controlled value that differs from what is shown replaces it. A value
   // echoed back from `onValueChange` is equal, so it never interrupts typing.
@@ -323,37 +278,31 @@ function createTimeState(props: TimeFieldProps, cycle: () => 12 | 24) {
     )
   );
 
-  // Preserve partially edited segments when the display configuration changes.
+  // Keeps what's typed when the hour cycle or granularity changes.
   createEffect(
     on(
       () => [cycle(), granularity()] as const,
       ([nextCycle]) => {
         const current = parts();
-        const oldCycle = previousCycle;
-        const nextGranularity = granularity();
         let hour = current.hour;
         let period = current.period;
 
-        if (hour !== null && oldCycle !== nextCycle) {
+        if (hour !== null && previousCycle !== nextCycle) {
           if (nextCycle === 12) {
             period = hour >= 12 ? 'pm' : 'am';
             hour = hour % 12 || 12;
           } else {
             hour = (hour % 12) + (period === 'pm' ? 12 : 0);
-            period = null;
           }
         }
-
-        const next: Parts = {
+        previousCycle = nextCycle;
+        resetBuffer();
+        commit({
           hour,
           minute: current.minute,
           second: current.second,
-          period: nextCycle === 12 ? period ?? 'am' : null,
-        };
-        previousCycle = nextCycle;
-        setParts(next);
-        last = toValue(next, nextCycle, nextGranularity);
-        resetBuffer();
+          period: nextCycle === 12 ? period : null,
+        });
       },
       { defer: true }
     )
@@ -447,9 +396,7 @@ function createTimeState(props: TimeFieldProps, cycle: () => 12 | 24) {
       set(kind, (kind === 'minute' ? seed().minute : seed().second) ?? 0);
       return;
     }
-    const unit = kind === 'minute'
-      ? isValidMinuteStep(props.minuteStep) ? props.minuteStep ?? 1 : 1
-      : 1;
+    const unit = kind === 'minute' ? minuteStep() : 1;
     let n = now;
     for (let i = 0; i < (big ? 5 : 1); i++) {
       n =
@@ -516,20 +463,14 @@ export function TimeField(props: TimeFieldProps) {
   const [, control] = splitProps(props, ['class']);
   const time = createTimeState(props, cycle);
 
-  const invalidConstraints = createMemo(() => {
-    const min = props.min === undefined ? null : toSeconds(props.min);
-    const max = props.max === undefined ? null : toSeconds(props.max);
-    return (props.min !== undefined && min === null) ||
-      (props.max !== undefined && max === null) ||
-      (min !== null && max !== null && min > max) ||
-      !isValidMinuteStep(props.minuteStep);
-  });
-
+  // A malformed `min` or `max` is ignored; `min` after `max` runs past midnight.
   const outOfRange = createMemo(() => {
     const now = toSeconds(time.value());
     if (now === null) return false;
     const min = toSeconds(props.min);
     const max = toSeconds(props.max);
+    if (min !== null && max !== null && min > max)
+      return now < min && now > max;
     return (min !== null && now < min) || (max !== null && now > max);
   });
 
@@ -540,7 +481,7 @@ export function TimeField(props: TimeFieldProps) {
   };
 
   return (
-    <Field {...field} invalid={props.invalid || outOfRange() || invalidConstraints()}>
+    <Field {...field} invalid={props.invalid || outOfRange()}>
       <TimeFieldControl
         {...control}
         time={time}
@@ -567,13 +508,17 @@ interface ControlProps extends TimeFieldProps {
 function TimeFieldControl(props: ControlProps) {
   const fieldContext = useFieldContext();
   const size = () => props.size ?? 'm';
-  const tone = () => props.tone ?? 'accent';
-  const subtle = () => props.fillStyle === 'subtle' && !props.quiet;
   const disabled = () => fieldContext?.().disabled ?? props.disabled ?? false;
   const readOnly = () => fieldContext?.().readOnly ?? props.readOnly ?? false;
   const invalid = () => fieldContext?.().invalid ?? props.invalid ?? false;
   const editable = () => !disabled() && !readOnly();
   const labels = createMemo(() => periodLabels(props.locale));
+  // AM/PM goes where the locale writes it: 9:30 AM, but 오전 9:30.
+  const kinds = createMemo(() => {
+    const shown = props.time.kinds();
+    if (!shown.includes('period') || !periodFirst(props.locale)) return shown;
+    return ['period', ...shown.filter((kind) => kind !== 'period')] as Kind[];
+  });
 
   let group!: HTMLDivElement;
 
@@ -600,54 +545,30 @@ function TimeFieldControl(props: ControlProps) {
   };
 
   return (
+    // Times read left to right in every locale, right-to-left ones included.
     <div
       ref={group}
       role='group'
-      dir={localeDirection(props.locale)}
+      dir='ltr'
       aria-label={props['aria-label']}
       aria-labelledby={
         props['aria-label'] ? undefined : fieldContext?.().ids.label
       }
-      aria-describedby={fieldContext?.().ariaDescribedby}
       data-invalid={invalid() ? '' : undefined}
       data-disabled={disabled() ? '' : undefined}
       data-readonly={readOnly() ? '' : undefined}
       onClick={focusFirst}
       class={cn(
-        ControlReset,
-        'inline-flex w-fit max-w-full min-w-0 items-center gap-1 border',
-        Transition,
-        FocusWithinRing,
+        InputGroupBase,
+        'inline-flex w-fit max-w-full items-center gap-1',
         InputSize[size()],
-        FieldPadding[size()],
-        props.quiet
-          ? 'rounded-none border-0 border-b border-border-strong bg-transparent px-0 text-foreground-strong hover:border-foreground-muted'
-          : subtle()
-            ? // The border stays: a tint alone is under 3:1 against the page.
-              cn(
-                ToneFill[tone()].subtle,
-                'border-border-strong hover:border-foreground-muted'
-              )
-            : 'border-border-strong bg-surface text-foreground-strong hover:border-foreground-muted',
-        'data-invalid:border-negative',
-        'data-readonly:border-border data-readonly:bg-surface-muted',
-        'data-disabled:cursor-not-allowed data-disabled:border-border data-disabled:bg-neutral-subtle data-disabled:text-foreground-subtle'
+        FieldPadding[size()]
       )}
     >
-      <Show when={props.icon}>
-        <Clock
-          class={cn(
-            'mr-1 shrink-0',
-            IconSize[size()],
-            subtle() ? 'text-current' : IconTone[tone()]
-          )}
-          aria-hidden='true'
-        />
-      </Show>
-      <For each={props.time.kinds()}>
+      <For each={kinds()}>
         {(kind, index) => (
           <>
-            <Show when={index() > 0 && kind !== 'period'}>
+            <Show when={kind === 'minute' || kind === 'second'}>
               <span aria-hidden='true' class='-mx-1 select-none'>
                 :
               </span>
@@ -660,11 +581,12 @@ function TimeFieldControl(props: ControlProps) {
               labels={labels()}
               locale={props.locale}
               size={size()}
-              tone={tone()}
               disabled={disabled()}
               readOnly={readOnly()}
+              invalid={invalid()}
               editable={editable()}
               required={props.required ?? false}
+              describedBy={fieldContext?.().ariaDescribedby}
             />
           </>
         )}
@@ -681,11 +603,12 @@ interface SegmentProps {
   labels: Record<Period, string>;
   locale: string;
   size: Size;
-  tone: Tone;
   disabled: boolean;
   readOnly: boolean;
+  invalid: boolean;
   editable: boolean;
   required: boolean;
+  describedBy?: string;
 }
 
 function Segment(props: SegmentProps) {
@@ -723,14 +646,16 @@ function Segment(props: SegmentProps) {
     switch (event.key) {
       case 'ArrowLeft':
         event.preventDefault();
-        move(element, localeDirection(props.locale) === 'rtl' ? 1 : -1);
+        move(element, -1);
         return;
       case 'ArrowRight':
         event.preventDefault();
-        move(element, localeDirection(props.locale) === 'rtl' ? -1 : 1);
+        move(element, 1);
         return;
       case 'Enter':
+        // Submits like a text input; a span would otherwise insert a line break.
         event.preventDefault();
+        element.closest('form')?.requestSubmit();
         return;
     }
     if (!props.editable) return;
@@ -780,10 +705,16 @@ function Segment(props: SegmentProps) {
     for (const char of event.data ?? '') {
       if (props.kind === 'period') {
         const lower = char.toLowerCase();
-        if (props.labels.am.toLowerCase().startsWith(lower))
-          props.time.setPeriod('am');
-        else if (props.labels.pm.toLowerCase().startsWith(lower))
-          props.time.setPeriod('pm');
+        const period = props.labels.am.toLowerCase().startsWith(lower)
+          ? 'am'
+          : props.labels.pm.toLowerCase().startsWith(lower)
+            ? 'pm'
+            : null;
+        // Moves on to the hour where AM/PM comes first.
+        if (period) {
+          props.time.setPeriod(period);
+          move(element, 1);
+        }
       } else if (char >= '0' && char <= '9') {
         if (props.time.type(props.kind, Number(char))) move(element, 1);
       }
@@ -808,7 +739,11 @@ function Segment(props: SegmentProps) {
           : (raw() as number)
       }
       aria-valuetext={raw() === null ? 'Empty' : text()}
-      aria-required={props.kind === 'hour' && props.required ? 'true' : undefined}
+      aria-describedby={props.describedBy}
+      aria-invalid={props.invalid ? 'true' : undefined}
+      aria-required={
+        props.kind === 'hour' && props.required ? 'true' : undefined
+      }
       aria-disabled={props.disabled ? 'true' : undefined}
       aria-readonly={props.readOnly ? 'true' : undefined}
       data-placeholder={raw() === null ? '' : undefined}
@@ -822,7 +757,7 @@ function Segment(props: SegmentProps) {
         SegmentWidth[props.size],
         SegmentRadius[props.size],
         'data-placeholder:text-foreground-muted',
-        !props.disabled && SegmentFocus[props.tone],
+        !props.disabled && 'focus:bg-accent focus:text-accent-foreground',
         props.disabled
           ? 'cursor-not-allowed'
           : props.editable

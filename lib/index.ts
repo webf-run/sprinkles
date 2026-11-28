@@ -95,11 +95,7 @@ export type {
 } from './components/Select';
 export type { SwitchProps } from './components/Switch';
 export type { TextAreaProps } from './components/TextArea';
-export type {
-  TimeFieldFillStyle,
-  TimeFieldProps,
-  TimeGranularity,
-} from './components/TimeField';
+export type { TimeFieldProps, TimeGranularity } from './components/TimeField';
 
 // Overlays and feedback (Dialog, AlertDialog, Popover, DropdownMenu, Tooltip, Toast, Skeleton, EmptyState, InlineAlert).
 export { AlertDialog } from './components/AlertDialog';

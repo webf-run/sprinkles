@@ -1,28 +1,24 @@
-import { TimeField } from '@webf/sprinkles';
+import { Button, TimeField } from '@webf/sprinkles';
 import { createSignal } from 'solid-js';
 
 export default function Example() {
-  const [submitted, setSubmitted] = createSignal('');
+  const [submitted, setSubmitted] = createSignal<string | null>(null);
 
-  const handleSubmit = (event: SubmitEvent) => {
+  const onSubmit = (event: SubmitEvent) => {
     event.preventDefault();
-    const form = event.currentTarget as HTMLFormElement;
-    const data = new FormData(form);
-    setSubmitted(String(data.get('meetingTime') ?? 'No time entered'));
+    const data = new FormData(event.currentTarget as HTMLFormElement);
+    setSubmitted(String(data.get('meetingTime')));
   };
 
   return (
-    <form class='grid w-full max-w-sm gap-3' onSubmit={handleSubmit}>
-      <TimeField
-        label='Meeting time'
-        name='meetingTime'
-        defaultValue='08:45'
-      />
-      <button type='submit' class='w-fit rounded-md border px-3 py-2'>
-        Submit time
-      </button>
+    <form
+      class='grid w-full max-w-xs justify-items-start gap-3'
+      onSubmit={onSubmit}
+    >
+      <TimeField label='Meeting time' name='meetingTime' defaultValue='08:45' />
+      <Button type='submit'>Submit</Button>
       <p class='m-0 text-sm text-foreground-muted' aria-live='polite'>
-        Submitted value: {submitted() || 'Not submitted'}
+        Submitted: {submitted() || 'nothing yet'}
       </p>
     </form>
   );
