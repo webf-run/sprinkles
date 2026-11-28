@@ -1,4 +1,11 @@
-import { FocusRing, FocusWithinRing, type Size, Transition } from './control';
+import {
+  ControlReset,
+  Disabled,
+  FocusRing,
+  FocusWithinRing,
+  type Size,
+  Transition,
+} from './control';
 
 /**
  * The look every text-like input shares: TextField, TextArea, NumberInput,
@@ -49,6 +56,40 @@ export const InputIconPosition: Record<Size, string> = {
   m: 'left-3 size-4',
   l: 'left-3 size-5',
   xl: 'left-4 size-6',
+};
+
+/** Room at the end of an input for one trailing button (chevron, calendar, clear). */
+export const InputTrailingPadding: Record<Size, string> = {
+  s: 'pr-6',
+  m: 'pr-8',
+  l: 'pr-10',
+  xl: 'pr-12',
+};
+
+/** A square, borderless icon button inside the end of an input. */
+export const TrailingButton = [
+  'absolute inset-y-0 right-0 flex items-center justify-center border-0 bg-transparent p-0',
+  ControlReset,
+  'cursor-pointer text-foreground-muted hover:text-foreground-strong',
+  'disabled:text-foreground-subtle data-readonly:cursor-default',
+  Disabled,
+  Transition,
+].join(' ');
+
+/** A trailing button is as wide as the input is tall. */
+export const TrailingButtonSize: Record<Size, string> = {
+  s: 'w-6',
+  m: 'w-8',
+  l: 'w-10',
+  xl: 'w-12',
+};
+
+/** Rounds the last trailing button to follow the input's end. */
+export const TrailingButtonEnd: Record<Size, string> = {
+  s: 'rounded-r-md',
+  m: 'rounded-r-lg',
+  l: 'rounded-r-lg',
+  xl: 'rounded-r-xl',
 };
 
 export const LabelText =

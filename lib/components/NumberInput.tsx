@@ -11,7 +11,12 @@ import {
   type Size,
   Transition,
 } from '../core/control';
-import { InputBase, InputSize } from '../core/field';
+import {
+  InputBase,
+  InputSize,
+  TrailingButtonEnd,
+  TrailingButtonSize,
+} from '../core/field';
 import { cn } from '../utils';
 import { Field, type FieldOptions } from './Field';
 
@@ -21,22 +26,6 @@ const StepperPadding: Record<Size, string> = {
   m: 'pr-19',
   l: 'pr-23',
   xl: 'pr-28',
-};
-
-/** Each stepper is as wide as the control is tall. */
-const StepperWidth: Record<Size, string> = {
-  s: 'w-6',
-  m: 'w-8',
-  l: 'w-10',
-  xl: 'w-12',
-};
-
-/** The last stepper follows the input's rounded end. */
-const StepperEnd: Record<Size, string> = {
-  s: 'rounded-r-md',
-  m: 'rounded-r-lg',
-  l: 'rounded-r-lg',
-  xl: 'rounded-r-xl',
 };
 
 const Stepper = [
@@ -152,12 +141,16 @@ export function NumberInput(props: NumberInputProps) {
           <Show when={!props.readOnly}>
             <div class='absolute inset-y-px right-px flex'>
               <ArkNumberInput.DecrementTrigger
-                class={cn(Stepper, StepperWidth[size()])}
+                class={cn(Stepper, TrailingButtonSize[size()])}
               >
                 <Minus class={IconSize[size()]} aria-hidden='true' />
               </ArkNumberInput.DecrementTrigger>
               <ArkNumberInput.IncrementTrigger
-                class={cn(Stepper, StepperWidth[size()], StepperEnd[size()])}
+                class={cn(
+                  Stepper,
+                  TrailingButtonSize[size()],
+                  TrailingButtonEnd[size()]
+                )}
               >
                 <Plus class={IconSize[size()]} aria-hidden='true' />
               </ArkNumberInput.IncrementTrigger>

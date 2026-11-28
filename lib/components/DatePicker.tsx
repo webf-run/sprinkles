@@ -18,14 +18,15 @@ import {
   type Size,
   Transition,
 } from '../core/control';
-import { InputBase, InputSize } from '../core/field';
-import { PopoverSurface } from '../core/popover';
-import { cn } from '../utils';
 import {
+  InputBase,
+  InputSize,
   InputTrailingPadding,
   TrailingButton,
   TrailingButtonSize,
-} from './Combobox';
+} from '../core/field';
+import { PopoverSurface } from '../core/popover';
+import { cn } from '../utils';
 import { Field, type FieldOptions } from './Field';
 
 /** Previous and next month (or year, or decade). */

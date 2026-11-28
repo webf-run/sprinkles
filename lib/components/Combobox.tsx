@@ -7,14 +7,14 @@ import ChevronDown from 'lucide-solid/icons/chevron-down';
 import { For, type JSX, createMemo, createSignal, splitProps } from 'solid-js';
 import { Portal } from 'solid-js/web';
 
+import { IconSize, type Size } from '../core/control';
 import {
-  ControlReset,
-  Disabled,
-  IconSize,
-  type Size,
-  Transition,
-} from '../core/control';
-import { InputBase, InputSize } from '../core/field';
+  InputBase,
+  InputSize,
+  InputTrailingPadding,
+  TrailingButton,
+  TrailingButtonSize,
+} from '../core/field';
 import {
   ListBox,
   ListEmpty,
@@ -25,31 +25,6 @@ import {
 import { cn } from '../utils';
 import { Field, type FieldOptions } from './Field';
 import type { SelectItem } from './Select';
-
-/** Room at the end of an input for one trailing button (chevron, calendar). */
-export const InputTrailingPadding: Record<Size, string> = {
-  s: 'pr-6',
-  m: 'pr-8',
-  l: 'pr-10',
-  xl: 'pr-12',
-};
-
-/** A square, borderless icon button inside the end of an input. */
-export const TrailingButton = [
-  'absolute inset-y-0 right-0 flex items-center justify-center border-0 bg-transparent p-0',
-  ControlReset,
-  'cursor-pointer text-foreground-muted hover:text-foreground-strong',
-  'disabled:text-foreground-subtle data-readonly:cursor-default',
-  Disabled,
-  Transition,
-].join(' ');
-
-export const TrailingButtonSize: Record<Size, string> = {
-  s: 'w-6',
-  m: 'w-8',
-  l: 'w-10',
-  xl: 'w-12',
-};
 
 export interface ComboboxProps extends FieldOptions {
   items: SelectItem[];
